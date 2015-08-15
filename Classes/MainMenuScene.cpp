@@ -51,7 +51,7 @@ bool MainMenuScene::init()
     // Help Button
     Label *helpLabel = Label::createWithTTF("HELP", "fonts/Marker Felt.ttf", 20);
     helpLabel->setColor(Color3B::WHITE);
-    MenuItemLabel *helpButton = MenuItemLabel::create(helpLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    MenuItemLabel *helpButton = MenuItemLabel::create(helpLabel, CC_CALLBACK_1(MainMenuScene::GoToHelpScene, this));
     helpButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 4 / 6 + origin.y);
     Menu *helpMenu = Menu::create(helpButton, NULL);
     helpMenu->setPosition(Point::ZERO);
@@ -75,11 +75,7 @@ bool MainMenuScene::init()
     settingMenu->setPosition(Point::ZERO);
     this->addChild(settingMenu, 1);
     
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-    
-    
+
     return true;
 }
 
@@ -90,6 +86,13 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void MainMenuScene::GoToHelpScene(Ref* pSender)
+{
+    auto scene = HelpScene::createScene();
+    
+    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
 

@@ -10,6 +10,8 @@
 #define __KOF__MainMenuScene__
 
 #include "cocos2d.h"
+#include "definitions.h"
+#include "HelpScene.h"
 
 class MainMenuScene : public cocos2d::Layer
 {
@@ -25,6 +27,10 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);
+    
+private:
+    void GoToHelpScene(cocos2d::Ref*);
+    
 };
 
 #endif /* defined(__KOF__MainMenuScene__) */

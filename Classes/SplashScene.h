@@ -10,6 +10,8 @@
 #define __KOF__SplashScene__
 
 #include "cocos2d.h"
+#include "MainMenuScene.h"
+#include "Definitions.h"
 
 class SplashScene : public cocos2d::Layer
 {
