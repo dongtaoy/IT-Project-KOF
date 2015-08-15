@@ -73,6 +73,25 @@ bool MainMenuScene::init()
     menu1->setPosition(Point::ZERO);
     this->addChild(menu1, 1);
     
+    
+//    auto test = LabelTTF::create("test", "fonts/Marker Felt.ttf", 24);
+//    test->setColor(Color3B::WHITE);
+//    test->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
+//    
+//    auto testButton = MenuItemLabel::create(test);
+//    auto testmenu = Menu::create(testButton, NULL);
+//    testmenu->setPosition(Point::ZERO);
+//    this->addChild(testmenu);
+    
+    
+    Label *buttonTitle = Label::create("Start Game", "fonts/Marker Felt.ttf", 30);
+    buttonTitle->setColor(Color3B::WHITE);
+    
+    MenuItemLabel *startGameButton = MenuItemLabel::create(buttonTitle, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    startGameButton->setPosition(Point(visibleSize.width/2,visibleSize.height/2));
+    Menu *pMenu = Menu::create(startGameButton,NULL);
+    pMenu->setPosition(Point::ZERO);
+    this->addChild(pMenu, 1);
 //    // add "HelloWorld" splash screen"
 //    auto sprite = Sprite::create("HelloWorld.png");
 //    
