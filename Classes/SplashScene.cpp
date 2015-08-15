@@ -37,24 +37,31 @@ bool SplashScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    CCLOG("%f / %f \n", visibleSize.width, visibleSize.height);
     
     this->scheduleOnce( schedule_selector( SplashScene::GoToMainMenuScene ), DISPLAY_TIME_SPLASH_SCENE );
     
     //TODO: add splash logos
     
-//    auto backgroundSprite = Sprite::create( "Splash Screen.png" );
-//    backgroundSprite->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y) );
+    //    auto backgroundSprite = Sprite::create( "Splash Screen.png" );
+    //    backgroundSprite->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y) );
     
-//    this->addChild( backgroundSprite );
+    //    this->addChild( backgroundSprite );
+    
+    
+    Label *label = Label::createWithTTF("splash screen", "fonts/Marker Felt.ttf", 10);
+    label->setColor(Color3B::WHITE);
+    label->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
+    this->addChild(label, 1);
     
     return true;
 }
 
 void SplashScene::GoToMainMenuScene( float dt )
 {
-    CCLOG("GoToMainMenu dt: %f\n", dt);
     auto scene = MainMenuScene::createScene();
     
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
