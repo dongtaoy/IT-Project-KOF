@@ -38,70 +38,46 @@ bool MainMenuScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    // Multiplayer Button
+    Label *multiLabel = Label::createWithTTF("MULTIPLE PLAYER", "fonts/Marker Felt.ttf", 20);
+    multiLabel->setColor(Color3B::WHITE);
+    MenuItemLabel *multiButton = MenuItemLabel::create(multiLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    multiButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 5 / 6 + origin.y);
+    Menu *multiMenu = Menu::create(multiButton, NULL);
+    multiMenu->setPosition(Point::ZERO);
+    this->addChild(multiMenu, 1);
+    
+    
+    // Help Button
+    Label *helpLabel = Label::createWithTTF("HELP", "fonts/Marker Felt.ttf", 20);
+    helpLabel->setColor(Color3B::WHITE);
+    MenuItemLabel *helpButton = MenuItemLabel::create(helpLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    helpButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 4 / 6 + origin.y);
+    Menu *helpMenu = Menu::create(helpButton, NULL);
+    helpMenu->setPosition(Point::ZERO);
+    this->addChild(helpMenu, 1);
+    
+    //Leader Border Button
+    Label *leaderBoardLabel = Label::createWithTTF("LEADERBOARD", "fonts/Marker Felt.ttf", 20);
+    leaderBoardLabel->setColor(Color3B::WHITE);
+    MenuItemLabel *leaderBoardButton = MenuItemLabel::create(leaderBoardLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    leaderBoardButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 3 / 6 + origin.y);
+    Menu *leaderBoardMenu = Menu::create(leaderBoardButton, NULL);
+    leaderBoardMenu->setPosition(Point::ZERO);
+    this->addChild(leaderBoardMenu, 1);
+    
+    // Setting Button
+    Label *settingLabel = Label::createWithTTF("SETTING", "fonts/Marker Felt.ttf", 20);
+    settingLabel->setColor(Color3B::WHITE);
+    MenuItemLabel *settingButton = MenuItemLabel::create(settingLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    settingButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 2 / 6 + origin.y);
+    Menu *settingMenu = Menu::create(settingButton, NULL);
+    settingMenu->setPosition(Point::ZERO);
+    this->addChild(settingMenu, 1);
+    
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
-    
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
-    
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-    
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-    
-    /////////////////////////////
-    // 3. add your codes below...
-    
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    label->setColor(Color3B::WHITE);
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-    
-    
-    auto helloworldButton = MenuItemLabel::create(label, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
-    auto menu1 = Menu::create(helloworldButton, NULL);
-    menu1->setPosition(Point::ZERO);
-    this->addChild(menu1, 1);
-    
-    
-//    auto test = LabelTTF::create("test", "fonts/Marker Felt.ttf", 24);
-//    test->setColor(Color3B::WHITE);
-//    test->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
-//    
-//    auto testButton = MenuItemLabel::create(test);
-//    auto testmenu = Menu::create(testButton, NULL);
-//    testmenu->setPosition(Point::ZERO);
-//    this->addChild(testmenu);
-    
-    
-    Label *buttonTitle = Label::create("Start Game", "fonts/Marker Felt.ttf", 30);
-    buttonTitle->setColor(Color3B::WHITE);
-    
-    MenuItemLabel *startGameButton = MenuItemLabel::create(buttonTitle, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
-    startGameButton->setPosition(Point(visibleSize.width/2,visibleSize.height/2));
-    Menu *pMenu = Menu::create(startGameButton,NULL);
-    pMenu->setPosition(Point::ZERO);
-    this->addChild(pMenu, 1);
-//    // add "HelloWorld" splash screen"
-//    auto sprite = Sprite::create("HelloWorld.png");
-//    
-//    // position the sprite on the center of the screen
-//    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-//    
-//    // add the sprite as a child to this layer
-//    this->addChild(sprite, 0);
-    
-    
     
     
     return true;
