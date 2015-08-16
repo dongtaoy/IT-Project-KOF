@@ -11,7 +11,10 @@
 
 #include "cocos2d.h"
 #include "definitions.h"
+
+#include "ChooseRoomScene.h"
 #include "HelpScene.h"
+#include "SettingScene.h"
 
 class MainMenuScene : public cocos2d::Layer
 {
@@ -29,7 +32,15 @@ public:
     CREATE_FUNC(MainMenuScene);
     
 private:
+    
+    //TODO: comments
+    void GoToChooseRoomScene(cocos2d::Ref*);
+    
+    //TODO: comments
     void GoToHelpScene(cocos2d::Ref*);
+    
+    //TODO: comments
+    void GoToSettingScene(cocos2d::Ref*);
     
 };
 

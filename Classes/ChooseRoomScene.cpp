@@ -42,7 +42,7 @@ bool ChooseRoomScene::init()
     //TODO: help text
     
     
-    Label *label = Label::createWithTTF("HELP", "fonts/Marker Felt.ttf", 10);
+    Label *label = Label::createWithTTF("ChooseRoomScene", "fonts/Marker Felt.ttf", 10);
     label->setColor(Color3B::WHITE);
     label->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
     this->addChild(label, 1);

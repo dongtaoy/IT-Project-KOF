@@ -41,7 +41,7 @@ bool MainMenuScene::init()
     // Multiplayer Button
     Label *multiLabel = Label::createWithTTF("MULTIPLE PLAYER", "fonts/Marker Felt.ttf", 20);
     multiLabel->setColor(Color3B::WHITE);
-    MenuItemLabel *multiButton = MenuItemLabel::create(multiLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    MenuItemLabel *multiButton = MenuItemLabel::create(multiLabel, CC_CALLBACK_1(MainMenuScene::GoToChooseRoomScene, this));
     multiButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 5 / 6 + origin.y);
     Menu *multiMenu = Menu::create(multiButton, NULL);
     multiMenu->setPosition(Point::ZERO);
@@ -69,7 +69,7 @@ bool MainMenuScene::init()
     // Setting Button
     Label *settingLabel = Label::createWithTTF("SETTING", "fonts/Marker Felt.ttf", 20);
     settingLabel->setColor(Color3B::WHITE);
-    MenuItemLabel *settingButton = MenuItemLabel::create(settingLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    MenuItemLabel *settingButton = MenuItemLabel::create(settingLabel, CC_CALLBACK_1(MainMenuScene::GoToSettingScene, this));
     settingButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 2 / 6 + origin.y);
     Menu *settingMenu = Menu::create(settingButton, NULL);
     settingMenu->setPosition(Point::ZERO);
@@ -88,6 +88,14 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 #endif
 }
 
+void MainMenuScene::GoToChooseRoomScene(cocos2d::Ref* pSender)
+{
+    auto scene = ChooseRoomScene::createScene();
+    
+    Director::getInstance()->replaceScene( TransitionFade::create( TRANSITION_TIME, scene) );
+}
+
+
 void MainMenuScene::GoToHelpScene(Ref* pSender)
 {
     auto scene = HelpScene::createScene();
@@ -95,4 +103,11 @@ void MainMenuScene::GoToHelpScene(Ref* pSender)
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
+
+void MainMenuScene::GoToSettingScene(Ref* pSender)
+{
+    auto scene = SettingScene::createScene();
+    
+    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+}
 
