@@ -57,6 +57,11 @@ bool ChooseRoomScene::init()
     this->addChild(backMenu, 1);
     
     
+    connectToAppWarp();
+    
+    cocos2d::ui::ListView *listview=cocos2d::ui::ListView::create();
+    
+    
     return true;
 }
 
@@ -67,3 +72,70 @@ void ChooseRoomScene::GotoMainMenuScene(Ref* pSender)
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }
+
+void ChooseRoomScene::connectToAppWarp()
+{
+    AppWarp::Client *warpClientRef;
+    AppWarp::Client::initialize(APPWARP_APP_KEY,APPWARP_SECRET_KEY);
+    warpClientRef = AppWarp::Client::getInstance();
+    warpClientRef->setConnectionRequestListener(this);
+    warpClientRef->setZoneRequestListener(this);
+    warpClientRef->setRoomRequestListener(this);
+    warpClientRef->connect("test");
+    
+    
+    
+    CCLOG("%s / %s", APPWARP_SECRET_KEY, APPWARP_APP_KEY);
+    
+    
+}
+
+void ChooseRoomScene::onConnectDone(int result, int code)
+{
+    CCLOG("%d / %d \n", result, code);
+    if (result==AppWarp::ResultCode::success)
+    {
+        CCLOG("onConnectDone .. SUCCESS..session=%d\n", AppWarp::AppWarpSessionID);
+        AppWarp::Client *warpClientRef;
+        warpClientRef = AppWarp::Client::getInstance();
+        warpClientRef->getAllRooms();
+        //        warpClientRef->joinRoom(ROOM_ID);
+    }
+    else if (result==AppWarp::ResultCode::success_recovered)
+    {
+        CCLOG("onConnectDone .. SUCCESS with success_recovered..session=%d\n", AppWarp::AppWarpSessionID);
+    }
+    else if (result==AppWarp::ResultCode::connection_error_recoverable)
+    {
+        CCLOG("onConnectDone .. FAILED..connection_error_recoverable..session=%d\n", AppWarp::AppWarpSessionID);
+    }
+    else if (result==AppWarp::ResultCode::bad_request)
+    {
+        CCLOG("onConnectDone .. FAILED with bad request..session=%d\n", AppWarp::AppWarpSessionID);
+    }
+    else
+    {
+        CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", code, AppWarp::AppWarpSessionID);
+    }
+}
+
+
+void ChooseRoomScene::onGetAllRoomsDone(AppWarp::liveresult result)
+{
+    AppWarp::Client *warpClientRef;
+    warpClientRef = AppWarp::Client::getInstance();
+    CCLOG("onGetAllRoomsDone : %d", result.result);
+    for(std::vector<int>::size_type i = 0; i != result.list.size(); i++){
+        std::cout << result.list[i] << std::endl;
+        warpClientRef->getLiveRoomInfo(result.list[i]);
+    }
+}
+
+void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom result)
+{
+    std::cout << result.rm.name << std::endl;
+//    CCLOG("%s", result.rm.name);
+}
+
+
+

@@ -62,6 +62,7 @@
 		8740B0251B7F606200395343 /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0231B7F606200395343 /* SettingScene.cpp */; };
 		87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D731B805F5E00299169 /* ChooseRoomScene.cpp */; };
 		87468D781B806BD200299169 /* LeaderBoardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D761B806BD200299169 /* LeaderBoardScene.cpp */; };
+		87468D7B1B80A89600299169 /* HelloWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D791B80A89600299169 /* HelloWorld.cpp */; };
 		879FB8481B7AED3900E4F0BF /* appwarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8311B7AED3900E4F0BF /* appwarp.cpp */; };
 		879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */; };
 		879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8341B7AED3900E4F0BF /* base64.cpp */; };
@@ -173,6 +174,8 @@
 		87468D741B805F5E00299169 /* ChooseRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseRoomScene.h; sourceTree = "<group>"; };
 		87468D761B806BD200299169 /* LeaderBoardScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeaderBoardScene.cpp; sourceTree = "<group>"; };
 		87468D771B806BD200299169 /* LeaderBoardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderBoardScene.h; sourceTree = "<group>"; };
+		87468D791B80A89600299169 /* HelloWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorld.cpp; sourceTree = "<group>"; };
+		87468D7A1B80A89600299169 /* HelloWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorld.h; sourceTree = "<group>"; };
 		879FB8311B7AED3900E4F0BF /* appwarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp.cpp; sourceTree = "<group>"; };
 		879FB8321B7AED3900E4F0BF /* appwarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appwarp.h; sourceTree = "<group>"; };
 		879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp_extended.cpp; sourceTree = "<group>"; };
@@ -353,6 +356,8 @@
 				8740B0241B7F606200395343 /* SettingScene.h */,
 				87468D731B805F5E00299169 /* ChooseRoomScene.cpp */,
 				87468D741B805F5E00299169 /* ChooseRoomScene.h */,
+				87468D791B80A89600299169 /* HelloWorld.cpp */,
+				87468D7A1B80A89600299169 /* HelloWorld.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -597,6 +602,7 @@
 				87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */,
 				879FB84E1B7AED3900E4F0BF /* SHA1.cpp in Sources */,
 				879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */,
+				87468D7B1B80A89600299169 /* HelloWorld.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				87468D781B806BD200299169 /* LeaderBoardScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,

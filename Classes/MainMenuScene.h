@@ -16,6 +16,7 @@
 #include "HelpScene.h"
 #include "SettingScene.h"
 #include "LeaderBoardScene.h"
+#include "HelloWorld.h"
 
 class MainMenuScene : public cocos2d::Layer
 {

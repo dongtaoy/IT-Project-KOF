@@ -106,7 +106,7 @@ void MainMenuScene::GoToHelpScene(Ref* pSender)
 
 void MainMenuScene::GoToSettingScene(Ref* pSender)
 {
-    auto scene = SettingScene::createScene();
+    auto scene = HelloWorld::createScene();
     
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
