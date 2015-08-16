@@ -60,7 +60,7 @@ bool MainMenuScene::init()
     //Leader Border Button
     Label *leaderBoardLabel = Label::createWithTTF("LEADERBOARD", "fonts/Marker Felt.ttf", 20);
     leaderBoardLabel->setColor(Color3B::WHITE);
-    MenuItemLabel *leaderBoardButton = MenuItemLabel::create(leaderBoardLabel, CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
+    MenuItemLabel *leaderBoardButton = MenuItemLabel::create(leaderBoardLabel, CC_CALLBACK_1(MainMenuScene::GotoLeaderBoardScene, this));
     leaderBoardButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 3 / 6 + origin.y);
     Menu *leaderBoardMenu = Menu::create(leaderBoardButton, NULL);
     leaderBoardMenu->setPosition(Point::ZERO);
@@ -88,7 +88,7 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-void MainMenuScene::GoToChooseRoomScene(cocos2d::Ref* pSender)
+void MainMenuScene::GoToChooseRoomScene(Ref* pSender)
 {
     auto scene = ChooseRoomScene::createScene();
     
@@ -109,5 +109,13 @@ void MainMenuScene::GoToSettingScene(Ref* pSender)
     auto scene = SettingScene::createScene();
     
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+}
+
+void MainMenuScene::GotoLeaderBoardScene(Ref* pSender)
+{
+    auto scene = LeaderBoardScene::createScene();
+    
+    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+
 }
 

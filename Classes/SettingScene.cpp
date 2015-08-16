@@ -47,5 +47,23 @@ bool SettingScene::init()
     label->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
     this->addChild(label, 1);
     
+    // Back Button
+    Label *backLabel = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 15);
+    backLabel->setColor(Color3B::WHITE);
+    MenuItemLabel *backButton = MenuItemLabel::create(backLabel, CC_CALLBACK_1(SettingScene::GotoMainMenuScene, this));
+    backButton->setPosition(origin.x + visibleSize.width * 1 / 10, origin.y + visibleSize.height * 3 / 4);
+    Menu *backMenu = Menu::create(backButton, NULL);
+    backMenu->setPosition(Point::ZERO);
+    this->addChild(backMenu, 1);
+    
+    
     return true;
+}
+
+void SettingScene::GotoMainMenuScene(Ref* pSender)
+{
+    auto scene = MainMenuScene::createScene();
+    
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    
 }

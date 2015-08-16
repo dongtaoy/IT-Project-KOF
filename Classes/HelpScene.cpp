@@ -50,7 +50,6 @@ bool HelpScene::init()
     
     Label *backLabel = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 15);
     backLabel->setColor(Color3B::WHITE);
-
     MenuItemLabel *backButton = MenuItemLabel::create(backLabel, CC_CALLBACK_1(HelpScene::GotoMainMenuScene, this));
     backButton->setPosition(origin.x + visibleSize.width * 1 / 10, origin.y + visibleSize.height * 3 / 4);
     Menu *backMenu = Menu::create(backButton, NULL);

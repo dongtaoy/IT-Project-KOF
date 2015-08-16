@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include "Definitions.h"
+#include "MainMenuScene.h"
 
 class ChooseRoomScene : public cocos2d::Layer
 {
@@ -25,7 +26,8 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(ChooseRoomScene);
     
-    
+private:
+    void GotoMainMenuScene(Ref* pSender);
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */

@@ -15,6 +15,7 @@
 #include "ChooseRoomScene.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
+#include "LeaderBoardScene.h"
 
 class MainMenuScene : public cocos2d::Layer
 {
@@ -42,6 +43,8 @@ private:
     //TODO: comments
     void GoToSettingScene(cocos2d::Ref*);
     
+    //TODO: comments
+    void GotoLeaderBoardScene(Ref*);
 };
 
 #endif /* defined(__KOF__MainMenuScene__) */
