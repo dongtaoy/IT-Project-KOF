@@ -47,5 +47,24 @@ bool HelpScene::init()
     label->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
     this->addChild(label, 1);
     
+    
+    Label *backLabel = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 15);
+    backLabel->setColor(Color3B::WHITE);
+
+    MenuItemLabel *backButton = MenuItemLabel::create(backLabel, CC_CALLBACK_1(HelpScene::GotoMainMenuScene, this));
+    backButton->setPosition(origin.x + visibleSize.width * 1 / 10, origin.y + visibleSize.height * 3 / 4);
+    Menu *backMenu = Menu::create(backButton, NULL);
+    backMenu->setPosition(Point::ZERO);
+    this->addChild(backMenu, 1);
+
+    
     return true;
+}
+
+void HelpScene::GotoMainMenuScene(cocos2d::Ref* pSender)
+{
+    auto scene = MainMenuScene::createScene();
+    
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    
 }
