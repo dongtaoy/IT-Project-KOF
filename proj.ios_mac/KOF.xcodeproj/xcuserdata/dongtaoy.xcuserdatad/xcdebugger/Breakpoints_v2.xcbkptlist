@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
             endingLineNumber = "91"
-            landmarkName = "MainMenuScene::menuCloseCallback(Ref* pSender)"
+            landmarkName = "MainMenuScene::GoToHelpScene(Ref* pSender)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
