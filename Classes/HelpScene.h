@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+#include "MainMenuScene.h"
 
 class HelpScene : public cocos2d::Layer
 {
@@ -24,6 +25,8 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelpScene);
     
+private:
+    void GotoMainMenuScene(cocos2d::Ref*);
     
 };
 
