@@ -43,6 +43,15 @@ bool ChooseRoomScene::init()
     //    node->setPosition(origin);
     ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
+    
+    ui::TextField* textSearch =  static_cast<ui::TextField*>(node->getChildByName("textSearch"));
+    assert(textSearch);
+//    textSearch->setPlaceHolder("Room ID");
+//    buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
+//    textSearch->setTouchAreaEnabled(true);
+//    textSearch->attachWithIME();
+//    textSearch->addEventListener(CC_CALLBACK_2(ChooseRoomScene::UpdateTextSearch, this));
+    
     this->addChild(node);
         
     
@@ -55,6 +64,23 @@ void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType
     
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
+}
+
+void ChooseRoomScene::UpdateTextSearch(Ref* pSender, ui::TextField::EventType type)
+{
+    switch (type)
+    {
+        case ui::TextField::EventType::ATTACH_WITH_IME:
+        {
+            CCLOG("Clicked");
+            break;
+        }
+        case ui::TextField::EventType::DETACH_WITH_IME:
+        {
+//            enteredData = textSearch->getString();
+            break;
+        }
+    }
 }
 
 void ChooseRoomScene::connectToAppWarp()
