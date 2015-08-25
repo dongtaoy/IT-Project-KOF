@@ -40,16 +40,29 @@ bool SplashScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode("SplashScreen.csb");
+    node->setName("SplashScreen");
     this->addChild(node);
-    
-    this->scheduleOnce( schedule_selector( SplashScene::GoToMainMenuScene ), DISPLAY_TIME_SPLASH_SCENE );
+    this->schedule(schedule_selector(SplashScene::updateLoadingBar), 0.025f);
     
     
     return true;
 }
 
+void SplashScene::updateLoadingBar( float dt )
+{
+    ui::LoadingBar* loadingBar = static_cast<ui::LoadingBar*>(this->getChildByName("SplashScreen")->getChildByName("loadingBar"));
+    float percent = loadingBar->getPercent() + 1;
+    CCLOG("%f", percent);
+    loadingBar->setPercent(percent);
+    if(percent >= 100){
+        this->unschedule(schedule_selector(SplashScene::updateLoadingBar));
+        this->scheduleOnce(schedule_selector(SplashScene::GoToMainMenuScene), DISPLAY_TIME_SPLASH_SCENE);
+    }
+}
+
 void SplashScene::GoToMainMenuScene( float dt )
 {
+    
     auto scene = MainMenuScene::createScene();
     
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
