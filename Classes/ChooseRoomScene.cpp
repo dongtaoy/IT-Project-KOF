@@ -41,24 +41,19 @@ bool ChooseRoomScene::init()
     
     auto node = CSLoader::createNode("ChooseRoom.csb");
     //    node->setPosition(origin);
-    ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
+    ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName("buttonCreate"));
+    buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
     
-    ui::TextField* textSearch =  static_cast<ui::TextField*>(node->getChildByName("textSearch"));
-    assert(textSearch);
-//    textSearch->setPlaceHolder("Room ID");
-//    buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
-//    textSearch->setTouchAreaEnabled(true);
-//    textSearch->attachWithIME();
-//    textSearch->addEventListener(CC_CALLBACK_2(ChooseRoomScene::UpdateTextSearch, this));
-    
+
     this->addChild(node);
         
     
     return true;
 }
 
-void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
+void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
     
@@ -66,22 +61,13 @@ void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType
     
 }
 
-void ChooseRoomScene::UpdateTextSearch(Ref* pSender, ui::TextField::EventType type)
+
+void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType type)
 {
-    switch (type)
-    {
-        case ui::TextField::EventType::ATTACH_WITH_IME:
-        {
-            CCLOG("Clicked");
-            break;
-        }
-        case ui::TextField::EventType::DETACH_WITH_IME:
-        {
-//            enteredData = textSearch->getString();
-            break;
-        }
-    }
+    auto scene = CreateRoomScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
+
 
 void ChooseRoomScene::connectToAppWarp()
 {

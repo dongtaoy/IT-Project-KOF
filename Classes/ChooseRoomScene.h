@@ -13,6 +13,8 @@
 #include "cocos2d.h"
 #include "Definitions.h"
 #include "MainMenuScene.h"
+#include "CreateRoomScene.h"
+
 #include "appwarp.h"
 #include "cocostudio/CocoStudio.h"
 #include "CocosGUI.h"
@@ -47,9 +49,9 @@ private:
     
     bool isFirstTimeLaunch;
     
-    void GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type);
+    void GotoMainMenuScene(Ref*, ui::Widget::TouchEventType);
     
-    void UpdateTextSearch(Ref* pSender, ui::TextField::EventType type);
+    void GotoCreateRoomScene(Ref*, ui::Widget::TouchEventType);
     
     void connectToAppWarp();
     

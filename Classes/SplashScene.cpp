@@ -52,7 +52,6 @@ void SplashScene::updateLoadingBar( float dt )
 {
     ui::LoadingBar* loadingBar = static_cast<ui::LoadingBar*>(this->getChildByName("SplashScreen")->getChildByName("loadingBar"));
     float percent = loadingBar->getPercent() + 1;
-    CCLOG("%f", percent);
     loadingBar->setPercent(percent);
     if(percent >= 100){
         this->unschedule(schedule_selector(SplashScene::updateLoadingBar));
