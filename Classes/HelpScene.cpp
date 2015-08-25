@@ -40,12 +40,14 @@ bool HelpScene::init()
     
 
     auto node = CSLoader::createNode("Help.csb");
+    ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    buttonBack->addTouchEventListener(CC_CALLBACK_2(HelpScene::GotoMainMenuScene, this));
     this->addChild(node);
     
     return true;
 }
 
-void HelpScene::GotoMainMenuScene(cocos2d::Ref* pSender)
+void HelpScene::GotoMainMenuScene(cocos2d::Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
     

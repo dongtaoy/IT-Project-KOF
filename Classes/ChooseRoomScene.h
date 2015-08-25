@@ -47,7 +47,7 @@ private:
     
     bool isFirstTimeLaunch;
     
-    void GotoMainMenuScene(Ref* pSender);
+    void GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type);
     
     void connectToAppWarp();
     

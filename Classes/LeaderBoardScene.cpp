@@ -42,12 +42,14 @@ bool LeaderBoardScene::init()
     //TODO: Leader Board text
     
     auto node = CSLoader::createNode("ChooseRoom.csb");
+    ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    buttonBack->addTouchEventListener(CC_CALLBACK_2(LeaderBoardScene::GotoMainMenuScene, this));
     this->addChild(node);
     
     return true;
 }
 
-void LeaderBoardScene::GotoMainMenuScene(cocos2d::Ref* pSender)
+void LeaderBoardScene::GotoMainMenuScene(cocos2d::Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
     

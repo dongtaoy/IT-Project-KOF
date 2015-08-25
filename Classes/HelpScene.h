@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include "MainMenuScene.h"
+#include "cocostudio/CocoStudio.h"
 
 class HelpScene : public cocos2d::Layer
 {
@@ -26,7 +27,7 @@ public:
     CREATE_FUNC(HelpScene);
     
 private:
-    void GotoMainMenuScene(cocos2d::Ref*);
+    void GotoMainMenuScene(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     
 };
 

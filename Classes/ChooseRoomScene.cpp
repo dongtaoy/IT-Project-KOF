@@ -41,15 +41,15 @@ bool ChooseRoomScene::init()
     
     auto node = CSLoader::createNode("ChooseRoom.csb");
     //    node->setPosition(origin);
-//    ui::Button* buttonMultiplayer =  static_cast<ui::Button*>(node->getChildByName("buttonMultiplayer"));
-//    buttonMultiplayer->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToChooseRoomScene, this));
+    ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
     this->addChild(node);
         
     
     return true;
 }
 
-void ChooseRoomScene::GotoMainMenuScene(Ref* pSender)
+void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
     

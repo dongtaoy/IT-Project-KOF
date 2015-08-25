@@ -41,12 +41,14 @@ bool SettingScene::init()
     
     //TODO: help text
     auto node = CSLoader::createNode("Setting.csb");
+    ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    buttonBack->addTouchEventListener(CC_CALLBACK_2(SettingScene::GotoMainMenuScene, this));
     this->addChild(node);
     
     return true;
 }
 
-void SettingScene::GotoMainMenuScene(Ref* pSender)
+void SettingScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
     
