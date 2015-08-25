@@ -35,82 +35,22 @@ bool MainMenuScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+//    Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-//    auto test =
     auto node = CSLoader::createNode("MainMenu.csb");
-//    node->setPosition(origin);
+    ui::Button* buttonMultiplayer =  static_cast<ui::Button*>(node->getChildByName("buttonMultiplayer"));
+    buttonMultiplayer->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToChooseRoomScene, this));
+    
+    ui::Button* buttonHelp =  static_cast<ui::Button*>(node->getChildByName("buttonHelp"));
+    buttonHelp->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToHelpScene, this));
+
+    ui::Button* buttonSetting =  static_cast<ui::Button*>(node->getChildByName("buttonSetting"));
+    buttonSetting->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToSettingScene, this));
+    
+    ui::Button* buttonLeaderboard =  static_cast<ui::Button*>(node->getChildByName("buttonLeaderboard"));
+    buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     this->addChild(node);
-    
-    
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("test/test.plist");
-//    AnimationCache::getInstance()->addAnimationsWithFile("test/animation.plist");
-//    auto sprite = Sprite::createWithSpriteFrameName("test/Terry Bogard_0000.png");
-//    sprite->setScaleX(-1);
-//    auto animation = AnimationCache::getInstance()->getAnimation("animation_1");
-//    auto animate = Animate::create(animation);
-////    animate->setDuration(0.5);
-//    
-//    sprite->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
-//    
-//    auto action = Spawn::createWithTwoActions(animate, MoveBy::create(animate->getDuration(), Vec2(100, 0)));
-//    sprite->runAction(action);
-////    sprite->stopAllActions();
-//    this->addChild(sprite, 1);
-    
-    
-//    
-//    Node *node = CSLoader::createNode("idle/Node.csb");
-//    node->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
-//    this->addChild(node);
-//    cocostudio::timeline::ActionTimeline* action = CSLoader::createTimeline("idle/Node.csb");
-//    node->setScale(3.0);
-//    node->runAction(action);
-//    action->gotoFrameAndPlay(0, true);
-//
-//    
-    
-    
-//    action->setLastFrameCallFunc([&]() { std::cout << "1" << std::endl ; });
-//    CCLOG("%d",action->getAnimationInfo("normal").endIndex);
-//
-//    // Multiplayer Button
-//    Label *multiLabel = Label::createWithTTF("MULTIPLE PLAYER", "fonts/Marker Felt.ttf", 20);
-//    multiLabel->setColor(Color3B::WHITE);
-//    MenuItemLabel *multiButton = MenuItemLabel::create(multiLabel, CC_CALLBACK_1(MainMenuScene::GoToChooseRoomScene, this));
-//    multiButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 5 / 6 + origin.y);
-//    Menu *multiMenu = Menu::create(multiButton, NULL);
-//    multiMenu->setPosition(Point::ZERO);
-//    this->addChild(multiMenu, 1);
-//    
-//    
-//    // Help Button
-//    Label *helpLabel = Label::createWithTTF("HELP", "fonts/Marker Felt.ttf", 20);
-//    helpLabel->setColor(Color3B::WHITE);
-//    MenuItemLabel *helpButton = MenuItemLabel::create(helpLabel, CC_CALLBACK_1(MainMenuScene::GoToHelpScene, this));
-//    helpButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 4 / 6 + origin.y);
-//    Menu *helpMenu = Menu::create(helpButton, NULL);
-//    helpMenu->setPosition(Point::ZERO);
-//    this->addChild(helpMenu, 1);
-//    
-//    //Leader Border Button
-//    Label *leaderBoardLabel = Label::createWithTTF("LEADERBOARD", "fonts/Marker Felt.ttf", 20);
-//    leaderBoardLabel->setColor(Color3B::WHITE);
-//    MenuItemLabel *leaderBoardButton = MenuItemLabel::create(leaderBoardLabel, CC_CALLBACK_1(MainMenuScene::GotoLeaderBoardScene, this));
-//    leaderBoardButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 3 / 6 + origin.y);
-//    Menu *leaderBoardMenu = Menu::create(leaderBoardButton, NULL);
-//    leaderBoardMenu->setPosition(Point::ZERO);
-//    this->addChild(leaderBoardMenu, 1);
-//    
-//    // Setting Button
-//    Label *settingLabel = Label::createWithTTF("SETTING", "fonts/Marker Felt.ttf", 20);
-//    settingLabel->setColor(Color3B::WHITE);
-//    MenuItemLabel *settingButton = MenuItemLabel::create(settingLabel, CC_CALLBACK_1(MainMenuScene::GoToSettingScene, this));
-//    settingButton->setPosition(visibleSize.width / 5 + origin.x, visibleSize.height * 2 / 6 + origin.y);
-//    Menu *settingMenu = Menu::create(settingButton, NULL);
-//    settingMenu->setPosition(Point::ZERO);
-//    this->addChild(settingMenu, 1);
     
 
     return true;
@@ -132,7 +72,7 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-void MainMenuScene::GoToChooseRoomScene(Ref* pSender)
+void MainMenuScene::GoToChooseRoomScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = ChooseRoomScene::createScene();
     
@@ -140,7 +80,7 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender)
 }
 
 
-void MainMenuScene::GoToHelpScene(Ref* pSender)
+void MainMenuScene::GoToHelpScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = HelpScene::createScene();
     
@@ -148,14 +88,14 @@ void MainMenuScene::GoToHelpScene(Ref* pSender)
 }
 
 
-void MainMenuScene::GoToSettingScene(Ref* pSender)
+void MainMenuScene::GoToSettingScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
-    auto scene = HelloWorld::createScene();
+    auto scene = SettingScene::createScene();
     
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
-void MainMenuScene::GotoLeaderBoardScene(Ref* pSender)
+void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = LeaderBoardScene::createScene();
     

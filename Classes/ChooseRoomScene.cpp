@@ -39,84 +39,12 @@ bool ChooseRoomScene::init()
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    
-    //TODO: help text
-    
-    
-    Label *label = Label::createWithTTF("ChooseRoomScene", "fonts/Marker Felt.ttf", 10);
-    label->setColor(Color3B::WHITE);
-    label->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
-    this->addChild(label, 1);
-    
-    // Back Button
-    Label *backLabel = Label::createWithTTF("Back", "fonts/Marker Felt.ttf", 15);
-    backLabel->setColor(Color3B::WHITE);
-    MenuItemLabel *backButton = MenuItemLabel::create(backLabel, CC_CALLBACK_1(ChooseRoomScene::GotoMainMenuScene, this));
-    backButton->setPosition(origin.x + visibleSize.width * 1 / 10, origin.y + visibleSize.height * 3 / 4);
-    Menu *backMenu = Menu::create(backButton, NULL);
-    backMenu->setPosition(Point::ZERO);
-    this->addChild(backMenu, 1);
-    
-    
-    connectToAppWarp();
-    
-    std::vector<String>  _array;
-    for (int i = 0; i < 20; i++) {
-        _array.push_back( StringUtils::format("listView_item_%d",i));
-    }
-    
-    ListView* listView = ListView::create();
-    listView->setDirection(ui::ScrollView::Direction::VERTICAL);
-    listView->setTouchEnabled(true);
-    listView->setBounceEnabled(true);
-    listView->setBackGroundImage("helloworld.png");
-    listView->setBackGroundImageScale9Enabled(true);
-    listView->setSize(Size(480, 260));
-    listView->setPosition(Point(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-    
-    this->addChild(listView, 1);
-    
-    
-    
-    //create model
-    Button* default_button = Button::create("CloseNormal.png","CloseSelected.png");
-    default_button->setName("Title Button");
-    
-    Layout* default_item = Layout::create();
-    default_item->setTouchEnabled(true);
-    default_item->setSize(default_button->getSize());
-    default_button->setPosition(Point(default_item->getSize().width / 2.0f, default_item->getSize().height / 2.0f));
-    default_item->addChild(default_button);
-    
-    listView->setItemModel(default_item);
-    
-    
-    
-    ssize_t count = _array.size();
-    for (int i = 0; i < count / 4; ++i) {
-        listView->pushBackDefaultItem();
-    }
-    
-    //insert default item
-    for (int i = 0; i < count / 4; ++i) {
-        listView->insertDefaultItem(0);
-    }
-    
-    //add custom item
-    
-    for (int i = 0; i < count / 4; ++i) {
-        Button* custom_button = Button::create("CloseNormal.png","CloseSelected.png");
-        custom_button->setName("Title Button");
-        custom_button->setScale9Enabled(true);
-        custom_button->setSize(default_button->getSize());
+    auto node = CSLoader::createNode("ChooseRoom.csb");
+    //    node->setPosition(origin);
+//    ui::Button* buttonMultiplayer =  static_cast<ui::Button*>(node->getChildByName("buttonMultiplayer"));
+//    buttonMultiplayer->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToChooseRoomScene, this));
+    this->addChild(node);
         
-        Layout* custom_item = Layout::create();
-        custom_item->setSize(custom_button->getSize());
-        custom_button->setPosition(Point(custom_item->getSize().width / 2.0f, custom_item->getSize().height / 2.0f));
-        custom_item->addChild(custom_button);
-        listView->pushBackCustomItem(custom_item);
-    }
-    
     
     return true;
 }

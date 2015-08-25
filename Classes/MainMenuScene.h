@@ -37,16 +37,16 @@ public:
 private:
     void lastFrameTest();
     //TODO: comments
-    void GoToChooseRoomScene(cocos2d::Ref*);
+    void GoToChooseRoomScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
     //TODO: comments
-    void GoToHelpScene(cocos2d::Ref*);
+    void GoToHelpScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
     //TODO: comments
-    void GoToSettingScene(cocos2d::Ref*);
+    void GoToSettingScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
     //TODO: comments
-    void GotoLeaderBoardScene(Ref*);
+    void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
 };
 
 #endif /* defined(__KOF__MainMenuScene__) */
