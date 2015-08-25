@@ -36,26 +36,14 @@ bool SplashScene::init()
         return false;
     }
     
-    auto node = CSLoader::createNode("");
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    CCLOG("%f / %f \n", visibleSize.width, visibleSize.height);
+    auto node = CSLoader::createNode("SplashScreen.csb");
+    this->addChild(node);
     
     this->scheduleOnce( schedule_selector( SplashScene::GoToMainMenuScene ), DISPLAY_TIME_SPLASH_SCENE );
     
-    //TODO: add splash logos
-    
-    //    auto backgroundSprite = Sprite::create( "Splash Screen.png" );
-    //    backgroundSprite->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y) );
-    
-    //    this->addChild( backgroundSprite );
-    
-    
-    Label *label = Label::createWithTTF("splash screen", "fonts/Marker Felt.ttf", 10);
-    label->setColor(Color3B::WHITE);
-    label->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
-    this->addChild(label, 1);
     
     return true;
 }

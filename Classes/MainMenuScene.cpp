@@ -38,6 +38,10 @@ bool MainMenuScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+//    auto test =
+    auto node = CSLoader::createNode("MainMenu.csb");
+//    node->setPosition(origin);
+    this->addChild(node);
     
     
 //    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("test/test.plist");
@@ -56,14 +60,14 @@ bool MainMenuScene::init()
 //    this->addChild(sprite, 1);
     
     
-    
-    Node *node = CSLoader::createNode("idle/Node.csb");
-    node->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
-    this->addChild(node);
-    cocostudio::timeline::ActionTimeline* action = CSLoader::createTimeline("idle/Node.csb");
-    node->setScale(3.0);
-    node->runAction(action);
-    action->gotoFrameAndPlay(0, true);
+//    
+//    Node *node = CSLoader::createNode("idle/Node.csb");
+//    node->setPosition(Point(visibleSize.width/2, visibleSize.height/2));
+//    this->addChild(node);
+//    cocostudio::timeline::ActionTimeline* action = CSLoader::createTimeline("idle/Node.csb");
+//    node->setScale(3.0);
+//    node->runAction(action);
+//    action->gotoFrameAndPlay(0, true);
 //
 //    
     
