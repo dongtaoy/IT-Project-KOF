@@ -10,6 +10,7 @@
 #define __KOF__SplashScene__
 
 #include "cocos2d.h"
+#include "CocosGUI.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
 
@@ -27,6 +28,8 @@ public:
     
 private:
     void GoToMainMenuScene( float dt );
+    
+    void updateLoadingBar( float dt );
     
 };
 
