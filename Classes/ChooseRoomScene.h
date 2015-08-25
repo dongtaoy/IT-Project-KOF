@@ -15,6 +15,8 @@
 #include "MainMenuScene.h"
 #include "appwarp.h"
 #include "ui/UIListView.h"
+#include "cocostudio/CocoStudio.h"
+
 
 class ChooseRoomScene : public cocos2d::Layer, public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
 {

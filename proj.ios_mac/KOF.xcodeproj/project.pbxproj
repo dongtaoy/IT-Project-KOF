@@ -58,6 +58,9 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		871F360A1B849D3D00941EDA /* Terry Bogard Normal in Resources */ = {isa = PBXBuildFile; fileRef = 871F36091B849D3D00941EDA /* Terry Bogard Normal */; };
+		871F360C1B84B59200941EDA /* test in Resources */ = {isa = PBXBuildFile; fileRef = 871F360B1B84B59200941EDA /* test */; };
+		8723FEB21B8700E500E467E5 /* idle in Resources */ = {isa = PBXBuildFile; fileRef = 8723FEB11B8700E500E467E5 /* idle */; };
 		8740B0221B7F605300395343 /* HelpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0201B7F605300395343 /* HelpScene.cpp */; };
 		8740B0251B7F606200395343 /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0231B7F606200395343 /* SettingScene.cpp */; };
 		87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D731B805F5E00299169 /* ChooseRoomScene.cpp */; };
@@ -166,6 +169,9 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		871F36091B849D3D00941EDA /* Terry Bogard Normal */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Terry Bogard Normal"; sourceTree = "<group>"; };
+		871F360B1B84B59200941EDA /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
+		8723FEB11B8700E500E467E5 /* idle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = idle; sourceTree = "<group>"; };
 		8740B0201B7F605300395343 /* HelpScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelpScene.cpp; sourceTree = "<group>"; };
 		8740B0211B7F605300395343 /* HelpScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpScene.h; sourceTree = "<group>"; };
 		8740B0231B7F606200395343 /* SettingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
@@ -329,6 +335,9 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8723FEB11B8700E500E467E5 /* idle */,
+				871F360B1B84B59200941EDA /* test */,
+				871F36091B849D3D00941EDA /* Terry Bogard Normal */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
@@ -542,11 +551,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
+				871F360C1B84B59200941EDA /* test in Resources */,
+				871F360A1B849D3D00941EDA /* Terry Bogard Normal in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
+				8723FEB21B8700E500E467E5 /* idle in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,

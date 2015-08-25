@@ -36,6 +36,7 @@ bool SplashScene::init()
         return false;
     }
     
+    auto node = CSLoader::createNode("");
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     

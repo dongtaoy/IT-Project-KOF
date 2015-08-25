@@ -10,6 +10,7 @@
 #define __KOF__MainMenuScene__
 
 #include "cocos2d.h"
+//#include "cocosstudio.h"
 #include "definitions.h"
 
 #include "ChooseRoomScene.h"
@@ -34,7 +35,7 @@ public:
     CREATE_FUNC(MainMenuScene);
     
 private:
-    
+    void lastFrameTest();
     //TODO: comments
     void GoToChooseRoomScene(cocos2d::Ref*);
     
