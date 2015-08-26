@@ -10,6 +10,8 @@
 #define __KOF__CreateRoomScene__
 
 #include <stdio.h>
+#include "ChooseRoomScene.h"
+#include "Definitions.h"
 #include "cocos2d.h"
 #include "CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
@@ -25,7 +27,8 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(CreateRoomScene);
-    
+private:
+    void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     
 };
 

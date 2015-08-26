@@ -41,8 +41,21 @@ bool CreateRoomScene::init()
     
     
     auto node = CSLoader::createNode("CreateRoom.csb");
-//    Button* buttonBack =  static_cast<Button*>(node->getChildByName("button"));
+    Button* buttonBack =  static_cast<Button*>(node->getChildByName("buttonBack"));
+    assert(buttonBack);
+    
+    buttonBack->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::GotoChooseRoomScene, this));
     this->addChild(node);
     
     return true;
+}
+
+void CreateRoomScene::GotoChooseRoomScene(Ref* pSender, ui::Widget::TouchEventType type)
+{
+    
+    auto scene = ChooseRoomScene::createScene();
+    
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    
+    
 }
