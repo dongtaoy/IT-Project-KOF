@@ -58,6 +58,7 @@
 		87468D781B806BD200299169 /* LeaderBoardScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D761B806BD200299169 /* LeaderBoardScene.cpp */; };
 		87468D7B1B80A89600299169 /* HelloWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D791B80A89600299169 /* HelloWorld.cpp */; };
 		8764F07A1B8CAB7000937F18 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */; };
+		877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8777462F1B8D89FD00D63086 /* Multiplayer.cpp */; };
 		879FB8481B7AED3900E4F0BF /* appwarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8311B7AED3900E4F0BF /* appwarp.cpp */; };
 		879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */; };
 		879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8341B7AED3900E4F0BF /* base64.cpp */; };
@@ -170,6 +171,8 @@
 		87468D7A1B80A89600299169 /* HelloWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorld.h; sourceTree = "<group>"; };
 		8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreateRoomScene.cpp; sourceTree = "<group>"; };
 		8764F0791B8CAB7000937F18 /* CreateRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRoomScene.h; sourceTree = "<group>"; };
+		8777462F1B8D89FD00D63086 /* Multiplayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Multiplayer.cpp; sourceTree = "<group>"; };
+		877746301B8D89FD00D63086 /* Multiplayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Multiplayer.h; sourceTree = "<group>"; };
 		879FB8311B7AED3900E4F0BF /* appwarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp.cpp; sourceTree = "<group>"; };
 		879FB8321B7AED3900E4F0BF /* appwarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appwarp.h; sourceTree = "<group>"; };
 		879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp_extended.cpp; sourceTree = "<group>"; };
@@ -351,6 +354,8 @@
 				87468D7A1B80A89600299169 /* HelloWorld.h */,
 				8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */,
 				8764F0791B8CAB7000937F18 /* CreateRoomScene.h */,
+				8777462F1B8D89FD00D63086 /* Multiplayer.cpp */,
+				877746301B8D89FD00D63086 /* Multiplayer.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -582,6 +587,7 @@
 				879FB84D1B7AED3900E4F0BF /* requests.cpp in Sources */,
 				8740B0251B7F606200395343 /* SettingScene.cpp in Sources */,
 				8740B0221B7F605300395343 /* HelpScene.cpp in Sources */,
+				877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */,
 				879FB84F1B7AED3900E4F0BF /* socket.cpp in Sources */,
 				879FB84B1B7AED3900E4F0BF /* cJSON.c in Sources */,
 				879FB8501B7AED3900E4F0BF /* udpsocket.cpp in Sources */,

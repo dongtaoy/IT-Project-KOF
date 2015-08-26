@@ -20,7 +20,7 @@
 #include "CocosGUI.h"
 
 
-class ChooseRoomScene : public cocos2d::Layer, public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
+class ChooseRoomScene
 {
 public:
     
@@ -30,17 +30,6 @@ public:
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
-    
-    
-    // ConnectionRequestListener
-    void onConnectDone(int, int);
-    
-    // ZoneRequestListener
-    void onGetAllRoomsDone(AppWarp::liveresult);
-    
-    // RoomRequestListner
-    void onGetLiveRoomInfoDone(AppWarp::liveroom);
-    
     
     // implement the "static create()" method manually
     CREATE_FUNC(ChooseRoomScene);
@@ -52,8 +41,6 @@ private:
     void GotoMainMenuScene(Ref*, ui::Widget::TouchEventType);
     
     void GotoCreateRoomScene(Ref*, ui::Widget::TouchEventType);
-    
-    void connectToAppWarp();
     
     
 };

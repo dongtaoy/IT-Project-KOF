@@ -60,13 +60,6 @@ bool MainMenuScene::init()
     return true;
 }
 
-
-void MainMenuScene::lastFrameTest()
-{
-    CCLOG("last frame\n");
-}
-
-
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
     Director::getInstance()->end();
