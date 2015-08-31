@@ -17,6 +17,7 @@
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "CreateRoomScene.h"
+#include "ChooseCharactorScene.h"
 #include "Multiplayer.h"
 
 
@@ -43,6 +44,7 @@ private:
     
     void GotoCreateRoomScene(Ref*, ui::Widget::TouchEventType);
     
+    void OnSelectedItem(Ref* pSender, ui::ListView::EventType);
     
 };
 

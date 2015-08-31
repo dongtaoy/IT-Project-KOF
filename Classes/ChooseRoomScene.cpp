@@ -48,7 +48,20 @@ bool ChooseRoomScene::init()
     ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName("buttonCreate"));
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
     
-    
+    ui::ListView* listRoom = static_cast<ui::ListView*>(node->getChildByName("listRoom"));
+    Vector<Widget *> items = listRoom->getItems();
+    assert(items.front());
+    listRoom->setItemModel(items.front());
+    listRoom->removeItem(0);
+    listRoom->pushBackDefaultItem();
+    listRoom->pushBackDefaultItem();
+    listRoom->pushBackDefaultItem();
+    listRoom->pushBackDefaultItem();
+    listRoom->pushBackDefaultItem();
+    listRoom->pushBackDefaultItem();
+    listRoom->setTouchEnabled(false);
+    listRoom->addEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
+
     
     Multiplayer::getInstance()->fetchRooms();
     
@@ -71,6 +84,14 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType t
 {
     auto scene = CreateRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+
+void ChooseRoomScene::OnSelectedItem(Ref* pSender, ui::ListView::EventType type){
+    if (type == ListView::EventType::ON_SELECTED_ITEM_END){
+        auto scene = ChooseCharactorScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    }
 }
 
 

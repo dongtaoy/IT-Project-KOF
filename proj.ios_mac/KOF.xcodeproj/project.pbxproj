@@ -52,6 +52,7 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		871E225D1B947170005CA5A9 /* ChooseCharactorScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */; };
 		8740B0221B7F605300395343 /* HelpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0201B7F605300395343 /* HelpScene.cpp */; };
 		8740B0251B7F606200395343 /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0231B7F606200395343 /* SettingScene.cpp */; };
 		87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D731B805F5E00299169 /* ChooseRoomScene.cpp */; };
@@ -159,6 +160,8 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseCharactorScene.cpp; sourceTree = "<group>"; };
+		871E225C1B947170005CA5A9 /* ChooseCharactorScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCharactorScene.h; sourceTree = "<group>"; };
 		8740B0201B7F605300395343 /* HelpScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelpScene.cpp; sourceTree = "<group>"; };
 		8740B0211B7F605300395343 /* HelpScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpScene.h; sourceTree = "<group>"; };
 		8740B0231B7F606200395343 /* SettingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
@@ -336,6 +339,8 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */,
+				871E225C1B947170005CA5A9 /* ChooseCharactorScene.h */,
 				87468D761B806BD200299169 /* LeaderBoardScene.cpp */,
 				87468D771B806BD200299169 /* LeaderBoardScene.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -591,6 +596,7 @@
 				879FB84F1B7AED3900E4F0BF /* socket.cpp in Sources */,
 				879FB84B1B7AED3900E4F0BF /* cJSON.c in Sources */,
 				879FB8501B7AED3900E4F0BF /* udpsocket.cpp in Sources */,
+				871E225D1B947170005CA5A9 /* ChooseCharactorScene.cpp in Sources */,
 				879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */,
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,
 				87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */,
