@@ -15,12 +15,13 @@ Multiplayer::Multiplayer(std::string username)
 {
     this->connected = false;
     
+    this->username = username;
+    
     // Add APPWARP ID AND KEY
     AppWarp::Client::initialize(APPWARP_APP_KEY,APPWARP_SECRET_KEY);
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setConnectionRequestListener(this);
     client->setZoneRequestListener(this);
-    client->setRoomRequestListener(this);
     CCLOG("Connecting to APPWARP with %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY);
     client->connect(username);
 }
@@ -46,7 +47,7 @@ void Multiplayer::initialize(std::string username)
 
 
 
-void Multiplayer::fetchRooms()
+void Multiplayer::fetchRooms(AppWarp::RoomRequestListener* listener)
 {
     if(!this->connected){
         cocos2d::MessageBox("Reconnecting.....", "Connection");
@@ -54,8 +55,18 @@ void Multiplayer::fetchRooms()
         return;
     }
     AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->setRoomRequestListener(listener);
     client->getAllRooms();
 }
+
+void Multiplayer::createRoom(std::string name)
+{
+    std::cout << "creat: " << name << std::endl;
+    
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->createRoom(name, username, MAX_USERS);
+}
+
 
 bool Multiplayer::isConnected()
 {
@@ -104,16 +115,21 @@ void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)
     warpClientRef = AppWarp::Client::getInstance();
     CCLOG("onGetAllRoomsDone : %d", result.result);
     for(std::vector<int>::size_type i = 0; i != result.list.size(); i++){
-        std::cout << result.list[i] << std::endl;
         warpClientRef->getLiveRoomInfo(result.list[i]);
     }
 }
 
-void Multiplayer::onGetLiveRoomInfoDone(AppWarp::liveroom result)
+void Multiplayer::onCreateRoomDone(AppWarp::room event)
 {
-    std::cout << result.rm.name << std::endl;
-    //    CCLOG("%s", result.rm.name);
+    std::cout << event.roomId << std::endl;
 }
+
+//
+//void Multiplayer::onGetLiveRoomInfoDone(AppWarp::liveroom result)
+//{
+//    std::cout << result.rm.name << std::endl;
+//    //    CCLOG("%s", result.rm.name);
+//}
 
 
 

@@ -41,8 +41,10 @@ bool ChooseCharactorScene::init()
     
     auto node = CSLoader::createNode("ChooseCharactor.csb");
     node->setName("ChooseCharactorScene");
-    //    node->setPosition(origin);
-
+    
+    
+    
+    
     this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
     
     

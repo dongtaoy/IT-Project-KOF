@@ -20,8 +20,10 @@
 #include "ChooseCharactorScene.h"
 #include "Multiplayer.h"
 
+#include "appwarp.h"
 
-class ChooseRoomScene : Layer
+
+class ChooseRoomScene : public Layer, public AppWarp::RoomRequestListener
 {
 public:
     
@@ -46,6 +48,8 @@ private:
     
     void OnSelectedItem(Ref* pSender, ui::ListView::EventType);
     
+    // RoomRequestListner
+    void onGetLiveRoomInfoDone(AppWarp::liveroom);
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */

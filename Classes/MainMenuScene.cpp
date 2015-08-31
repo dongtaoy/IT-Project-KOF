@@ -52,7 +52,8 @@ bool MainMenuScene::init()
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
     
-
+    
+    
     this->addChild(node);
     
 

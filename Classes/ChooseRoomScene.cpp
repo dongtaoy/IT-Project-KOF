@@ -53,17 +53,11 @@ bool ChooseRoomScene::init()
     assert(items.front());
     listRoom->setItemModel(items.front());
     listRoom->removeItem(0);
-    listRoom->pushBackDefaultItem();
-    listRoom->pushBackDefaultItem();
-    listRoom->pushBackDefaultItem();
-    listRoom->pushBackDefaultItem();
-    listRoom->pushBackDefaultItem();
-    listRoom->pushBackDefaultItem();
-    listRoom->setTouchEnabled(false);
+//    listRoom->setTouchEnabled(false);
     listRoom->addEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
 
     
-    Multiplayer::getInstance()->fetchRooms();
+    Multiplayer::getInstance()->fetchRooms(this);
     
     
     this->addChild(node);
@@ -92,6 +86,20 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, ui::ListView::EventType type)
         auto scene = ChooseCharactorScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
+}
+
+// RoomRequestListner
+void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
+{
+    auto node = this->getChildByName("ChooseRoomScene");
+    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName("listRoom"));
+    list->pushBackDefaultItem();
+    // add room id
+    static_cast<ui::Text*>(list->getItems().back()->getChildByName("text"))->setText(room.rm.roomId);
+    // add 0/2
+    static_cast<ui::Text*>(list->getItems().back()->getChildByName("status"))->setText(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
+    std::cout << room.rm.name << std::endl;
+    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
 }
 
 
