@@ -52,8 +52,7 @@ bool MainMenuScene::init()
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
     
-    
-    
+
     this->addChild(node);
     
 
@@ -71,6 +70,8 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 
 void MainMenuScene::GoToChooseRoomScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
+    
+    
     auto scene = ChooseRoomScene::createScene();
     
     Director::getInstance()->replaceScene( TransitionFade::create( TRANSITION_TIME, scene) );

@@ -13,6 +13,7 @@
 #include "CocosGUI.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
+#include "Multiplayer.h"
 
 class SplashScene : public cocos2d::Layer
 {

@@ -44,6 +44,8 @@ bool SplashScene::init()
     this->addChild(node);
     this->schedule(schedule_selector(SplashScene::updateLoadingBar), 0.025f);
     
+    // Initialize Multiplayer
+    Multiplayer::initialize("test");
     
     return true;
 }

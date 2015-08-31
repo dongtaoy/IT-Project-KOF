@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "appwarp.h"
+#include "cocos2d.h"
 #include "Definitions.h"
 
 class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
@@ -22,13 +23,20 @@ public:
     
     static void initialize(std::string username);
     
+    void fetchRooms();
+    
+    bool isConnected();
+    
+    void recoverConnection();
+    
 private:
     static Multiplayer* _instance;
     
-    std::string _username;
+    bool connected;
     
     // Private constructor
     Multiplayer(std::string username);
+    
     
     
     // ConnectionRequestListener

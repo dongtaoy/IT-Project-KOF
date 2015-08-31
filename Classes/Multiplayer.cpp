@@ -8,11 +8,13 @@
 
 #include "Multiplayer.h"
 
-Multiplayer* _instance = NULL;
+Multiplayer* Multiplayer::_instance = NULL;
 
 
 Multiplayer::Multiplayer(std::string username)
 {
+    this->connected = false;
+    
     // Add APPWARP ID AND KEY
     AppWarp::Client::initialize(APPWARP_APP_KEY,APPWARP_SECRET_KEY);
     AppWarp::Client* client = AppWarp::Client::getInstance();
@@ -27,7 +29,7 @@ Multiplayer::Multiplayer(std::string username)
 Multiplayer* Multiplayer::getInstance()
 {
     // Multiplayer object not initialized
-    assert(_instance);
+//    assert(_instance);
     
     return _instance;
 }
@@ -42,19 +44,52 @@ void Multiplayer::initialize(std::string username)
         
 }
 
+
+
+void Multiplayer::fetchRooms()
+{
+    if(!this->connected){
+        cocos2d::MessageBox("Reconnecting.....", "Connection");
+        recoverConnection();
+        return;
+    }
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->getAllRooms();
+}
+
+bool Multiplayer::isConnected()
+{
+    return this->connected;
+}
+
+void Multiplayer::recoverConnection()
+{
+    
+    AppWarp::Client::getInstance()->recoverConnection();
+}
+
+
+
+/*
+ Lisenter
+ */
+
 // ConnectionRequestListener
 void Multiplayer::onConnectDone(int result, int code)
 {
     switch (result) {
         case AppWarp::ResultCode::success:
+            this->connected=true;
             CCLOG("onConnectDone .. SUCCESS..session=%d\n", AppWarp::AppWarpSessionID);
             break;
             
         case AppWarp::ResultCode::success_recovered:
-            
+            this->connected=true;
+            CCLOG("onConnectDone .. success_recovered..session=%d\n", AppWarp::AppWarpSessionID);
             break;
             
         default:
+            this->connected=false;
             CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", code, AppWarp::AppWarpSessionID);
             break;
     }
@@ -64,6 +99,7 @@ void Multiplayer::onConnectDone(int result, int code)
 
 void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)
 {
+    
     AppWarp::Client *warpClientRef;
     warpClientRef = AppWarp::Client::getInstance();
     CCLOG("onGetAllRoomsDone : %d", result.result);

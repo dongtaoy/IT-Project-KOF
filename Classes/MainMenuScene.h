@@ -10,13 +10,15 @@
 #define __KOF__MainMenuScene__
 
 #include "cocos2d.h"
-#include "definitions.h"
 
+#include "definitions.h"
+#include "Multiplayer.h"
 #include "ChooseRoomScene.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
 #include "LeaderBoardScene.h"
 #include "HelloWorld.h"
+
 
 class MainMenuScene : public cocos2d::Layer
 {

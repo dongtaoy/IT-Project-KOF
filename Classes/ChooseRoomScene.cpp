@@ -40,11 +40,18 @@ bool ChooseRoomScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode("ChooseRoom.csb");
-    //    node->setPosition(origin);
+    // back button
     ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
+    
+    // create room button
     ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName("buttonCreate"));
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
+    
+    
+    
+    Multiplayer::getInstance()->fetchRooms();
+    
     
     this->addChild(node);
     

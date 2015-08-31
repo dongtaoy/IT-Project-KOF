@@ -11,13 +11,13 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+#include "cocostudio/CocoStudio.h"
+#include "CocosGUI.h"
+
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "CreateRoomScene.h"
-
-#include "appwarp.h"
-#include "cocostudio/CocoStudio.h"
-#include "CocosGUI.h"
+#include "Multiplayer.h"
 
 
 class ChooseRoomScene : Layer
