@@ -15,6 +15,7 @@
 #include "cocos2d.h"
 #include "CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "Multiplayer.h"
 
 class CreateRoomScene : public cocos2d::Layer
 {
@@ -29,7 +30,7 @@ public:
     CREATE_FUNC(CreateRoomScene);
 private:
     void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
-    
+    void CreateRoom(Ref*, ui::Widget::TouchEventType);
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

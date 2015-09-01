@@ -44,18 +44,42 @@ bool CreateRoomScene::init()
     Button* buttonBack =  static_cast<Button*>(node->getChildByName("buttonBack"));
     assert(buttonBack);
     
+    Button* buttonCreate = static_cast<Button*>(node->getChildByName("buttonCreate"));
+    assert(buttonCreate);
+    
+    buttonCreate->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::CreateRoom, this));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::GotoChooseRoomScene, this));
     this->addChild(node);
     
     return true;
 }
 
-void CreateRoomScene::GotoChooseRoomScene(Ref* pSender, ui::Widget::TouchEventType type)
+void CreateRoomScene::GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType type)
 {
     
     auto scene = ChooseRoomScene::createScene();
     
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+
+}
+
+void CreateRoomScene::CreateRoom(Ref*, ui::Widget::TouchEventType type)
+{
+    if(type == Widget::TouchEventType::ENDED){
+        CCLOG("CLICKED");
+        auto node = this->getChildByName("CreateRoomScene");
     
+        TextField* textRoomName = static_cast<TextField*>(node->getChildByName("spriteRoomName")->getChildByName("textRoomName"));
     
+        std::string name = textRoomName->getString().c_str();
+    
+        if(name.compare("")){
+    
+            Multiplayer::getInstance()->createRoom(name);
+        
+            auto scene = ChooseRoomScene::createScene();
+    
+            Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+        }
+    }
 }

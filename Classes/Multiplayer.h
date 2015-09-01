@@ -13,23 +13,32 @@
 #include "appwarp.h"
 #include "cocos2d.h"
 #include "Definitions.h"
+#include "ChooseRoomScene.h"
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
+#define MAX_USERS 2
+
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener//, public AppWarp::RoomRequestListener
 {
     
 public:
     
     static Multiplayer* getInstance();
     
-    static void initialize(std::string username);
+    static void initialize(std::string);
     
-    void fetchRooms();
+    void fetchRooms(AppWarp::RoomRequestListener*);
+    
+    void createRoom(std::string);
     
     bool isConnected();
     
     void recoverConnection();
     
 private:
+    
+    
+    std::string username;
+    
     static Multiplayer* _instance;
     
     bool connected;
@@ -45,8 +54,10 @@ private:
     // ZoneRequestListener
     void onGetAllRoomsDone(AppWarp::liveresult);
     
+    void onCreateRoomDone(AppWarp::room event);
+    
     // RoomRequestListner
-    void onGetLiveRoomInfoDone(AppWarp::liveroom);
+//    void onGetLiveRoomInfoDone(AppWarp::liveroom);
     
     
 };

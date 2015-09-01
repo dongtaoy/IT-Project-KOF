@@ -41,11 +41,18 @@ bool ChooseCharactorScene::init()
     
     auto node = CSLoader::createNode("ChooseCharactor.csb");
     node->setName("ChooseCharactorScene");
+<<<<<<< HEAD
     ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
     
     buttonBack->addTouchEventListener(CC_CALLBACK_1(ChooseCharactorScene::GotoChooseRoomScene, this));
     //    node->setPosition(origin);
 
+=======
+    
+    
+    
+    
+>>>>>>> 5e69e7e25249b384c0b37009d57ebb613adf9afa
     this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
     
     
