@@ -17,4 +17,8 @@
 #define DISPLAY_TIME_SPLASH_SCENE       0.5
 #define TRANSITION_TIME                 0.5
 
+
+//choose charactor
+#define CHARACTOR_WIDTH 310.0
+#define CHARACTOR_HEIGHT 430.0
 #endif

@@ -4,7 +4,7 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>Charactors/Charactor_Clark_1.png</key>
+			<key>Charactors/charactor1/icon_big.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{455,0},{109,152}}</string>
@@ -15,7 +15,7 @@
 				<key>sourceSize</key>
 				<string>{109,152}</string>
 			</dict>
-			<key>Charactors/Charactor_Clark_2.png</key>
+			<key>Charactors/charactor1/icon_small.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{888,0},{104,111}}</string>
@@ -26,7 +26,7 @@
 				<key>sourceSize</key>
 				<string>{104,111}</string>
 			</dict>
-			<key>Charactors/Charactor_Hinako_1.png</key>
+			<key>Charactors/charactor2/icon_big.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{607,0},{97,133}}</string>
@@ -37,7 +37,7 @@
 				<key>sourceSize</key>
 				<string>{97,133}</string>
 			</dict>
-			<key>Charactors/Charactor_Hinako_2.png</key>
+			<key>Charactors/charactor2/icon_small.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{740,87},{104,111}}</string>
@@ -48,7 +48,7 @@
 				<key>sourceSize</key>
 				<string>{104,111}</string>
 			</dict>
-			<key>Charactors/Charactor_Iori_1.png</key>
+			<key>Charactors/charactor3/icon_big.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{311,0},{116,144}}</string>
@@ -59,7 +59,7 @@
 				<key>sourceSize</key>
 				<string>{116,144}</string>
 			</dict>
-			<key>Charactors/Charactor_Iori_2.png</key>
+			<key>Charactors/charactor3/icon_small.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{607,97},{104,111}}</string>
@@ -70,7 +70,7 @@
 				<key>sourceSize</key>
 				<string>{104,111}</string>
 			</dict>
-			<key>Charactors/Charactor_Joe_1.png</key>
+			<key>Charactors/charactor4/icon_big.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,0},{162,159}}</string>
@@ -81,7 +81,7 @@
 				<key>sourceSize</key>
 				<string>{162,159}</string>
 			</dict>
-			<key>Charactors/Charactor_Joe_2.png</key>
+			<key>Charactors/charactor4/icon_small.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{455,109},{104,111}}</string>
@@ -92,7 +92,7 @@
 				<key>sourceSize</key>
 				<string>{104,111}</string>
 			</dict>
-			<key>Charactors/Charactor_Kusana_1.png</key>
+			<key>Charactors/charactor5/icon_big.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{740,0},{87,148}}</string>
@@ -103,7 +103,7 @@
 				<key>sourceSize</key>
 				<string>{87,148}</string>
 			</dict>
-			<key>Charactors/Charactor_Kusana_2.png</key>
+			<key>Charactors/charactor5/icon_small.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{311,116},{104,111}}</string>
@@ -114,7 +114,7 @@
 				<key>sourceSize</key>
 				<string>{104,111}</string>
 			</dict>
-			<key>Charactors/Charactor_Mai_1.png</key>
+			<key>Charactors/charactor6/icon_big.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{162,0},{146,149}}</string>
@@ -125,7 +125,7 @@
 				<key>sourceSize</key>
 				<string>{146,149}</string>
 			</dict>
-			<key>Charactors/Charactor_Mai_2.png</key>
+			<key>Charactors/charactor6/icon_small.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{162,146},{104,111}}</string>

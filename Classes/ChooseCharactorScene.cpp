@@ -39,6 +39,8 @@ bool ChooseCharactorScene::init()
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("charactors.plist");
+    
     auto node = CSLoader::createNode("ChooseCharactor.csb");
     node->setName("ChooseCharactorScene");
     ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
@@ -49,20 +51,13 @@ bool ChooseCharactorScene::init()
     for(int i = 1 ; i <= 6 ; i ++)
     {
         ImageView* image = static_cast<ImageView*>(node->getChildByName("charactor"+std::to_string(i)));
-        
-        CCLOG("%s", image->getName().c_str());
-        CCLOG("%p", image);
-//        image->setTouchEnabled(true);
         image->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::CharactorSelectedChanged, this));
     }
     
     
-    
-    this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
-    
-    
     this->addChild(node);
-        
+    
+    //this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
     
     return true;
 }
@@ -75,12 +70,18 @@ void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchE
         }
         playerSelected = pSender;
         ShowSelectedBorder(playerSelected);
+        ShowSelectedCharactor(static_cast<Node*>(pSender)->getName(), true);
     }
 }
 
-void ChooseCharactorScene::ShowSelectedCharactor(Ref* pSender, std::string name)
+void ChooseCharactorScene::ShowSelectedCharactor(std::string name, bool left)
 {
-    
+    std::string place = left ? "player" : "opponent";
+    Sprite* sprite = static_cast<Sprite*>(this->getChildByName("ChooseCharactorScene")->getChildByName(place));
+    sprite->setSpriteFrame("Charactors/" + name + "/icon_big.png");
+    sprite->setScale(1);
+    sprite->setScale(CHARACTOR_WIDTH / sprite->getBoundingBox().size.width,
+                      CHARACTOR_HEIGHT / sprite->getBoundingBox().size.height);
 }
 
 void ChooseCharactorScene::ShowSelectedBorder(Ref* pSender)

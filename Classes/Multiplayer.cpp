@@ -86,7 +86,7 @@ void Multiplayer::recoverConnection()
  */
 
 // ConnectionRequestListener
-void Multiplayer::onConnectDone(int result, int code)
+void Multiplayer::onConnectDone(int result, int)
 {
     switch (result) {
         case AppWarp::ResultCode::success:
@@ -101,7 +101,7 @@ void Multiplayer::onConnectDone(int result, int code)
             
         default:
             this->connected=false;
-            CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", code, AppWarp::AppWarpSessionID);
+            CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", result, AppWarp::AppWarpSessionID);
             break;
     }
 }

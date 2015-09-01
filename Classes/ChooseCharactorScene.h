@@ -38,7 +38,7 @@ private:
     
     void ShowSelectedBorder(Ref*);
     void RemoveSelectedBorder(Ref*);
-    void ShowSelectedCharactor(Ref*, std::string);
+    void ShowSelectedCharactor(std::string, bool);
     void GotoChooseRoomScene(Ref*);
     void CountDownTask(float);
     void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);

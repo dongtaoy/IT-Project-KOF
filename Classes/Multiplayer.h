@@ -54,7 +54,7 @@ private:
     // ZoneRequestListener
     void onGetAllRoomsDone(AppWarp::liveresult);
     
-    void onCreateRoomDone(AppWarp::room event);
+    void onCreateRoomDone(AppWarp::room);
     
     // RoomRequestListner
 //    void onGetLiveRoomInfoDone(AppWarp::liveroom);
