@@ -41,6 +41,9 @@ bool ChooseCharactorScene::init()
     
     auto node = CSLoader::createNode("ChooseCharactor.csb");
     node->setName("ChooseCharactorScene");
+    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    
+    buttonBack->addTouchEventListener(CC_CALLBACK_1(ChooseCharactorScene::GotoChooseRoomScene, this));
     //    node->setPosition(origin);
 
     this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
@@ -52,9 +55,9 @@ bool ChooseCharactorScene::init()
     return true;
 }
 
-void ChooseCharactorScene::GotoChooseRoomSceneScene(Ref* pSender)
+void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender)
 {
-    auto scene = MainMenuScene::createScene();
+    auto scene = ChooseRoomScene::createScene();
     
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     

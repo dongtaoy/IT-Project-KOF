@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include "Definitions.h"
-#include "MainMenuScene.h"
 #include "ChooseRoomScene.h"
+#include "cocostudio/CocoStudio.h"
 
 
 class ChooseCharactorScene : public cocos2d::Layer
@@ -33,9 +33,8 @@ public:
     
 private:
     
-    void GotoChooseRoomSceneScene(Ref*);
+    void GotoChooseRoomScene(Ref*);
     void CountDownTask(float);
-    
     
 };
 
