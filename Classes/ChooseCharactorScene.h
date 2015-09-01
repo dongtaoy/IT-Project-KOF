@@ -33,8 +33,15 @@ public:
     
 private:
     
+    Ref* playerSelected;
+    Ref* opponentSelected;
+    
+    void ShowSelectedBorder(Ref*);
+    void RemoveSelectedBorder(Ref*);
+    void ShowSelectedCharactor(Ref*, std::string);
     void GotoChooseRoomScene(Ref*);
     void CountDownTask(float);
+    void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
 };
 

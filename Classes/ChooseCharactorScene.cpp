@@ -45,8 +45,16 @@ bool ChooseCharactorScene::init()
     
     buttonBack->addTouchEventListener(CC_CALLBACK_1(ChooseCharactorScene::GotoChooseRoomScene, this));
     //    node->setPosition(origin);
-
     
+    for(int i = 1 ; i <= 6 ; i ++)
+    {
+        ImageView* image = static_cast<ImageView*>(node->getChildByName("charactor"+std::to_string(i)));
+        
+        CCLOG("%s", image->getName().c_str());
+        CCLOG("%p", image);
+//        image->setTouchEnabled(true);
+        image->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::CharactorSelectedChanged, this));
+    }
     
     
     
@@ -58,6 +66,35 @@ bool ChooseCharactorScene::init()
     
     return true;
 }
+
+void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchEventType type)
+{
+    if(type == Widget::TouchEventType::ENDED){
+        if(playerSelected != NULL){
+            RemoveSelectedBorder(playerSelected);
+        }
+        playerSelected = pSender;
+        ShowSelectedBorder(playerSelected);
+    }
+}
+
+void ChooseCharactorScene::ShowSelectedCharactor(Ref* pSender, std::string name)
+{
+    
+}
+
+void ChooseCharactorScene::ShowSelectedBorder(Ref* pSender)
+{
+    static_cast<Node*>(pSender)->getChildByName("unselected")->setVisible(false);
+    static_cast<Node*>(pSender)->getChildByName("selected")->setVisible(true);
+}
+
+void ChooseCharactorScene::RemoveSelectedBorder(Ref* pSender)
+{
+    static_cast<Node*>(pSender)->getChildByName("selected")->setVisible(false);
+    static_cast<Node*>(pSender)->getChildByName("unselected")->setVisible(true);
+}
+
 
 void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender)
 {
@@ -72,5 +109,18 @@ void ChooseCharactorScene::CountDownTask(float dt)
     auto node = this->getChildByName("ChooseCharactorScene");
     ui::Text* labelCountDown = static_cast<ui::Text*>(node->getChildByName("labelCountDown"));
     int value = std::atoi(labelCountDown->getString().c_str()) - 1;
-    labelCountDown->setText(std::to_string(value));
+    if(value > 0)
+    {
+        
+        labelCountDown->setText(std::to_string(value));
+    }
+    else
+    {
+        this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
+        
+        auto scene = ChooseRoomScene::createScene();
+        
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+        
+    }
 }
