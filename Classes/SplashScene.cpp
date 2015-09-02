@@ -63,6 +63,7 @@ void SplashScene::updateLoadingBar( float dt )
 
 std::string SplashScene::randomString( size_t length )
 {
+    srand((unsigned)time(0));
     auto randchar = []() -> char
     {
         const char charset[] =

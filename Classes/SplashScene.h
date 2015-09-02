@@ -14,6 +14,8 @@
 #include "MainMenuScene.h"
 #include "Definitions.h"
 #include "Multiplayer.h"
+#include <random>
+#include <ctime> 
 
 class SplashScene : public cocos2d::Layer
 {
