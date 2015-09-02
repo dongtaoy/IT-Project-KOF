@@ -29,8 +29,14 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(CreateRoomScene);
 private:
+    Ref* backgroundSelected;
+    
+    void CheckboxSelectedChanged(Ref*, cocos2d::ui::CheckBox::EventType);
     void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
+    void RemoveSelectedBorder(Ref*);
+    void ShowSelectedBorder(Ref*);
     void CreateRoom(Ref*, ui::Widget::TouchEventType);
+    void BackgroundSelectedChanged(Ref*, ui::Widget::TouchEventType);
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

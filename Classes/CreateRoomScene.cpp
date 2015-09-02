@@ -49,10 +49,59 @@ bool CreateRoomScene::init()
     
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::CreateRoom, this));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::GotoChooseRoomScene, this));
+    
+
+    for(int i = 1 ; i <= 4 ; i ++)
+    {
+        Widget* image = static_cast<Widget*>(node->getChildByName("background"+std::to_string(i)));
+        image->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::BackgroundSelectedChanged, this));
+    }
+    
+    for(int i = 1 ; i <= 3 ; i ++)
+    {
+        CheckBox* checkbox = static_cast<CheckBox*>(node->getChildByName("checkbox"+std::to_string(i)));
+        checkbox->addEventListener(CC_CALLBACK_2(CreateRoomScene::CheckboxSelectedChanged, this));
+    }
+    
     this->addChild(node);
     
     return true;
 }
+
+void CreateRoomScene::CheckboxSelectedChanged(Ref* pSender, CheckBox::EventType type)
+{
+    if(type ==CheckBox::EventType::SELECTED){
+        CCLOG("%s", static_cast<Node*>(pSender)->getName().c_str());
+    }
+}
+
+void CreateRoomScene::BackgroundSelectedChanged(Ref* pSender, Widget::TouchEventType type)
+{
+    
+    if(type == Widget::TouchEventType::ENDED)
+    {
+        if(backgroundSelected != NULL)
+        {
+            RemoveSelectedBorder(backgroundSelected);
+        }
+        backgroundSelected = pSender;
+        ShowSelectedBorder(backgroundSelected);
+    }
+}
+
+
+void CreateRoomScene::ShowSelectedBorder(Ref* pSender)
+{
+    static_cast<Node*>(pSender)->getChildByName(BORDER_UNSELECTED)->setVisible(false);
+    static_cast<Node*>(pSender)->getChildByName(BORDER_SELECTED)->setVisible(true);
+}
+
+void CreateRoomScene::RemoveSelectedBorder(Ref* pSender)
+{
+    static_cast<Node*>(pSender)->getChildByName(BORDER_SELECTED)->setVisible(false);
+    static_cast<Node*>(pSender)->getChildByName(BORDER_UNSELECTED)->setVisible(true);
+}
+
 
 void CreateRoomScene::GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType type)
 {
@@ -63,11 +112,13 @@ void CreateRoomScene::GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType type)
 
 }
 
+
+
 void CreateRoomScene::CreateRoom(Ref*, ui::Widget::TouchEventType type)
 {
     if(type == Widget::TouchEventType::ENDED){
-        CCLOG("CLICKED");
-        auto node = this->getChildByName("CreateRoomScene");
+        
+        auto node = this->getChildByName(CREATEROOM_SCENE);
     
         TextField* textRoomName = static_cast<TextField*>(node->getChildByName("spriteRoomName")->getChildByName("textRoomName"));
     

@@ -28,6 +28,7 @@ public:
     CREATE_FUNC(SettingScene);
     
 private:
+    void test();
     void GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type);
     
     

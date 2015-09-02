@@ -21,4 +21,10 @@
 //choose charactor
 #define CHARACTOR_WIDTH 310.0
 #define CHARACTOR_HEIGHT 430.0
+
+//create room
+#define CREATEROOM_SCENE "CreateRoomScene"
+#define BORDER_SELECTED "selected"
+#define BORDER_UNSELECTED "unselected"
+//#define 
 #endif

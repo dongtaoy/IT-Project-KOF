@@ -41,11 +41,22 @@ bool SettingScene::init()
     
     //TODO: help text
     auto node = CSLoader::createNode("Setting.csb");
+    node->setName("test");
     ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(SettingScene::GotoMainMenuScene, this));
     this->addChild(node);
     
+    test();
     return true;
+}
+
+void SettingScene::test()
+{
+    auto node = this->getChildByName("test");
+    CCLOG("%s", node->getName().c_str());
+    auto slidebar = node->getChildByName("sound_slidebar");
+    CCLOG("%s", slidebar->getName().c_str());
+    
 }
 
 void SettingScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
