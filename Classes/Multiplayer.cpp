@@ -22,7 +22,7 @@ Multiplayer::Multiplayer(std::string username)
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setConnectionRequestListener(this);
     client->setZoneRequestListener(this);
-    CCLOG("Connecting to APPWARP with %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY);
+    CCLOG("Connecting to APPWARP with %s %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY, username.c_str());
     client->connect(username);
 }
 
