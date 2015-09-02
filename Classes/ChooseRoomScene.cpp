@@ -91,15 +91,20 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, ui::ListView::EventType type)
 // RoomRequestListner
 void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
 {
-    auto node = this->getChildByName("ChooseRoomScene");
-    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName("listRoom"));
-    list->pushBackDefaultItem();
-    // add room id
-    static_cast<ui::Text*>(list->getItems().back()->getChildByName("text"))->setText(room.rm.roomId);
-    // add 0/2
-    static_cast<ui::Text*>(list->getItems().back()->getChildByName("status"))->setText(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
-    std::cout << room.rm.name << std::endl;
-    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
+    try {
+        auto node = this->getChildByName("ChooseRoomScene");
+        ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName("listRoom"));
+        list->pushBackDefaultItem();
+        // add room id
+        static_cast<ui::Text*>(list->getItems().back()->getChildByName("text"))->setText(room.rm.roomId);
+        // add 0/2
+        static_cast<ui::Text*>(list->getItems().back()->getChildByName("status"))->setText(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
+        std::cout << room.rm.name << std::endl;
+        CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
+    } catch (int e) {
+        CCLOG("live room error");
+    }
+    
 }
 
 

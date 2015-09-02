@@ -26,5 +26,7 @@
 #define CREATEROOM_SCENE "CreateRoomScene"
 #define BORDER_SELECTED "selected"
 #define BORDER_UNSELECTED "unselected"
-//#define 
+#define NUM_BACKGROUNDS 4
+#define NUM_BESTOF 3
+
 #endif

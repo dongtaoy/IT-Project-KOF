@@ -30,7 +30,7 @@ public:
     CREATE_FUNC(CreateRoomScene);
 private:
     Ref* backgroundSelected;
-    
+    Ref* bestOfSelected;
     void CheckboxSelectedChanged(Ref*, cocos2d::ui::CheckBox::EventType);
     void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     void RemoveSelectedBorder(Ref*);
