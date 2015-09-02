@@ -169,7 +169,6 @@ void ChooseCharactorScene::onLeaveRoomDone(AppWarp::room event)
     if(event.result == AppWarp::ResultCode::success)
     {
         CCLOG("LEAVED %s", event.roomId.c_str());
-        event.
     }
     
     auto scene = ChooseRoomScene::createScene();
