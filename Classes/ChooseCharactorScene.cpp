@@ -39,18 +39,19 @@ bool ChooseCharactorScene::init()
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("charactors.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(CHOOSE_CHARACTOR_SCENE_CHARACTOR_PLIST);
     
-    auto node = CSLoader::createNode("ChooseCharactor.csb");
-    node->setName("ChooseCharactorScene");
-    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    auto node = CSLoader::createNode(CHOOSE_CHARACTOR_SCENE_FILE);
+    node->setName(CHOOSE_CHARACTOR_SCENE);
+    
+    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName(BACK_BUTTON));
     
     buttonBack->addTouchEventListener(CC_CALLBACK_1(ChooseCharactorScene::GotoChooseRoomScene, this));
     //    node->setPosition(origin);
     
     for(int i = 1 ; i <= 6 ; i ++)
     {
-        ImageView* image = static_cast<ImageView*>(node->getChildByName("charactor"+std::to_string(i)));
+        ImageView* image = static_cast<ImageView*>(node->getChildByName(CHOOSE_CHARACTOR_SCENE_CHARACTOR_PREFIX+std::to_string(i)));
         image->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::CharactorSelectedChanged, this));
     }
     
@@ -76,24 +77,24 @@ void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchE
 
 void ChooseCharactorScene::ShowSelectedCharactor(std::string name, bool left)
 {
-    std::string place = left ? "player" : "opponent";
-    Sprite* sprite = static_cast<Sprite*>(this->getChildByName("ChooseCharactorScene")->getChildByName(place));
-    sprite->setSpriteFrame("Charactors/" + name + "/icon_big.png");
+    std::string place = left ? CHOOSE_CHARACTOR_SCENE_PLAYER_ICON_HOLDER : CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER;
+    Sprite* sprite = static_cast<Sprite*>(this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(place));
+    sprite->setSpriteFrame(std::string(CHARACTOR_RESOURCE_DIR) + "/" + name + "/" + std::string(CHARACTOR_ICON_BIG));
     sprite->setScale(1);
-    sprite->setScale(CHARACTOR_WIDTH / sprite->getBoundingBox().size.width,
-                      CHARACTOR_HEIGHT / sprite->getBoundingBox().size.height);
+    sprite->setScale(CHOOSE_CHARACTOR_SCENE_CHARACTOR_WIDTH / sprite->getBoundingBox().size.width,
+                      CHOOSE_CHARACTOR_SCENE_CHARACTOR_HEIGHT / sprite->getBoundingBox().size.height);
 }
 
 void ChooseCharactorScene::ShowSelectedBorder(Ref* pSender)
 {
-    static_cast<Node*>(pSender)->getChildByName("unselected")->setVisible(false);
-    static_cast<Node*>(pSender)->getChildByName("selected")->setVisible(true);
+    static_cast<Node*>(pSender)->getChildByName(BORDER_UNSELECTED)->setVisible(false);
+    static_cast<Node*>(pSender)->getChildByName(BORDER_SELECTED)->setVisible(true);
 }
 
 void ChooseCharactorScene::RemoveSelectedBorder(Ref* pSender)
 {
-    static_cast<Node*>(pSender)->getChildByName("selected")->setVisible(false);
-    static_cast<Node*>(pSender)->getChildByName("unselected")->setVisible(true);
+    static_cast<Node*>(pSender)->getChildByName(BORDER_SELECTED)->setVisible(false);
+    static_cast<Node*>(pSender)->getChildByName(BORDER_UNSELECTED)->setVisible(true);
 }
 
 
@@ -107,8 +108,8 @@ void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender)
 
 void ChooseCharactorScene::CountDownTask(float dt)
 {
-    auto node = this->getChildByName("ChooseCharactorScene");
-    ui::Text* labelCountDown = static_cast<ui::Text*>(node->getChildByName("labelCountDown"));
+    auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
+    ui::Text* labelCountDown = static_cast<ui::Text*>(node->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
     int value = std::atoi(labelCountDown->getString().c_str()) - 1;
     if(value > 0)
     {

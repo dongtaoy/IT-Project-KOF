@@ -23,7 +23,7 @@
 #include "appwarp.h"
 
 
-class ChooseRoomScene : public Layer, public AppWarp::RoomRequestListener
+class ChooseRoomScene : public Layer
 {
 public:
     
@@ -34,11 +34,13 @@ public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
     
+    void AddRoom(AppWarp::liveroom);
 
     // implement the "static create()" method manually
     CREATE_FUNC(ChooseRoomScene);
     
 private:
+//    void test(MainMenuScene*);
     
     bool isFirstTimeLaunch;
     
@@ -48,8 +50,9 @@ private:
     
     void OnSelectedItem(Ref* pSender, ui::ListView::EventType);
     
-    // RoomRequestListner
-    void onGetLiveRoomInfoDone(AppWarp::liveroom);
+//    
+//    // RoomRequestListner
+//    void onGetLiveRoomInfoDone(AppWarp::liveroom);
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */

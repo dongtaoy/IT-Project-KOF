@@ -9,15 +9,15 @@
 #ifndef __KOF__Multiplayer__
 #define __KOF__Multiplayer__
 
+
 #include <stdio.h>
 #include "appwarp.h"
 #include "cocos2d.h"
 #include "Definitions.h"
 #include "ChooseRoomScene.h"
 
-#define MAX_USERS 2
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener//, public AppWarp::RoomRequestListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
 {
     
 public:
@@ -26,9 +26,9 @@ public:
     
     static void initialize(std::string);
     
-    void fetchRooms(AppWarp::RoomRequestListener*);
+//    void fetchRooms(ChooseRoomScene* scene);
     
-    void createRoom(std::string);
+    void createRoom(std::map<std::string, std::string>);
     
     bool isConnected();
     

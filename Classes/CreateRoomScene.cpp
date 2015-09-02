@@ -7,7 +7,6 @@
 //
 
 #include "CreateRoomScene.h"
-
 using namespace ui;
 USING_NS_CC;
 
@@ -40,11 +39,11 @@ bool CreateRoomScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     
-    auto node = CSLoader::createNode("CreateRoom.csb");
-    Button* buttonBack =  static_cast<Button*>(node->getChildByName("buttonBack"));
+    auto node = CSLoader::createNode(CREATE_ROOM_SCENE_FILE);
+    Button* buttonBack =  static_cast<Button*>(node->getChildByName(BACK_BUTTON));
     assert(buttonBack);
     
-    Button* buttonCreate = static_cast<Button*>(node->getChildByName("buttonCreate"));
+    Button* buttonCreate = static_cast<Button*>(node->getChildByName(CREATE_BUTTON));
     assert(buttonCreate);
     
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::CreateRoom, this));
@@ -53,13 +52,13 @@ bool CreateRoomScene::init()
 
     for(int i = 1 ; i <= NUM_BACKGROUNDS ; i ++)
     {
-        Widget* image = static_cast<Widget*>(node->getChildByName("background"+std::to_string(i)));
+        Widget* image = static_cast<Widget*>(node->getChildByName(CREATE_ROOM_SCENE_BACKGROUND_PREFIX+std::to_string(i)));
         image->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::BackgroundSelectedChanged, this));
     }
     
     for(int i = 1 ; i <= NUM_BESTOF ; i ++)
     {
-        CheckBox* checkbox = static_cast<CheckBox*>(node->getChildByName("checkbox"+std::to_string(i)));
+        CheckBox* checkbox = static_cast<CheckBox*>(node->getChildByName(CREATE_ROOM_SCENE_CHECKBOX_PREFIX+std::to_string(i)));
         
         checkbox->addEventListener(CC_CALLBACK_2(CreateRoomScene::CheckboxSelectedChanged, this));
     }
@@ -124,33 +123,23 @@ void CreateRoomScene::GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType type)
 
 
 
-void CreateRoomScene::CreateRoom(Ref*, ui::Widget::TouchEventType type)
+void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
 {
+    
     if(type == Widget::TouchEventType::ENDED){
-        
-        CCLOG("%p %p", backgroundSelected, bestOfSelected);
         
         if(backgroundSelected != NULL && bestOfSelected != NULL)
         {
             std::string background = static_cast<Node*>(backgroundSelected)->getName();
-            std::string bestof = static_cast<Node*>(bestOfSelected)->getName();
+            std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
             
+            std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
             
+            Multiplayer::getInstance()->createRoom(properties);
+            auto scene = ChooseRoomScene::createScene();
+            
+            Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
         }
         
-//        auto node = this->getChildByName(CREATEROOM_SCENE);
-//    
-//        TextField* textRoomName = static_cast<TextField*>(node->getChildByName("spriteRoomName")->getChildByName("textRoomName"));
-//    
-//        std::string name = textRoomName->getString().c_str();
-//    
-//        if(name.compare("")){
-//    
-//            Multiplayer::getInstance()->createRoom(name);
-//        
-//            auto scene = ChooseRoomScene::createScene();
-//    
-//            Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-//        }
     }
 }

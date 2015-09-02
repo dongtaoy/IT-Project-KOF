@@ -14,7 +14,7 @@
 #include "Definitions.h"
 #include "cocos2d.h"
 #include "CocosGUI.h"
-#include "cocostudio/CocoStudio.h"
+#include "cocostudio/CCObjectExtensionData.h"
 #include "Multiplayer.h"
 
 class CreateRoomScene : public cocos2d::Layer
@@ -37,6 +37,7 @@ private:
     void ShowSelectedBorder(Ref*);
     void CreateRoom(Ref*, ui::Widget::TouchEventType);
     void BackgroundSelectedChanged(Ref*, ui::Widget::TouchEventType);
+    
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

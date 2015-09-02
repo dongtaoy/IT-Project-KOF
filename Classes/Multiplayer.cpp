@@ -22,6 +22,7 @@ Multiplayer::Multiplayer(std::string username)
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setConnectionRequestListener(this);
     client->setZoneRequestListener(this);
+    client->setRoomRequestListener(this);
     CCLOG("Connecting to APPWARP with %s %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY, username.c_str());
     client->connect(username);
 }
@@ -47,24 +48,23 @@ void Multiplayer::initialize(std::string username)
 
 
 
-void Multiplayer::fetchRooms(AppWarp::RoomRequestListener* listener)
-{
-    if(!this->connected){
-        cocos2d::MessageBox("Reconnecting.....", "Connection");
-        recoverConnection();
-        return;
-    }
-    AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(listener);
-    client->getAllRooms();
-}
+//void Multiplayer::fetchRooms(Scene* listener)
+//{
+//    if(!this->connected){
+//        cocos2d::MessageBox("Reconnecting.....", "Connection");
+//        recoverConnection();
+//        return;
+//    }
+//    AppWarp::Client* client = AppWarp::Client::getInstance();
+////    client->setRoomRequestListener(listener);
+//    client->getAllRooms();
+//}
 
-void Multiplayer::createRoom(std::string name)
+void Multiplayer::createRoom(std::map<std::string, std::string> properties)
 {
-    std::cout << "creat: " << name << std::endl;
     
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->createRoom(name, username, MAX_USERS);
+    client->createRoom(ROOM_NAME, username, MAX_USERS, properties);
 }
 
 
@@ -130,6 +130,5 @@ void Multiplayer::onCreateRoomDone(AppWarp::room event)
 //    std::cout << result.rm.name << std::endl;
 //    //    CCLOG("%s", result.rm.name);
 //}
-
 
 

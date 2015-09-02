@@ -39,16 +39,19 @@ bool ChooseRoomScene::init()
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto node = CSLoader::createNode("ChooseRoom.csb");
+    auto node = CSLoader::createNode(CHOOSE_ROOM_SCENE_FILE);
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BACKGROUND_PLIST);
+    
     // back button
-    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName(BACK_BUTTON));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
     
     // create room button
-    ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName("buttonCreate"));
+    ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName(CREATE_BUTTON));
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
     
-    ui::ListView* listRoom = static_cast<ui::ListView*>(node->getChildByName("listRoom"));
+    ui::ListView* listRoom = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     Vector<Widget *> items = listRoom->getItems();
     assert(items.front());
     listRoom->setItemModel(items.front());
@@ -57,7 +60,7 @@ bool ChooseRoomScene::init()
     listRoom->addEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
 
     
-    Multiplayer::getInstance()->fetchRooms(this);
+//    Multiplayer::getInstance()->fetchRooms(this);
     
     
     this->addChild(node);
@@ -88,21 +91,47 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, ui::ListView::EventType type)
     }
 }
 
-// RoomRequestListner
-void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
+
+void ChooseRoomScene::AddRoom(AppWarp::liveroom room)
 {
-    
-    auto node = this->getChildByName("ChooseRoomScene");
-    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName("listRoom"));
+    auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     list->pushBackDefaultItem();
+    auto item = list->getItems().back();
     // add room id
-    static_cast<ui::Text*>(list->getItems().back()->getChildByName("text"))->setText(room.rm.roomId);
-//     add 0/2
-    static_cast<ui::Text*>(list->getItems().back()->getChildByName("status"))->setText(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
-    std::cout << room.rm.name << std::endl;
-    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->setString(room.rm.roomId);
+    // BEST OF
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF))->setString(room.properties.find(ROOM_PROPERTY_BESTOF)->second);
+    // status
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
+    // image
+    //    std::cout <<  "Backgrounds/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/icon.png" << std::endl;
+    static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(std::string(BACKGROUND_RESOURCE_DIR)+ "/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/" + std::string(BACKGROUND_ICON), ui::Widget::TextureResType::PLIST);
     
 }
+
+
+//// RoomRequestListner
+//void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
+//{
+//    
+//    auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+//    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+//    list->pushBackDefaultItem();
+//    auto item = list->getItems().back();
+//    // add room id
+//    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->setString(room.rm.roomId);
+//    // BEST OF
+//    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF))->setString(room.properties.find(ROOM_PROPERTY_BESTOF)->second);
+//    // status
+//    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
+//    // image
+////    std::cout <<  "Backgrounds/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/icon.png" << std::endl;
+//    static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(std::string(BACKGROUND_RESOURCE_DIR)+ "/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/" + std::string(BACKGROUND_ICON), ui::Widget::TextureResType::PLIST);
+//    
+////    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
+//    
+//}
 
 
 
