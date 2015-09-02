@@ -135,11 +135,21 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
             
             std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
             
-            Multiplayer::getInstance()->createRoom(properties);
-            auto scene = ChooseRoomScene::createScene();
-            
-            Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+            Multiplayer::getInstance()->createRoom(this, properties);
         }
         
     }
+}
+
+void CreateRoomScene::onCreateRoomDone(AppWarp::room event)
+{
+    if(event.result == AppWarp::ResultCode::success){
+        CCLOG("CREATED %s", event.roomId.c_str());
+        Multiplayer::getInstance()->setRoomID(event.roomId);
+        auto scene = ChooseCharactorScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    }else{
+        MessageBox("CONNECTION ERROR", "ERROR");
+    }
+    Multiplayer::getInstance()->resetZoneRequestListener();
 }

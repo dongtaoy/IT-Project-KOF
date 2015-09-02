@@ -49,6 +49,10 @@ bool ChooseCharactorScene::init()
     buttonBack->addTouchEventListener(CC_CALLBACK_1(ChooseCharactorScene::GotoChooseRoomScene, this));
     //    node->setPosition(origin);
     
+    node->getChildByName<Text*>("roomID")->setString(Multiplayer::getInstance()->getRoomID());
+//    Multiplayer::getInstance()
+    
+    
     for(int i = 1 ; i <= 6 ; i ++)
     {
         ImageView* image = static_cast<ImageView*>(node->getChildByName(CHOOSE_CHARACTOR_SCENE_CHARACTOR_PREFIX+std::to_string(i)));
@@ -58,10 +62,15 @@ bool ChooseCharactorScene::init()
     
     this->addChild(node);
     
+    Multiplayer::getInstance()->joinRoom(this);
+    Multiplayer::getInstance()->subscribeRoom(this, this);
+    
+    
     //this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
     
     return true;
 }
+
 
 void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchEventType type)
 {
@@ -75,6 +84,7 @@ void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchE
     }
 }
 
+
 void ChooseCharactorScene::ShowSelectedCharactor(std::string name, bool left)
 {
     std::string place = left ? CHOOSE_CHARACTOR_SCENE_PLAYER_ICON_HOLDER : CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER;
@@ -85,11 +95,13 @@ void ChooseCharactorScene::ShowSelectedCharactor(std::string name, bool left)
                       CHOOSE_CHARACTOR_SCENE_CHARACTOR_HEIGHT / sprite->getBoundingBox().size.height);
 }
 
+
 void ChooseCharactorScene::ShowSelectedBorder(Ref* pSender)
 {
     static_cast<Node*>(pSender)->getChildByName(BORDER_UNSELECTED)->setVisible(false);
     static_cast<Node*>(pSender)->getChildByName(BORDER_SELECTED)->setVisible(true);
 }
+
 
 void ChooseCharactorScene::RemoveSelectedBorder(Ref* pSender)
 {
@@ -98,13 +110,15 @@ void ChooseCharactorScene::RemoveSelectedBorder(Ref* pSender)
 }
 
 
+
 void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender)
 {
-    auto scene = ChooseRoomScene::createScene();
+    Multiplayer::getInstance()->leaveRoom(this);
     
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    
     
 }
+
 
 void ChooseCharactorScene::CountDownTask(float dt)
 {
@@ -114,7 +128,7 @@ void ChooseCharactorScene::CountDownTask(float dt)
     if(value > 0)
     {
         
-        labelCountDown->setText(std::to_string(value));
+        labelCountDown->setString(std::to_string(value));
     }
     else
     {
@@ -126,3 +140,44 @@ void ChooseCharactorScene::CountDownTask(float dt)
         
     }
 }
+
+
+
+
+// listener
+
+void ChooseCharactorScene::onSubscribeRoomDone(AppWarp::room event)
+{
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        CCLOG("Subscribed %s", event.roomId.c_str());
+    }
+}
+
+void ChooseCharactorScene::onJoinRoomDone(AppWarp::room event)
+{
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        
+        CCLOG("JOINED %s", event.roomId.c_str());
+    }
+//    CCLOG("JOINED %d", event.);
+}
+
+void ChooseCharactorScene::onLeaveRoomDone(AppWarp::room event)
+{
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        CCLOG("LEAVED %s", event.roomId.c_str());
+        event.
+    }
+    
+    auto scene = ChooseRoomScene::createScene();
+    
+    
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+
+
+

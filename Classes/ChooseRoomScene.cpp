@@ -54,13 +54,14 @@ bool ChooseRoomScene::init()
     ui::ListView* listRoom = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     Vector<Widget *> items = listRoom->getItems();
     assert(items.front());
+    static_cast<ImageView*>(items.front())->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
     listRoom->setItemModel(items.front());
     listRoom->removeItem(0);
 //    listRoom->setTouchEnabled(false);
-    listRoom->addEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
+//    listRoom->addEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
 
     
-//    Multiplayer::getInstance()->fetchRooms(this);
+    Multiplayer::getInstance()->fetchRooms(this);
     
     
     this->addChild(node);
@@ -84,16 +85,23 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType t
 }
 
 
-void ChooseRoomScene::OnSelectedItem(Ref* pSender, ui::ListView::EventType type){
-    if (type == ListView::EventType::ON_SELECTED_ITEM_END){
+void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
+    if (type == Widget::TouchEventType::ENDED){
+        std::string roomID = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
+//        std::cout << roomID;
+        Multiplayer::getInstance()->setRoomID(roomID);
         auto scene = ChooseCharactorScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
 
 
-void ChooseRoomScene::AddRoom(AppWarp::liveroom room)
+
+
+// RoomRequestListner
+void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
 {
+    
     auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
     ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     list->pushBackDefaultItem();
@@ -105,33 +113,12 @@ void ChooseRoomScene::AddRoom(AppWarp::liveroom room)
     // status
     static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
     // image
-    //    std::cout <<  "Backgrounds/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/icon.png" << std::endl;
+//    std::cout <<  "Backgrounds/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/icon.png" << std::endl;
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(std::string(BACKGROUND_RESOURCE_DIR)+ "/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/" + std::string(BACKGROUND_ICON), ui::Widget::TextureResType::PLIST);
     
+//    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
+    
 }
-
-
-//// RoomRequestListner
-//void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
-//{
-//    
-//    auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
-//    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
-//    list->pushBackDefaultItem();
-//    auto item = list->getItems().back();
-//    // add room id
-//    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->setString(room.rm.roomId);
-//    // BEST OF
-//    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF))->setString(room.properties.find(ROOM_PROPERTY_BESTOF)->second);
-//    // status
-//    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
-//    // image
-////    std::cout <<  "Backgrounds/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/icon.png" << std::endl;
-//    static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(std::string(BACKGROUND_RESOURCE_DIR)+ "/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/" + std::string(BACKGROUND_ICON), ui::Widget::TextureResType::PLIST);
-//    
-////    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
-//    
-//}
 
 
 

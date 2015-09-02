@@ -16,7 +16,7 @@
 #include "cocostudio/CocoStudio.h"
 
 
-class ChooseCharactorScene : public cocos2d::Layer
+class ChooseCharactorScene : public cocos2d::Layer, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
 {
 public:
     
@@ -43,6 +43,12 @@ private:
     void CountDownTask(float);
     void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
+    
+    //Listener
+    
+    void onSubscribeRoomDone(AppWarp::room);
+    void onJoinRoomDone(AppWarp::room);
+    void onLeaveRoomDone(AppWarp::room);
 };
 
 #endif /* defined(__KOF__ChooseCharactorScene__) */

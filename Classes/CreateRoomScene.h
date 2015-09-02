@@ -17,7 +17,7 @@
 #include "cocostudio/CCObjectExtensionData.h"
 #include "Multiplayer.h"
 
-class CreateRoomScene : public cocos2d::Layer
+class CreateRoomScene : public cocos2d::Layer, public AppWarp::ZoneRequestListener
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -38,6 +38,7 @@ private:
     void CreateRoom(Ref*, ui::Widget::TouchEventType);
     void BackgroundSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
+    void onCreateRoomDone(AppWarp::room event);  
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

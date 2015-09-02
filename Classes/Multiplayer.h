@@ -9,15 +9,15 @@
 #ifndef __KOF__Multiplayer__
 #define __KOF__Multiplayer__
 
-
 #include <stdio.h>
 #include "appwarp.h"
 #include "cocos2d.h"
 #include "Definitions.h"
 #include "ChooseRoomScene.h"
 
+#define MAX_USERS 2
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener//, public AppWarp::RoomRequestListener
 {
     
 public:
@@ -26,18 +26,32 @@ public:
     
     static void initialize(std::string);
     
-//    void fetchRooms(ChooseRoomScene* scene);
+    void fetchRooms(AppWarp::RoomRequestListener*);
     
-    void createRoom(std::map<std::string, std::string>);
+    void createRoom(AppWarp::ZoneRequestListener*, std::map<std::string, std::string>);
+    
+    void joinRoom(AppWarp::RoomRequestListener*);
+    
+    void leaveRoom(AppWarp::RoomRequestListener*);
+    
+    void subscribeRoom(AppWarp::RoomRequestListener*, AppWarp::NotificationListener*);
+    
+
     
     bool isConnected();
     
     void recoverConnection();
     
+    void resetZoneRequestListener();
+    
+    void setRoomID(std::string);
+    std::string getRoomID();
+    
 private:
     
     
     std::string username;
+    std::string roomID;
     
     static Multiplayer* _instance;
     
@@ -49,12 +63,12 @@ private:
     
     
     // ConnectionRequestListener
-    void onConnectDone(int, int);
+    void onConnectDone(int,int);
     
     // ZoneRequestListener
     void onGetAllRoomsDone(AppWarp::liveresult);
     
-    void onCreateRoomDone(AppWarp::room);
+//    void onCreateRoomDone(AppWarp::room);
     
     // RoomRequestListner
 //    void onGetLiveRoomInfoDone(AppWarp::liveroom);
