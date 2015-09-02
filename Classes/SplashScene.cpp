@@ -45,7 +45,7 @@ bool SplashScene::init()
     this->schedule(schedule_selector(SplashScene::updateLoadingBar), 0.025f);
     
     // Initialize Multiplayer
-    Multiplayer::initialize("test");
+    Multiplayer::initialize(randomString(5));
     
     return true;
 }
@@ -60,6 +60,23 @@ void SplashScene::updateLoadingBar( float dt )
         this->scheduleOnce(schedule_selector(SplashScene::GoToMainMenuScene), DISPLAY_TIME_SPLASH_SCENE);
     }
 }
+
+std::string SplashScene::randomString( size_t length )
+{
+    auto randchar = []() -> char
+    {
+        const char charset[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+        const size_t max_index = (sizeof(charset) - 1);
+        return charset[ rand() % max_index ];
+    };
+    std::string str(length,0);
+    std::generate_n( str.begin(), length, randchar );
+    return str;
+}
+
 
 void SplashScene::GoToMainMenuScene( float dt )
 {
