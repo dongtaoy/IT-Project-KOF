@@ -129,6 +129,15 @@ void CreateRoomScene::CreateRoom(Ref*, ui::Widget::TouchEventType type)
     if(type == Widget::TouchEventType::ENDED){
         
         CCLOG("%p %p", backgroundSelected, bestOfSelected);
+        
+        if(backgroundSelected != NULL && bestOfSelected != NULL)
+        {
+            std::string background = static_cast<Node*>(backgroundSelected)->getName();
+            std::string bestof = static_cast<Node*>(bestOfSelected)->getName();
+            
+            
+        }
+        
 //        auto node = this->getChildByName(CREATEROOM_SCENE);
 //    
 //        TextField* textRoomName = static_cast<TextField*>(node->getChildByName("spriteRoomName")->getChildByName("textRoomName"));
