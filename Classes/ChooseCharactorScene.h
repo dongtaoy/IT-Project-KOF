@@ -39,19 +39,25 @@ private:
     void ShowSelectedBorder(Ref*);
     void RemoveSelectedBorder(Ref*);
     void ShowSelectedCharactor(std::string, bool);
-    void GotoChooseRoomScene(Ref*);
+    void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     void CountDownTask(float);
     void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
     
     //Listener
     
-    void onSubscribeRoomDone(AppWarp::room);
-    void onJoinRoomDone(AppWarp::room);
+    void onUnsubscribeRoomDone(AppWarp::room);
     void onLeaveRoomDone(AppWarp::room);
+    
+    
     void onUserJoinedRoom(AppWarp::room, std::string);
     void onUserLeftRoom(AppWarp::room, std::string);
     void onChatReceived(AppWarp::chat);
+    
+    
+    
+    
+    std::vector<std::string> split(std::string str, char delimiter);
 };
 
 #endif /* defined(__KOF__ChooseCharactorScene__) */

@@ -64,6 +64,7 @@ void Multiplayer::createRoom(AppWarp::ZoneRequestListener* listener, std::map<st
     
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setZoneRequestListener(listener);
+    CCLOG("Sending Request to create room");
     client->createRoom(ROOM_NAME, username, MAX_USERS, properties);
 }
 
@@ -71,6 +72,7 @@ void Multiplayer::joinRoom(AppWarp::RoomRequestListener* listener)
 {
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRoomRequestListener(listener);
+    CCLOG("Sending Request to join room %s", roomID.c_str());
     client->joinRoom(roomID);
 }
 
@@ -78,17 +80,26 @@ void Multiplayer::leaveRoom(AppWarp::RoomRequestListener* listener)
 {
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRoomRequestListener(listener);
+    CCLOG("Sending Request to leave room %s", roomID.c_str());
     client->leaveRoom(roomID);
     roomID = "";
 }
 
 
-void Multiplayer::subscribeRoom(AppWarp::RoomRequestListener* roomRequestListener, AppWarp::NotificationListener* notificationListener)
+void Multiplayer::subscribeRoom(AppWarp::RoomRequestListener* listener)
 {
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(roomRequestListener);
-    client->setNotificationListener(notificationListener);
+    client->setRoomRequestListener(listener);
+    CCLOG("Sending Request to subscribe room %s", roomID.c_str());
     client->subscribeRoom(roomID);
+}
+
+void Multiplayer::unsubsribeRoom(AppWarp::RoomRequestListener* listener)
+{
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->setRoomRequestListener(listener);
+    CCLOG("Sending Request to unsubsribe room %s", roomID.c_str());
+    client->unsubscribeRoom(roomID);
 }
 
 void Multiplayer::sendChat(std::string message)
@@ -127,6 +138,11 @@ void Multiplayer::resetZoneRequestListener()
     client->setZoneRequestListener(this);
 }
 
+
+void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listener){
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->setNotificationListener(listener);
+}
 /*
  Lisenter
  */
@@ -159,6 +175,11 @@ void Multiplayer::setRoomID(std::string roomID)
 std::string Multiplayer::getRoomID()
 {
     return this->roomID;
+}
+
+std::string Multiplayer::getUsername()
+{
+    return this->username;
 }
 
 void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)

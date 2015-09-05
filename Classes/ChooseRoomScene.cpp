@@ -88,14 +88,34 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType t
 void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
     if (type == Widget::TouchEventType::ENDED){
         std::string roomID = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
-//        std::cout << roomID;
         Multiplayer::getInstance()->setRoomID(roomID);
-        auto scene = ChooseCharactorScene::createScene();
-        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+        Multiplayer::getInstance()->joinRoom(this);
+        
+
     }
 }
 
 
+void ChooseRoomScene::onJoinRoomDone(AppWarp::room event){
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        Multiplayer::getInstance()->subscribeRoom(this);
+    }else{
+        MessageBox("Fail to join room!", "CONNECTION ERROR");
+    }
+    
+}
+
+void ChooseRoomScene::onSubscribeRoomDone(AppWarp::room event){
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        auto scene = ChooseCharactorScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    }
+    else{
+        MessageBox("Fail to subscribe room!", "CONNECTION ERROR");
+    }
+}
 
 
 // RoomRequestListner

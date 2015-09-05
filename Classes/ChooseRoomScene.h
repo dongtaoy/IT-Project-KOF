@@ -51,6 +51,9 @@ private:
 //    
     // RoomRequestListner
     void onGetLiveRoomInfoDone(AppWarp::liveroom);
+    
+    void onJoinRoomDone(AppWarp::room);
+    void onSubscribeRoomDone(AppWarp::room);
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */

@@ -36,7 +36,9 @@ public:
     
     void leaveRoom(AppWarp::RoomRequestListener*);
     
-    void subscribeRoom(AppWarp::RoomRequestListener*, AppWarp::NotificationListener*);
+    void subscribeRoom(AppWarp::RoomRequestListener*);
+    
+    void unsubsribeRoom(AppWarp::RoomRequestListener*);
     
     void getLiveRoomInfo(AppWarp::RoomRequestListener*);
     
@@ -49,8 +51,13 @@ public:
     
     void resetZoneRequestListener();
     
+    void setNotificationListener(AppWarp::NotificationListener*);
+    
     void setRoomID(std::string);
+    
     std::string getRoomID();
+    
+    std::string getUsername();
     
 private:
     

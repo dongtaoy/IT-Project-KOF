@@ -146,10 +146,34 @@ void CreateRoomScene::onCreateRoomDone(AppWarp::room event)
     if(event.result == AppWarp::ResultCode::success){
         CCLOG("CREATED %s", event.roomId.c_str());
         Multiplayer::getInstance()->setRoomID(event.roomId);
-        auto scene = ChooseCharactorScene::createScene();
-        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+        Multiplayer::getInstance()->joinRoom(this);
     }else{
         MessageBox("CONNECTION ERROR", "ERROR");
     }
-    Multiplayer::getInstance()->resetZoneRequestListener();
 }
+
+void CreateRoomScene::onJoinRoomDone(AppWarp::room event){
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        Multiplayer::getInstance()->subscribeRoom(this);
+    }else{
+        MessageBox("Fail to join room!", "CONNECTION ERROR");
+    }
+    
+}
+
+void CreateRoomScene::onSubscribeRoomDone(AppWarp::room event){
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        auto scene = ChooseCharactorScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    }
+    else{
+        MessageBox("Fail to subscribe room!", "CONNECTION ERROR");
+    }
+}
+
+
+
+
+
