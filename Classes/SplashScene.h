@@ -33,7 +33,6 @@ private:
     void GoToMainMenuScene( float dt );
     
     void updateLoadingBar( float dt );
-    std::string randomString(size_t);
 
     
 };

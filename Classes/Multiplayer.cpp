@@ -13,7 +13,6 @@ Multiplayer* Multiplayer::_instance = NULL;
 
 Multiplayer::Multiplayer(std::string username)
 {
-    this->connected = false;
     
     this->username = username;
     
@@ -21,11 +20,7 @@ Multiplayer::Multiplayer(std::string username)
     AppWarp::Client::initialize(APPWARP_APP_KEY,APPWARP_SECRET_KEY);
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRecoveryAllowance(60);
-    client->setConnectionRequestListener(this);
-    
-//    client->setRoomRequestListener(this);
-    CCLOG("Connecting to APPWARP with %s %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY, username.c_str());
-    client->connect(username);
+    CCLOG("%d", client->getState());
 }
 
 
@@ -47,15 +42,17 @@ void Multiplayer::initialize(std::string username)
         
 }
 
+void Multiplayer::connect(AppWarp::ConnectionRequestListener* listener)
+{
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->setConnectionRequestListener(listener);
+    CCLOG("Connecting to APPWARP with %s %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY, username.c_str());
+    client->connect(username);
+}
 
 void Multiplayer::fetchRooms(AppWarp::RoomRequestListener* listener)
 {
     
-    if(!this->connected){
-        cocos2d::MessageBox("Reconnecting.....", "Connection");
-        recoverConnection();
-        return;
-    }
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setZoneRequestListener(this);
     client->setRoomRequestListener(listener);
@@ -94,10 +91,27 @@ void Multiplayer::subscribeRoom(AppWarp::RoomRequestListener* roomRequestListene
     client->subscribeRoom(roomID);
 }
 
+void Multiplayer::sendChat(std::string message)
+{
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->sendChat(message);
+}
+
+/**
+ * The state of the Client. Values are -
+ * ConnectionState::disconnected = 2,
+ * ConnectionState::connecting = 1,
+ * ConnectionState::connected = 0,
+ */
 
 bool Multiplayer::isConnected()
 {
-    return this->connected;
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    int state = client->getState();
+    CCLOG("%d", state);
+    if(state == 0)
+        return true;
+    return false;
 }
 
 void Multiplayer::recoverConnection()
@@ -120,19 +134,17 @@ void Multiplayer::resetZoneRequestListener()
 // ConnectionRequestListener
 void Multiplayer::onConnectDone(int result, int)
 {
+    CCLOG("hereh");
     switch (result) {
         case AppWarp::ResultCode::success:
-            this->connected=true;
             CCLOG("onConnectDone .. SUCCESS..session=%d\n", AppWarp::AppWarpSessionID);
             break;
             
         case AppWarp::ResultCode::success_recovered:
-            this->connected=true;
             CCLOG("onConnectDone .. success_recovered..session=%d\n", AppWarp::AppWarpSessionID);
             break;
             
         default:
-            this->connected=false;
             CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", result, AppWarp::AppWarpSessionID);
             break;
     }
@@ -159,6 +171,14 @@ void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)
         warpClientRef->getLiveRoomInfo(result.list[i]);
     }
     
+}
+
+
+void Multiplayer::getLiveRoomInfo(AppWarp::RoomRequestListener* listener)
+{
+    AppWarp::Client *client = AppWarp::Client::getInstance();
+    client->setRoomRequestListener(listener);
+    client->getLiveRoomInfo(roomID);
 }
 
 //void Multiplayer::onCreateRoomDone(AppWarp::room event)

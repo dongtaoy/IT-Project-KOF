@@ -60,6 +60,11 @@
 		87468D7B1B80A89600299169 /* HelloWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D791B80A89600299169 /* HelloWorld.cpp */; };
 		8764F07A1B8CAB7000937F18 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */; };
 		877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8777462F1B8D89FD00D63086 /* Multiplayer.cpp */; };
+		8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B60C1B99E40C00277AC7 /* GameKitHelper.mm */; };
+		8793B6141B99E40C00277AC7 /* GKHDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8793B60E1B99E40C00277AC7 /* GKHDelegate.cpp */; };
+		8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */; };
+		8793B6161B99E40C00277AC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6121B99E40C00277AC7 /* README.md */; };
+		8793B61C1B99E67800277AC7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793B61B1B99E67800277AC7 /* GameKit.framework */; };
 		879FB8481B7AED3900E4F0BF /* appwarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8311B7AED3900E4F0BF /* appwarp.cpp */; };
 		879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */; };
 		879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8341B7AED3900E4F0BF /* base64.cpp */; };
@@ -176,6 +181,15 @@
 		8764F0791B8CAB7000937F18 /* CreateRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRoomScene.h; sourceTree = "<group>"; };
 		8777462F1B8D89FD00D63086 /* Multiplayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Multiplayer.cpp; sourceTree = "<group>"; };
 		877746301B8D89FD00D63086 /* Multiplayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Multiplayer.h; sourceTree = "<group>"; };
+		8793B60B1B99E40C00277AC7 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
+		8793B60C1B99E40C00277AC7 /* GameKitHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameKitHelper.mm; sourceTree = "<group>"; };
+		8793B60D1B99E40C00277AC7 /* GKCppAlternatives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCppAlternatives.h; sourceTree = "<group>"; };
+		8793B60E1B99E40C00277AC7 /* GKHDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GKHDelegate.cpp; sourceTree = "<group>"; };
+		8793B60F1B99E40C00277AC7 /* GKHDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKHDelegate.h; sourceTree = "<group>"; };
+		8793B6101B99E40C00277AC7 /* GKHWrapperCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKHWrapperCpp.h; sourceTree = "<group>"; };
+		8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKHWrapperCpp.mm; sourceTree = "<group>"; };
+		8793B6121B99E40C00277AC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8793B61B1B99E67800277AC7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		879FB8311B7AED3900E4F0BF /* appwarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp.cpp; sourceTree = "<group>"; };
 		879FB8321B7AED3900E4F0BF /* appwarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appwarp.h; sourceTree = "<group>"; };
 		879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp_extended.cpp; sourceTree = "<group>"; };
@@ -218,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8793B61C1B99E67800277AC7 /* GameKit.framework in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
@@ -290,6 +305,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				8793B60A1B99E40C00277AC7 /* GameKitHelperCpp */,
 				879FB8301B7AED3900E4F0BF /* AppWarpX_3.0 */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
@@ -305,6 +321,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8793B61B1B99E67800277AC7 /* GameKit.framework */,
 				8262943D1AAF051F00CB7CF7 /* Security.framework */,
 				52B47A461A53D09B004E4C60 /* Security.framework */,
 				D6B0611A1803AB670077942B /* CoreMotion.framework */,
@@ -413,6 +430,21 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
+		8793B60A1B99E40C00277AC7 /* GameKitHelperCpp */ = {
+			isa = PBXGroup;
+			children = (
+				8793B60B1B99E40C00277AC7 /* GameKitHelper.h */,
+				8793B60C1B99E40C00277AC7 /* GameKitHelper.mm */,
+				8793B60D1B99E40C00277AC7 /* GKCppAlternatives.h */,
+				8793B60E1B99E40C00277AC7 /* GKHDelegate.cpp */,
+				8793B60F1B99E40C00277AC7 /* GKHDelegate.h */,
+				8793B6101B99E40C00277AC7 /* GKHWrapperCpp.h */,
+				8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */,
+				8793B6121B99E40C00277AC7 /* README.md */,
+			);
+			path = GameKitHelperCpp;
+			sourceTree = "<group>";
+		};
 		879FB8301B7AED3900E4F0BF /* AppWarpX_3.0 */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,7 +524,7 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = MDDB52YB8L;
+						DevelopmentTeam = GY58348739;
 					};
 				};
 			};
@@ -584,6 +616,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */,
 				879FB8511B7AED3900E4F0BF /* urlencode.cpp in Sources */,
 				879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
@@ -593,13 +626,16 @@
 				8740B0251B7F606200395343 /* SettingScene.cpp in Sources */,
 				8740B0221B7F605300395343 /* HelpScene.cpp in Sources */,
 				877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */,
+				8793B6141B99E40C00277AC7 /* GKHDelegate.cpp in Sources */,
 				879FB84F1B7AED3900E4F0BF /* socket.cpp in Sources */,
 				879FB84B1B7AED3900E4F0BF /* cJSON.c in Sources */,
+				8793B6161B99E40C00277AC7 /* README.md in Sources */,
 				879FB8501B7AED3900E4F0BF /* udpsocket.cpp in Sources */,
 				871E225D1B947170005CA5A9 /* ChooseCharactorScene.cpp in Sources */,
 				879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */,
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,
 				87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */,
+				8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */,
 				879FB84E1B7AED3900E4F0BF /* SHA1.cpp in Sources */,
 				879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */,
 				87468D7B1B80A89600299169 /* HelloWorld.cpp in Sources */,
@@ -642,7 +678,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/avalon/platform/ios/ads/provider",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -660,14 +701,15 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/avalon/platform/ios/ads/provider/samsungadhub";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
 			};
@@ -678,7 +720,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/avalon/platform/ios/ads/provider",
+				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -694,14 +741,15 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/avalon/platform/ios/ads/provider/samsungadhub";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
 			};
@@ -795,11 +843,13 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 					"$(SRCROOT)/../cocos2d/external/curl/include/ios",
+					"$(SRCROOT)/../avalon",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -825,11 +875,13 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 					"$(SRCROOT)/../cocos2d/external/curl/include/ios",
+					"$(SRCROOT)/../avalon",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

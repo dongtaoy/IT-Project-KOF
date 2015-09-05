@@ -44,6 +44,7 @@
 #define CHOOSE_CHARACTOR_SCENE_PLAYER_ICON_HOLDER   "player"
 #define CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER "oponent"
 #define CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL     "labelCountDown"
+#define CHOOSE_CHARACTOR_SCENE_ROOMID               "roomID"
 
 // Create Room Scene
 #define CREATE_ROOM_SCENE                       "CreateRoomScene"

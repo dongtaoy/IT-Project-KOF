@@ -26,6 +26,8 @@ public:
     
     static void initialize(std::string);
     
+    void connect(AppWarp::ConnectionRequestListener*);
+    
     void fetchRooms(AppWarp::RoomRequestListener*);
     
     void createRoom(AppWarp::ZoneRequestListener*, std::map<std::string, std::string>);
@@ -36,6 +38,9 @@ public:
     
     void subscribeRoom(AppWarp::RoomRequestListener*, AppWarp::NotificationListener*);
     
+    void getLiveRoomInfo(AppWarp::RoomRequestListener*);
+    
+    void sendChat(std::string);
 
     
     bool isConnected();
@@ -55,7 +60,6 @@ private:
     
     static Multiplayer* _instance;
     
-    bool connected;
     
     // Private constructor
     Multiplayer(std::string username);

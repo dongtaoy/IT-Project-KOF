@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
-
+#include "GKHWrapperCpp.h"
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1334, 750);
@@ -58,6 +58,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     searchPaths.insert(searchPaths.begin(), "res");
     fileUtils->setSearchPaths(searchPaths);
     
+    GKHWrapperCpp gkh;
+    gkh.authenticateLocalPlayer();
+    
     
     
     // create a scene. it's an autorelease object
@@ -80,7 +83,10 @@ void AppDelegate::applicationDidEnterBackground() {
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
-
+    GKHWrapperCpp gkh;
+    gkh.authenticateLocalPlayer();
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
+
+

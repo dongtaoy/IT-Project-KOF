@@ -16,11 +16,11 @@
 #include "ChooseRoomScene.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
-#include "LeaderBoardScene.h"
-#include "HelloWorld.h"
+#include "GKHWrapperCpp.h"
 
 
-class MainMenuScene : public cocos2d::Layer
+
+class MainMenuScene : public cocos2d::Layer, public AppWarp::ConnectionRequestListener
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -47,6 +47,11 @@ private:
     
     //TODO: comments
     void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
+    
+    std::string randomString(size_t length);
+    
+    // ConnectionRequestListener
+    void onConnectDone(int,int);
 };
 
 #endif /* defined(__KOF__MainMenuScene__) */

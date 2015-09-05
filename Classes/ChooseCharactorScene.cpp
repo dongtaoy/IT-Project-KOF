@@ -49,7 +49,7 @@ bool ChooseCharactorScene::init()
     buttonBack->addTouchEventListener(CC_CALLBACK_1(ChooseCharactorScene::GotoChooseRoomScene, this));
     //    node->setPosition(origin);
     
-    node->getChildByName<Text*>("roomID")->setString(Multiplayer::getInstance()->getRoomID());
+    node->getChildByName<Text*>(CHOOSE_CHARACTOR_SCENE_ROOMID)->setString(Multiplayer::getInstance()->getRoomID());
 //    Multiplayer::getInstance()
     
     
@@ -63,7 +63,6 @@ bool ChooseCharactorScene::init()
     this->addChild(node);
     
     Multiplayer::getInstance()->joinRoom(this);
-    Multiplayer::getInstance()->subscribeRoom(this, this);
     
     
     //this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
@@ -93,6 +92,8 @@ void ChooseCharactorScene::ShowSelectedCharactor(std::string name, bool left)
     sprite->setScale(1);
     sprite->setScale(CHOOSE_CHARACTOR_SCENE_CHARACTOR_WIDTH / sprite->getBoundingBox().size.width,
                       CHOOSE_CHARACTOR_SCENE_CHARACTOR_HEIGHT / sprite->getBoundingBox().size.height);
+    
+    Multiplayer::getInstance()->sendChat("charactorselected,"+name);
 }
 
 
@@ -114,9 +115,6 @@ void ChooseCharactorScene::RemoveSelectedBorder(Ref* pSender)
 void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender)
 {
     Multiplayer::getInstance()->leaveRoom(this);
-    
-    
-    
 }
 
 
@@ -145,38 +143,52 @@ void ChooseCharactorScene::CountDownTask(float dt)
 
 
 // listener
+void ChooseCharactorScene::onJoinRoomDone(AppWarp::room event)
+{
+    if(event.result == AppWarp::ResultCode::success)
+    {
+        Multiplayer::getInstance()->subscribeRoom(this, this);
+        CCLOG("joined room %s", event.roomId.c_str());
+    }
+    //    CCLOG("JOINED %d", event.);
+}
+
 
 void ChooseCharactorScene::onSubscribeRoomDone(AppWarp::room event)
 {
     if(event.result == AppWarp::ResultCode::success)
     {
-        CCLOG("Subscribed %s", event.roomId.c_str());
+        CCLOG("Subscribed room %s", event.roomId.c_str());
+        Multiplayer::getInstance()->sendChat("IM AM IN");
     }
 }
 
-void ChooseCharactorScene::onJoinRoomDone(AppWarp::room event)
-{
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        
-        CCLOG("JOINED %s", event.roomId.c_str());
-    }
-//    CCLOG("JOINED %d", event.);
-}
+
 
 void ChooseCharactorScene::onLeaveRoomDone(AppWarp::room event)
 {
     if(event.result == AppWarp::ResultCode::success)
     {
-        CCLOG("LEAVED %s", event.roomId.c_str());
+        CCLOG("leaved room %s", event.roomId.c_str());
     }
     
     auto scene = ChooseRoomScene::createScene();
-    
-    
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 
+void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string)
+{
+    
+}
 
+void ChooseCharactorScene::onUserLeftRoom(AppWarp::room, std::string)
+{
+    
+}
+
+void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
+{
+    std::cout << "message reveived:" << event.chat << std::endl;
+}
 

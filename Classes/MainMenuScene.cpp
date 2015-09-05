@@ -9,6 +9,7 @@
 #include "MainMenuScene.h"
 
 USING_NS_CC;
+using namespace ui;
 
 Scene* MainMenuScene::createScene()
 {
@@ -52,7 +53,7 @@ bool MainMenuScene::init()
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
     
-    
+    Multiplayer::initialize(randomString(5));
     
     this->addChild(node);
     
@@ -69,17 +70,26 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-void MainMenuScene::GoToChooseRoomScene(Ref* pSender, ui::Widget::TouchEventType type)
+void MainMenuScene::GoToChooseRoomScene(Ref* pSender, Widget::TouchEventType type)
 {
-    
-    
-    auto scene = ChooseRoomScene::createScene();
-    
-    Director::getInstance()->replaceScene( TransitionFade::create( TRANSITION_TIME, scene) );
+    if(type == Widget::TouchEventType::ENDED){
+        GKHWrapperCpp gkh;
+        if(gkh.isLocalPlayerAuthenticated()){
+            // Initialize Multiplayer
+            if(Multiplayer::getInstance()->isConnected()){
+                auto scene = ChooseRoomScene::createScene();
+                Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+            }else{
+                Multiplayer::getInstance()->connect(this);
+            }
+        }else{
+            MessageBox("Player is not signed in", "Game Center Unavailable");
+        }
+    }
 }
 
 
-void MainMenuScene::GoToHelpScene(Ref* pSender, ui::Widget::TouchEventType type)
+void MainMenuScene::GoToHelpScene(Ref* pSender, Widget::TouchEventType type)
 {
     auto scene = HelpScene::createScene();
     
@@ -96,10 +106,37 @@ void MainMenuScene::GoToSettingScene(Ref* pSender, ui::Widget::TouchEventType ty
 
 void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
-    auto scene = LeaderBoardScene::createScene();
-    
-    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+    GKHWrapperCpp gkh;
+    gkh.showLeaderBoard();
 
+}
+
+void MainMenuScene::onConnectDone(int result, int)
+{
+    if(result == AppWarp::ResultCode::success){
+        auto scene = ChooseRoomScene::createScene();
+        Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+    }else{
+        MessageBox("Connection Error", "Connection Error");
+    }
+   
+}
+
+std::string MainMenuScene::randomString( size_t length )
+{
+    srand((unsigned)time(0));
+    auto randchar = []() -> char
+    {
+        const char charset[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+        const size_t max_index = (sizeof(charset) - 1);
+        return charset[ rand() % max_index ];
+    };
+    std::string str(length,0);
+    std::generate_n( str.begin(), length, randchar );
+    return str;
 }
 
 

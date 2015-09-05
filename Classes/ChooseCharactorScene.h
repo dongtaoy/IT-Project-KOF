@@ -49,6 +49,9 @@ private:
     void onSubscribeRoomDone(AppWarp::room);
     void onJoinRoomDone(AppWarp::room);
     void onLeaveRoomDone(AppWarp::room);
+    void onUserJoinedRoom(AppWarp::room, std::string);
+    void onUserLeftRoom(AppWarp::room, std::string);
+    void onChatReceived(AppWarp::chat);
 };
 
 #endif /* defined(__KOF__ChooseCharactorScene__) */
