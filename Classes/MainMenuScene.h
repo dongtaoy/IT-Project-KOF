@@ -16,6 +16,7 @@
 #include "ChooseRoomScene.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
+#include "LoadingLayer.h"
 #include "GKHWrapperCpp.h"
 #include "GameHelper.h"
 
