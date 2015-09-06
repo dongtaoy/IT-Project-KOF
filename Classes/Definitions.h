@@ -71,4 +71,14 @@
 // ROOM PROPERTIES
 #define ROOM_PROPERTY_BACKGROUND "background"
 #define ROOM_PROPERTY_BESTOF      "bestof"
+
+// Multiplayer protocol
+#define MP_CHOOSE_CHARACTOR_SCENE           1
+
+#define MP_OP_CHARACTOR_CHANGED             1
+#define MP_OP_READY                         2
+#define MP_OP_START_COUNTDOWN               3
+
+#define MP_GAME_PLAY_SCNE                   2
+
 #endif

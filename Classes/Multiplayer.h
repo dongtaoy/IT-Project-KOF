@@ -14,6 +14,7 @@
 #include "cocos2d.h"
 #include "Definitions.h"
 #include "ChooseRoomScene.h"
+#include "GameHelper.h"
 
 #define MAX_USERS 2
 
@@ -25,6 +26,9 @@ public:
     static Multiplayer* getInstance();
     
     static void initialize(std::string);
+    
+    static std::string buildMessage(int, int, std::string);
+    static std::vector<std::string> exractMessage(std::string);
     
     void connect(AppWarp::ConnectionRequestListener*);
     
@@ -59,6 +63,8 @@ public:
     
     std::string getUsername();
     
+    
+    
 private:
     
     
@@ -83,6 +89,7 @@ private:
     
     // RoomRequestListner
 //    void onGetLiveRoomInfoDone(AppWarp::liveroom);
+    
     
     
 };

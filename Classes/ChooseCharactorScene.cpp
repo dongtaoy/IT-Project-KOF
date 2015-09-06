@@ -65,7 +65,7 @@ bool ChooseCharactorScene::init()
     Multiplayer::getInstance()->setNotificationListener(this);
     
     
-    //this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0f);
+    
     
     return true;
 }
@@ -82,7 +82,8 @@ void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchE
         ShowSelectedBorder(playerSelected);
         std::string name = static_cast<Node*>(pSender)->getName();
         ShowSelectedCharactor(name, true);
-        Multiplayer::getInstance()->sendChat("CCS;OP_CHANGECHARACTOR;"+name);
+        std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, MP_OP_CHARACTOR_CHANGED, name);
+        Multiplayer::getInstance()->sendChat(message);
     }
 }
 
@@ -140,12 +141,25 @@ void ChooseCharactorScene::CountDownTask(float dt)
     else
     {
         this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
-        
-        auto scene = ChooseRoomScene::createScene();
-        
-        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-        
+        Multiplayer::getInstance()->unsubsribeRoom(this);
     }
+}
+
+void ChooseCharactorScene::ResetCountDown()
+{
+    EndCountDown();
+    ui::Text* labelCountDown = static_cast<ui::Text*>(this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
+    labelCountDown->setString("60");
+}
+
+void ChooseCharactorScene::StartCountDown()
+{
+    this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0);
+}
+
+void ChooseCharactorScene::EndCountDown()
+{
+    this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
 }
 
 
@@ -181,8 +195,16 @@ void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string name)
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName("waiting")->setVisible(false);
         if(playerSelected)
         {
-            Multiplayer::getInstance()->sendChat("CCS;OP_CHANGECHARACTOR;" + static_cast<Node*>(playerSelected)->getName());
+            std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, MP_OP_CHARACTOR_CHANGED, static_cast<Node*>(playerSelected)->getName());
+            this->scheduleOnce(
+                               [&](float){Multiplayer::getInstance()->sendChat(message);},
+                               1.5, "initial chat");
+            
         }
+        std::string command = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, MP_OP_START_COUNTDOWN, "");
+        this->scheduleOnce(
+                           [&](float){Multiplayer::getInstance()->sendChat(command);StartCountDown();}, 1.0, "start countdown");
+        
     }
 }
 
@@ -190,6 +212,7 @@ void ChooseCharactorScene::onUserLeftRoom(AppWarp::room, std::string name)
 {
     CCLOG("someone left");
     if(Multiplayer::getInstance()->getUsername().compare(name)){
+        ResetCountDown();
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName("waiting")->setVisible(true);
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
     }
@@ -197,28 +220,35 @@ void ChooseCharactorScene::onUserLeftRoom(AppWarp::room, std::string name)
 
 void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
 {
+    CCLOG("message: %s", event.chat.c_str());
     if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
         auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
         node->getChildByName("waiting")->setVisible(false);
-        std::vector<std::string> chat = split(event.chat, ';');
-        std::cout << chat.at(0) <<std::endl;
-        std::cout<< chat.at(1) <<std::endl;
-        std::cout << "message reveived:" << event.chat << std::endl;
-        ShowSelectedCharactor(chat.at(2), false);
+        
+        std::vector<std::string> command = Multiplayer::exractMessage(event.chat);
+        
+        switch (atoi(command.at(1).c_str())) {
+            case MP_OP_CHARACTOR_CHANGED:
+                ShowSelectedCharactor(command.at(2), false);
+                break;
+            case MP_OP_READY:
+                
+                break;
+            case MP_OP_START_COUNTDOWN:
+                StartCountDown();
+                break;
+            default:
+                break;
+        }
+//        std::vector<std::string> chat = GameHelper::split(event.chat, ';');
+//        std::cout << chat.at(0) <<std::endl;
+//        std::cout<< chat.at(1) <<std::endl;
+//        std::cout << "message reveived:" << event.chat << std::endl;
+        
     }
 }
 
 
 
-std::vector<std::string> ChooseCharactorScene::split(std::string str, char delimiter) {
-    std::vector<std::string> internal;
-    std::stringstream ss(str); // Turn the string into a stream.
-    std::string tok;
-    
-    while(getline(ss, tok, delimiter)) {
-        internal.push_back(tok);
-    }
-    
-    return internal;
-}
+
 

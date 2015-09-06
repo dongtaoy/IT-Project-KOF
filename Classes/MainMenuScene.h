@@ -17,6 +17,7 @@
 #include "HelpScene.h"
 #include "SettingScene.h"
 #include "GKHWrapperCpp.h"
+#include "GameHelper.h"
 
 
 
@@ -48,7 +49,6 @@ private:
     //TODO: comments
     void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
-    std::string randomString(size_t length);
     
     // ConnectionRequestListener
     void onConnectDone(int,int);

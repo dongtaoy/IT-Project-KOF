@@ -14,6 +14,7 @@
 #include "Definitions.h"
 #include "ChooseRoomScene.h"
 #include "cocostudio/CocoStudio.h"
+#include "GameHelper.h"
 
 
 class ChooseCharactorScene : public cocos2d::Layer, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
@@ -40,8 +41,16 @@ private:
     void RemoveSelectedBorder(Ref*);
     void ShowSelectedCharactor(std::string, bool);
     void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
+    
     void CountDownTask(float);
+    void ResetCountDown();
+    void EndCountDown();
+    void StartCountDown();
+    
+    
     void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);
+    
+    
     
     
     //Listener
@@ -56,8 +65,6 @@ private:
     
     
     
-    
-    std::vector<std::string> split(std::string str, char delimiter);
 };
 
 #endif /* defined(__KOF__ChooseCharactorScene__) */

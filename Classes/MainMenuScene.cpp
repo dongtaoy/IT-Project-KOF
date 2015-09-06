@@ -53,7 +53,7 @@ bool MainMenuScene::init()
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
     
-    Multiplayer::initialize(randomString(5));
+    Multiplayer::initialize(GameHelper::randomString(5));
     
     this->addChild(node);
     
@@ -122,22 +122,6 @@ void MainMenuScene::onConnectDone(int result, int)
    
 }
 
-std::string MainMenuScene::randomString( size_t length )
-{
-    srand((unsigned)time(0));
-    auto randchar = []() -> char
-    {
-        const char charset[] =
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-        const size_t max_index = (sizeof(charset) - 1);
-        return charset[ rand() % max_index ];
-    };
-    std::string str(length,0);
-    std::generate_n( str.begin(), length, randchar );
-    return str;
-}
 
 
 

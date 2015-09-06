@@ -32,6 +32,16 @@ Multiplayer* Multiplayer::getInstance()
     return _instance;
 }
 
+std::string Multiplayer::buildMessage(int scene, int op, std::string properties)
+{
+    return std::to_string(scene) + ';' + std::to_string(op) + ';' + properties;
+}
+
+std::vector<std::string> Multiplayer::exractMessage(std::string message)
+{
+    return GameHelper::split(message, ';');
+}
+
 
 void Multiplayer::initialize(std::string username)
 {
@@ -119,7 +129,6 @@ bool Multiplayer::isConnected()
 {
     AppWarp::Client* client = AppWarp::Client::getInstance();
     int state = client->getState();
-    CCLOG("%d", state);
     if(state == 0)
         return true;
     return false;
@@ -143,6 +152,10 @@ void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listene
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setNotificationListener(listener);
 }
+
+
+
+
 /*
  Lisenter
  */
@@ -201,6 +214,9 @@ void Multiplayer::getLiveRoomInfo(AppWarp::RoomRequestListener* listener)
     client->setRoomRequestListener(listener);
     client->getLiveRoomInfo(roomID);
 }
+
+
+
 
 //void Multiplayer::onCreateRoomDone(AppWarp::room event)
 //{
