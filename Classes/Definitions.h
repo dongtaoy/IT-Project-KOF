@@ -45,6 +45,11 @@
 #define CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER "opponent"
 #define CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL     "labelCountDown"
 #define CHOOSE_CHARACTOR_SCENE_ROOMID               "roomID"
+#define CHOOSE_CHARACTOR_SCENE_READY_L              "buttonReadyL"
+#define CHOOSE_CHARACTOR_SCENE_READY_R              "buttonReadyR"
+#define CHOOSE_CHARACTOR_SCENE_GO_L                 "buttonGoL"
+#define CHOOSE_CHARACTOR_SCENE_GO_R                 "buttonGoR"
+#define CHOOSE_CHARACTOR_SCENE_WAITING              "waiting"
 
 // Create Room Scene
 #define CREATE_ROOM_SCENE                       "CreateRoomScene"
@@ -75,9 +80,11 @@
 // Multiplayer protocol
 #define MP_CHOOSE_CHARACTOR_SCENE           1
 
-#define MP_OP_CHARACTOR_CHANGED             1
-#define MP_OP_READY                         2
-#define MP_OP_START_COUNTDOWN               3
+#define OP_CCS_CHARACTOR_CHANGED             1
+#define OP_CCS_READY                         2
+#define OP_CCS_START_COUNTDOWN               3
+#define OP_CCS_NOTREADY                      4
+
 
 #define MP_GAME_PLAY_SCNE                   2
 

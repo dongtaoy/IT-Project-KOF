@@ -34,24 +34,31 @@ public:
     
 private:
     
-    Ref* playerSelected;
-    Ref* opponentSelected;
+    std::string playerSelected;
+    std::string opponentSelected;
     
-    void ShowSelectedBorder(Ref*);
-    void RemoveSelectedBorder(Ref*);
+    bool playerReady;
+    bool opponentReady;
+    
+    void ChangeReadyState(bool ready, bool left);
+    void SelectCharactor(std::string, bool);
+    void ShowSelectedBorder(std::string);
+    void RemoveSelectedBorder(std::string);
     void ShowSelectedCharactor(std::string, bool);
-    void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     
     void CountDownTask(float);
     void ResetCountDown();
     void EndCountDown();
     void StartCountDown();
     
-    
+    void ButtonReadyClicked(Ref*, ui::Widget::TouchEventType);
+    void ButtonGoClicked(Ref*, cocos2d::ui::Widget::TouchEventType);
     void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);
+    void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     
-    
-    
+    void SetGoButtonVisible(bool, bool);
+    void SetReadyButtonVisible(bool, bool);
+    void ResetGoReadyButton(bool);
     
     //Listener
     
