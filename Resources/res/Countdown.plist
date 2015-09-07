@@ -153,9 +153,9 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>textureFileName</key>
-			<string>Countdown.png</string>
+			<string>countdown.png</string>
 			<key>realTextureFileName</key>
-			<string>Countdown.png</string>
+			<string>countdown.png</string>
 			<key>size</key>
 			<string>{933,1555}</string>
 		</dict>

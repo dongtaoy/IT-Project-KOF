@@ -29,5 +29,6 @@ public:
     static void SetText(Node* scene, std::string value);
     static void SetLoadingBarPercentage(Node*, float);
     static void SetTextAndLoadingBar(Node*, bool, std::string, float);
+    static void StartCountDown(Node* scene, cocos2d::CallFunc*);
 };
 #endif /* defined(__KOF__LoadingLayer__) */

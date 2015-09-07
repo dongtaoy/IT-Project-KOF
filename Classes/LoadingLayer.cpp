@@ -25,6 +25,12 @@ bool LoadingLayer::init()
     this->setOpacity(80);
     this->addChild(node);
     
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("countdown.plist");
+    AnimationCache::getInstance()->addAnimationsWithFile("countdown-animation.plist");
+    
+
+    
     return true;
 }
 
@@ -66,5 +72,25 @@ void LoadingLayer::SetTextAndLoadingBar(Node* scene, bool append, std::string st
         SetText(scene, string);
     
     SetLoadingBarPercentage(scene, value);
+    
+}
+
+
+void LoadingLayer::StartCountDown(Node* scene, cocos2d::CallFunc* callback)
+{
+    auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer");
+    node->getChildByName("loadingBar")->setVisible(false);
+    node->getChildByName("loadingBarBorder")->setVisible(false);
+    auto countdown = node->getChildByName<Sprite*>("countdown");
+    auto animation = AnimationCache::getInstance()->getAnimation("countdown");
+    countdown->setScale(0.7);
+    countdown->setVisible(true);
+    
+    
+    if (callback)
+        countdown->runAction(Sequence::createWithTwoActions(Animate::create(animation), callback));
+    else
+        countdown->runAction(Animate::create(animation));
+    
     
 }

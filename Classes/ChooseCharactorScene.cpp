@@ -333,6 +333,7 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
                 
             case OP_CCS_NOTREADY:
                 ChangeReadyState(false, false);
+                
                 break;
                 
             case OP_CCS_START_COUNTDOWN:

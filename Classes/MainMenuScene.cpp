@@ -52,7 +52,6 @@ bool MainMenuScene::init()
     ui::Button* buttonLeaderboard =  static_cast<ui::Button*>(node->getChildByName("buttonLeaderboard"));
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
-    
     Multiplayer::initialize(GameHelper::randomString(5));
     
     this->addChild(node);
