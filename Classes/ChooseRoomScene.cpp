@@ -88,9 +88,11 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType t
 void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
     if (type == Widget::TouchEventType::ENDED){
         std::string roomID = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
+        
         Multiplayer::getInstance()->setRoomID(roomID);
         Multiplayer::getInstance()->joinRoom(this);
-        
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 30.0f);
 
     }
 }
@@ -99,8 +101,10 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
 void ChooseRoomScene::onJoinRoomDone(AppWarp::room event){
     if(event.result == AppWarp::ResultCode::success)
     {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 60.0f);
         Multiplayer::getInstance()->subscribeRoom(this);
     }else{
+        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("Fail to join room!", "CONNECTION ERROR");
     }
     
@@ -109,10 +113,12 @@ void ChooseRoomScene::onJoinRoomDone(AppWarp::room event){
 void ChooseRoomScene::onSubscribeRoomDone(AppWarp::room event){
     if(event.result == AppWarp::ResultCode::success)
     {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
         auto scene = ChooseCharactorScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
     else{
+        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("Fail to subscribe room!", "CONNECTION ERROR");
     }
 }

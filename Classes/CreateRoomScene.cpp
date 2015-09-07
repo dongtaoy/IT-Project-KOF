@@ -135,7 +135,10 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
             
             std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
             
+            LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+            LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room... ", 30.0f);
             Multiplayer::getInstance()->createRoom(this, properties);
+            
         }
         
     }
@@ -145,9 +148,11 @@ void CreateRoomScene::onCreateRoomDone(AppWarp::room event)
 {
     if(event.result == AppWarp::ResultCode::success){
         CCLOG("CREATED %s", event.roomId.c_str());
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 60.0f);
         Multiplayer::getInstance()->setRoomID(event.roomId);
         Multiplayer::getInstance()->joinRoom(this);
     }else{
+        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("CONNECTION ERROR", "ERROR");
     }
 }
@@ -155,8 +160,10 @@ void CreateRoomScene::onCreateRoomDone(AppWarp::room event)
 void CreateRoomScene::onJoinRoomDone(AppWarp::room event){
     if(event.result == AppWarp::ResultCode::success)
     {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 90.0f);
         Multiplayer::getInstance()->subscribeRoom(this);
     }else{
+        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("Fail to join room!", "CONNECTION ERROR");
     }
     
@@ -165,10 +172,12 @@ void CreateRoomScene::onJoinRoomDone(AppWarp::room event){
 void CreateRoomScene::onSubscribeRoomDone(AppWarp::room event){
     if(event.result == AppWarp::ResultCode::success)
     {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
         auto scene = ChooseCharactorScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
     else{
+        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("Fail to subscribe room!", "CONNECTION ERROR");
     }
 }

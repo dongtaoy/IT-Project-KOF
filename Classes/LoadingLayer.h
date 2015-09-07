@@ -23,10 +23,11 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(LoadingLayer);
-    
+    static void AddLoadingLayer(Node*);
+    static void RemoveLoadingLayer(Node*);
     static void AppendText(Node*, std::string);
     static void SetText(Node* scene, std::string value);
-    static void SetLoadingBarPercentage(Scene*, int);
-    
+    static void SetLoadingBarPercentage(Node*, float);
+    static void SetTextAndLoadingBar(Node*, bool, std::string, float);
 };
 #endif /* defined(__KOF__LoadingLayer__) */

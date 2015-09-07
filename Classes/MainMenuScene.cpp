@@ -80,11 +80,9 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, Widget::TouchEventType typ
                 auto scene = ChooseRoomScene::createScene();
                 Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
             }else{
-                auto scene = LoadingLayer::create();
-//                scene->set
-                this->addChild(scene);
+                LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
                 Multiplayer::getInstance()->connect(this);
-                LoadingLayer::SetText(static_cast<Node*>(this), "connecting to AppWarp... ");
+                LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "connecting to Server...", 30.0f);
             }
         }else{
             MessageBox("Player is not signed in", "Game Center Unavailable");
@@ -118,10 +116,11 @@ void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventTyp
 void MainMenuScene::onConnectDone(int result, int)
 {
     if(result == AppWarp::ResultCode::success){
-        LoadingLayer::AppendText(static_cast<Node*>(this), "Done");
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
         auto scene = ChooseRoomScene::createScene();
         Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
     }else{
+        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("Connection Error", "Connection Error");
     }
    

@@ -206,6 +206,8 @@ void ChooseCharactorScene::RemoveSelectedBorder(std::string name)
 void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender, Widget::TouchEventType type)
 {
     if(type == Widget::TouchEventType::ENDED){
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
     }
 }
@@ -251,6 +253,7 @@ void ChooseCharactorScene::onUnsubscribeRoomDone(AppWarp::room event)
 {
     if(event.result == AppWarp::ResultCode::success)
     {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 60.0f);
         Multiplayer::getInstance()->leaveRoom(this);
     }else{
         MessageBox("Fail to unsubscribe Room", "Connection Error");
@@ -262,10 +265,13 @@ void ChooseCharactorScene::onUnsubscribeRoomDone(AppWarp::room event)
 
 void ChooseCharactorScene::onLeaveRoomDone(AppWarp::room event)
 {
-    if(event.result != AppWarp::ResultCode::success)
+    if(event.result == AppWarp::ResultCode::success)
     {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+    }else{
         MessageBox("Fail to leave Room", "Connection Error");
     }
+    
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
