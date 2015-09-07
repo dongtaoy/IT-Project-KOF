@@ -146,8 +146,8 @@ void ChooseCharactorScene::ResetGoReadyButton(bool left)
 {
     std::string go = left ? CHOOSE_CHARACTOR_SCENE_GO_L : CHOOSE_CHARACTOR_SCENE_GO_R;
     std::string ready = left ? CHOOSE_CHARACTOR_SCENE_READY_L : CHOOSE_CHARACTOR_SCENE_READY_R;
-    this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(go)->setVisible(false);
-    this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(ready)->setVisible(true);
+    SetReadyButtonVisible(true, left);
+    SetGoButtonVisible(false, left);
 }
 
 
@@ -226,6 +226,8 @@ void ChooseCharactorScene::CountDownTask(float dt)
     else
     {
         this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
     }
 }
@@ -287,7 +289,7 @@ void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string name)
             std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
             this->scheduleOnce(
                                [&](float){Multiplayer::getInstance()->sendChat(message);},
-                               1.5, "initial message");
+                               1.0, "initial message");
             
         }
         std::string command = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_COUNTDOWN, "");
@@ -313,6 +315,7 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
 {
     CCLOG("message: %s", event.chat.c_str());
     if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
+        CCLOG("HERE START");
         auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
         node->getChildByName("waiting")->setVisible(false);
         
@@ -339,6 +342,7 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
             default:
                 break;
         }
+        CCLOG("HERE END");
     }
 }
 
