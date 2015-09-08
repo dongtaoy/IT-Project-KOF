@@ -15,6 +15,7 @@
 #include "ChooseRoomScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "GameHelper.h"
+#include "GamePlayScene.h"
 
 
 class ChooseCharactorScene : public cocos2d::Layer, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
@@ -59,7 +60,8 @@ private:
     void SetGoButtonVisible(bool, bool);
     void SetReadyButtonVisible(bool, bool);
     void ResetGoReadyButton(bool);
-    
+    void CheckBothReady();
+    void StartGame();
     //Listener
     
     void onUnsubscribeRoomDone(AppWarp::room);

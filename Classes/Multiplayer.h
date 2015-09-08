@@ -47,7 +47,8 @@ public:
     void getLiveRoomInfo(AppWarp::RoomRequestListener*);
     
     void sendChat(std::string);
-
+    
+//    void setNotificationListener(AppWarp:: No)
     
     bool isConnected();
     

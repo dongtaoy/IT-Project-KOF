@@ -163,7 +163,6 @@ void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listene
 // ConnectionRequestListener
 void Multiplayer::onConnectDone(int result, int)
 {
-    CCLOG("hereh");
     switch (result) {
         case AppWarp::ResultCode::success:
             CCLOG("onConnectDone .. SUCCESS..session=%d\n", AppWarp::AppWarpSessionID);
@@ -214,7 +213,6 @@ void Multiplayer::getLiveRoomInfo(AppWarp::RoomRequestListener* listener)
     client->setRoomRequestListener(listener);
     client->getLiveRoomInfo(roomID);
 }
-
 
 
 

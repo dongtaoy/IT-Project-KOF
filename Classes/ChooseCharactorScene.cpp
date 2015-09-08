@@ -122,9 +122,30 @@ void ChooseCharactorScene::ChangeReadyState(bool ready, bool left)
             opponentReady = false;
         }
     }
+    CheckBothReady();
 }
 
+void ChooseCharactorScene::CheckBothReady()
+{
+    if(opponentReady && playerReady)
+    {
+        ResetCountDown();
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        
+        cocos2d::CallFunc* callfunc = cocos2d::CallFunc::create([&](){
+            ChooseCharactorScene::StartGame();
+        });
+        
+        LoadingLayer::StartCountDown(static_cast<Node*>(this), callfunc);
+//        auto scene = 
+    }
+}
 
+void ChooseCharactorScene::StartGame()
+{
+    auto scene = GamePlayScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
 
 void ChooseCharactorScene::SetGoButtonVisible(bool visible, bool left)
 {
@@ -324,6 +345,7 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
         switch (atoi(command.at(1).c_str())) {
             case OP_CCS_CHARACTOR_CHANGED:
                 SelectCharactor(command.at(2), false);
+                
                 break;
                 
             case OP_CCS_READY:
@@ -338,6 +360,7 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
                 
             case OP_CCS_START_COUNTDOWN:
                 StartCountDown();
+                
                 break;
                 
             default:
@@ -346,6 +369,7 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
         CCLOG("HERE END");
     }
 }
+
 
 
 
