@@ -147,6 +147,14 @@ void Multiplayer::resetZoneRequestListener()
     client->setZoneRequestListener(this);
 }
 
+void Multiplayer::resetAllListener()
+{
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    client->setConnectionRequestListener(this);
+    client->setZoneRequestListener(this);
+    client->setNotificationListener(this);
+    client->setRoomRequestListener(this);
+}
 
 void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listener){
     AppWarp::Client* client = AppWarp::Client::getInstance();

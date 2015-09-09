@@ -80,12 +80,13 @@
 // Multiplayer protocol
 #define MP_CHOOSE_CHARACTOR_SCENE           1
 
-#define OP_CCS_CHARACTOR_CHANGED             1
-#define OP_CCS_READY                         2
-#define OP_CCS_START_COUNTDOWN               3
-#define OP_CCS_NOTREADY                      4
-
+#define OP_CCS_CHARACTOR_CHANGED            1
+#define OP_CCS_READY                        2
+#define OP_CCS_START_COUNTDOWN              3
+#define OP_CCS_NOTREADY                     4
+#define OP_CCS_START_GAME                   5
 
 #define MP_GAME_PLAY_SCNE                   2
+
 
 #endif

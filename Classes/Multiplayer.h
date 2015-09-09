@@ -18,7 +18,7 @@
 
 #define MAX_USERS 2
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener//, public AppWarp::RoomRequestListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, AppWarp::ZoneRequestListener, AppWarp::RoomRequestListener, AppWarp::NotificationListener
 {
     
 public:
@@ -51,6 +51,7 @@ public:
     
     void resetConnectionRequestListener();
     
+    void resetAllListener();
 //    void setNotificationListener(AppWarp:: No)
     
     bool isConnected();

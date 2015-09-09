@@ -13,6 +13,9 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "Multiplayer.h"
+#include "MainMenuScene.h"
+#include "LoadingLayer.h"
+//#include ""
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
 
@@ -20,7 +23,7 @@ class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListene
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(std::string, std::string);
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
@@ -28,20 +31,32 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(GamePlayScene);
     
-    
+    CC_SYNTHESIZE(std::string, playerCharactor, PlayerCharactor);
+    CC_SYNTHESIZE(std::string, opponentCharactor, OpponentCharactor);
     
     
     
 private:
+    
+//    std::string playerCharactor;
+//    std::string opponentCharactor;
+//    
+    Node* player;
+    Node* opponent;
+    
     SneakyJoystick* joystick;
     
+    void startGame();
     void PauseClicked(Ref*, ui::Widget::TouchEventType);
+    void ResumeClicked(Ref*, ui::Widget::TouchEventType);
+    void MenuClicked(Ref*, ui::Widget::TouchEventType);
     void createJoystick();
     
     void update(float);
     
     // Listener
     void onChatReceived(AppWarp::chat);
+    void onUserLeftRoom(AppWarp::room, std::string);
     
     
     void onUnsubscribeRoomDone(AppWarp::room);

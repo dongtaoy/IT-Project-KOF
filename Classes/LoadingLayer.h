@@ -30,5 +30,7 @@ public:
     static void SetLoadingBarPercentage(Node*, float);
     static void SetTextAndLoadingBar(Node*, bool, std::string, float);
     static void StartCountDown(Node* scene, cocos2d::CallFunc*);
+
+    static bool isLoadingLayer(Node* scene);
 };
 #endif /* defined(__KOF__LoadingLayer__) */

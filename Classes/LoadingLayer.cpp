@@ -48,24 +48,32 @@ void LoadingLayer::RemoveLoadingLayer(Node* scene)
 
 void LoadingLayer::AppendText(Node* scene, std::string value)
 {
+    if(!isLoadingLayer(scene))
+        AddLoadingLayer(scene);
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer")->getChildByName<ui::Text*>("text");
     node->setString(node->getString() + value);
 }
 
 void LoadingLayer::SetText(Node* scene, std::string value)
 {
+    if(!isLoadingLayer(scene))
+        AddLoadingLayer(scene);
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer")->getChildByName<ui::Text*>("text");
     node->setString(value);
 }
 
 void LoadingLayer::SetLoadingBarPercentage(Node* scene, float value)
 {
+    if(!isLoadingLayer(scene))
+        AddLoadingLayer(scene);
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer")->getChildByName<ui::LoadingBar*>("loadingBar");
     node->setPercent(value);
 }
 
 void LoadingLayer::SetTextAndLoadingBar(Node* scene, bool append, std::string string, float value)
 {
+    if(!isLoadingLayer(scene))
+        AddLoadingLayer(scene);
     if(append)
         AppendText(scene, string);
     else
@@ -78,9 +86,13 @@ void LoadingLayer::SetTextAndLoadingBar(Node* scene, bool append, std::string st
 
 void LoadingLayer::StartCountDown(Node* scene, cocos2d::CallFunc* callback)
 {
+    if(!isLoadingLayer(scene))
+        AddLoadingLayer(scene);
+    
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer");
     node->getChildByName("loadingBar")->setVisible(false);
     node->getChildByName("loadingBarBorder")->setVisible(false);
+    node->getChildByName("background")->setOpacity(0);
     auto countdown = node->getChildByName<Sprite*>("countdown");
     auto animation = AnimationCache::getInstance()->getAnimation("countdown");
     countdown->setScale(0.7);
@@ -93,4 +105,12 @@ void LoadingLayer::StartCountDown(Node* scene, cocos2d::CallFunc* callback)
         countdown->runAction(Animate::create(animation));
     
     
+}
+
+
+bool LoadingLayer::isLoadingLayer(Node* scene)
+{
+    if(scene->getChildByName("LoadingLayer"))
+        return true;
+    return false;
 }

@@ -13,6 +13,8 @@ using namespace ui;
 
 Scene* ChooseCharactorScene::createScene()
 {
+    Multiplayer::getInstance()->resetAllListener();
+    
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
@@ -35,6 +37,7 @@ bool ChooseCharactorScene::init()
     {
         return false;
     }
+   
     
     Multiplayer::getInstance()->setNotificationListener(this);
     
@@ -129,24 +132,19 @@ void ChooseCharactorScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
     {
-        ResetCountDown();
-        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        
-        cocos2d::CallFunc* callfunc = cocos2d::CallFunc::create([&](){
-            ChooseCharactorScene::StartGame();
-        });
-        
-        LoadingLayer::StartCountDown(static_cast<Node*>(this), callfunc);
-//        auto scene = 
+        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_GAME, ""));
+
     }
 }
 
+
 void ChooseCharactorScene::StartGame()
 {
-    
+    ResetCountDown();
     auto scene = GamePlayScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
+
 
 void ChooseCharactorScene::SetGoButtonVisible(bool visible, bool left)
 {
@@ -154,6 +152,14 @@ void ChooseCharactorScene::SetGoButtonVisible(bool visible, bool left)
     auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName<Button*>(name);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
+    if(visible)
+    {
+        if (left)
+            playerReady = true;
+        else
+            opponentReady = true;
+    }
+    
 }
 
 void ChooseCharactorScene::SetReadyButtonVisible(bool visible, bool left)
@@ -162,6 +168,14 @@ void ChooseCharactorScene::SetReadyButtonVisible(bool visible, bool left)
     auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName<Button*>(name);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
+    
+    if(visible)
+    {
+        if (left)
+            playerReady = false;
+        else
+            opponentReady = false;
+    }
 }
 
 void ChooseCharactorScene::ResetGoReadyButton(bool left)
@@ -242,12 +256,11 @@ void ChooseCharactorScene::CountDownTask(float dt)
     int value = std::atoi(labelCountDown->getString().c_str()) - 1;
     if(value > 0)
     {
-        
         labelCountDown->setString(std::to_string(value));
     }
     else
     {
-        this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
+        EndCountDown();
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
@@ -308,15 +321,20 @@ void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string name)
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(false);
         if(playerSelected.compare(""))
         {
-            std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
+            std::string charMessage = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
             this->scheduleOnce(
-                               [&](float){Multiplayer::getInstance()->sendChat(message);},
-                               1.0, "initial message");
+                               [&](float){Multiplayer::getInstance()->sendChat(charMessage);},
+                               1.0, "initial charactor message");
             
+        }
+        if(playerReady)
+        {
+            std::string readyMessage = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_READY, "");
+            this->scheduleOnce([&](float){Multiplayer::getInstance()->sendChat(readyMessage);}, 1.0, "initial ready message");
         }
         std::string command = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_COUNTDOWN, "");
         this->scheduleOnce(
-                           [&](float){Multiplayer::getInstance()->sendChat(command);StartCountDown();}, 1.0, "start countdown");
+                           [&](float){Multiplayer::getInstance()->sendChat(command);}, 1.0, "start countdown");
         
     }
 }
@@ -336,14 +354,14 @@ void ChooseCharactorScene::onUserLeftRoom(AppWarp::room, std::string name)
 void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
 {
     CCLOG("message: %s", event.chat.c_str());
+    std::vector<std::string> command = Multiplayer::exractMessage(event.chat);
+    
     if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
-        CCLOG("HERE START");
         auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
         node->getChildByName("waiting")->setVisible(false);
         
-        std::vector<std::string> command = Multiplayer::exractMessage(event.chat);
-        
-        switch (atoi(command.at(1).c_str())) {
+        switch (atoi(command.at(1).c_str()))
+        {
             case OP_CCS_CHARACTOR_CHANGED:
                 SelectCharactor(command.at(2), false);
                 
@@ -359,16 +377,26 @@ void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
                 
                 break;
                 
-            case OP_CCS_START_COUNTDOWN:
-                StartCountDown();
-                
-                break;
-                
             default:
                 break;
         }
-        CCLOG("HERE END");
     }
+    
+    switch (atoi(command.at(1).c_str()))
+    {
+        case OP_CCS_START_COUNTDOWN:
+            StartCountDown();
+            break;
+        
+        case OP_CCS_START_GAME:
+            StartGame();
+            break;
+            
+        default:
+            break;
+    }
+    
+    
 }
 
 

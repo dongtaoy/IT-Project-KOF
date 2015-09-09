@@ -12,6 +12,8 @@ USING_NS_CC;
 
 Scene* CreateRoomScene::createScene()
 {
+    Multiplayer::getInstance()->resetAllListener();
+    
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     

@@ -13,6 +13,8 @@ using namespace ui;
 
 Scene* ChooseRoomScene::createScene()
 {
+    Multiplayer::getInstance()->resetAllListener();
+    
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
@@ -35,6 +37,7 @@ bool ChooseRoomScene::init()
     {
         return false;
     }
+    
     
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
