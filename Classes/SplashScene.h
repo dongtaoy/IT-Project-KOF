@@ -16,6 +16,9 @@
 #include "Multiplayer.h"
 #include <random>
 #include <ctime> 
+#include "SimpleAudioEngine.h"
+
+
 
 class SplashScene : public cocos2d::Layer
 {

@@ -8,6 +8,7 @@
 
 #include "SettingScene.h"
 
+using namespace ui;
 USING_NS_CC;
 
 Scene* SettingScene::createScene()
@@ -41,28 +42,55 @@ bool SettingScene::init()
     
     //TODO: help text
     auto node = CSLoader::createNode("Setting.csb");
-    node->setName("test");
     ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(SettingScene::GotoMainMenuScene, this));
     this->addChild(node);
     
-    test();
+    //get the node of music slide bar
+    
+    ui::Slider* musicSlideBar = static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+    
+    //add event listener to call back the function
+    
+    musicSlideBar->addEventListener(CC_CALLBACK_2(SettingScene::updateSlideBar, this));
+    
+    
+    
+    //get the node of checkbox
+    
+    CheckBox* musicCheckBox = static_cast<CheckBox*>(this->getChildByName("SettingScene")->getChildByName("check_box"));
+    
+    musicCheckBox->addEventListener(CC_CALLBACK_2(SettingScene::updateCheckBox, this));
+    
+    
     return true;
 }
 
-void SettingScene::test()
-{
-    auto node = this->getChildByName("test");
-    CCLOG("%s", node->getName().c_str());
-    auto slidebar = node->getChildByName("sound_slidebar");
-    CCLOG("%s", slidebar->getName().c_str());
-    
-}
+
 
 void SettingScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
     
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    
+}
+
+void SettingScene::updateSlideBar(Ref* pSender, ui::Slider::EventType type)
+{
+    ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+    float percent = musicSlideBar->getPercent();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(percent*0.01);
+}
+
+
+void SettingScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
+{
+    if (type ==CheckBox::EventType::SELECTED) {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    }
+    if (type ==CheckBox::EventType::UNSELECTED) {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    }
     
 }
