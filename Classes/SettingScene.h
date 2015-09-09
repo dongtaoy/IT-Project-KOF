@@ -14,6 +14,9 @@
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "cocostudio/CocoStudio.h"
+#include "SimpleAudioEngine.h"
+
+
 
 class SettingScene : public cocos2d::Layer
 {
@@ -28,9 +31,10 @@ public:
     CREATE_FUNC(SettingScene);
     
 private:
-    void test();
-    void GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type);
     
+    void GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type);
+    void updateSlideBar(Ref* pSender, ui::Slider::EventType type);
+    void updateCheckBox(Ref *pSender,ui::CheckBox::EventType type);
     
 };
 
