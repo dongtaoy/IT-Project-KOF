@@ -143,6 +143,7 @@ void ChooseCharactorScene::CheckBothReady()
 
 void ChooseCharactorScene::StartGame()
 {
+    
     auto scene = GamePlayScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

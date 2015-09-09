@@ -13,8 +13,10 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "Multiplayer.h"
+#include "SneakyJoystick.h"
+#include "SneakyJoystickSkinnedBase.h"
 
-class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListener
+class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListener, public AppWarp::RoomRequestListener
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -26,8 +28,24 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(GamePlayScene);
     
+    
+    
+    
+    
+private:
+    SneakyJoystick* joystick;
+    
+    void PauseClicked(Ref*, ui::Widget::TouchEventType);
+    void createJoystick();
+    
+    void update(float);
+    
+    // Listener
     void onChatReceived(AppWarp::chat);
     
+    
+    void onUnsubscribeRoomDone(AppWarp::room);
+    void onLeaveRoomDone(AppWarp::room);
 };
 
 

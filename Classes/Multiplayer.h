@@ -48,6 +48,9 @@ public:
     
     void sendChat(std::string);
     
+    
+    void resetConnectionRequestListener();
+    
 //    void setNotificationListener(AppWarp:: No)
     
     bool isConnected();

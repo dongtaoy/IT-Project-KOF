@@ -214,6 +214,11 @@ void Multiplayer::getLiveRoomInfo(AppWarp::RoomRequestListener* listener)
     client->getLiveRoomInfo(roomID);
 }
 
+void Multiplayer::resetConnectionRequestListener()
+{
+    AppWarp::Client *client = AppWarp::Client::getInstance();
+    client->setConnectionRequestListener(this);
+}
 
 
 //void Multiplayer::onCreateRoomDone(AppWarp::room event)

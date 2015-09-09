@@ -56,6 +56,7 @@ bool MainMenuScene::init()
     
     this->addChild(node);
     
+    
 
     return true;
 }
@@ -122,7 +123,7 @@ void MainMenuScene::onConnectDone(int result, int)
         LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
         MessageBox("Connection Error", "Connection Error");
     }
-   
+    
 }
 
 
