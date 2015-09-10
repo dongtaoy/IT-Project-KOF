@@ -19,12 +19,16 @@
 #define BACK_BUTTON "buttonBack"
 #define CREATE_BUTTON "buttonCreate"
 
-#define CHARACTOR_RESOURCE_DIR "Charactors"
-#define CHARACTOR_ICON_BIG "icon_big.png"
+#define CHARACTOR_ICON_BIG_PATH "charactors/%s/icon_big.png"
 
-#define BACKGROUND_PLIST        "backgrounds.plist"
-#define BACKGROUND_RESOURCE_DIR "Backgrounds"
-#define BACKGROUND_ICON "icon.png"
+#define BACKGROUND_PLIST        "backgrounds/backgrounds.plist"
+#define BACKGROUND_ICON_PATH    "backgrounds/%s/icon.png"
+
+#define CHARACTOR_SPRITE_PATH       "charactors/%s/sprite.plist"
+#define CHARACTOR_ANIMATION_PATH    "charactors/%s/animation.plist"
+
+#define BACKGROUND_SPRITE_PATH      "backgrounds/%s/sprite.plist"
+#define BACKGROUND_ANIMATION_PATH   "backgrounds/%s/animation.plist"
 
 #define NUM_BACKGROUNDS 4
 #define NUM_BESTOF 3
@@ -50,6 +54,7 @@
 #define CHOOSE_CHARACTOR_SCENE_GO_L                 "buttonGoL"
 #define CHOOSE_CHARACTOR_SCENE_GO_R                 "buttonGoR"
 #define CHOOSE_CHARACTOR_SCENE_WAITING              "waiting"
+
 
 // Create Room Scene
 #define CREATE_ROOM_SCENE                       "CreateRoomScene"

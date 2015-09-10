@@ -16,6 +16,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "GameHelper.h"
 #include "GamePlayScene.h"
+#include <boost/format.hpp>
 
 
 class ChooseCharactorScene : public cocos2d::Layer, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
@@ -38,42 +39,47 @@ private:
     std::string playerSelected;
     std::string opponentSelected;
     
+    void setPlayerSelected(std::string);
+    void setOpponentSelected(std::string);
+    void setPlayerReady(bool);
+    void setOpponentReady(bool);
+    
     bool playerReady;
     bool opponentReady;
+    bool isCountdownStart;
     
-    void ChangeReadyState(bool ready, bool left);
-    void SelectCharactor(std::string, bool);
+    
+    void SetGoButtonVisible(bool, bool);
+    void SetReadyButtonVisible(bool, bool);
+    void ResetGoReadyButton();
+    void CheckBothReady();
+    
+    
     void ShowSelectedBorder(std::string);
     void RemoveSelectedBorder(std::string);
     void ShowSelectedCharactor(std::string, bool);
+    
     
     void CountDownTask(float);
     void ResetCountDown();
     void EndCountDown();
     void StartCountDown();
     
+    
     void ButtonReadyClicked(Ref*, ui::Widget::TouchEventType);
     void ButtonGoClicked(Ref*, cocos2d::ui::Widget::TouchEventType);
-    void CharactorSelectedChanged(Ref*, ui::Widget::TouchEventType);
-    void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
-    
-    void SetGoButtonVisible(bool, bool);
-    void SetReadyButtonVisible(bool, bool);
-    void ResetGoReadyButton(bool);
-    void CheckBothReady();
-    void StartGame();
-    //Listener
-    
+    void CharactorClicked(Ref*, ui::Widget::TouchEventType);
+    void ButtonBackClicked(Ref*, ui::Widget::TouchEventType);
+
+    void sendStatusMessage(float);
+   
     void onUnsubscribeRoomDone(AppWarp::room);
     void onLeaveRoomDone(AppWarp::room);
-    
-    
     void onUserJoinedRoom(AppWarp::room, std::string);
     void onUserLeftRoom(AppWarp::room, std::string);
     void onChatReceived(AppWarp::chat);
-    
-    
-    
+    void onPrivateChatReceived(std::string, std::string);
+    void StartGame();
 };
 
 #endif /* defined(__KOF__ChooseCharactorScene__) */

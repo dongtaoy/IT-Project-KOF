@@ -34,14 +34,28 @@ Multiplayer* Multiplayer::getInstance()
 
 std::string Multiplayer::buildMessage(int scene, int op, std::string properties)
 {
-    return std::to_string(scene) + ';' + std::to_string(op) + ';' + properties;
+    return std::to_string(scene) + ';' + std::to_string(op) + ';' + properties + '@';
 }
 
-std::vector<std::string> Multiplayer::exractMessage(std::string message)
+std::vector<std::vector<std::string>> Multiplayer::exractMessage(std::string message)
 {
-    return GameHelper::split(message, ';');
+    std::vector<std::vector<std::string>> value;
+    std::vector<std::string> temp = GameHelper::split(message, '@');
+    for(int i = 0; i < temp.size() ; i ++)
+    {
+        value.push_back(GameHelper::split(temp.at(i), ';'));
+    }
+    return value;
 }
 
+bool Multiplayer::isMesaageValid(std::string scene, std::string message)
+{
+    CCLOG("CHECK IF %s in %s", scene.c_str(), message.c_str());
+    if (boost::algorithm::starts_with(message, scene))
+//        if (std::count(message.begin(), message.end(), ";") >= 2)
+            return true;
+    return false;
+}
 
 void Multiplayer::initialize(std::string username)
 {
@@ -112,10 +126,26 @@ void Multiplayer::unsubsribeRoom(AppWarp::RoomRequestListener* listener)
     client->unsubscribeRoom(roomID);
 }
 
-void Multiplayer::sendChat(std::string message)
+void Multiplayer::sendChat(std::string message, bool broadcast)
 {
+    
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->sendChat(message);
+    
+    if(broadcast)
+    {
+        client->sendChat(message);
+        return;
+    }
+    
+    if(opponentUsername.compare("") != 0)
+        client->sendPrivateChat(opponentUsername, message);
+    else
+        client->sendChat(message);
+}
+
+void MultiplayersendChatAfter(int, std::string)
+{
+
 }
 
 /**
@@ -162,7 +192,15 @@ void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listene
 }
 
 
+void Multiplayer::setOpponentUsername(std::string name)
+{
+    this->opponentUsername = name;
+}
 
+std::string Multiplayer::getOpponentUsername()
+{
+    return this->opponentUsername;
+}
 
 /*
  Lisenter

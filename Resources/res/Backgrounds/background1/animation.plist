@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist
+  PUBLIC '-//Apple//DTD PLIST 1.0//EN'
+  'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
+<plist version="1.0">
+    <dict>
+        <key>animations</key>
+        <dict>
+            <key>background1</key>
+            <dict>
+                <key>delay</key>
+                <real>0.2</real>
+                <key>frames</key>
+                <array>
+                    <string>backgrounds/background1/1.png</string>
+                    <string>backgrounds/background1/2.png</string>
+                    <string>backgrounds/background1/3.png</string>
+                    <string>backgrounds/background1/4.png</string>
+                    <string>backgrounds/background1/5.png</string>
+                    <string>backgrounds/background1/6.png</string>
+                    <string>backgrounds/background1/7.png</string>
+                    <string>backgrounds/background1/8.png</string>
+                </array>
+            </dict>
+        </dict>
+    </dict>
+</plist>

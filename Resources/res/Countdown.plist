@@ -4,7 +4,7 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>Countdown/countdown-frame-00.png</key>
+			<key>countdown/countdown-frame-00.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,0},{311,311}}</string>
@@ -15,7 +15,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-01.png</key>
+			<key>countdown/countdown-frame-01.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{311,0},{311,311}}</string>
@@ -26,7 +26,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-02.png</key>
+			<key>countdown/countdown-frame-02.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{622,0},{311,311}}</string>
@@ -37,7 +37,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-03.png</key>
+			<key>countdown/countdown-frame-03.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,311},{311,311}}</string>
@@ -48,7 +48,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-04.png</key>
+			<key>countdown/countdown-frame-04.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{311,311},{311,311}}</string>
@@ -59,7 +59,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-05.png</key>
+			<key>countdown/countdown-frame-05.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{622,311},{311,311}}</string>
@@ -70,7 +70,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-06.png</key>
+			<key>countdown/countdown-frame-06.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,622},{311,311}}</string>
@@ -81,7 +81,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-07.png</key>
+			<key>countdown/countdown-frame-07.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{311,622},{311,311}}</string>
@@ -92,7 +92,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-08.png</key>
+			<key>countdown/countdown-frame-08.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{622,622},{311,311}}</string>
@@ -103,7 +103,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-09.png</key>
+			<key>countdown/countdown-frame-09.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,933},{311,311}}</string>
@@ -114,7 +114,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-10.png</key>
+			<key>countdown/countdown-frame-10.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,1244},{311,311}}</string>
@@ -125,7 +125,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-11.png</key>
+			<key>countdown/countdown-frame-11.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{311,933},{311,311}}</string>
@@ -136,7 +136,7 @@
 				<key>sourceSize</key>
 				<string>{320,320}</string>
 			</dict>
-			<key>Countdown/countdown-frame-12.png</key>
+			<key>countdown/countdown-frame-12.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{622,933},{311,311}}</string>

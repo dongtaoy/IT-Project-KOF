@@ -369,12 +369,10 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				87E23D8C1B9B3D2D00F5A01E /* ChooseCharactorScene.h */,
-				871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */,
+				879FB8571B7AF7DE00E4F0BF /* Definitions.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				879FB8541B7AF66400E4F0BF /* SplashScene.cpp */,
 				879FB8551B7AF66400E4F0BF /* SplashScene.h */,
-				879FB8571B7AF7DE00E4F0BF /* Definitions.h */,
 				879FB85B1B7B001900E4F0BF /* MainMenuScene.cpp */,
 				879FB85C1B7B001900E4F0BF /* MainMenuScene.h */,
 				8740B0201B7F605300395343 /* HelpScene.cpp */,
@@ -385,16 +383,18 @@
 				87468D741B805F5E00299169 /* ChooseRoomScene.h */,
 				8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */,
 				8764F0791B8CAB7000937F18 /* CreateRoomScene.h */,
-				8777462F1B8D89FD00D63086 /* Multiplayer.cpp */,
-				877746301B8D89FD00D63086 /* Multiplayer.h */,
-				87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */,
-				87E23D8E1B9C00F500F5A01E /* GameHelper.h */,
+				871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */,
+				87E23D8C1B9B3D2D00F5A01E /* ChooseCharactorScene.h */,
 				87E23D901B9C085500F5A01E /* GamePlayScene.cpp */,
 				87E23D911B9C085500F5A01E /* GamePlayScene.h */,
 				87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */,
 				87E23D971B9C8DED00F5A01E /* LoadingLayer.h */,
-				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
+				8777462F1B8D89FD00D63086 /* Multiplayer.cpp */,
+				877746301B8D89FD00D63086 /* Multiplayer.h */,
+				87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */,
+				87E23D8E1B9C00F500F5A01E /* GameHelper.h */,
 				87783CD41B9F068F00427625 /* SneakyJoystick.cpp */,
+				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
 				87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */,
 				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
 			);
@@ -723,6 +723,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					/usr/local/Cellar/boost/1.58.0/include,
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -763,6 +764,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
+					/usr/local/Cellar/boost/1.58.0/include,
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
