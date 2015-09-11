@@ -65,8 +65,11 @@ bool GamePlayScene::init()
 //    this->addChild(node,100);
 //    this->runAction(Follow::create(player));
     
-    if(true);
-        
+    if(true)
+        player = new Fighter(node->getChildByName<Sprite*>("left"), "");
+    else
+        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "");
+    
     
 //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
 //        CCLOG("LEFT");
@@ -90,7 +93,7 @@ void GamePlayScene::update(float dt)
 {
     if(joystick->getVelocity() != Point(0,0))
     {
-        
+        player->getSprite()->runAction(MoveBy::create(1.0, Vec2(joystick->getVelocity().x * 10, 0)));
     }
 }
 

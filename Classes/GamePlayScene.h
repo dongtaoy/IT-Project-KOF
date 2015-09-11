@@ -17,6 +17,7 @@
 #include "LoadingLayer.h"
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
+#include "Fighter.h"
 
 class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListener, public AppWarp::RoomRequestListener
 {
@@ -40,8 +41,8 @@ private:
 //    std::string playerCharactor;
 //    std::string opponentCharactor;
 //    
-    Node* player;
-    Node* opponent;
+    Fighter* player;
+    Fighter* opponent;
     
     
     

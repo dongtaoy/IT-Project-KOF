@@ -9,8 +9,8 @@
 #include "Fighter.h"
 
 
-Fighter::Fighter(cocos2d::Sprite* sprite)
+Fighter::Fighter(cocos2d::Sprite* sprite, std::string name)
 {
     this->sprite = sprite;
-    
+//    this->sprite->runAction(AnimationC);
 }

@@ -14,9 +14,13 @@
 
 class Fighter
 {
+    
 public:
-    Fighter(cocos2d::Sprite*);
+    Fighter(cocos2d::Sprite*, std::string);
     CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
+    
+    
+private:
     
     
     
