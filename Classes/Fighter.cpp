@@ -12,5 +12,6 @@
 Fighter::Fighter(cocos2d::Sprite* sprite, std::string name)
 {
     this->sprite = sprite;
+    this->sprite->setSpriteFrame((boost::format("charactors/%s/Animation/stand/00.png") % name).str());
 //    this->sprite->runAction(AnimationC);
 }

@@ -66,9 +66,9 @@ bool GamePlayScene::init()
 //    this->runAction(Follow::create(player));
     
     if(true)
-        player = new Fighter(node->getChildByName<Sprite*>("left"), "");
+        player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
     else
-        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "");
+        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor6");
     
     
 //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
