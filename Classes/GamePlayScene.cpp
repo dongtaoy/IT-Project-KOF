@@ -12,7 +12,7 @@ using namespace ui;
 
 Scene* GamePlayScene::createScene()
 {
-    Multiplayer::getInstance()->resetAllListener();
+//    Multiplayer::getInstance()->resetAllListener();
     
     // 'scene' is an autorelease object
     auto scene = Scene::create();
@@ -40,21 +40,28 @@ bool GamePlayScene::init()
         return false;
     }
     
-    Multiplayer::getInstance()->setNotificationListener(this);
+//    Multiplayer::getInstance()->setNotificationListener(this);
     
+    // TODO:: DELETE
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
     
     
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     
+    
+    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    node->getChildByName<Sprite*>("background")->runAction(RepeatForever::create(Animate::create(animation)));
+    
     this->addChild(node);
     
 //    LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
-    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
-        CCLOG("LEFT");
-    else
-        CCLOG("RIGHT");
+//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
+//        CCLOG("LEFT");
+//    else
+//        CCLOG("RIGHT");
     
     
     

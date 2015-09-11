@@ -73,6 +73,7 @@ private:
 
     void sendStatusMessage(float);
    
+    void setRequiredListener();
     void onUnsubscribeRoomDone(AppWarp::room);
     void onLeaveRoomDone(AppWarp::room);
     void onUserJoinedRoom(AppWarp::room, std::string);

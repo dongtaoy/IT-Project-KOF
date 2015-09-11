@@ -120,6 +120,8 @@ void Multiplayer::subscribeRoom(AppWarp::RoomRequestListener* listener)
 
 void Multiplayer::unsubsribeRoom(AppWarp::RoomRequestListener* listener)
 {
+    opponentUsername = "";
+    resetAllListener();
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRoomRequestListener(listener);
     CCLOG("Sending Request to unsubsribe room %s", roomID.c_str());

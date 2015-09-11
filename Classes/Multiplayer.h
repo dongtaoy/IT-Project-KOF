@@ -19,7 +19,7 @@
 
 #define MAX_USERS 2
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, AppWarp::ZoneRequestListener, AppWarp::RoomRequestListener, AppWarp::NotificationListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
 {
     
 public:

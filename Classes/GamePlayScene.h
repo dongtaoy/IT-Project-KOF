@@ -15,7 +15,6 @@
 #include "Multiplayer.h"
 #include "MainMenuScene.h"
 #include "LoadingLayer.h"
-//#include ""
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
 

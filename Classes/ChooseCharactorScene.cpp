@@ -69,7 +69,7 @@ bool ChooseCharactorScene::init()
     node->getChildByName<Button*>(CHOOSE_CHARACTOR_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::ButtonGoClicked, this));
     this->addChild(node);
     
-    this->schedule(schedule_selector(ChooseCharactorScene::sendStatusMessage), 1.0f);
+    this->schedule(schedule_selector(ChooseCharactorScene::sendStatusMessage), 2.0f);
     
     Multiplayer::getInstance()->setNotificationListener(this);
     return true;
@@ -94,6 +94,9 @@ void ChooseCharactorScene::setPlayerSelected(std::string name)
     playerSelected = name;
     ShowSelectedBorder(playerSelected);
     ShowSelectedCharactor(playerSelected, true);
+    std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
+    Multiplayer::getInstance()->sendChat(message);
+    
 }
 
 void ChooseCharactorScene::setPlayerReady(bool value)
@@ -104,6 +107,8 @@ void ChooseCharactorScene::setPlayerReady(bool value)
             SetReadyButtonVisible(false, true);
             SetGoButtonVisible(true, true);
             playerReady = true;
+            std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_READY, playerSelected);
+            Multiplayer::getInstance()->sendChat(message);
         }else{
             MessageBox("", "Please Select a Charactor First");
         }
@@ -111,6 +116,8 @@ void ChooseCharactorScene::setPlayerReady(bool value)
         SetGoButtonVisible(false, true);
         SetReadyButtonVisible(true, true);
         playerReady = false;
+        std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_NOTREADY, "");
+        Multiplayer::getInstance()->sendChat(message);
     }
     CheckBothReady();
 }
@@ -129,6 +136,10 @@ void ChooseCharactorScene::setOpponentReady(bool value)
     CheckBothReady();
 }
 
+//void ChooseCharactorScene::setRequiredListener()
+//{
+//    
+//}
 
 
 
@@ -171,7 +182,8 @@ void ChooseCharactorScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
     {
-//        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_GAME, ""));
+//        StartGame();
+        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_GAME, ""), true);
     }
 }
 
@@ -247,6 +259,7 @@ void ChooseCharactorScene::CountDownTask(float dt)
     else
     {
         EndCountDown();
+        this->unschedule(schedule_selector(ChooseCharactorScene::sendStatusMessage));
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
@@ -258,12 +271,14 @@ void ChooseCharactorScene::ResetCountDown()
 {
     EndCountDown();
     Text* labelCountDown = static_cast<Text*>(this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
-    labelCountDown->setString("60");
+    labelCountDown->setString("20");
 }
 
 void ChooseCharactorScene::StartCountDown()
 {
     if (!isCountdownStart){
+        auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
+        node->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(false);
         isCountdownStart = true;
         this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0);
     }
@@ -282,10 +297,6 @@ void ChooseCharactorScene::sendStatusMessage(float dt)
 {
     std::string message = "";
     
-    if(playerReady && opponentReady){
-        StartGame();
-        return;
-    }
     
     if(playerSelected.compare(""))
     {
@@ -297,7 +308,8 @@ void ChooseCharactorScene::sendStatusMessage(float dt)
     }
     
 //    if(message.compare(""))
-        Multiplayer::getInstance()->sendChat(message);
+    Multiplayer::getInstance()->sendChat(message);
+    
 }
 
 
@@ -334,6 +346,9 @@ void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string name)
 {
     if(Multiplayer::getInstance()->getUsername().compare(name)){
         CCLOG("someone joined");
+//        StartCountDown();
+        this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(false);
+        
         Multiplayer::getInstance()->setOpponentUsername(name);
     }
 }
@@ -341,24 +356,45 @@ void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string name)
 void ChooseCharactorScene::onUserLeftRoom(AppWarp::room, std::string name)
 {
     if(Multiplayer::getInstance()->getUsername().compare(name)){
-        CCLOG("someone left");
         Multiplayer::getInstance()->setOpponentUsername("");
-        ResetCountDown();
+//        ResetCountDown();
         ResetGoReadyButton();
+        
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(true);
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
+        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_COUNTDOWN, ""), true);
     }
 }
 
 void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
 {
     if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
+        StartCountDown();
         Multiplayer::getInstance()->setOpponentUsername(event.sender);
     }
+    
+    std::vector<std::vector<std::string>> commands = Multiplayer::exractMessage(event.chat);
+    for(int i = 0 ; i < commands.size() ; i ++)
+    {
+        std::vector<std::string> command = commands.at(i);
+        switch (atoi(command.at(1).c_str()))
+        {
+            case OP_CCS_START_COUNTDOWN:
+                StartCountDown();
+                break;
+            case OP_CCS_START_GAME:
+                StartGame();
+                break;
+            default:
+                break;
+        }
+    }
+    
 }
 
 void ChooseCharactorScene::onPrivateChatReceived(std::string sender, std::string message)
 {
+    
     StartCountDown();
     std::vector<std::vector<std::string>> commands = Multiplayer::exractMessage(message);
     
@@ -366,8 +402,6 @@ void ChooseCharactorScene::onPrivateChatReceived(std::string sender, std::string
     {
         std::vector<std::string> command = commands.at(i);
         Multiplayer::getInstance()->setOpponentUsername(sender);
-        auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
-        node->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(false);
         switch (atoi(command.at(1).c_str()))
         {
             case OP_CCS_CHARACTOR_CHANGED:
