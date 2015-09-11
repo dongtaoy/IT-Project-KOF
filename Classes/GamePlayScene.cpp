@@ -67,12 +67,12 @@ bool GamePlayScene::init()
     if(true)
     {
         player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
-        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor6");
+        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor1");
     }
     else
     {
-        player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor6");
-        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor6");
+        player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
+        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor1");
     }
     
     
