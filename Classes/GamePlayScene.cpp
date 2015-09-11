@@ -39,8 +39,9 @@ bool GamePlayScene::init()
     {
         return false;
     }
-    
-//    Multiplayer::getInstance()->setNotificationListener(this);
+    LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
+    // TODO: UNCOMMENT
+    // Multiplayer::getInstance()->setNotificationListener(this);
     
     // TODO:: DELETE
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
@@ -52,19 +53,21 @@ bool GamePlayScene::init()
     
     
     auto node = CSLoader::createNode("GamePlay.csb");
-    node->setName("GamePlayScene");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
+    this->addChild(node);
     
     
 //    player = node->getChildByName<Sprite*>("left");
-    player = Sprite::createWithSpriteFrameName("charactors/charactor1/Animation/die/00.png");
-    player->setPosition(Vec2(300,200));
-    this->addChild(player, 50);
+//    player = Sprite::createWithSpriteFrameName("charactors/charactor1/Animation/die/00.png");
+//    player->setPosition(Vec2(300,200));
+//    this->addChild(player, 50);
+//    
+//    this->addChild(node,100);
+//    this->runAction(Follow::create(player));
     
-    this->addChild(node,100);
-    this->runAction(Follow::create(player));
+    if(true);
+        
     
-//    LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
 //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
 //        CCLOG("LEFT");
 //    else
@@ -80,19 +83,15 @@ bool GamePlayScene::init()
 void GamePlayScene::startGame()
 {
     LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-    
     CCLOG("GAME STARTED");
 }
 
 void GamePlayScene::update(float dt)
 {
-    if(joystick->getVelocity() != Point(0,0)){
-        player->runAction(MoveBy::create(3.0f, Vec2(10,0)));
+    if(joystick->getVelocity() != Point(0,0))
+    {
+        
     }
-//    Camera::create()
-//        CCLOG("%f %f", joystick->getVelocity().x, joystick->getVelocity().y);
-    
-//    CCLOG("%f", dt);
 }
 
 
@@ -101,10 +100,8 @@ void GamePlayScene::PauseClicked(Ref* pSender, Widget::TouchEventType type)
 {
     if(type == Widget::TouchEventType::ENDED)
     {
-//        Multiplayer::getInstance()->unsubsribeRoom(this);
         auto node = CSLoader::createNode("PauseLayer.csb");
         this->addChild(node);
-        
         node->getChildByName<Button*>("buttonResume")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::ResumeClicked, this));
         node->getChildByName<Button*>("buttonMenu")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::MenuClicked, this));
     }
@@ -124,8 +121,6 @@ void GamePlayScene::MenuClicked(Ref* pSender, Widget::TouchEventType type)
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
         
-//        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_CCS_NOTREADY, ""));
-//        this->addChild(<#cocos2d::Node *child#>)
     }
 }
 
@@ -147,21 +142,15 @@ void GamePlayScene::createJoystick()
     joystckbase->setThumbSprite(Sprite::create("Resources/joystick_button.png"));
     joystckbase->setJoystick(joystick);
     joystckbase->setPosition(joystickBasePosition);
-    this->addChild(joystckbase,62);
+    this->addChild(joystckbase);
 
 }
 
 void GamePlayScene::createBackgroundAnimation()
 {
-    Size visibleSize = Director::getInstance()->getWinSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    
-    Sprite* background = Sprite::createWithSpriteFrameName("backgrounds/background1/1.png");
-    background->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
-    
+    auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
     auto animation = AnimationCache::getInstance()->getAnimation("background1");
     background->runAction(RepeatForever::create(Animate::create(animation)));
-    this->addChild(background,60);
 }
 
 

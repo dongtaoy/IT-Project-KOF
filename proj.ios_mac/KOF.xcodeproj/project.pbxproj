@@ -81,6 +81,7 @@
 		879FB8561B7AF66400E4F0BF /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8541B7AF66400E4F0BF /* SplashScene.cpp */; };
 		879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB85B1B7B001900E4F0BF /* MainMenuScene.cpp */; };
 		87A088CE1BA2A41D00320585 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A088CC1BA2A41D00320585 /* Camera.cpp */; };
+		87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A088D21BA2A69D00320585 /* Fighter.cpp */; };
 		87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */; };
 		87E23D921B9C085500F5A01E /* GamePlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D901B9C085500F5A01E /* GamePlayScene.cpp */; };
 		87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */; };
@@ -226,6 +227,8 @@
 		879FB85C1B7B001900E4F0BF /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
 		87A088CC1BA2A41D00320585 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		87A088CD1BA2A41D00320585 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		87A088D21BA2A69D00320585 /* Fighter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fighter.cpp; sourceTree = "<group>"; };
+		87A088D31BA2A69D00320585 /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fighter.h; sourceTree = "<group>"; };
 		87E23D8C1B9B3D2D00F5A01E /* ChooseCharactorScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCharactorScene.h; sourceTree = "<group>"; };
 		87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHelper.cpp; sourceTree = "<group>"; };
 		87E23D8E1B9C00F500F5A01E /* GameHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelper.h; sourceTree = "<group>"; };
@@ -402,6 +405,8 @@
 				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
 				87A088CC1BA2A41D00320585 /* Camera.cpp */,
 				87A088CD1BA2A41D00320585 /* Camera.h */,
+				87A088D21BA2A69D00320585 /* Fighter.cpp */,
+				87A088D31BA2A69D00320585 /* Fighter.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -663,6 +668,7 @@
 				879FB8501B7AED3900E4F0BF /* udpsocket.cpp in Sources */,
 				871E225D1B947170005CA5A9 /* ChooseCharactorScene.cpp in Sources */,
 				879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */,
+				87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */,
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,
 				87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */,
 				8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */,
