@@ -80,6 +80,7 @@
 		879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8461B7AED3900E4F0BF /* utilities.cpp */; };
 		879FB8561B7AF66400E4F0BF /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8541B7AF66400E4F0BF /* SplashScene.cpp */; };
 		879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB85B1B7B001900E4F0BF /* MainMenuScene.cpp */; };
+		87A088CE1BA2A41D00320585 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A088CC1BA2A41D00320585 /* Camera.cpp */; };
 		87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */; };
 		87E23D921B9C085500F5A01E /* GamePlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D901B9C085500F5A01E /* GamePlayScene.cpp */; };
 		87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */; };
@@ -223,6 +224,8 @@
 		879FB8571B7AF7DE00E4F0BF /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		879FB85B1B7B001900E4F0BF /* MainMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuScene.cpp; sourceTree = "<group>"; };
 		879FB85C1B7B001900E4F0BF /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
+		87A088CC1BA2A41D00320585 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		87A088CD1BA2A41D00320585 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		87E23D8C1B9B3D2D00F5A01E /* ChooseCharactorScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCharactorScene.h; sourceTree = "<group>"; };
 		87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHelper.cpp; sourceTree = "<group>"; };
 		87E23D8E1B9C00F500F5A01E /* GameHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelper.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
 				87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */,
 				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
+				87A088CC1BA2A41D00320585 /* Camera.cpp */,
+				87A088CD1BA2A41D00320585 /* Camera.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -641,6 +646,7 @@
 				879FB8511B7AED3900E4F0BF /* urlencode.cpp in Sources */,
 				879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */,
 				87783CD61B9F068F00427625 /* SneakyJoystick.cpp in Sources */,
+				87A088CE1BA2A41D00320585 /* Camera.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				879FB8561B7AF66400E4F0BF /* SplashScene.cpp in Sources */,
 				8764F07A1B8CAB7000937F18 /* CreateRoomScene.cpp in Sources */,

@@ -47,15 +47,22 @@ bool GamePlayScene::init()
     AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
     
     
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % "charactor1").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % "charactor1").str());
+    
     
     auto node = CSLoader::createNode("GamePlay.csb");
+    node->setName("GamePlayScene");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     
     
-    auto animation = AnimationCache::getInstance()->getAnimation("background1");
-    node->getChildByName<Sprite*>("background")->runAction(RepeatForever::create(Animate::create(animation)));
+//    player = node->getChildByName<Sprite*>("left");
+    player = Sprite::createWithSpriteFrameName("charactors/charactor1/Animation/die/00.png");
+    player->setPosition(Vec2(300,200));
+    this->addChild(player, 50);
     
-    this->addChild(node);
+    this->addChild(node,100);
+    this->runAction(Follow::create(player));
     
 //    LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
 //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
@@ -64,7 +71,7 @@ bool GamePlayScene::init()
 //        CCLOG("RIGHT");
     
     
-    
+    createBackgroundAnimation();
     createJoystick();
     this->scheduleUpdate();
     return true;
@@ -79,11 +86,16 @@ void GamePlayScene::startGame()
 
 void GamePlayScene::update(float dt)
 {
-    if(joystick->getVelocity() != Point(0,0))
-        CCLOG("%f %f", joystick->getVelocity().x, joystick->getVelocity().y);
+    if(joystick->getVelocity() != Point(0,0)){
+        player->runAction(MoveBy::create(3.0f, Vec2(10,0)));
+    }
+//    Camera::create()
+//        CCLOG("%f %f", joystick->getVelocity().x, joystick->getVelocity().y);
     
 //    CCLOG("%f", dt);
 }
+
+
 
 void GamePlayScene::PauseClicked(Ref* pSender, Widget::TouchEventType type)
 {
@@ -135,8 +147,21 @@ void GamePlayScene::createJoystick()
     joystckbase->setThumbSprite(Sprite::create("Resources/joystick_button.png"));
     joystckbase->setJoystick(joystick);
     joystckbase->setPosition(joystickBasePosition);
-    this->addChild(joystckbase);
+    this->addChild(joystckbase,62);
 
+}
+
+void GamePlayScene::createBackgroundAnimation()
+{
+    Size visibleSize = Director::getInstance()->getWinSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    Sprite* background = Sprite::createWithSpriteFrameName("backgrounds/background1/1.png");
+    background->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+    
+    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    background->runAction(RepeatForever::create(Animate::create(animation)));
+    this->addChild(background,60);
 }
 
 

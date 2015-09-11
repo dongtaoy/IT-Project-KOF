@@ -51,7 +51,9 @@ private:
     void PauseClicked(Ref*, ui::Widget::TouchEventType);
     void ResumeClicked(Ref*, ui::Widget::TouchEventType);
     void MenuClicked(Ref*, ui::Widget::TouchEventType);
+    
     void createJoystick();
+    void createBackgroundAnimation();
     
     void update(float);
     
