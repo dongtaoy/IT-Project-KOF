@@ -55,17 +55,15 @@ bool GamePlayScene::init()
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
+    node->getChildByName<Button*>("buttonA")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonAClicked, this));
+    node->getChildByName<Button*>("buttonB")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonBClicked, this));
+    node->getChildByName<Button*>("buttonC")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonCClicked, this));
+    node->getChildByName<Button*>("buttonD")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonDClicked, this));
     this->addChild(node);
     
     
-//    player = node->getChildByName<Sprite*>("left");
-//    player = Sprite::createWithSpriteFrameName("charactors/charactor1/Animation/die/00.png");
-//    player->setPosition(Vec2(300,200));
-//    this->addChild(player, 50);
-//    
-//    this->addChild(node,100);
-//    this->runAction(Follow::create(player));
-    
+    // TODO: Change it
+    //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     if(true)
     {
         player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
@@ -78,10 +76,6 @@ bool GamePlayScene::init()
     }
     
     
-//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
-//        CCLOG("LEFT");
-//    else
-//        CCLOG("RIGHT");
     
     
     createBackgroundAnimation();
@@ -130,6 +124,25 @@ void GamePlayScene::update(float dt)
     }
 }
 
+void GamePlayScene::buttonAClicked(Ref*, ui::Widget::TouchEventType)
+{
+    player->punch1();
+}
+
+void GamePlayScene::buttonBClicked(Ref*, ui::Widget::TouchEventType)
+{
+    player->punch2();
+}
+
+void GamePlayScene::buttonCClicked(Ref*, ui::Widget::TouchEventType)
+{
+    player->kick1();
+}
+
+void GamePlayScene::buttonDClicked(Ref*, ui::Widget::TouchEventType)
+{
+    player->kick2();
+}
 
 
 void GamePlayScene::PauseClicked(Ref* pSender, Widget::TouchEventType type)

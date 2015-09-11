@@ -53,6 +53,12 @@ private:
     void ResumeClicked(Ref*, ui::Widget::TouchEventType);
     void MenuClicked(Ref*, ui::Widget::TouchEventType);
     
+    
+    void buttonAClicked(Ref*, ui::Widget::TouchEventType);
+    void buttonBClicked(Ref*, ui::Widget::TouchEventType);
+    void buttonCClicked(Ref*, ui::Widget::TouchEventType);
+    void buttonDClicked(Ref*, ui::Widget::TouchEventType);
+    
     void createJoystick();
     void createBackgroundAnimation();
     

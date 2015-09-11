@@ -26,6 +26,10 @@ public:
     void jumpUp();
     void jumpForward();
     void jumpBack();
+    void kick1();
+    void kick2();
+    void punch1();
+    void punch2();
     
     bool isStand();
 //private:

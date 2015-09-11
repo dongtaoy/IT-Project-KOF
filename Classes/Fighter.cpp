@@ -110,6 +110,62 @@ void Fighter::jumpBack()
     }
 }
 
+void Fighter::kick1()
+{
+    if(isStand())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation("kick1");
+        auto animate = Animate::create(animation);
+        animate->setDuration(.5f);
+        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
+        sequence->setTag(16);
+        this->sprite->runAction(sequence);
+    }
+}
+
+void Fighter::kick2()
+{
+    if(isStand())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation("kick2");
+        auto animate = Animate::create(animation);
+        animate->setDuration(.5f);
+        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
+        sequence->setTag(17);
+        this->sprite->runAction(sequence);
+    }
+}
+
+void Fighter::punch1()
+{
+    if(isStand())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation("punch1");
+        auto animate = Animate::create(animation);
+        animate->setDuration(.5f);
+        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
+        sequence->setTag(18);
+        this->sprite->runAction(sequence);
+    }
+}
+
+void Fighter::punch2()
+{
+    if(isStand())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation("punch2");
+        auto animate = Animate::create(animation);
+        animate->setDuration(.5f);
+        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
+        sequence->setTag(19);
+        this->sprite->runAction(sequence);
+    }
+}
+
 
 bool Fighter::isStand()
 {
