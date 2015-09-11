@@ -15,7 +15,6 @@
 #include "Multiplayer.h"
 #include "MainMenuScene.h"
 #include "LoadingLayer.h"
-//#include ""
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
 
@@ -23,7 +22,7 @@ class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListene
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::Scene* createScene(std::string, std::string);
+    static cocos2d::Scene* createScene();
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
@@ -43,6 +42,8 @@ private:
 //    
     Node* player;
     Node* opponent;
+    
+    
     
     SneakyJoystick* joystick;
     

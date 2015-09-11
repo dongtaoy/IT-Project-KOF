@@ -11,6 +11,7 @@
 USING_NS_CC;
 using namespace ui;
 
+#pragma mark init
 Scene* ChooseCharactorScene::createScene()
 {
     Multiplayer::getInstance()->resetAllListener();
@@ -37,9 +38,12 @@ bool ChooseCharactorScene::init()
     {
         return false;
     }
-   
     
-    Multiplayer::getInstance()->setNotificationListener(this);
+    this->playerSelected = "";
+    this->opponentSelected = "";
+    this->playerReady = false;
+    this->opponentReady = false;
+    
     
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -49,29 +53,118 @@ bool ChooseCharactorScene::init()
     auto node = CSLoader::createNode(CHOOSE_CHARACTOR_SCENE_FILE);
     node->setName(CHOOSE_CHARACTOR_SCENE);
     
-    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName(BACK_BUTTON));
+    Button* buttonBack = static_cast<Button*>(node->getChildByName(BACK_BUTTON));
     
-    buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::GotoChooseRoomScene, this));
+    buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::ButtonBackClicked, this));
     
     node->getChildByName<Text*>(CHOOSE_CHARACTOR_SCENE_ROOMID)->setString(Multiplayer::getInstance()->getRoomID());
     
     for(int i = 1 ; i <= 6 ; i ++)
     {
         ImageView* image = static_cast<ImageView*>(node->getChildByName(CHOOSE_CHARACTOR_SCENE_CHARACTOR_PREFIX+std::to_string(i)));
-        image->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::CharactorSelectedChanged, this));
+        image->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::CharactorClicked, this));
     }
     
-    node->getChildByName<ui::Button*>(CHOOSE_CHARACTOR_SCENE_READY_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::ButtonReadyClicked, this));
-    node->getChildByName<ui::Button*>(CHOOSE_CHARACTOR_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::ButtonGoClicked, this));
+    node->getChildByName<Button*>(CHOOSE_CHARACTOR_SCENE_READY_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::ButtonReadyClicked, this));
+    node->getChildByName<Button*>(CHOOSE_CHARACTOR_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharactorScene::ButtonGoClicked, this));
     this->addChild(node);
+    
+    this->schedule(schedule_selector(ChooseCharactorScene::sendStatusMessage), 2.0f);
+    
+    Multiplayer::getInstance()->setNotificationListener(this);
     return true;
+}
+
+
+
+
+
+#pragma mark getters / setters
+void ChooseCharactorScene::setOpponentSelected(std::string name)
+{
+    this->opponentSelected = name;
+    ShowSelectedCharactor(opponentSelected, false);
+}
+
+void ChooseCharactorScene::setPlayerSelected(std::string name)
+{
+    if(playerSelected.compare("")){
+        RemoveSelectedBorder(playerSelected);
+    }
+    playerSelected = name;
+    ShowSelectedBorder(playerSelected);
+    ShowSelectedCharactor(playerSelected, true);
+    std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
+    Multiplayer::getInstance()->sendChat(message);
+    
+}
+
+void ChooseCharactorScene::setPlayerReady(bool value)
+{
+    if (value) {
+        if(playerSelected.compare(""))
+        {
+            SetReadyButtonVisible(false, true);
+            SetGoButtonVisible(true, true);
+            playerReady = true;
+            std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_READY, playerSelected);
+            Multiplayer::getInstance()->sendChat(message);
+        }else{
+            MessageBox("", "Please Select a Charactor First");
+        }
+    }else{
+        SetGoButtonVisible(false, true);
+        SetReadyButtonVisible(true, true);
+        playerReady = false;
+        std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_NOTREADY, "");
+        Multiplayer::getInstance()->sendChat(message);
+    }
+    CheckBothReady();
+}
+
+void ChooseCharactorScene::setOpponentReady(bool value)
+{
+    if (value) {
+        SetReadyButtonVisible(false, false);
+        SetGoButtonVisible(true, false);
+        opponentReady = true;
+    } else {
+        SetGoButtonVisible(false, false);
+        SetReadyButtonVisible(true, false);
+        opponentReady = false;
+    }
+    CheckBothReady();
+}
+
+//void ChooseCharactorScene::setRequiredListener()
+//{
+//    
+//}
+
+
+
+#pragma mark buttons / events
+void ChooseCharactorScene::CharactorClicked(Ref* pSender, Widget::TouchEventType type)
+{
+    if(type == Widget::TouchEventType::ENDED){
+        setPlayerSelected(static_cast<Node*>(pSender)->getName());
+    }
+}
+
+void ChooseCharactorScene::ButtonBackClicked(Ref* pSender, Widget::TouchEventType type)
+{
+    if(type == Widget::TouchEventType::ENDED){
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
+        Multiplayer::getInstance()->unsubsribeRoom(this);
+    }
 }
 
 void ChooseCharactorScene::ButtonGoClicked(Ref* pSender, Widget::TouchEventType type)
 {
     if(type == Widget::TouchEventType::ENDED)
     {
-        ChangeReadyState(false, true);
+        setPlayerReady(false);
     }
 }
 
@@ -79,70 +172,19 @@ void ChooseCharactorScene::ButtonReadyClicked(Ref* pSender, Widget::TouchEventTy
 {
     if(type == Widget::TouchEventType::ENDED)
     {
-        ChangeReadyState(true, true);
+        setPlayerReady(true);
     }
 }
 
-void ChooseCharactorScene::ChangeReadyState(bool ready, bool left)
-{
-    if(ready)
-    {
-        if(left)
-        {
-            if(playerSelected.compare(""))
-            {
-                SetReadyButtonVisible(false, true);
-                SetGoButtonVisible(true, true);
-                std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_READY, "");
-                Multiplayer::getInstance()->sendChat(message);
-                playerReady = true;
-            }
-            else
-            {
-                MessageBox("", "Please Select a Charactor First");
-            }
-        }
-        else
-        {
-            SetReadyButtonVisible(false, false);
-            SetGoButtonVisible(true, false);
-            opponentReady = true;
-        }
-        
-    }else{
-        if(left)
-        {
-            SetGoButtonVisible(false, true);
-            SetReadyButtonVisible(true, true);
-            std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_NOTREADY, "");
-            Multiplayer::getInstance()->sendChat(message);
-            playerReady = false;
-        }
-        else
-        {
-            SetGoButtonVisible(false, false);
-            SetReadyButtonVisible(true, false);
-            opponentReady = false;
-        }
-    }
-    CheckBothReady();
-}
 
+#pragma mark ready / go buttons
 void ChooseCharactorScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
     {
-        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_GAME, ""));
-
+//        StartGame();
+        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_GAME, ""), true);
     }
-}
-
-
-void ChooseCharactorScene::StartGame()
-{
-    ResetCountDown();
-    auto scene = GamePlayScene::createScene();
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 
@@ -152,13 +194,6 @@ void ChooseCharactorScene::SetGoButtonVisible(bool visible, bool left)
     auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName<Button*>(name);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
-    if(visible)
-    {
-        if (left)
-            playerReady = true;
-        else
-            opponentReady = true;
-    }
     
 }
 
@@ -168,57 +203,27 @@ void ChooseCharactorScene::SetReadyButtonVisible(bool visible, bool left)
     auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName<Button*>(name);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
-    
-    if(visible)
-    {
-        if (left)
-            playerReady = false;
-        else
-            opponentReady = false;
-    }
 }
 
-void ChooseCharactorScene::ResetGoReadyButton(bool left)
+
+void ChooseCharactorScene::ResetGoReadyButton()
 {
-    std::string go = left ? CHOOSE_CHARACTOR_SCENE_GO_L : CHOOSE_CHARACTOR_SCENE_GO_R;
-    std::string ready = left ? CHOOSE_CHARACTOR_SCENE_READY_L : CHOOSE_CHARACTOR_SCENE_READY_R;
-    SetReadyButtonVisible(true, left);
-    SetGoButtonVisible(false, left);
+    setPlayerReady(false);
+    setOpponentReady(false);
 }
 
 
-void ChooseCharactorScene::CharactorSelectedChanged(Ref* pSender, Widget::TouchEventType type)
-{
-    if(type == Widget::TouchEventType::ENDED){
-        SelectCharactor(static_cast<Node*>(pSender)->getName(), true);
-    }
-}
-
-void ChooseCharactorScene::SelectCharactor(std::string name, bool left)
-{
-    if(left){
-        if(playerSelected.compare("")){
-            RemoveSelectedBorder(playerSelected);
-        }
-        playerSelected = name;
-        ShowSelectedBorder(playerSelected);
-        ShowSelectedCharactor(playerSelected, true);
-        std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
-        Multiplayer::getInstance()->sendChat(message);
-    }else{
-        opponentSelected = name;
-        ShowSelectedCharactor(opponentSelected, false);
-    }
-}
 
 
+
+#pragma mark select charactor
 void ChooseCharactorScene::ShowSelectedCharactor(std::string name, bool left)
 {
     std::string place = left ? CHOOSE_CHARACTOR_SCENE_PLAYER_ICON_HOLDER : CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER;
     ImageView* image = static_cast<ImageView*>(this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(place));
     assert(image);
     image->setVisible(true);
-    std::string filename = std::string(CHARACTOR_RESOURCE_DIR) + "/" + name + "/" + std::string(CHARACTOR_ICON_BIG);
+    std::string filename = (boost::format(CHARACTOR_ICON_BIG_PATH) % name).str();
     image->loadTexture(filename, Widget::TextureResType::PLIST);
 }
 
@@ -239,20 +244,13 @@ void ChooseCharactorScene::RemoveSelectedBorder(std::string name)
 
 
 
-void ChooseCharactorScene::GotoChooseRoomScene(Ref* pSender, Widget::TouchEventType type)
-{
-    if(type == Widget::TouchEventType::ENDED){
-        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
-        Multiplayer::getInstance()->unsubsribeRoom(this);
-    }
-}
 
 
+#pragma mark coutdown
 void ChooseCharactorScene::CountDownTask(float dt)
 {
     auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
-    ui::Text* labelCountDown = static_cast<ui::Text*>(node->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
+    Text* labelCountDown = static_cast<Text*>(node->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
     int value = std::atoi(labelCountDown->getString().c_str()) - 1;
     if(value > 0)
     {
@@ -261,31 +259,61 @@ void ChooseCharactorScene::CountDownTask(float dt)
     else
     {
         EndCountDown();
+        this->unschedule(schedule_selector(ChooseCharactorScene::sendStatusMessage));
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
     }
 }
 
+
 void ChooseCharactorScene::ResetCountDown()
 {
     EndCountDown();
-    ui::Text* labelCountDown = static_cast<ui::Text*>(this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
-    labelCountDown->setString("60");
+    Text* labelCountDown = static_cast<Text*>(this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_COUNT_DOWN_LABEL));
+    labelCountDown->setString("20");
 }
 
 void ChooseCharactorScene::StartCountDown()
 {
-    this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0);
+    if (!isCountdownStart){
+        auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
+        node->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(false);
+        isCountdownStart = true;
+        this->schedule(schedule_selector(ChooseCharactorScene::CountDownTask), 1.0);
+    }
 }
 
 void ChooseCharactorScene::EndCountDown()
 {
-    this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
+    if(isCountdownStart){
+        isCountdownStart = false;
+        this->unschedule(schedule_selector(ChooseCharactorScene::CountDownTask));
+    }
 }
 
 
+void ChooseCharactorScene::sendStatusMessage(float dt)
+{
+    std::string message = "";
+    
+    
+    if(playerSelected.compare(""))
+    {
+        message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
+        if(playerReady)
+            message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_READY, playerSelected);
+        else
+            message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_NOTREADY, "");
+    }
+    
+//    if(message.compare(""))
+    Multiplayer::getInstance()->sendChat(message);
+    
+}
 
+
+#pragma mark listeners
 void ChooseCharactorScene::onUnsubscribeRoomDone(AppWarp::room event)
 {
     if(event.result == AppWarp::ResultCode::success)
@@ -318,86 +346,107 @@ void ChooseCharactorScene::onUserJoinedRoom(AppWarp::room, std::string name)
 {
     if(Multiplayer::getInstance()->getUsername().compare(name)){
         CCLOG("someone joined");
+//        StartCountDown();
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(false);
-        if(playerSelected.compare(""))
-        {
-            std::string charMessage = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_CHARACTOR_CHANGED, playerSelected);
-            this->scheduleOnce(
-                               [&](float){Multiplayer::getInstance()->sendChat(charMessage);},
-                               1.0, "initial charactor message");
-            
-        }
-        if(playerReady)
-        {
-            std::string readyMessage = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_READY, "");
-            this->scheduleOnce([&](float){Multiplayer::getInstance()->sendChat(readyMessage);}, 1.0, "initial ready message");
-        }
-        std::string command = Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_COUNTDOWN, "");
-        this->scheduleOnce(
-                           [&](float){Multiplayer::getInstance()->sendChat(command);}, 1.0, "start countdown");
         
+        Multiplayer::getInstance()->setOpponentUsername(name);
     }
 }
 
 void ChooseCharactorScene::onUserLeftRoom(AppWarp::room, std::string name)
 {
     if(Multiplayer::getInstance()->getUsername().compare(name)){
-        CCLOG("someone left");
-        ResetCountDown();
-        ResetGoReadyButton(true);
-        ResetGoReadyButton(false);
-        this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName("waiting")->setVisible(true);
+        Multiplayer::getInstance()->setOpponentUsername("");
+//        ResetCountDown();
+        ResetGoReadyButton();
+        
+        this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_WAITING)->setVisible(true);
         this->getChildByName(CHOOSE_CHARACTOR_SCENE)->getChildByName(CHOOSE_CHARACTOR_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
+        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTOR_SCENE, OP_CCS_START_COUNTDOWN, ""), true);
     }
 }
 
 void ChooseCharactorScene::onChatReceived(AppWarp::chat event)
 {
-    CCLOG("message: %s", event.chat.c_str());
-    std::vector<std::string> command = Multiplayer::exractMessage(event.chat);
-    
     if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
-        auto node = this->getChildByName(CHOOSE_CHARACTOR_SCENE);
-        node->getChildByName("waiting")->setVisible(false);
-        
+        StartCountDown();
+        Multiplayer::getInstance()->setOpponentUsername(event.sender);
+    }
+    
+    std::vector<std::vector<std::string>> commands = Multiplayer::exractMessage(event.chat);
+    for(int i = 0 ; i < commands.size() ; i ++)
+    {
+        std::vector<std::string> command = commands.at(i);
+        switch (atoi(command.at(1).c_str()))
+        {
+            case OP_CCS_START_COUNTDOWN:
+                StartCountDown();
+                break;
+            case OP_CCS_START_GAME:
+                StartGame();
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
+
+void ChooseCharactorScene::onPrivateChatReceived(std::string sender, std::string message)
+{
+    
+    StartCountDown();
+    std::vector<std::vector<std::string>> commands = Multiplayer::exractMessage(message);
+    
+    for(int i = 0 ; i < commands.size() ; i ++)
+    {
+        std::vector<std::string> command = commands.at(i);
+        Multiplayer::getInstance()->setOpponentUsername(sender);
         switch (atoi(command.at(1).c_str()))
         {
             case OP_CCS_CHARACTOR_CHANGED:
-                SelectCharactor(command.at(2), false);
-                
+                setOpponentSelected(command.at(2));
                 break;
                 
             case OP_CCS_READY:
-                ChangeReadyState(true, false);
-                
+                setOpponentReady(true);
                 break;
                 
             case OP_CCS_NOTREADY:
-                ChangeReadyState(false, false);
-                
+                setOpponentReady(false);
                 break;
                 
             default:
                 break;
         }
     }
-    
-    switch (atoi(command.at(1).c_str()))
-    {
-        case OP_CCS_START_COUNTDOWN:
-            StartCountDown();
-            break;
-        
-        case OP_CCS_START_GAME:
-            StartGame();
-            break;
-            
-        default:
-            break;
-    }
-    
-    
+
 }
+
+
+#pragma mark start game
+void ChooseCharactorScene::StartGame()
+{
+    ResetCountDown();
+    LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+    
+    // TODO: ONLY CHARACTOR1 AND CHARACTOR6 WORKS
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "suiting up charactors", 30.0f);
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % playerSelected ).str());
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % opponentSelected ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % playerSelected).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % opponentSelected).str());
+    
+    // TODO: CHANGE IT AFTER FINISH ANIMATIONS
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Loading backgrounds", 60.0f);
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
+    
+    
+    auto scene = GamePlayScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
 
 
 

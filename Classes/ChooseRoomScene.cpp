@@ -142,8 +142,8 @@ void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
     // status
     static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
     // image
-//    std::cout <<  "Backgrounds/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/icon.png" << std::endl;
-    static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(std::string(BACKGROUND_RESOURCE_DIR)+ "/" + room.properties.find(ROOM_PROPERTY_BACKGROUND)->second + "/" + std::string(BACKGROUND_ICON), ui::Widget::TextureResType::PLIST);
+    std::string filename = (boost::format(BACKGROUND_ICON_PATH) % room.properties.find(ROOM_PROPERTY_BACKGROUND)->second).str();
+    static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(filename, ui::Widget::TextureResType::PLIST);
     
 //    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
     

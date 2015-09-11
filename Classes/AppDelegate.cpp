@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
-//#include "GamePlayScene.h"
+#include "GamePlayScene.h"
 #include "GKHWrapperCpp.h"
 USING_NS_CC;
 
@@ -65,8 +65,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     
     // create a scene. it's an autorelease object
-    auto scene = SplashScene::createScene();
-//    auto scene = GamePlayScene::createScene();
+//    auto scene = SplashScene::createScene();
+    auto scene = GamePlayScene::createScene();
     // run
     director->runWithScene(scene);
 

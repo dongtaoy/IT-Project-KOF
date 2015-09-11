@@ -15,10 +15,11 @@
 #include "Definitions.h"
 #include "ChooseRoomScene.h"
 #include "GameHelper.h"
+#include <boost/algorithm/string.hpp>
 
 #define MAX_USERS 2
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, AppWarp::ZoneRequestListener, AppWarp::RoomRequestListener, AppWarp::NotificationListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
 {
     
 public:
@@ -28,7 +29,8 @@ public:
     static void initialize(std::string);
     
     static std::string buildMessage(int, int, std::string);
-    static std::vector<std::string> exractMessage(std::string);
+    static std::vector<std::vector<std::string>> exractMessage(std::string);
+    static bool isMesaageValid(std::string, std::string);
     
     void connect(AppWarp::ConnectionRequestListener*);
     
@@ -46,7 +48,9 @@ public:
     
     void getLiveRoomInfo(AppWarp::RoomRequestListener*);
     
-    void sendChat(std::string);
+    void sendChat(std::string, bool = false);
+    
+    void sendChatAfter(int, std::string);
     
     
     void resetConnectionRequestListener();
@@ -62,7 +66,11 @@ public:
     
     void setNotificationListener(AppWarp::NotificationListener*);
     
+    
+    
+    
     void setRoomID(std::string);
+    
     
     std::string getRoomID();
     
@@ -70,11 +78,20 @@ public:
     
     
     
+    void setOpponentUsername(std::string);
+    std::string getOpponentUsername();
+    
+    
+    
+    
 private:
     
     
     std::string username;
+    std::string opponentUsername;
     std::string roomID;
+    std::string background;
+    int bestof;
     
     static Multiplayer* _instance;
     

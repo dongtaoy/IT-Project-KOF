@@ -10,9 +10,9 @@
 USING_NS_CC;
 using namespace ui;
 
-Scene* GamePlayScene::createScene(std::string playerChar, std::string opponentChar)
+Scene* GamePlayScene::createScene()
 {
-    Multiplayer::getInstance()->resetAllListener();
+//    Multiplayer::getInstance()->resetAllListener();
     
     // 'scene' is an autorelease object
     auto scene = Scene::create();
@@ -20,8 +20,6 @@ Scene* GamePlayScene::createScene(std::string playerChar, std::string opponentCh
     // 'layer' is an autorelease object
     auto layer = GamePlayScene::create();
     
-    layer->setOpponentCharactor(opponentChar);
-    layer->setPlayerCharactor(playerChar);
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -42,15 +40,28 @@ bool GamePlayScene::init()
         return false;
     }
     
-    Multiplayer::getInstance()->setNotificationListener(this);
+//    Multiplayer::getInstance()->setNotificationListener(this);
+    
+    // TODO:: DELETE
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
+    
     
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     
+    
+    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    node->getChildByName<Sprite*>("background")->runAction(RepeatForever::create(Animate::create(animation)));
+    
     this->addChild(node);
     
-    LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
+//    LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
+//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
+//        CCLOG("LEFT");
+//    else
+//        CCLOG("RIGHT");
     
     
     
@@ -101,7 +112,7 @@ void GamePlayScene::MenuClicked(Ref* pSender, Widget::TouchEventType type)
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
         
-        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_CCS_NOTREADY, ""));
+//        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_CCS_NOTREADY, ""));
 //        this->addChild(<#cocos2d::Node *child#>)
     }
 }
@@ -159,8 +170,6 @@ void GamePlayScene::onUserLeftRoom(AppWarp::room, std::string name)
     {
         MessageBox("Opponent Left", "Opponent Left");
     }
-            
-        
 }
 
 void GamePlayScene::onUnsubscribeRoomDone(AppWarp::room event)

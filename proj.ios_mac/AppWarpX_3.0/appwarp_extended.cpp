@@ -214,6 +214,7 @@ namespace AppWarp
                     cht.sender = getJSONString("sender",notification->payLoad, notification->payLoadSize);
                     cht.locid = getJSONInt("locid",notification->payLoad, notification->payLoadSize);
                     cht.isLocationLobby = getJSONBool("isLocationLobby",notification->payLoad, notification->payLoadSize);
+                    cht.result = AppWarp::ResultCode::success;
                     _notificationListener->onChatReceived(cht);
                 }
                 else if(notification->updateType == UpdateType::private_chat)
