@@ -98,9 +98,35 @@ void GamePlayScene::startGame()
 
 void GamePlayScene::update(float dt)
 {
-    if(joystick->getVelocity() != Point(0,0))
+    Point velocity = joystick->getVelocity();
+    if(velocity != Point(0,0))
     {
-        player->getSprite()->runAction(MoveBy::create(1.0, Vec2(joystick->getVelocity().x * 10, 0)));
+        CCLOG("%f %f", velocity.x, velocity.y);
+        // move forward
+        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0.92387f )
+        {
+            player->moveForward();
+        }
+        // move back
+        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < -0.92387f )
+        {
+            player->moveBack();
+        }
+        // jump up
+        if(velocity.y > 0.92387f && velocity.x > -0.38268f && velocity.x < 0.38268f )
+        {
+            player->jumpUp();
+        }
+        // jump forward
+        if(velocity.x > 0.38268f && velocity.x < 0.92387f && velocity.y > 0.38268f && velocity.y < 0.92387f)
+        {
+            player->jumpForward();
+        }
+        // jump back
+        if(velocity.x < -0.38268f && velocity.x > -0.92387f && velocity.y > 0.38268f && velocity.y < 0.92387f)
+        {
+            player->jumpBack();
+        }
     }
 }
 

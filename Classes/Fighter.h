@@ -20,8 +20,15 @@ public:
     Fighter(cocos2d::Sprite*, std::string);
     CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
     
+    void stand();
+    void moveForward();
+    void moveBack();
+    void jumpUp();
+    void jumpForward();
+    void jumpBack();
     
-private:
+    bool isStand();
+//private:
     
     
     
