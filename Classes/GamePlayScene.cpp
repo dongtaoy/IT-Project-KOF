@@ -47,10 +47,11 @@ bool GamePlayScene::init()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
     AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
     
-    
+    // TODO:: DELETE
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % "charactor1").str());
     AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % "charactor1").str());
-    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % "charactor6").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % "charactor6").str());
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -66,9 +67,15 @@ bool GamePlayScene::init()
 //    this->runAction(Follow::create(player));
     
     if(true)
+    {
         player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
-    else
         opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor6");
+    }
+    else
+    {
+        player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor6");
+        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor6");
+    }
     
     
 //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
