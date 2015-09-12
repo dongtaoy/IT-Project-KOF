@@ -21,6 +21,7 @@ class Fighter
 public:
     Fighter(cocos2d::Sprite*, std::string);
     CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
+    CC_SYNTHESIZE(Fighter*, opponent, Opponent);
     
     void stand();
     void moveForward();
@@ -34,11 +35,13 @@ public:
     void update(float);
     
     cocos2d::Vec2 getPosition();
+    cocos2d::Vec2 getScreenPosition();
+    
     
 private:
     bool isStand();
     bool isActionStoppable();
-    
+    bool canMove(cocos2d::Vec2);
     
 //    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
 //    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);

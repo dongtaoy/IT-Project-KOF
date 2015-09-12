@@ -72,11 +72,12 @@ bool GamePlayScene::init()
     }
     else
     {
-        player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
-        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor1");
+        player = new Fighter(background->getChildByName<Sprite*>("left"), "charactor1");
+        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "charactor1");
     }
-    
-    
+    player->setOpponent(opponent);
+    opponent->setOpponent(player);
+
     camera = new Camera2d(player, opponent, background);
     
     
@@ -96,9 +97,7 @@ void GamePlayScene::update(float dt)
 {
     Point velocity = joystick->getVelocity();
     
-    camera->update();
-    player->update(dt);
-    opponent->update(dt);
+    camera->update(dt);
     if(velocity != Point(0,0))
     {
 //        CCLOG("%f %f", velocity.x, velocity.y);
@@ -121,6 +120,8 @@ void GamePlayScene::update(float dt)
     else{
         player->stand();
     }
+    
+    
 }
 
 void GamePlayScene::buttonAClicked(Ref*, ui::Widget::TouchEventType)

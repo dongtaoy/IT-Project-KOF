@@ -14,43 +14,55 @@ Fighter::Fighter(Sprite* sprite, std::string name)
 {
     this->sprite = sprite;
     this->sprite->setSpriteFrame((boost::format("charactors/%s/Animation/stand/00.png") % name).str());
-    
     this->stand();
 }
 
 
 void Fighter::update(float)
 {
-//    if(isStand())
-//    {
-//        //this->sprite->setPosition(toScreenCoord(background, this));
-//    }
     
 }
+
+
 Vec2 Fighter::getPosition()
 {
     return this->sprite->getPosition();
 }
 
 
-//Vec2 Fighter::toBackgroundCoord(cocos2d::Sprite* background, Fighter* fighter)
-//{
-//    return Vec2(background->getContentSize().width * background->getScaleX() / 2 - background->getPosition().x + fighter->getSprite()->getPosition().x,
-//                background->getContentSize().height * background->getScaleY() / 2 - background->getPosition().y + fighter->getSprite()->getPosition().y);
-//}
-//
-//Vec2 Fighter::toScreenCoord(cocos2d::Sprite* background, Fighter* fighter)
-//{
-//    return Vec2( fighter->getPos().x - (background->getContentSize().width * background->getScaleX() / 2 - background->getPosition().x ),
-//                 fighter->getPos().y - (background->getContentSize().height * background->getScaleY() / 2 - background->getPosition().y ));
-//}
+Vec2 Fighter::getScreenPosition()
+{
+    return this->sprite->getParent()->convertToWorldSpace(this->getPosition());
+}
+
+
+bool Fighter::canMove(Vec2 displacement)
+{
+    auto visibleSize = Director::getInstance()->getWinSize();
+    auto opponentBox = opponent->getSprite()->getBoundingBox();
+    auto playerBox = this->getSprite()->getBoundingBox();
+    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
+    
+    if (displacement.x < 0){
+        if (this->getPosition().x - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET + displacement.x   < 0)
+        {
+            return false;
+        }
+    }else{
+        if (this->getPosition().x + playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET + displacement.x  > backgroundbox.width)
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
 
 
 void Fighter::stand()
 {
     if (!isStand() && (this->sprite->getNumberOfRunningActions() < 1 || isActionStoppable()))
     {
-        CCLOG("stand in");
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("stand");
         auto animate = Animate::create(animation);
@@ -63,9 +75,13 @@ void Fighter::stand()
 
 void Fighter::moveForward()
 {
+    if(!canMove(Vec2(CAMERA_FIGHTER_OFFSET,0))){
+        this->stand();
+        return;
+    }
+    
     if(!(this->sprite->getActionByTag(ACTION_1_MOVE_FORWARD)) && isActionStoppable())
     {
-        
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("movefoward");
         auto animate = Animate::create(animation);
@@ -81,6 +97,15 @@ void Fighter::moveForward()
 
 void Fighter::moveBack()
 {
+//    Vec2 displacement = ;
+    
+    if(!canMove(Vec2(-CAMERA_FIGHTER_OFFSET,0)))
+    {
+        this->stand();
+        return;
+        //displacement = Vec2::ZERO;
+    }
+    
     if(!(this->sprite->getActionByTag(ACTION_1_MOVE_BACK)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
@@ -98,13 +123,20 @@ void Fighter::moveBack()
 
 void Fighter::jump(Vec2 direction)
 {
+    Vec2 dispalcement = Vec2(direction.x * ACTION_MOVE_SPEED, 0);
+    if(!canMove(dispalcement))
+    {
+        dispalcement = Vec2::ZERO;
+//        return;
+    }
+    
     if(isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("jump");
         auto animate = Animate::create(animation);
         animate->setDuration(.85f);
-        auto jumpBy = JumpBy::create(.85f, Vec2(ACTION_JUMP_SPEED * direction.x ,0), 250.0f, 1);
+        auto jumpBy = JumpBy::create(.85f, dispalcement, 250.0f, 1);
         auto spawn = Spawn::create(animate, jumpBy, NULL);
         auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
         auto sequence = Sequence::create(spawn, callFunc, NULL);

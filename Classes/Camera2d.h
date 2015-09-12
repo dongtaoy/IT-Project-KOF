@@ -10,10 +10,12 @@
 #define __KOF__Camera__
 #include "Fighter.h"
 #include "cocos2d.h"
+
 #include "Definitions.h"
 #include "GameHelper.h"
 #include <stdio.h>
 
+#include <cmath>
 
 
 class Camera2d
@@ -21,11 +23,8 @@ class Camera2d
     
 public:
     Camera2d(Fighter* player, Fighter* oppponent, cocos2d::Sprite* background);
-    //    CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
-    void update();
-    bool checkBoundary(float);
+    void update(float);
     
-    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);
     
 private:
     
@@ -36,10 +35,7 @@ private:
     CC_SYNTHESIZE(cocos2d::Vec2, playerScreenPos, PlayerScreenPos);
     CC_SYNTHESIZE(cocos2d::Vec2, opponentScreenPos, OpponentScreenPos);
     
-    CC_SYNTHESIZE(float, leftBoundary, LeftBoundary);
-    CC_SYNTHESIZE(float, rightBoundary, RightBoundary);
-    
-    
+    void moveBackground(float);
     
 };
 

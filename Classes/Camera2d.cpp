@@ -16,60 +16,37 @@ Camera2d::Camera2d(Fighter* player, Fighter* opponent, Sprite* background)
     this->opponent = opponent;
     this->background = background;
     
+    
+}
+
+void Camera2d::update(float dt)
+{
+    this->playerScreenPos = player->getScreenPosition();
+    this->opponentScreenPos = opponent->getScreenPosition();
+
     Size visibleSize = Director::getInstance()->getWinSize();
     
-    CCLOG("%f %f", background->getContentSize().width, background->getContentSize().height);
-    CCLOG("%f %f", background->getScaleX(), background->getScaleY());
+    if (playerScreenPos.x < CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET)
+    {
+        moveBackground(CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET - playerScreenPos.x);
+    }
     
-    CCLOG("%f %f", background->getPosition().x, background->getPosition().y);
-    CCLOG("%f %f", visibleSize.width, visibleSize.height);
+    if (playerScreenPos.x > (visibleSize.width - CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET))
+    {
+        moveBackground(-CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET + (visibleSize.width - playerScreenPos.x));
+    }
     
 }
 
-void Camera2d::update()
+void Camera2d::moveBackground(float displacement)
 {
-//    auto playerPosition = player->getSprite()->getPosition();
-//    auto opponentPosition = opponent->getSprite()->getPosition();
-//    auto playerSize = player->getSprite()->getContentSize();
-//    auto opponentSize = player->getSprite()->getContentSize();
+    auto visibleSize = Director::getInstance()->getWinSize();
+    auto box = background->getBoundingBox();
+    if (box.origin.x + displacement > 0 || box.origin.x + displacement + box.size.width < visibleSize.width)
+        return;
     
-//    auto playerPosition = player->getSprite()->getPosition();
-//    
-//    if (playerPosition.x < 200) {
-//        background->setPosition(Vec2(background->getPosition().x + 200 - playerPosition.x, background->getPosition().y));
-//    }
-
-    this->playerScreenPos = toScreenCoord(background, player);
-    this->opponentScreenPos = toScreenCoord(background, opponent);
-    CCLOG("background    : %f %f", background->getContentSize().width , background->getContentSize().height);
-    CCLOG("background pos: %f %f", background->getPosition().x, background->getPosition().y);
-    CCLOG("player in back: %f %f", player->getPosition().x, player->getPosition().y);
-    CCLOG("%f %f", playerScreenPos.x , playerScreenPos.y);
-}
-
-Vec2 Camera2d::toScreenCoord(Sprite* background, Fighter* fighter)
-{
-    return Vec2(fighter->getPosition().x - ((background->getContentSize().width) / 2 - background->getPosition().x ),
-                fighter->getPosition().y - ((background->getContentSize().height) / 2 - background->getPosition().y));
-}
-
-//void Camera2d::moveBackground()
-//{
-//    
-//}
-
-bool Camera2d::checkBoundary(float x){
-    
-//    auto playerPosition = player->getSprite()->getPosition();
-//    auto opponentPosition = opponent->getSprite()->getPosition();
-//    auto playerSize = player->getSprite()->getContentSize();
-//    auto opponentSize = player->getSprite()->getContentSize();
-//    
-//    if ((playerPosition.x + x) < leftBoundary || (playerPosition.x + x)> rightBoundary)
-//    {
-//        return false;
-//        
-//    }
-//    return true;
+    Vec2 currentPosition = background->getPosition();
+    Vec2 newPosition = Vec2(currentPosition.x + displacement, currentPosition.y);
+    background->setPosition(newPosition);
 }
 

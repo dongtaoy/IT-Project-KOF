@@ -108,9 +108,11 @@
 #define ACTION_KICK2                        205
 
 #define ACTION_MOVE_SPEED                   200
-#define ACTION_JUMP_SPEED                   300
 #define ACTION_1_MOVE_DURATION                .7f
 
 
+// Camera
+#define CAMERA_MOVE_THRESHOLD                150
+#define CAMERA_FIGHTER_OFFSET                30
 
 #endif
