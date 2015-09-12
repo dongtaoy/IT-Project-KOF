@@ -36,6 +36,16 @@ void Camera2d::update(float dt)
         moveBackground(-CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET + (visibleSize.width - playerScreenPos.x));
     }
     
+//    if (opponentScreenPos.x < CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET)
+//    {
+//        moveBackground(CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET - playerScreenPos.x);
+//    }
+//    
+//    if (opponentScreenPos.x > (visibleSize.width - CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET))
+//    {
+//        moveBackground(-CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET + (visibleSize.width - playerScreenPos.x));
+//    }
+    
 }
 
 void Camera2d::moveBackground(float displacement)

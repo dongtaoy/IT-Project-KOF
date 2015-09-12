@@ -97,7 +97,7 @@ void GamePlayScene::update(float dt)
 {
     Point velocity = joystick->getVelocity();
     
-    camera->update(dt);
+    
     if(velocity != Point(0,0))
     {
 //        CCLOG("%f %f", velocity.x, velocity.y);
@@ -121,6 +121,8 @@ void GamePlayScene::update(float dt)
         player->stand();
     }
     
+    player->update(dt);
+    camera->update(dt);
     
 }
 

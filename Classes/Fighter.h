@@ -35,8 +35,10 @@ public:
     void update(float);
     
     cocos2d::Vec2 getPosition();
+    void setPosition(cocos2d::Vec2);
     cocos2d::Vec2 getScreenPosition();
-    
+    cocos2d::Rect getBoundingBox();
+    cocos2d::Node* getParent();
     
 private:
     bool isStand();

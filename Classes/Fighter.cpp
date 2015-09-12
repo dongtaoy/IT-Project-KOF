@@ -20,6 +20,55 @@ Fighter::Fighter(Sprite* sprite, std::string name)
 
 void Fighter::update(float)
 {
+    auto visibleSize = Director::getInstance()->getWinSize();
+    auto playerBox = this->getBoundingBox();
+    auto opponentBox = opponent->getBoundingBox();
+    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
+    
+//    CCLOG("%f %f", -(visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET), this->getPosition().x);
+//    
+    if ((std::abs(this->getPosition().x - opponent->getPosition().x) + playerBox.size.width / 2 + opponentBox.size.width / 2 + 2 * CAMERA_FIGHTER_OFFSET ) * this->sprite->getParent()->getScaleX() > visibleSize.width)
+    {
+        if (this->getPosition().x > opponent->getPosition().x)
+        {
+            auto x = visibleSize.width / this->getParent()->getScaleX() + opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
+            this->setPosition(Vec2(x-5, this->getPosition().y));
+        }
+        else
+        {
+            auto x = visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
+            this->setPosition(Vec2(-x+5, this->getPosition().y));
+        }
+    }
+    
+//    CCLOG("%f %f ", visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET, this->getScreenPosition().x);
+//    
+//    if (std::abs(this->getScreenPosition().x - opponent->getScreenPosition().x) + (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() + 2 * CAMERA_FIGHTER_OFFSET > visibleSize.width )
+//    {
+//        CCLOG("in");
+//        if (this->getPosition().x > opponent->getPosition().x)
+//        {
+//            auto x = visibleSize.width + opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET;
+//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(x, this->getScreenPosition().y)));
+//        }
+//        else
+//        {
+//            auto x = visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET;
+//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(-x, this->getScreenPosition().y)));
+//        }
+//        
+//    }
+    
+    if (this->getPosition().x - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET < 0)
+    {
+        this->setPosition(Vec2(playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
+    }
+    
+    if (this->getPosition().x + playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
+    {
+        this->setPosition(Vec2(backgroundbox.width - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
+    }
+    
     
 }
 
@@ -29,32 +78,46 @@ Vec2 Fighter::getPosition()
     return this->sprite->getPosition();
 }
 
+void Fighter::setPosition(Vec2 pos)
+{
+    this->sprite->setPosition(pos);
+}
+
+Rect Fighter::getBoundingBox()
+{
+    return this->sprite->getBoundingBox();
+}
 
 Vec2 Fighter::getScreenPosition()
 {
     return this->sprite->getParent()->convertToWorldSpace(this->getPosition());
 }
 
+Node* Fighter::getParent()
+{
+    return this->sprite->getParent();
+}
+
 
 bool Fighter::canMove(Vec2 displacement)
 {
-    auto visibleSize = Director::getInstance()->getWinSize();
-    auto opponentBox = opponent->getSprite()->getBoundingBox();
-    auto playerBox = this->getSprite()->getBoundingBox();
-    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
-    
-    if (displacement.x < 0){
-        if (this->getPosition().x - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET + displacement.x   < 0)
-        {
-            return false;
-        }
-    }else{
-        if (this->getPosition().x + playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET + displacement.x  > backgroundbox.width)
-        {
-            return false;
-        }
-    }
-    
+//    auto visibleSize = Director::getInstance()->getWinSize();
+//    auto opponentBox = opponent->getSprite()->getBoundingBox();
+//    auto playerBox = this->getSprite()->getBoundingBox();
+//    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
+//    
+//    if (displacement.x < 0){
+//        if (this->getPosition().x - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET + displacement.x   < 0)
+//        {
+//            return true;
+//        }
+//    }else{
+//        if (this->getPosition().x + playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET + displacement.x  > backgroundbox.width)
+//        {
+//            return true;
+//        }
+//    }
+//    
     return true;
 }
 

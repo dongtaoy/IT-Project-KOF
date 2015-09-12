@@ -113,6 +113,6 @@
 
 // Camera
 #define CAMERA_MOVE_THRESHOLD                150
-#define CAMERA_FIGHTER_OFFSET                30
+#define CAMERA_FIGHTER_OFFSET                10
 
 #endif
