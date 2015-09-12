@@ -18,6 +18,7 @@
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
 #include "Fighter.h"
+#include "Camera2d.h"
 
 class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListener, public AppWarp::RoomRequestListener
 {
@@ -34,16 +35,20 @@ public:
     CC_SYNTHESIZE(std::string, playerCharactor, PlayerCharactor);
     CC_SYNTHESIZE(std::string, opponentCharactor, OpponentCharactor);
     
+    CC_SYNTHESIZE(Fighter*, player, Player);
+    CC_SYNTHESIZE(Fighter*, opponent, Opponent);
+    CC_SYNTHESIZE(cocos2d::Sprite*, background, Background);
     
     
 private:
     
 //    std::string playerCharactor;
 //    std::string opponentCharactor;
-//    
-    Fighter* player;
-    Fighter* opponent;
+//
     
+//    Fighter* player;
+//    Fighter* opponent;
+    Camera2d* camera;
     
     
     SneakyJoystick* joystick;

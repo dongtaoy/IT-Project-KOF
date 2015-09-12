@@ -94,4 +94,23 @@
 #define MP_GAME_PLAY_SCNE                   2
 
 
+// Fighter
+
+#define ACTION_1_STAND                        100
+#define ACTION_1_MOVE_FORWARD                 101
+#define ACTION_1_MOVE_BACK                    102
+#define ACTION_1_CALL_FUNC                    199
+
+#define ACTION_JUMP                         201
+#define ACTION_PUNCH1                       202
+#define ACTION_PUNCH2                       203
+#define ACTION_KICK1                        204
+#define ACTION_KICK2                        205
+
+#define ACTION_MOVE_SPEED                   200
+#define ACTION_JUMP_SPEED                   300
+#define ACTION_1_MOVE_DURATION                .7f
+
+
+
 #endif

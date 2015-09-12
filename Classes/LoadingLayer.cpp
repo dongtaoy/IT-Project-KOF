@@ -97,8 +97,9 @@ void LoadingLayer::StartCountDown(Node* scene, cocos2d::CallFunc* callback)
     auto animation = AnimationCache::getInstance()->getAnimation("countdown");
     countdown->setScale(0.7);
     countdown->setVisible(true);
+    animation->setDelayPerUnit(0.5);
     
-    
+    CCLOG("playing...");
     if (callback)
         countdown->runAction(Sequence::createWithTwoActions(Animate::create(animation), callback));
     else

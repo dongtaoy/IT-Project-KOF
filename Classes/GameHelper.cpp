@@ -8,6 +8,8 @@
 
 #include "GameHelper.h"
 
+USING_NS_CC;
+
 std::vector<std::string> GameHelper::split(std::string str, char delimiter) {
     std::vector<std::string> internal;
     std::stringstream ss(str); // Turn the string into a stream.
@@ -37,3 +39,4 @@ std::string GameHelper::randomString( size_t length )
     std::generate_n( str.begin(), length, randchar );
     return str;
 }
+

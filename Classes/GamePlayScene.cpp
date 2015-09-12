@@ -59,6 +59,7 @@ bool GamePlayScene::init()
     node->getChildByName<Button*>("buttonB")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonBClicked, this));
     node->getChildByName<Button*>("buttonC")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonCClicked, this));
     node->getChildByName<Button*>("buttonD")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonDClicked, this));
+    this->background = node->getChildByName<Sprite*>("background");
     this->addChild(node);
     
     
@@ -66,8 +67,8 @@ bool GamePlayScene::init()
     //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     if(true)
     {
-        player = new Fighter(node->getChildByName<Sprite*>("left"), "charactor1");
-        opponent = new Fighter(node->getChildByName<Sprite*>("right"), "charactor1");
+        player = new Fighter(background->getChildByName<Sprite*>("left"), "charactor1");
+        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "charactor1");
     }
     else
     {
@@ -76,6 +77,7 @@ bool GamePlayScene::init()
     }
     
     
+    camera = new Camera2d(player, opponent, background);
     
     
     createBackgroundAnimation();
@@ -93,34 +95,31 @@ void GamePlayScene::startGame()
 void GamePlayScene::update(float dt)
 {
     Point velocity = joystick->getVelocity();
+    
+    camera->update();
+    player->update(dt);
+    opponent->update(dt);
     if(velocity != Point(0,0))
     {
-        CCLOG("%f %f", velocity.x, velocity.y);
-        // move forward
-        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0.92387f )
+//        CCLOG("%f %f", velocity.x, velocity.y);
+        // move
+        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0)
         {
             player->moveForward();
         }
-        // move back
-        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < -0.92387f )
+//        // move back
+        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < 0)
         {
             player->moveBack();
         }
         // jump up
-        if(velocity.y > 0.92387f && velocity.x > -0.38268f && velocity.x < 0.38268f )
+        if(velocity.y > 0.38268f)
         {
-            player->jumpUp();
+            player->jump(velocity);
         }
-        // jump forward
-        if(velocity.x > 0.38268f && velocity.x < 0.92387f && velocity.y > 0.38268f && velocity.y < 0.92387f)
-        {
-            player->jumpForward();
-        }
-        // jump back
-        if(velocity.x < -0.38268f && velocity.x > -0.92387f && velocity.y > 0.38268f && velocity.y < 0.92387f)
-        {
-            player->jumpBack();
-        }
+    }
+    else{
+        player->stand();
     }
 }
 

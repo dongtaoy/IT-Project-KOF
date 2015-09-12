@@ -10,13 +10,16 @@
 #define __KOF__GameHelper__
 
 #include <stdio.h>
-
+#include "cocos2d.h"
+//#include "Fighter.h"
 
 class GameHelper{
     
 public:
     static std::vector<std::string> split(std::string, char);
     static std::string randomString(size_t);
+    
+//    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
     
 };
 #endif /* defined(__KOF__GameHelper__) */
