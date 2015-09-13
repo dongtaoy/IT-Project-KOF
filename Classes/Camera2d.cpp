@@ -44,24 +44,33 @@ void Camera2d::update(float dt)
     if(std::signbit(toPlayer) != std::signbit(toOpponent))
     {
         auto displacement = (toPlayer + toOpponent) / 2;
-        if(toPlayer > toOpponent)
-            moveBackground(displacement);
-        else if(toPlayer < toOpponent)
-            moveBackground(-displacement);
+        if (player->getPosition().x < opponent->getPosition().x)
+        {
+            if(toPlayer > toOpponent)
+                moveBackground(displacement*this->background->getScaleX());
+            else if(toPlayer < toOpponent)
+                moveBackground(-displacement*this->background->getScaleX());
+        }
+        else
+        {
+            if(toPlayer > toOpponent)
+                moveBackground(-displacement*this->background->getScaleX());
+            else if(toPlayer < toOpponent)
+                moveBackground(+displacement*this->background->getScaleX());
+        }
     }
-//    else
-//    {
-//        auto displacement = std::abs(toPlayer + toOpponent) / 2;
-//        if(std::signbit(toPlayer))
-//        {
-//            moveBackground(+displacement);
-//        }else
-//        {
-//            moveBackground(-displacement);
-//        }
-//    }
+    else
+    {
+        auto displacement = std::abs(toPlayer + toOpponent) / 2;
+        if(std::signbit(toPlayer))
+        {
+            moveBackground(-displacement*this->background->getScaleX());
+        }else
+        {
+            moveBackground(+displacement*this->background->getScaleX());
+        }
+    }
     
-    CCLOG("%f %f", toPlayer, toOpponent);
     
 //    auto startpos = opponentScreenPos.x > playerScreenPos.x ? playerScreenPos.x : opponentScreenPos.x;
 //    auto mid = startpos + std::abs(playerScreenPos.x - opponentScreenPos.x) / 2;
@@ -99,11 +108,13 @@ void Camera2d::moveBackground(float displacement)
 {
     auto visibleSize = Director::getInstance()->getWinSize();
     auto box = background->getBoundingBox();
-    if (box.origin.x + displacement > 0 || box.origin.x + displacement + box.size.width < visibleSize.width)
+    if (box.origin.x + displacement > 0 || box.origin.x + displacement + box.size.width < visibleSize.width){
         return;
+    }
     
     Vec2 currentPosition = background->getPosition();
     Vec2 newPosition = Vec2(currentPosition.x + displacement, currentPosition.y);
     background->setPosition(newPosition);
+    
 }
 

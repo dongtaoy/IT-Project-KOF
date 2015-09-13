@@ -25,27 +25,19 @@ void Fighter::update(float)
     auto opponentBox = opponent->getBoundingBox();
     auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
-//    CCLOG("%f %f", -(visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET), this->getPosition().x);
-//
-    
-//     CCLOG("before %f", this->getScreenPosition().x);
+
     if ((std::abs(this->getPosition().x - opponent->getPosition().x) + playerBox.size.width / 2 + opponentBox.size.width / 2 + 2 * CAMERA_FIGHTER_OFFSET ) * this->sprite->getParent()->getScaleX() > visibleSize.width)
     {
         if (this->getPosition().x > opponent->getPosition().x)
         {
-            
-            
             auto x = visibleSize.width / this->getParent()->getScaleX() + opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
             this->setPosition(Vec2(x-5, this->getPosition().y));
         }
         else
         {
-//            auto x = 0 + CAMERA_FIGHTER_OFFSET + playerBox.size.width / 2;
-//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(x, this->getScreenPosition().y)));
             auto x = visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
             this->setPosition(Vec2(-x+5, this->getPosition().y));
         }
-//        CCLOG("after %f", this->getScreenPosition().x);
     }
     
 //    CCLOG("%f %f ", visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET, this->getScreenPosition().x);
@@ -66,14 +58,14 @@ void Fighter::update(float)
 //        
 //    }
     
-    if (this->getPosition().x - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET < 0)
+    if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
     {
-        this->setPosition(Vec2(playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
+        this->setPosition(Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
     }
     
-    if (this->getPosition().x + playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
+    if (this->getPosition().x + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
     {
-        this->setPosition(Vec2(backgroundbox.width - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
+        this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
     }
     
     
