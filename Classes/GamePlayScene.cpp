@@ -171,7 +171,6 @@ void GamePlayScene::MenuClicked(Ref* pSender, Widget::TouchEventType type)
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
-        
     }
 }
 

@@ -26,15 +26,62 @@ void Camera2d::update(float dt)
 
     Size visibleSize = Director::getInstance()->getWinSize();
     
-    if (playerScreenPos.x < CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET)
-    {
-        moveBackground(CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET - playerScreenPos.x);
-    }
+//    if (playerScreenPos.x < CAMERA_MOVE_THRESHOLD)
+//    {
+//        moveBackground(CAMERA_MOVE_THRESHOLD - playerScreenPos.x);
+//    }
+//    
+//    if (playerScreenPos.x > (visibleSize.width - CAMERA_MOVE_THRESHOLD))
+//    {
+//        moveBackground(-CAMERA_MOVE_THRESHOLD + (visibleSize.width - playerScreenPos.x));
+//    }
+
+    auto mid = background->convertToNodeSpace(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     
-    if (playerScreenPos.x > (visibleSize.width - CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET))
+    auto toPlayer = mid.x - player->getPosition().x;
+    auto toOpponent = mid.x - opponent->getPosition().x;
+    
+    if(std::signbit(toPlayer) != std::signbit(toOpponent))
     {
-        moveBackground(-CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET + (visibleSize.width - playerScreenPos.x));
+        auto displacement = (toPlayer + toOpponent) / 2;
+        if(toPlayer > toOpponent)
+            moveBackground(displacement);
+        else if(toPlayer < toOpponent)
+            moveBackground(-displacement);
     }
+//    else
+//    {
+//        auto displacement = std::abs(toPlayer + toOpponent) / 2;
+//        if(std::signbit(toPlayer))
+//        {
+//            moveBackground(+displacement);
+//        }else
+//        {
+//            moveBackground(-displacement);
+//        }
+//    }
+    
+    CCLOG("%f %f", toPlayer, toOpponent);
+    
+//    auto startpos = opponentScreenPos.x > playerScreenPos.x ? playerScreenPos.x : opponentScreenPos.x;
+//    auto mid = startpos + std::abs(playerScreenPos.x - opponentScreenPos.x) / 2;
+//    auto displacement = background->getPosition().x - mid;
+//    moveBackground(displacement);
+    
+//    auto backgroundScreenPos = background->getParent()->convertToWorldSpace(background->getPosition());
+//    
+//    CCLOG("%f %f", background->getParent()->convertToWorldSpace(background->getPosition()).x, mid);
+//    
+//    auto newPos = background->getParent()->convertToNodeSpace(Vec2(mid, backgroundScreenPos.y));
+//    
+//    CCLOG("%f %f", newPos.x, newPos.y);
+//    
+//    background->setPosition(newPos);
+//    
+//    if (background->getParent()->convertToWorldSpace(background->getPosition()).x != mid)
+//    {
+//        
+//    }
     
 //    if (opponentScreenPos.x < CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET)
 //    {
