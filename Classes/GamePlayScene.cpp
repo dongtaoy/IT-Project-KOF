@@ -75,7 +75,6 @@ bool GamePlayScene::init()
         player = new Fighter(background->getChildByName<Sprite*>("left"), "charactor1");
         opponent = new Fighter(background->getChildByName<Sprite*>("right"), "charactor1");
     }
-    opponent->setPosition(Vec2(800, opponent->getPosition().y));
     player->setOpponent(opponent);
     opponent->setOpponent(player);
 
