@@ -60,6 +60,8 @@
 		87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D731B805F5E00299169 /* ChooseRoomScene.cpp */; };
 		8764F07A1B8CAB7000937F18 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */; };
 		877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8777462F1B8D89FD00D63086 /* Multiplayer.cpp */; };
+		87778A511BA69D3900290F2B /* SneakyButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87778A4D1BA69D3900290F2B /* SneakyButton.cpp */; };
+		87778A521BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87778A4F1BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp */; };
 		87783CD61B9F068F00427625 /* SneakyJoystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87783CD41B9F068F00427625 /* SneakyJoystick.cpp */; };
 		87783CDA1B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */; };
 		8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B60C1B99E40C00277AC7 /* GameKitHelper.mm */; };
@@ -184,6 +186,10 @@
 		8764F0791B8CAB7000937F18 /* CreateRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRoomScene.h; sourceTree = "<group>"; };
 		8777462F1B8D89FD00D63086 /* Multiplayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Multiplayer.cpp; sourceTree = "<group>"; };
 		877746301B8D89FD00D63086 /* Multiplayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Multiplayer.h; sourceTree = "<group>"; };
+		87778A4D1BA69D3900290F2B /* SneakyButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyButton.cpp; sourceTree = "<group>"; };
+		87778A4E1BA69D3900290F2B /* SneakyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyButton.h; sourceTree = "<group>"; };
+		87778A4F1BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyButtonSkinnedBase.cpp; sourceTree = "<group>"; };
+		87778A501BA69D3900290F2B /* SneakyButtonSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyButtonSkinnedBase.h; sourceTree = "<group>"; };
 		87783CD41B9F068F00427625 /* SneakyJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyJoystick.cpp; sourceTree = "<group>"; };
 		87783CD51B9F068F00427625 /* SneakyJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyJoystick.h; sourceTree = "<group>"; };
 		87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyJoystickSkinnedBase.cpp; sourceTree = "<group>"; };
@@ -399,14 +405,18 @@
 				877746301B8D89FD00D63086 /* Multiplayer.h */,
 				87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */,
 				87E23D8E1B9C00F500F5A01E /* GameHelper.h */,
-				87783CD41B9F068F00427625 /* SneakyJoystick.cpp */,
-				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
-				87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */,
-				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
 				87A088CC1BA2A41D00320585 /* Camera2d.cpp */,
 				87A088CD1BA2A41D00320585 /* Camera2d.h */,
 				87A088D21BA2A69D00320585 /* Fighter.cpp */,
 				87A088D31BA2A69D00320585 /* Fighter.h */,
+				87778A4D1BA69D3900290F2B /* SneakyButton.cpp */,
+				87778A4E1BA69D3900290F2B /* SneakyButton.h */,
+				87778A4F1BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp */,
+				87778A501BA69D3900290F2B /* SneakyButtonSkinnedBase.h */,
+				87783CD41B9F068F00427625 /* SneakyJoystick.cpp */,
+				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
+				87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */,
+				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -649,6 +659,7 @@
 			files = (
 				8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */,
 				879FB8511B7AED3900E4F0BF /* urlencode.cpp in Sources */,
+				87778A511BA69D3900290F2B /* SneakyButton.cpp in Sources */,
 				879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */,
 				87783CD61B9F068F00427625 /* SneakyJoystick.cpp in Sources */,
 				87A088CE1BA2A41D00320585 /* Camera2d.cpp in Sources */,
@@ -676,6 +687,7 @@
 				879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */,
 				87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				87778A521BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,

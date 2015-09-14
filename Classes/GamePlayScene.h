@@ -65,6 +65,7 @@ private:
     void buttonDClicked(Ref*, ui::Widget::TouchEventType);
     
     void createJoystick();
+    void createButtons();
     void createBackgroundAnimation();
     
     void update(float);

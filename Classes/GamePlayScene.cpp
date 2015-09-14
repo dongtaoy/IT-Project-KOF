@@ -83,6 +83,7 @@ bool GamePlayScene::init()
     
     createBackgroundAnimation();
     createJoystick();
+    createButtons();
     this->scheduleUpdate();
     return true;
 }
@@ -194,6 +195,11 @@ void GamePlayScene::createJoystick()
     joystckbase->setPosition(joystickBasePosition);
     this->addChild(joystckbase);
 
+}
+
+void GamePlayScene::createButtons()
+{
+    
 }
 
 void GamePlayScene::createBackgroundAnimation()
