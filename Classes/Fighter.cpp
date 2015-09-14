@@ -147,10 +147,11 @@ void Fighter::moveForward()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("movefoward");
         auto animate = Animate::create(animation);
-        animate->setDuration(ACTION_1_MOVE_DURATION);
+        
+//        animate->setDuration(ACTION_1_MOVE_DURATION);
         auto animateForever = RepeatForever::create(animate);
         animateForever->setTag(ACTION_1_MOVE_FORWARD);
-        auto moveby = MoveBy::create(ACTION_1_MOVE_DURATION, Vec2(ACTION_MOVE_SPEED, 0));
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
         this->sprite->runAction(movebyForever);
@@ -173,10 +174,10 @@ void Fighter::moveBack()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("moveback");
         auto animate = Animate::create(animation);
-        animate->setDuration(ACTION_1_MOVE_DURATION);
+//        animate->setDuration(ACTION_1_MOVE_DURATION);
         auto animateForever = RepeatForever::create(animate);
         animateForever->setTag(ACTION_1_MOVE_BACK);
-        auto moveby = MoveBy::create(ACTION_1_MOVE_DURATION, Vec2(-ACTION_MOVE_SPEED, 0));
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
         this->sprite->runAction(movebyForever);
@@ -197,8 +198,8 @@ void Fighter::jump(Vec2 direction)
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("jump");
         auto animate = Animate::create(animation);
-        animate->setDuration(.85f);
-        auto jumpBy = JumpBy::create(.85f, dispalcement, 250.0f, 1);
+//        animate->setDuration(.85f);
+        auto jumpBy = JumpBy::create(animate->getDuration(), dispalcement, 250.0f, 1);
         auto spawn = Spawn::create(animate, jumpBy, NULL);
         auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
         auto sequence = Sequence::create(spawn, callFunc, NULL);
@@ -215,7 +216,7 @@ void Fighter::kick1()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("kick1");
         auto animate = Animate::create(animation);
-        animate->setDuration(.5f);
+//        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
         sequence->setTag(16);
         this->sprite->runAction(sequence);
@@ -229,7 +230,7 @@ void Fighter::kick2()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("kick2");
         auto animate = Animate::create(animation);
-        animate->setDuration(.5f);
+//        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
         sequence->setTag(17);
         this->sprite->runAction(sequence);
@@ -243,7 +244,7 @@ void Fighter::punch1()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("punch1");
         auto animate = Animate::create(animation);
-        animate->setDuration(.5f);
+//        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
         sequence->setTag(18);
         this->sprite->runAction(sequence);
@@ -257,7 +258,7 @@ void Fighter::punch2()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation("punch2");
         auto animate = Animate::create(animation);
-        animate->setDuration(.5f);
+//        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
         sequence->setTag(19);
         this->sprite->runAction(sequence);
