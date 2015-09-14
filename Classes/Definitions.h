@@ -158,9 +158,13 @@
 // Fighter
 
 #define ACTION_1_STAND                      100
-#define ACTION_1_MOVE_FORWARD               101
-#define ACTION_1_MOVE_BACK                  102
-#define ACTION_1_CALL_FUNC                  199
+#define ACTION_1_STAND_MOVEFORWARD         101
+#define ACTION_1_STAND_MOVEBACK            102
+
+#define ACTION_1_SQUAT                      150
+#define ACTION_1_SQUAT_DOWN                 151
+#define ACTION_1_SQUAT_MOVEBACK             152
+#define ACTION_1_SQUAT_MOVEFORWARD          153
 
 #define ACTION_JUMP                         201
 #define ACTION_PUNCH1                       202

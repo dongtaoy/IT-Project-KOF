@@ -120,27 +120,37 @@ void GamePlayScene::update(float dt)
     if(velocity != Point(0,0))
     {
         // stand move forward
-        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0)
+        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0.92387f)
         {
-            player->stand_moveForward();
+            player->stand_moveforward();
         }
         // stand move back
-        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < 0)
+        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < -0.92387f)
         {
-            player->stand_moveBack();
+            player->stand_moveback();
         }
         // stand jump
-        if (velocity.y > 0.38268f)
+        if (velocity.y > 0.38268f && velocity.x < 0.92387f && velocity.x > -0.92387f)
         {
             player->stand_jump(velocity);
         }
         
-        if (velocity.y < 0.38268f)
+        if (velocity.y < -0.38268f && velocity.y > -0.92387f && velocity.x > 0.38268f && velocity.x < 0.92387f)
+        {
+            player->squat_moveforward();
+        }
+        
+        if (velocity.y < -0.38268f && velocity.y > -0.92387f && velocity.x < -0.38268f && velocity.x > -0.92387f)
+        {
+            player->squat_moveback();
+        }
+        
+        if (velocity.y < -0.92387f && velocity.x > -0.38268f && velocity.x < 0.38268f)
         {
             player->squat_down();
         }
         
-        if ()
+        
         
     }
     else{

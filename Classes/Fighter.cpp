@@ -99,28 +99,6 @@ Node* Fighter::getParent()
 }
 
 
-bool Fighter::canMove(Vec2 displacement)
-{
-//    auto visibleSize = Director::getInstance()->getWinSize();
-//    auto opponentBox = opponent->getSprite()->getBoundingBox();
-//    auto playerBox = this->getSprite()->getBoundingBox();
-//    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
-//    
-//    if (displacement.x < 0){
-//        if (this->getPosition().x - playerBox.size.width / 2 - CAMERA_FIGHTER_OFFSET + displacement.x   < 0)
-//        {
-//            return true;
-//        }
-//    }else{
-//        if (this->getPosition().x + playerBox.size.width / 2 + CAMERA_FIGHTER_OFFSET + displacement.x  > backgroundbox.width)
-//        {
-//            return true;
-//        }
-//    }
-//    
-    return true;
-}
-
 
 void Fighter::stand()
 {
@@ -135,60 +113,21 @@ void Fighter::stand()
     }
 }
 
-
-void Fighter::stand_moveForward()
+void Fighter::stand_hit()
 {
     
-    if(!(this->sprite->getActionByTag(ACTION_1_MOVE_FORWARD)) && isActionStoppable())
-    {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
-        auto animate = Animate::create(animation);
-        
-//        animate->setDuration(ACTION_1_MOVE_DURATION);
-        auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_MOVE_FORWARD);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
-    }
-}
-
-void Fighter::stand_moveBack()
-{
-    
-    if(!(this->sprite->getActionByTag(ACTION_1_MOVE_BACK)) && isActionStoppable())
-    {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
-        auto animate = Animate::create(animation);
-//        animate->setDuration(ACTION_1_MOVE_DURATION);
-        auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_MOVE_BACK);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
-    }
 }
 
 void Fighter::stand_jump(Vec2 direction)
 {
     Vec2 dispalcement = Vec2(direction.x * ACTION_MOVE_SPEED, 0);
-    if(!canMove(dispalcement))
-    {
-        dispalcement = Vec2::ZERO;
-//        return;
-    }
     
     if(isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_JUMP)%name).str());
         auto animate = Animate::create(animation);
-//        animate->setDuration(.85f);
-        auto jumpBy = JumpBy::create(animate->getDuration(), dispalcement, 250.0f, 1);
+        auto jumpBy = JumpBy::create(animate->getDuration(), dispalcement, 300.0f, 1);
         auto spawn = Spawn::create(animate, jumpBy, NULL);
         auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
         auto sequence = Sequence::create(spawn, callFunc, NULL);
@@ -198,6 +137,131 @@ void Fighter::stand_jump(Vec2 direction)
 }
 
 
+
+void Fighter::stand_moveback()
+{
+    
+    if(!(this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
+        auto animate = Animate::create(animation);
+//        animate->setDuration(ACTION_1_MOVE_DURATION);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(ACTION_1_STAND_MOVEBACK);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
+    }
+}
+
+void Fighter::stand_moveforward()
+{
+    
+    if(!(this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
+        auto animate = Animate::create(animation);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(ACTION_1_STAND_MOVEFORWARD);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
+    }
+}
+
+
+
+
+void Fighter::squat()
+{
+    if (!(this->sprite->getActionByTag(ACTION_1_SQUAT)))
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT)%name).str());
+        auto animate = Animate::create(animation);
+        auto repeat = RepeatForever::create(animate);
+        repeat->setTag(ACTION_1_SQUAT);
+        this->sprite->runAction(repeat);
+        
+    }
+}
+
+void Fighter::squat_down()
+{
+    if (!(this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)) && !(this->sprite->getActionByTag(ACTION_1_SQUAT)) && isActionStoppable())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_DOWN)%name).str());
+        auto animate = Animate::create(animation);
+        auto func = CallFunc::create([&]{this->sprite->stopAllActions();this->squat();});
+        auto sequence = Sequence::create(animate, func, NULL);
+        sequence->setTag(ACTION_1_SQUAT_DOWN);
+        this->sprite->runAction(sequence);
+    }
+}
+
+void Fighter::squat_hit()
+{
+    
+}
+
+
+void Fighter::squat_moveback()
+{
+    if(!(this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)) && isActionStoppable())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
+        auto animate = Animate::create(animation);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(ACTION_1_SQUAT_MOVEBACK);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
+    }
+}
+
+void Fighter::squat_moveforward()
+{
+    if(!(this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
+        auto animate = Animate::create(animation);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(ACTION_1_SQUAT_MOVEFORWARD);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
+    }
+}
+
+void Fighter::squat_up()
+{
+    
+}
+
+void Fighter::start()
+{
+    
+}
+
+void Fighter::win()
+{
+    
+}
+
+void Fighter::die()
+{
+    
+}
+
 void Fighter::kick1()
 {
     if(isStand())
@@ -205,10 +269,10 @@ void Fighter::kick1()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK1)%name).str());
         auto animate = Animate::create(animation);
-//        animate->setDuration(.5f);
+        //        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
         sequence->setTag(16);
-        this->sprite->runAction(sequence);
+        this->sprite->runAction(animate);
     }
 }
 
@@ -219,10 +283,7 @@ void Fighter::kick2()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK2)%name).str());
         auto animate = Animate::create(animation);
-//        animate->setDuration(.5f);
-        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
-        sequence->setTag(17);
-        this->sprite->runAction(sequence);
+        this->sprite->runAction(animate);
     }
 }
 
@@ -233,10 +294,7 @@ void Fighter::punch1()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH1)%name).str());
         auto animate = Animate::create(animation);
-//        animate->setDuration(.5f);
-        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
-        sequence->setTag(18);
-        this->sprite->runAction(sequence);
+        this->sprite->runAction(animate);
     }
 }
 
@@ -247,10 +305,9 @@ void Fighter::punch2()
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH2)%name).str());
         auto animate = Animate::create(animation);
-//        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
         sequence->setTag(19);
-        this->sprite->runAction(sequence);
+        this->sprite->runAction(animate);
     }
 }
 
@@ -264,9 +321,14 @@ bool Fighter::isStand()
 
 bool Fighter::isActionStoppable()
 {
-    if (this->sprite->getActionByTag(ACTION_1_MOVE_FORWARD)
-        || this->sprite->getActionByTag(ACTION_1_MOVE_BACK)
-        || this->sprite->getActionByTag(ACTION_1_STAND))
+    if (   this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)
+        || this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD)
+        || this->sprite->getActionByTag(ACTION_1_STAND)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)
+         )
         return true;
     return false;
 }

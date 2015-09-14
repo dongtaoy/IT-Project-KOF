@@ -24,8 +24,6 @@ public:
     CC_SYNTHESIZE(Fighter*, opponent, Opponent);
     CC_SYNTHESIZE(std::string, name, Name);
     
-    
-    void die();
     void squat();
     void squat_down();
     void squat_hit();
@@ -36,10 +34,12 @@ public:
     void stand();
     void stand_hit();
     void stand_jump(cocos2d::Vec2);
-    void stand_moveBack();
-    void stand_moveForward();
+    void stand_moveback();
+    void stand_moveforward();
+    
     void start();
     void win();
+    void die();
     
     
     void kick1();
