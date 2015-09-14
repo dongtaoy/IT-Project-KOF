@@ -14,21 +14,56 @@
 #define GAME_NAME                       "KOFUnimelb"
 
 // GOBAL
-#define BORDER_SELECTED "selected"
-#define BORDER_UNSELECTED "unselected"
-#define BACK_BUTTON "buttonBack"
-#define CREATE_BUTTON "buttonCreate"
+#define BORDER_SELECTED                 "selected"
+#define BORDER_UNSELECTED               "unselected"
+#define BACK_BUTTON                     "buttonBack"
+#define CREATE_BUTTON                   "buttonCreate"
 
-#define CHARACTER_ICON_BIG_PATH "characters/%s/icon_big.png"
+#define CHARACTER_ICON_BIG_PATH         "characters/%s/icon_big.png"
 
-#define BACKGROUND_PLIST        "backgrounds/backgrounds.plist"
-#define BACKGROUND_ICON_PATH    "backgrounds/%s/icon.png"
+#define BACKGROUND_PLIST                "backgrounds/backgrounds.plist"
+#define BACKGROUND_ICON_PATH            "backgrounds/%s/icon.png"
 
-#define CHARACTER_SPRITE_PATH       "characters/%s/sprite.plist"
-#define CHARACTER_ANIMATION_PATH    "characters/%s/animation.plist"
+#define CHARACTER_SPRITE_PATH           "characters/%s/sprite.plist"
+#define CHARACTER_ANIMATION_PATH        "characters/%s/animation.plist"
 
-#define BACKGROUND_SPRITE_PATH      "backgrounds/%s/sprite.plist"
-#define BACKGROUND_ANIMATION_PATH   "backgrounds/%s/animation.plist"
+#define BACKGROUND_SPRITE_PATH          "backgrounds/%s/sprite.plist"
+#define BACKGROUND_ANIMATION_PATH       "backgrounds/%s/animation.plist"
+
+#define COUNTDOWN_SPRITE_PATH           "countdown/sprite.plist"
+#define COUNTDOWN_ANIMATION_PATH        "countdown/animation.plist"
+
+#define CHARACTER_SPRITE_PATH           "characters/%s/sprite.plist"
+#define CHARACTER_ANIMATION_PATH        "characters/%s/animation.plist"
+
+#define CHARACTER_SQUAT                 "%s/squat"
+#define CHARACTER_SQUAT_DOWN            "%s/squat_down"
+#define CHARACTER_SQUAT_HIT             "%s/squat_hit"
+#define CHARACTER_SQUAT_KICK1           "%s/squat_KICK1"
+#define CHARACTER_SQUAT_KICK2           "%s/squat_KICK2"
+#define CHARACTER_SQUAT_MOVEBACK        "%s/squat_moveback"
+#define CHARACTER_SQUAT_MOVEFORWARD     "%s/squat_moveforward"
+#define CHARACTER_SQUAT_PUNCH1          "%s/squat_punch1"
+#define CHARACTER_SQUAT_PUNCH2          "%s/squat_punch2"
+#define CHARACTER_SQUAT_UP              "%s/squat_up"
+
+#define CHARACTER_INITIAL_FRAME         "characters/%s/stand/00.png"
+
+#define CHARACTER_STAND                 "%s/stand"
+#define CHARACTER_STAND_HIT             "%s/stand_hit"
+#define CHARACTER_STAND_JUMP            "%s/stand_jump"
+#define CHARACTER_STAND_KICK1           "%s/stand_kick1"
+#define CHARACTER_STAND_KICK2           "%s/stand_kick2"
+#define CHARACTER_STAND_MOVEBACK        "%s/stand_moveback"
+#define CHARACTER_STAND_MOVEFORWARD     "%s/stand_moveforward"
+#define CHARACTER_STAND_PUNCH1          "%s/stand_punch1"
+#define CHARACTER_STAND_PUNCH2          "%s/stand_punch2"
+
+
+#define CHARACTER_START                 "%s/start"
+#define CHARACTER_WIN                   "%s/win"
+#define CHARACTER_DIE                   "%s/die"
+
 
 #define NUM_BACKGROUNDS 4
 #define NUM_BESTOF 3
@@ -96,10 +131,10 @@
 
 // Fighter
 
-#define ACTION_1_STAND                        100
-#define ACTION_1_MOVE_FORWARD                 101
-#define ACTION_1_MOVE_BACK                    102
-#define ACTION_1_CALL_FUNC                    199
+#define ACTION_1_STAND                      100
+#define ACTION_1_MOVE_FORWARD               101
+#define ACTION_1_MOVE_BACK                  102
+#define ACTION_1_CALL_FUNC                  199
 
 #define ACTION_JUMP                         201
 #define ACTION_PUNCH1                       202
@@ -108,11 +143,11 @@
 #define ACTION_KICK2                        205
 
 #define ACTION_MOVE_SPEED                   200
-#define ACTION_1_MOVE_DURATION                .7f
+#define ACTION_1_MOVE_DURATION              .7f
 
 
 // Camera
-#define CAMERA_MOVE_THRESHOLD                150
-#define CAMERA_FIGHTER_OFFSET                10
+#define CAMERA_MOVE_THRESHOLD               150
+#define CAMERA_FIGHTER_OFFSET               10
 
 #endif

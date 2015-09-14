@@ -44,14 +44,14 @@ bool GamePlayScene::init()
     // Multiplayer::getInstance()->setNotificationListener(this);
     
     // TODO:: DELETE
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background2" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background2" ).str());
     
     // TODO:: DELETE
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
     AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character6").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character6").str());
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character6").str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character6").str());
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -70,20 +70,20 @@ bool GamePlayScene::init()
         player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
         opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
     }
-    else
-    {
-        player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
-        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
-    }
+//    else
+//    {
+//        player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+//        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+//    }
     player->setOpponent(opponent);
     opponent->setOpponent(player);
-
+//
     camera = new Camera2d(player, opponent, background);
-    
-    
+//
+//    
     createBackgroundAnimation();
     createJoystick();
-    createButtons();
+//    createButtons();
     this->scheduleUpdate();
     return true;
 }
@@ -205,7 +205,7 @@ void GamePlayScene::createButtons()
 void GamePlayScene::createBackgroundAnimation()
 {
     auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
-    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    auto animation = AnimationCache::getInstance()->getAnimation("background2");
     background->runAction(RepeatForever::create(Animate::create(animation)));
 }
 

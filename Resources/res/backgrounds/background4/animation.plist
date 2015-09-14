@@ -12,14 +12,14 @@
                 <real>0.2</real>
                 <key>frames</key>
                 <array>
-                    <string>backgrounds/background4/1.png</string>
-                    <string>backgrounds/background4/2.png</string>
-                    <string>backgrounds/background4/3.png</string>
-                    <string>backgrounds/background4/4.png</string>
-                    <string>backgrounds/background4/5.png</string>
-                    <string>backgrounds/background4/6.png</string>
-                    <string>backgrounds/background4/7.png</string>
-                    <string>backgrounds/background4/8.png</string>
+                    <string>backgrounds/background4/00.png</string>
+                    <string>backgrounds/background4/01.png</string>
+                    <string>backgrounds/background4/02.png</string>
+                    <string>backgrounds/background4/03.png</string>
+                    <string>backgrounds/background4/04.png</string>
+                    <string>backgrounds/background4/05.png</string>
+                    <string>backgrounds/background4/06.png</string>
+                    <string>backgrounds/background4/07.png</string>
                 </array>
             </dict>
         </dict>

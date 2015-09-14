@@ -12,8 +12,9 @@ USING_NS_CC;
 
 Fighter::Fighter(Sprite* sprite, std::string name)
 {
+    this->name = name;
     this->sprite = sprite;
-    this->sprite->setSpriteFrame((boost::format("characters/%s/Animation/stand/00.png") % name).str());
+    this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
     this->stand();
 }
 
@@ -126,7 +127,7 @@ void Fighter::stand()
     if (!isStand() && (this->sprite->getNumberOfRunningActions() < 1 || isActionStoppable()))
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("stand");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND)%name).str());
         auto animate = Animate::create(animation);
         auto repeat = RepeatForever::create(animate);
         repeat->setTag(ACTION_1_STAND);
@@ -145,7 +146,7 @@ void Fighter::moveForward()
     if(!(this->sprite->getActionByTag(ACTION_1_MOVE_FORWARD)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("movefoward");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
         auto animate = Animate::create(animation);
         
 //        animate->setDuration(ACTION_1_MOVE_DURATION);
@@ -172,7 +173,7 @@ void Fighter::moveBack()
     if(!(this->sprite->getActionByTag(ACTION_1_MOVE_BACK)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("moveback");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
         auto animate = Animate::create(animation);
 //        animate->setDuration(ACTION_1_MOVE_DURATION);
         auto animateForever = RepeatForever::create(animate);
@@ -196,7 +197,7 @@ void Fighter::jump(Vec2 direction)
     if(isActionStoppable())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("jump");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_JUMP)%name).str());
         auto animate = Animate::create(animation);
 //        animate->setDuration(.85f);
         auto jumpBy = JumpBy::create(animate->getDuration(), dispalcement, 250.0f, 1);
@@ -214,7 +215,7 @@ void Fighter::kick1()
     if(isStand())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("kick1");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK1)%name).str());
         auto animate = Animate::create(animation);
 //        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
@@ -228,7 +229,7 @@ void Fighter::kick2()
     if(isStand())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("kick2");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK2)%name).str());
         auto animate = Animate::create(animation);
 //        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
@@ -242,7 +243,7 @@ void Fighter::punch1()
     if(isStand())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("punch1");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH1)%name).str());
         auto animate = Animate::create(animation);
 //        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
@@ -256,7 +257,7 @@ void Fighter::punch2()
     if(isStand())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation("punch2");
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH2)%name).str());
         auto animate = Animate::create(animation);
 //        animate->setDuration(.5f);
         auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);

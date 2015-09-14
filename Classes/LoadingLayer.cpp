@@ -26,8 +26,8 @@ bool LoadingLayer::init()
     this->addChild(node);
     
     
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("countdown.plist");
-    AnimationCache::getInstance()->addAnimationsWithFile("countdown-animation.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(COUNTDOWN_SPRITE_PATH);
+    AnimationCache::getInstance()->addAnimationsWithFile(COUNTDOWN_ANIMATION_PATH);
     
 
     

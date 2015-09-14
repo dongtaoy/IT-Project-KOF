@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>animations</key>
+    <dict>
+        <key>countdown</key>
+        <dict>
+            <key>delay</key>
+            <real>0.2</real>
+            <key>frames</key>
+            <array>
+                <string>countdown/countdown-frame-01.png</string>
+                <string>countdown/countdown-frame-02.png</string>
+                <string>countdown/countdown-frame-03.png</string>
+                <string>countdown/countdown-frame-04.png</string>
+                <string>countdown/countdown-frame-05.png</string>
+                <string>countdown/countdown-frame-06.png</string>
+                <string>countdown/countdown-frame-07.png</string>
+                <string>countdown/countdown-frame-08.png</string>
+                <string>countdown/countdown-frame-09.png</string>
+                <string>countdown/countdown-frame-10.png</string>
+                <string>countdown/countdown-frame-11.png</string>
+                <string>countdown/countdown-frame-12.png</string>
+            </array>
+        </dict>
+    </dict>
+</dict>
+</plist>

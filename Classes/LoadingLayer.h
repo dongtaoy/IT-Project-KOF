@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "Definitions.h"
 
 class LoadingLayer : public cocos2d::LayerColor
 {

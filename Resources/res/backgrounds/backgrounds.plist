@@ -4,7 +4,7 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>backgrounds/background1/icon.png</key>
+			<key>backgrounds/background2/icon.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,0},{1536,704}}</string>
@@ -15,7 +15,7 @@
 				<key>sourceSize</key>
 				<string>{1536,704}</string>
 			</dict>
-			<key>backgrounds/background2/icon.png</key>
+			<key>backgrounds/background4/icon.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,704},{1536,704}}</string>
@@ -26,7 +26,7 @@
 				<key>sourceSize</key>
 				<string>{1536,704}</string>
 			</dict>
-			<key>backgrounds/background3/icon.png</key>
+			<key>backgrounds/background1/icon.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,1408},{1536,704}}</string>
@@ -37,7 +37,7 @@
 				<key>sourceSize</key>
 				<string>{1536,704}</string>
 			</dict>
-			<key>backgrounds/background4/icon.png</key>
+			<key>backgrounds/background3/icon.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,2112},{1536,704}}</string>

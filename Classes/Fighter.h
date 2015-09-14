@@ -22,6 +22,7 @@ public:
     Fighter(cocos2d::Sprite*, std::string);
     CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
     CC_SYNTHESIZE(Fighter*, opponent, Opponent);
+    CC_SYNTHESIZE(std::string, name, Name);
     
     void stand();
     void moveForward();
