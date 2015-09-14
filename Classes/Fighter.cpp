@@ -13,7 +13,7 @@ USING_NS_CC;
 Fighter::Fighter(Sprite* sprite, std::string name)
 {
     this->sprite = sprite;
-    this->sprite->setSpriteFrame((boost::format("charactors/%s/Animation/stand/00.png") % name).str());
+    this->sprite->setSpriteFrame((boost::format("characters/%s/Animation/stand/00.png") % name).str());
     this->stand();
 }
 

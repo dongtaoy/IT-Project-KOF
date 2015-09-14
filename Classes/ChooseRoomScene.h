@@ -17,7 +17,7 @@
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "CreateRoomScene.h"
-#include "ChooseCharactorScene.h"
+#include "ChooseCharacterScene.h"
 #include "Multiplayer.h"
 
 #include "appwarp.h"

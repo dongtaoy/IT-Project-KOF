@@ -32,8 +32,8 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(GamePlayScene);
     
-    CC_SYNTHESIZE(std::string, playerCharactor, PlayerCharactor);
-    CC_SYNTHESIZE(std::string, opponentCharactor, OpponentCharactor);
+    CC_SYNTHESIZE(std::string, playerCharacter, PlayerCharacter);
+    CC_SYNTHESIZE(std::string, opponentCharacter, OpponentCharacter);
     
     CC_SYNTHESIZE(Fighter*, player, Player);
     CC_SYNTHESIZE(Fighter*, opponent, Opponent);
@@ -42,8 +42,8 @@ public:
     
 private:
     
-//    std::string playerCharactor;
-//    std::string opponentCharactor;
+//    std::string playerCharacter;
+//    std::string opponentCharacter;
 //
     
 //    Fighter* player;

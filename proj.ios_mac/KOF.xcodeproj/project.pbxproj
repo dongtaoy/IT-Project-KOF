@@ -54,7 +54,6 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
-		871E225D1B947170005CA5A9 /* ChooseCharactorScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */; };
 		8740B0221B7F605300395343 /* HelpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0201B7F605300395343 /* HelpScene.cpp */; };
 		8740B0251B7F606200395343 /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0231B7F606200395343 /* SettingScene.cpp */; };
 		87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D731B805F5E00299169 /* ChooseRoomScene.cpp */; };
@@ -87,6 +86,7 @@
 		87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */; };
 		87E23D921B9C085500F5A01E /* GamePlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D901B9C085500F5A01E /* GamePlayScene.cpp */; };
 		87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */; };
+		B0D4FEB31BA6A23800932737 /* ChooseCharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FEB11BA6A23800932737 /* ChooseCharacterScene.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -175,7 +175,6 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseCharactorScene.cpp; sourceTree = "<group>"; };
 		8740B0201B7F605300395343 /* HelpScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelpScene.cpp; sourceTree = "<group>"; };
 		8740B0211B7F605300395343 /* HelpScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpScene.h; sourceTree = "<group>"; };
 		8740B0231B7F606200395343 /* SettingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
@@ -235,13 +234,14 @@
 		87A088CD1BA2A41D00320585 /* Camera2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera2d.h; sourceTree = "<group>"; };
 		87A088D21BA2A69D00320585 /* Fighter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fighter.cpp; sourceTree = "<group>"; };
 		87A088D31BA2A69D00320585 /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fighter.h; sourceTree = "<group>"; };
-		87E23D8C1B9B3D2D00F5A01E /* ChooseCharactorScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCharactorScene.h; sourceTree = "<group>"; };
 		87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHelper.cpp; sourceTree = "<group>"; };
 		87E23D8E1B9C00F500F5A01E /* GameHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelper.h; sourceTree = "<group>"; };
 		87E23D901B9C085500F5A01E /* GamePlayScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePlayScene.cpp; sourceTree = "<group>"; };
 		87E23D911B9C085500F5A01E /* GamePlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayScene.h; sourceTree = "<group>"; };
 		87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingLayer.cpp; sourceTree = "<group>"; };
 		87E23D971B9C8DED00F5A01E /* LoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingLayer.h; sourceTree = "<group>"; };
+		B0D4FEB11BA6A23800932737 /* ChooseCharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseCharacterScene.cpp; sourceTree = "<group>"; };
+		B0D4FEB21BA6A23800932737 /* ChooseCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCharacterScene.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -395,8 +395,8 @@
 				87468D741B805F5E00299169 /* ChooseRoomScene.h */,
 				8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */,
 				8764F0791B8CAB7000937F18 /* CreateRoomScene.h */,
-				871E225B1B947170005CA5A9 /* ChooseCharactorScene.cpp */,
-				87E23D8C1B9B3D2D00F5A01E /* ChooseCharactorScene.h */,
+				B0D4FEB11BA6A23800932737 /* ChooseCharacterScene.cpp */,
+				B0D4FEB21BA6A23800932737 /* ChooseCharacterScene.h */,
 				87E23D901B9C085500F5A01E /* GamePlayScene.cpp */,
 				87E23D911B9C085500F5A01E /* GamePlayScene.h */,
 				87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */,
@@ -670,6 +670,7 @@
 				879FB84D1B7AED3900E4F0BF /* requests.cpp in Sources */,
 				8740B0251B7F606200395343 /* SettingScene.cpp in Sources */,
 				8740B0221B7F605300395343 /* HelpScene.cpp in Sources */,
+				B0D4FEB31BA6A23800932737 /* ChooseCharacterScene.cpp in Sources */,
 				877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */,
 				8793B6141B99E40C00277AC7 /* GKHDelegate.cpp in Sources */,
 				879FB84F1B7AED3900E4F0BF /* socket.cpp in Sources */,
@@ -677,7 +678,6 @@
 				8793B6161B99E40C00277AC7 /* README.md in Sources */,
 				87783CDA1B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp in Sources */,
 				879FB8501B7AED3900E4F0BF /* udpsocket.cpp in Sources */,
-				871E225D1B947170005CA5A9 /* ChooseCharactorScene.cpp in Sources */,
 				879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */,
 				87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */,
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,

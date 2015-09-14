@@ -117,7 +117,7 @@ void ChooseRoomScene::onSubscribeRoomDone(AppWarp::room event){
     if(event.result == AppWarp::ResultCode::success)
     {
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
-        auto scene = ChooseCharactorScene::createScene();
+        auto scene = ChooseCharacterScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
     else{

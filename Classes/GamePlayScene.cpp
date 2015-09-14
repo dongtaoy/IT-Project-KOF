@@ -48,10 +48,10 @@ bool GamePlayScene::init()
     AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
     
     // TODO:: DELETE
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % "charactor1").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % "charactor1").str());
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTOR_SPRITE_PATH) % "charactor6").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTOR_ANIMATION_PATH) % "charactor6").str());
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character6").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character6").str());
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -67,13 +67,13 @@ bool GamePlayScene::init()
     //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     if(true)
     {
-        player = new Fighter(background->getChildByName<Sprite*>("left"), "charactor1");
-        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "charactor1");
+        player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
     }
     else
     {
-        player = new Fighter(background->getChildByName<Sprite*>("left"), "charactor1");
-        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "charactor1");
+        player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
     }
     player->setOpponent(opponent);
     opponent->setOpponent(player);
