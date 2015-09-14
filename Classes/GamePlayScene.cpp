@@ -55,10 +55,6 @@ bool GamePlayScene::init()
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
-    node->getChildByName<Button*>("buttonA")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonAClicked, this));
-    node->getChildByName<Button*>("buttonB")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonBClicked, this));
-    node->getChildByName<Button*>("buttonC")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonCClicked, this));
-    node->getChildByName<Button*>("buttonD")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::buttonDClicked, this));
     this->background = node->getChildByName<Sprite*>("background");
     this->addChild(node);
     
@@ -67,8 +63,8 @@ bool GamePlayScene::init()
     //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     if(true)
     {
-        player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
-        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+        this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
     }
 //    else
 //    {
@@ -78,12 +74,15 @@ bool GamePlayScene::init()
     player->setOpponent(opponent);
     opponent->setOpponent(player);
 //
-    camera = new Camera2d(player, opponent, background);
+    this->camera = new Camera2d(player, opponent, background);
 //
 //    
-    createBackgroundAnimation();
-    createJoystick();
-//    createButtons();
+    this->createBackgroundAnimation();
+    this->createJoystick();
+    this->buttonA = createButtons(GAME_PLAY_SCENE_BUTTON_A_NORMAL, GAME_PLAY_SCENE_BUTTON_A_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_A_X, GAME_PLAY_SCENE_BUTTON_A_Y));
+    this->buttonB = createButtons(GAME_PLAY_SCENE_BUTTON_B_NORMAL, GAME_PLAY_SCENE_BUTTON_B_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_B_X, GAME_PLAY_SCENE_BUTTON_B_Y));
+    this->buttonC = createButtons(GAME_PLAY_SCENE_BUTTON_C_NORMAL, GAME_PLAY_SCENE_BUTTON_C_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_C_X, GAME_PLAY_SCENE_BUTTON_C_Y));
+    this->buttonD = createButtons(GAME_PLAY_SCENE_BUTTON_D_NORMAL, GAME_PLAY_SCENE_BUTTON_D_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_D_X, GAME_PLAY_SCENE_BUTTON_D_Y));
     this->scheduleUpdate();
     return true;
 }
@@ -98,25 +97,51 @@ void GamePlayScene::update(float dt)
 {
     Point velocity = joystick->getVelocity();
     
+    if (buttonA->getIsActive())
+    {
+        player->punch1();
+    }
+    
+    if (buttonB->getIsActive())
+    {
+        player->punch2();
+    }
+    
+    if (buttonC->getIsActive())
+    {
+        player->kick1();
+    }
+    
+    if (buttonD->getIsActive())
+    {
+        player->kick2();
+    }
     
     if(velocity != Point(0,0))
     {
-//        CCLOG("%f %f", velocity.x, velocity.y);
-        // move
-        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0)
+        // stand move forward
+        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0)
         {
-            player->moveForward();
+            player->stand_moveForward();
         }
-//        // move back
-        if(velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < 0)
+        // stand move back
+        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < 0)
         {
-            player->moveBack();
+            player->stand_moveBack();
         }
-        // jump up
-        if(velocity.y > 0.38268f)
+        // stand jump
+        if (velocity.y > 0.38268f)
         {
-            player->jump(velocity);
+            player->stand_jump(velocity);
         }
+        
+        if (velocity.y < 0.38268f)
+        {
+            player->squat_down();
+        }
+        
+        if ()
+        
     }
     else{
         player->stand();
@@ -125,26 +150,6 @@ void GamePlayScene::update(float dt)
     player->update(dt);
     camera->update(dt);
     
-}
-
-void GamePlayScene::buttonAClicked(Ref*, ui::Widget::TouchEventType)
-{
-    player->punch1();
-}
-
-void GamePlayScene::buttonBClicked(Ref*, ui::Widget::TouchEventType)
-{
-    player->punch2();
-}
-
-void GamePlayScene::buttonCClicked(Ref*, ui::Widget::TouchEventType)
-{
-    player->kick1();
-}
-
-void GamePlayScene::buttonDClicked(Ref*, ui::Widget::TouchEventType)
-{
-    player->kick2();
 }
 
 
@@ -189,17 +194,33 @@ void GamePlayScene::createJoystick()
     SneakyJoystickSkinnedBase* joystckbase = SneakyJoystickSkinnedBase::create();
     joystick = new SneakyJoystick();
     joystick->initWithRect(joystickBaseDimensions);
-    joystckbase->setBackgroundSprite(Sprite::create("Resources/joystick.png"));
-    joystckbase->setThumbSprite(Sprite::create("Resources/joystick_button.png"));
+    joystckbase->setBackgroundSprite(Sprite::create(GAME_PLAY_SCENE_JOYSTICK_BASE));
+    joystckbase->setThumbSprite(Sprite::create(GAME_PLAY_SCENE_JOYSTICK));
     joystckbase->setJoystick(joystick);
     joystckbase->setPosition(joystickBasePosition);
     this->addChild(joystckbase);
 
 }
 
-void GamePlayScene::createButtons()
+SneakyButton* GamePlayScene::createButtons(std::string normal, std::string pressed, Vec2 pos)
 {
+    Size visibleSize = Director::getInstance()->getWinSize();
+    // button A
+    auto buttonBase = SneakyButtonSkinnedBase::create();
+    auto button = new SneakyButton();
     
+    auto buttonRect = Rect(0, 0, 30.f, 30.f);
+    auto buttonPos = Point(visibleSize.width * pos.x, visibleSize.height * pos.y);
+    
+    button->initWithRect(buttonRect);
+    button->setIsHoldable(true);
+    buttonBase->setPosition(buttonPos);
+    buttonBase->setDefaultSprite(CCSprite::create(normal));
+    buttonBase->setActivatedSprite(CCSprite::create(normal));
+    buttonBase->setPressSprite(CCSprite::create(pressed));
+    buttonBase->setButton(button);
+    this->addChild(buttonBase);
+    return button;
 }
 
 void GamePlayScene::createBackgroundAnimation()

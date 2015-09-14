@@ -136,12 +136,8 @@ void Fighter::stand()
 }
 
 
-void Fighter::moveForward()
+void Fighter::stand_moveForward()
 {
-    if(!canMove(Vec2(CAMERA_FIGHTER_OFFSET,0))){
-        this->stand();
-        return;
-    }
     
     if(!(this->sprite->getActionByTag(ACTION_1_MOVE_FORWARD)) && isActionStoppable())
     {
@@ -159,16 +155,8 @@ void Fighter::moveForward()
     }
 }
 
-void Fighter::moveBack()
+void Fighter::stand_moveBack()
 {
-//    Vec2 displacement = ;
-    
-    if(!canMove(Vec2(-CAMERA_FIGHTER_OFFSET,0)))
-    {
-        this->stand();
-        return;
-        //displacement = Vec2::ZERO;
-    }
     
     if(!(this->sprite->getActionByTag(ACTION_1_MOVE_BACK)) && isActionStoppable())
     {
@@ -185,7 +173,7 @@ void Fighter::moveBack()
     }
 }
 
-void Fighter::jump(Vec2 direction)
+void Fighter::stand_jump(Vec2 direction)
 {
     Vec2 dispalcement = Vec2(direction.x * ACTION_MOVE_SPEED, 0);
     if(!canMove(dispalcement))

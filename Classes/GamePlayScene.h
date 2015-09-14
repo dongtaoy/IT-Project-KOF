@@ -12,11 +12,15 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+
+#include "Definitions.h"
 #include "Multiplayer.h"
 #include "MainMenuScene.h"
 #include "LoadingLayer.h"
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
+#include "SneakyButton.h"
+#include "SneakyButtonSkinnedBase.h"
 #include "Fighter.h"
 #include "Camera2d.h"
 
@@ -40,6 +44,12 @@ public:
     CC_SYNTHESIZE(cocos2d::Sprite*, background, Background);
     
     
+    CC_SYNTHESIZE(SneakyButton*, buttonA, ButtonA);
+    CC_SYNTHESIZE(SneakyButton*, buttonB, ButtonB);
+    CC_SYNTHESIZE(SneakyButton*, buttonC, ButtonC);
+    CC_SYNTHESIZE(SneakyButton*, buttonD, ButtonD);
+    
+    
 private:
     
 //    std::string playerCharacter;
@@ -59,13 +69,13 @@ private:
     void MenuClicked(Ref*, ui::Widget::TouchEventType);
     
     
-    void buttonAClicked(Ref*, ui::Widget::TouchEventType);
-    void buttonBClicked(Ref*, ui::Widget::TouchEventType);
-    void buttonCClicked(Ref*, ui::Widget::TouchEventType);
-    void buttonDClicked(Ref*, ui::Widget::TouchEventType);
+//    void buttonAClicked(Ref*, ui::Widget::TouchEventType);
+//    void buttonBClicked(Ref*, ui::Widget::TouchEventType);
+//    void buttonCClicked(Ref*, ui::Widget::TouchEventType);
+//    void buttonDClicked(Ref*, ui::Widget::TouchEventType);
     
     void createJoystick();
-    void createButtons();
+    SneakyButton* createButtons(std::string, std::string, Vec2);
     void createBackgroundAnimation();
     
     void update(float);

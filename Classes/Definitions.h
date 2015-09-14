@@ -109,6 +109,32 @@
 #define CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND "map"
 
 
+// GAME PLAY
+#define GAME_PLAY_SCENE                         "GamePlayScene"
+#define GAME_PLAY_SCENE_FILE                    "GamePlay.csb"
+#define GAME_PLAY_SCENE_FIGHTER_LEFT            "left"
+#define GAME_PLAY_SCENE_FIGHTER_RIGHT           "right"
+#define GAME_PLAY_SCENE_JOYSTICK_BASE           "Resources/joystick.png"
+#define GAME_PLAY_SCENE_JOYSTICK                "Resources/joystick_button.png"
+#define GAME_PLAY_SCENE_BUTTON_A_NORMAL "Resources/a.png"
+#define GAME_PLAY_SCENE_BUTTON_A_PRESSED "Resources/a_c.png"
+#define GAME_PLAY_SCENE_BUTTON_A_X      0.7f
+#define GAME_PLAY_SCENE_BUTTON_A_Y      0.3f
+#define GAME_PLAY_SCENE_BUTTON_B_NORMAL "Resources/b.png"
+#define GAME_PLAY_SCENE_BUTTON_B_PRESSED "Resources/b_c.png"
+#define GAME_PLAY_SCENE_BUTTON_B_X      0.85f
+#define GAME_PLAY_SCENE_BUTTON_B_Y      0.3f
+#define GAME_PLAY_SCENE_BUTTON_C_NORMAL "Resources/c.png"
+#define GAME_PLAY_SCENE_BUTTON_C_PRESSED "Resources/c_c.png"
+#define GAME_PLAY_SCENE_BUTTON_C_X      0.75f
+#define GAME_PLAY_SCENE_BUTTON_C_Y      0.1f
+#define GAME_PLAY_SCENE_BUTTON_D_NORMAL "Resources/d.png"
+#define GAME_PLAY_SCENE_BUTTON_D_PRESSED "Resources/d_d.png"
+#define GAME_PLAY_SCENE_BUTTON_D_X      0.9f
+#define GAME_PLAY_SCENE_BUTTON_D_Y      0.1f
+
+
+
 // MULTIPLAYER
 #define MAX_USERS 2
 #define ROOM_NAME "MEMEDA"
