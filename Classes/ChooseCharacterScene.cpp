@@ -432,15 +432,15 @@ void ChooseCharacterScene::StartGame()
     
     // TODO: ONLY CHARACTER1 AND CHARACTER6 WORKS
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "suiting up characters", 30.0f);
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % playerSelected ).str());
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % opponentSelected ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % playerSelected).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % opponentSelected).str());
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % playerSelected ).str());
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % opponentSelected ).str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % playerSelected).str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % opponentSelected).str());
     
     // TODO: CHANGE IT AFTER FINISH ANIMATIONS
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Loading backgrounds", 60.0f);
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
     
     
     auto scene = GamePlayScene::createScene();

@@ -41,7 +41,7 @@ bool GamePlayScene::init()
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
     // TODO: UNCOMMENT
-    // Multiplayer::getInstance()->setNotificationListener(this);
+    Multiplayer::getInstance()->setNotificationListener(this);
     
     // TODO:: DELETE
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background2" ).str());
