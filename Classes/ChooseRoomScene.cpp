@@ -92,6 +92,13 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
     if (type == Widget::TouchEventType::ENDED){
         std::string roomID = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
         
+        std::string bestof = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF)->getString();
+        
+        std::string background = *(std::string*)((static_cast<ImageView*>(pSender)->getChildByName<ImageView*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND)->getUserData()));
+        
+        
+        Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
+        Multiplayer::getInstance()->setBackground(background);
         Multiplayer::getInstance()->setRoomID(roomID);
         Multiplayer::getInstance()->joinRoom(this);
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
@@ -145,7 +152,9 @@ void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
     std::string filename = (boost::format(BACKGROUND_ICON_PATH) % room.properties.find(ROOM_PROPERTY_BACKGROUND)->second).str();
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(filename, ui::Widget::TextureResType::PLIST);
     
-//    CCLOG("%lu/%d", room.users.size(), room.rm.maxUsers);
+    std::string* background = new std::string(room.properties.find(ROOM_PROPERTY_BACKGROUND)->second);
+    
+    static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->setUserData(background);
     
 }
 

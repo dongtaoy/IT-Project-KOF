@@ -40,18 +40,7 @@ bool GamePlayScene::init()
         return false;
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
-    // TODO: UNCOMMENT
-    Multiplayer::getInstance()->setNotificationListener(this);
-    
-    // TODO:: DELETE
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background2" ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background2" ).str());
-    
-    // TODO:: DELETE
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character6").str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character6").str());
+
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -59,21 +48,32 @@ bool GamePlayScene::init()
     this->addChild(node);
     
     
-    // TODO: Change it
-    //    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
-    if(true)
-    {
-        this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
-    }
+    // TODO: WITH MULTIPLAYER
+//    Multiplayer::getInstance()->setNotificationListener(this);
+//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
+//    {
+//        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
+//        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
+//    }
 //    else
 //    {
-//        player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
-//        opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+//        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
+//        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
 //    }
+    
+    
+    // TODO: WITHOUT MULTIPLAYER
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background3" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background3" ).str());
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
+    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+    
     player->setOpponent(opponent);
     opponent->setOpponent(player);
 //
+    
     this->camera = new Camera2d(player, opponent, background);
 //
 //    
@@ -95,7 +95,8 @@ void GamePlayScene::startGame()
 
 void GamePlayScene::update(float dt)
 {
-    Point velocity = joystick->getVelocity();
+    auto point = joystick->getVelocity();
+    auto angle = GameHelper::vectorToDegree(point);
     
     if (buttonA->getIsActive())
     {
@@ -117,45 +118,99 @@ void GamePlayScene::update(float dt)
         player->kick2();
     }
     
-    if(velocity != Point(0,0))
+    // stand move forward
+    if (angle > 337.5f || angle <  22.5f)
     {
-        // stand move forward
-        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0.92387f)
-        {
-            player->stand_moveforward();
-        }
-        // stand move back
-        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < -0.92387f)
-        {
-            player->stand_moveback();
-        }
-        // stand jump
-        if (velocity.y > 0.38268f && velocity.x < 0.92387f && velocity.x > -0.92387f)
-        {
-            player->stand_jump(velocity);
-        }
-        
-        if (velocity.y < -0.38268f && velocity.y > -0.92387f && velocity.x > 0.38268f && velocity.x < 0.92387f)
-        {
-            player->squat_moveforward();
-        }
-        
-        if (velocity.y < -0.38268f && velocity.y > -0.92387f && velocity.x < -0.38268f && velocity.x > -0.92387f)
-        {
-            player->squat_moveback();
-        }
-        
-        if (velocity.y < -0.92387f && velocity.x > -0.38268f && velocity.x < 0.38268f)
-        {
-            player->squat_down();
-        }
-        
-        
-        
+        player->stand_moveforward();
     }
-    else{
+    
+    // jump
+    if (angle >  22.5f && angle < 157.5f)
+    {
+        player->stand_jump(point);
+    }
+    
+    // stand move back
+    if (angle > 157.5f && angle < 202.5f)
+    {
+        player->stand_moveback();
+    }
+    
+    
+    // squat moveback
+    if (angle > 202.5f && angle < 247.5f)
+    {
+        player->squat_moveback();
+    }
+    
+    // squat
+    if (angle > 247.5f && angle < 292.5f)
+    {
+        player->squat_down();
+    }
+    
+    if (angle > 292.5f && angle < 337.5f)
+    {
+        player->squat_moveforward();
+    }
+    
+    if (std::isnan(angle))
+    {
         player->stand();
     }
+    
+    CCLOG("%f", angle);
+    
+    
+    
+//    std::isnan(angle);
+    
+//    CCLOG("%f", MATH_RAD_TO_DEG(angle));
+    
+//    if(velocity != Point(0,0))
+//    {
+//        // stand move forward
+//        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x > 0)
+//        {
+//            player->stand_moveforward();
+//        }
+//        // stand move back
+//        if (velocity.y > -0.38268f && velocity.y < 0.38268f && velocity.x < 0)
+//        {
+//            player->stand_moveback();
+//        }
+//        // stand jump
+//        if (velocity.y > 0 && velocity.x < 0.92387f && velocity.x > -0.92387f)
+//        {
+//            player->stand_jump(velocity);
+//        }
+//        
+//        
+//        
+//        if (velocity.y < -0.38268f && velocity.y > -0.92387f && velocity.x > 0.38268f && velocity.x < 0.92387f)
+//        {
+//            CCLOG("in1");
+//            player->squat_moveforward();
+//        }
+//        
+//        if (velocity.y < -0.38268f && velocity.y > -0.92387f && velocity.x < -0.38268f && velocity.x > -0.92387f)
+//        {
+//            CCLOG("in2");
+//            player->squat_moveback();
+//        }
+//        
+//        
+//        if (velocity.y < 0 && velocity.x > -0.38268f && velocity.x < 0.38268f)
+//        {
+//            CCLOG("in3");
+//            player->squat_down();
+//        }
+//        
+//        
+//    }
+//    else{
+//        player->stand();
+//    }
     
     player->update(dt);
     camera->update(dt);
@@ -225,9 +280,9 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
     button->initWithRect(buttonRect);
     button->setIsHoldable(true);
     buttonBase->setPosition(buttonPos);
-    buttonBase->setDefaultSprite(CCSprite::create(normal));
-    buttonBase->setActivatedSprite(CCSprite::create(normal));
-    buttonBase->setPressSprite(CCSprite::create(pressed));
+    buttonBase->setDefaultSprite(Sprite::create(normal));
+    buttonBase->setActivatedSprite(Sprite::create(normal));
+    buttonBase->setPressSprite(Sprite::create(pressed));
     buttonBase->setButton(button);
     this->addChild(buttonBase);
     return button;
@@ -236,8 +291,19 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
 void GamePlayScene::createBackgroundAnimation()
 {
     auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
-    auto animation = AnimationCache::getInstance()->getAnimation("background2");
+    CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
+    // TODO: WITH MULTIPLAYER
+//    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
+    // TODO: WITHOUT MULTIPLAYER
+    
+    Size targetSize = Size( 2305.0f, 750.0f );
+    Size backgroundSize = background->getContentSize();
+    background->setScale( ( targetSize.width / backgroundSize.width ), ( targetSize.height / backgroundSize.height ) );
+    
+    
+    auto animation = AnimationCache::getInstance()->getAnimation("background3");
     background->runAction(RepeatForever::create(Animate::create(animation)));
+
 }
 
 
