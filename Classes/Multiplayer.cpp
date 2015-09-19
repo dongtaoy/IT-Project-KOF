@@ -121,6 +121,11 @@ void Multiplayer::subscribeRoom(AppWarp::RoomRequestListener* listener)
 void Multiplayer::unsubsribeRoom(AppWarp::RoomRequestListener* listener)
 {
     opponentUsername = "";
+    background = "";
+    bestof = 0;
+    userCharacter = "";
+    opponentCharacter = "";
+    
     resetAllListener();
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRoomRequestListener(listener);
@@ -194,15 +199,6 @@ void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listene
 }
 
 
-void Multiplayer::setOpponentUsername(std::string name)
-{
-    this->opponentUsername = name;
-}
-
-std::string Multiplayer::getOpponentUsername()
-{
-    return this->opponentUsername;
-}
 
 /*
  Lisenter
@@ -224,22 +220,6 @@ void Multiplayer::onConnectDone(int result, int)
             CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", result, AppWarp::AppWarpSessionID);
             break;
     }
-}
-
-void Multiplayer::setRoomID(std::string roomID)
-{
-    this->roomID = roomID;
-}
-
-
-std::string Multiplayer::getRoomID()
-{
-    return this->roomID;
-}
-
-std::string Multiplayer::getUsername()
-{
-    return this->username;
 }
 
 void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)

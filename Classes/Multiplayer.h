@@ -67,31 +67,15 @@ public:
     void setNotificationListener(AppWarp::NotificationListener*);
     
     
-    
-    
-    void setRoomID(std::string);
-    
-    
-    std::string getRoomID();
-    
-    std::string getUsername();
-    
-    
-    
-    void setOpponentUsername(std::string);
-    std::string getOpponentUsername();
-    
-    
-    
+    CC_SYNTHESIZE(std::string, username, Username);
+    CC_SYNTHESIZE(std::string, userCharacter, UserCharacter);
+    CC_SYNTHESIZE(std::string, opponentUsername, OpponentUsername);
+    CC_SYNTHESIZE(std::string, opponentCharacter, OpponentCharacter);
+    CC_SYNTHESIZE(std::string, roomID, RoomID);
+    CC_SYNTHESIZE(std::string, background, Background);
+    CC_SYNTHESIZE(int, bestof, Bestof);
     
 private:
-    
-    
-    std::string username;
-    std::string opponentUsername;
-    std::string roomID;
-    std::string background;
-    int bestof;
     
     static Multiplayer* _instance;
     

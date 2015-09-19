@@ -366,6 +366,7 @@ void ChooseCharacterScene::onUserLeftRoom(AppWarp::room, std::string name)
     }
 }
 
+
 void ChooseCharacterScene::onChatReceived(AppWarp::chat event)
 {
     if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
@@ -430,22 +431,32 @@ void ChooseCharacterScene::StartGame()
     ResetCountDown();
     LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
     
-    // TODO: ONLY CHARACTER1 AND CHARACTER6 WORKS
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "suiting up characters", 30.0f);
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % playerSelected ).str());
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % opponentSelected ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % playerSelected).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % opponentSelected).str());
+    
+    Multiplayer::getInstance()->setUserCharacter(playerSelected);
+    Multiplayer::getInstance()->setOpponentCharacter(opponentSelected);
+    
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "suiting up characters...", 35.0f);
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % playerSelected ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % playerSelected).str());
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % opponentSelected ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % opponentSelected).str());
+    
     
     // TODO: CHANGE IT AFTER FINISH ANIMATIONS
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Loading backgrounds", 60.0f);
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "loading bacground...", 70.0f);
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % Multiplayer::getInstance()->getBackground() ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % Multiplayer::getInstance()->getBackground() ).str());
     
     
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
     auto scene = GamePlayScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    
+
 }
+
+
 
 
 

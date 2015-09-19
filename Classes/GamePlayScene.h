@@ -10,6 +10,7 @@
 #define __KOF__GamePlayScene__
 
 #include <stdio.h>
+#include <math.h>
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 

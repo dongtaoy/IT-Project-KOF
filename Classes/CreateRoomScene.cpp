@@ -78,7 +78,6 @@ void CreateRoomScene::CheckboxSelectedChanged(Ref* pSender, CheckBox::EventType 
             static_cast<CheckBox*>(bestOfSelected)->setSelected(false);
         }
         bestOfSelected = pSender;
-//        static_cast<CheckBox*>(bestOfSelected)->setSelected(true);
         
     }
     else{
@@ -137,6 +136,9 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
             
             std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
             
+            
+                                                  
+            
             LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
             LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room... ", 30.0f);
             Multiplayer::getInstance()->createRoom(this, properties);
@@ -151,7 +153,11 @@ void CreateRoomScene::onCreateRoomDone(AppWarp::room event)
     if(event.result == AppWarp::ResultCode::success){
         CCLOG("CREATED %s", event.roomId.c_str());
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 60.0f);
+        std::string background = static_cast<Node*>(backgroundSelected)->getName();
+        std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
         Multiplayer::getInstance()->setRoomID(event.roomId);
+        Multiplayer::getInstance()->setBackground(background);
+        Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
         Multiplayer::getInstance()->joinRoom(this);
     }else{
         LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
@@ -175,6 +181,9 @@ void CreateRoomScene::onSubscribeRoomDone(AppWarp::room event){
     if(event.result == AppWarp::ResultCode::success)
     {
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+        
+        
+       
         auto scene = ChooseCharacterScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }

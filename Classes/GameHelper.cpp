@@ -40,3 +40,23 @@ std::string GameHelper::randomString( size_t length )
     return str;
 }
 
+double GameHelper::vectorToDegree(cocos2d::Point point)
+{
+    auto angle = std::atan(point.y/point.x);
+    
+    if (angle > 0)
+    {
+        if (point.y < 0)
+            angle = angle + M_PI;
+    }
+    else
+    {
+        if (point.x < 0)
+            angle = angle + M_PI;
+        else
+            angle = angle + M_PI * 2;
+    }
+    
+    return MATH_RAD_TO_DEG(angle);
+}
+
