@@ -315,6 +315,12 @@
 			<real>0.2</real>
 			<key>frames</key>
 			<array>
+				<string>characters/character1/win/00.png</string>
+				<string>characters/character1/win/01.png</string>
+				<string>characters/character1/win/02.png</string>
+				<string>characters/character1/win/03.png</string>
+				<string>characters/character1/win/04.png</string>
+				<string>characters/character1/win/05.png</string>
 				<string>characters/character1/win/06.png</string>
 				<string>characters/character1/win/07.png</string>
 				<string>characters/character1/win/08.png</string>

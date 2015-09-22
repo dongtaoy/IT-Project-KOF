@@ -47,6 +47,10 @@ bool GamePlayScene::init()
     this->background = node->getChildByName<Sprite*>("background");
     this->addChild(node);
     
+    auto tempNode = this->getChildByName(GAME_PLAY_SCENE);
+    auto countDown = tempNode->getChildByName<Text*>("countDown");
+    countDown->setString(std::to_string(10));
+        
     
 //     TODO: WITH MULTIPLAYER
     Multiplayer::getInstance()->setNotificationListener(this);
@@ -89,6 +93,10 @@ bool GamePlayScene::init()
     opponent->setOpponent(player);
 
     
+    
+    
+    
+    
     this->camera = new Camera2d(player, opponent, background);
     this->createBackgroundAnimation();
     this->createJoystick();
@@ -104,6 +112,36 @@ void GamePlayScene::startGame()
 {
     LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
     CCLOG("GAME STARTED");
+    this->startCountDown();
+}
+
+void GamePlayScene::startCountDown()
+{
+    if (!isCountDownStart){
+        isCountDownStart = true;
+        this->schedule(schedule_selector(GamePlayScene::countDownTask), 1.0f);
+    }
+}
+
+void GamePlayScene::countDownTask(float dt){
+    auto node = this->getChildByName(GAME_PLAY_SCENE);
+    auto countDown = node->getChildByName<Text*>("countDown");
+    int value = std::atoi(countDown->getString().c_str()) - 1;
+    
+    if (value > 0){
+        countDown->setString(std::to_string(value));
+    }else{
+        endCountDown();
+        this->player->win();
+        this->opponent->die();
+    }
+}
+
+void GamePlayScene::endCountDown(){
+    if (isCountDownStart){
+        isCountDownStart = false;
+        this->unschedule(schedule_selector(GamePlayScene::countDownTask));
+    }
 }
 
 void GamePlayScene::update(float dt)
