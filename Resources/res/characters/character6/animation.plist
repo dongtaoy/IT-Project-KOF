@@ -22,6 +22,14 @@
                               <string>characters/character6/die/07.png</string>
                               <string>characters/character6/die/08.png</string>
                               <string>characters/character6/die/09.png</string>
+                        </array>
+                  </dict>
+                  <key>character6/squat</key>
+                  <dict>
+                        <key>delay</key>
+                        <real>0.2</real>
+                        <key>frames</key>
+                        <array>
                               <string>characters/character6/squat/01.png</string>
                         </array>
                   </dict>
