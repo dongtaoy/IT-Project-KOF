@@ -131,7 +131,7 @@ void Fighter::stand_jump(Vec2 direction)
         auto spawn = Spawn::create(animate, jumpBy, NULL);
         auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
         auto sequence = Sequence::create(spawn, callFunc, NULL);
-        sequence->setTag(ACTION_JUMP);
+        sequence->setTag(ACTION_2_STAND_JUMP);
         this->sprite->runAction(sequence);
     }
 }
@@ -264,50 +264,113 @@ void Fighter::die()
 
 void Fighter::kick1()
 {
-    if(isStand())
+    if(isActionStoppable())
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK1)%name).str());
+        Animation* animation = NULL;
+        if (!isSquat())
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK1) % name).str());
+        else
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK1) % name).str());
         auto animate = Animate::create(animation);
-        //        animate->setDuration(.5f);
-        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
-        sequence->setTag(16);
-        this->sprite->runAction(animate);
+        auto func = [&]{
+            if (!this->isSquat()) {
+                this->sprite->stopAllActions();
+                this->stand();
+                return;
+            }
+            this->squat();
+        };
+        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        if(!isSquat())
+            sequence->setTag(ACTION_2_STAND_KICK1);
+        else
+            sequence->setTag(ACTION_2_SQUAT_KICK1);
+        this->sprite->stopAllActions();
+        this->sprite->runAction(sequence);
     }
 }
 
 void Fighter::kick2()
 {
-    if(isStand())
+    if(isActionStoppable())
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK2)%name).str());
+        Animation* animation = NULL;
+        if (!isSquat())
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK2) % name).str());
+        else
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK2) % name).str());
         auto animate = Animate::create(animation);
-        this->sprite->runAction(animate);
+        auto func = [&]{
+            if (!this->isSquat()) {
+                this->sprite->stopAllActions();
+                this->stand();
+                return;
+            }
+            this->squat();
+        };
+        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        if(!isSquat())
+            sequence->setTag(ACTION_2_STAND_KICK2);
+        else
+            sequence->setTag(ACTION_2_SQUAT_KICK2);
+        this->sprite->stopAllActions();
+        this->sprite->runAction(sequence);
     }
 }
 
 void Fighter::punch1()
 {
-    if(isStand())
+    if(isActionStoppable())
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH1)%name).str());
+        Animation* animation = NULL;
+        if (!isSquat())
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH1) % name).str());
+        else
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH1) % name).str());
         auto animate = Animate::create(animation);
-        this->sprite->runAction(animate);
+        auto func = [&]{
+            if (!this->isSquat()) {
+                this->sprite->stopAllActions();
+                this->stand();
+                return;
+            }
+            this->squat();
+        };
+        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        if(!isSquat())
+            sequence->setTag(ACTION_2_STAND_PUNCH1);
+        else
+            sequence->setTag(ACTION_2_SQUAT_PUNCH1);
+        this->sprite->stopAllActions();
+        this->sprite->runAction(sequence);
     }
 }
 
 void Fighter::punch2()
 {
-    if(isStand())
+    if(isActionStoppable())
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH2)%name).str());
+        Animation* animation = NULL;
+        if (!isSquat())
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH2) % name).str());
+        else
+            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH2) % name).str());
         auto animate = Animate::create(animation);
-        auto sequence = Sequence::create(animate, CallFunc::create([&]{this->stand();}), NULL);
-        sequence->setTag(19);
-        this->sprite->runAction(animate);
+        auto func = [&]{
+            if (!this->isSquat()) {
+                this->sprite->stopAllActions();
+                this->stand();
+                return;
+            }
+            this->squat();
+        };
+        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        if(!isSquat())
+            sequence->setTag(ACTION_2_STAND_PUNCH2);
+        else
+            sequence->setTag(ACTION_2_SQUAT_PUNCH2);
+        this->sprite->stopAllActions();
+        this->sprite->runAction(sequence);
     }
 }
 
@@ -316,6 +379,22 @@ bool Fighter::isStand()
 {
     if(this->sprite->getActionByTag(ACTION_1_STAND))
         return true;
+    return false;
+}
+
+bool Fighter::isSquat()
+{
+    if (   this->sprite->getActionByTag(ACTION_1_SQUAT)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)
+        || this->sprite->getActionByTag(ACTION_2_SQUAT_PUNCH1)
+        || this->sprite->getActionByTag(ACTION_2_SQUAT_PUNCH2)
+        || this->sprite->getActionByTag(ACTION_2_SQUAT_KICK1)
+        || this->sprite->getActionByTag(ACTION_2_SQUAT_KICK2)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)
+        )
+        return true;
+    
     return false;
 }
 

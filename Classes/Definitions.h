@@ -39,8 +39,8 @@
 #define CHARACTER_SQUAT                 "%s/squat"
 #define CHARACTER_SQUAT_DOWN            "%s/squat_down"
 #define CHARACTER_SQUAT_HIT             "%s/squat_hit"
-#define CHARACTER_SQUAT_KICK1           "%s/squat_KICK1"
-#define CHARACTER_SQUAT_KICK2           "%s/squat_KICK2"
+#define CHARACTER_SQUAT_KICK1           "%s/squat_kick1"
+#define CHARACTER_SQUAT_KICK2           "%s/squat_kick2"
 #define CHARACTER_SQUAT_MOVEBACK        "%s/squat_moveback"
 #define CHARACTER_SQUAT_MOVEFORWARD     "%s/squat_moveforward"
 #define CHARACTER_SQUAT_PUNCH1          "%s/squat_punch1"
@@ -158,19 +158,27 @@
 // Fighter
 
 #define ACTION_1_STAND                      100
-#define ACTION_1_STAND_MOVEFORWARD         101
-#define ACTION_1_STAND_MOVEBACK            102
+#define ACTION_1_STAND_MOVEFORWARD          101
+#define ACTION_1_STAND_MOVEBACK             102
 
 #define ACTION_1_SQUAT                      150
 #define ACTION_1_SQUAT_DOWN                 151
 #define ACTION_1_SQUAT_MOVEBACK             152
 #define ACTION_1_SQUAT_MOVEFORWARD          153
 
-#define ACTION_JUMP                         201
-#define ACTION_PUNCH1                       202
-#define ACTION_PUNCH2                       203
-#define ACTION_KICK1                        204
-#define ACTION_KICK2                        205
+#define ACTION_2_STAND_JUMP                 201
+#define ACTION_2_STAND_PUNCH1               202
+#define ACTION_2_STAND_PUNCH2               203
+#define ACTION_2_STAND_KICK1                204
+#define ACTION_2_STAND_KICK2                205
+
+#define ACTION_2_SQUAT_PUNCH1               250
+#define ACTION_2_SQUAT_PUNCH2               251
+#define ACTION_2_SQUAT_KICK1                252
+#define ACTION_2_SQUAT_KICK2                253
+
+
+
 
 #define ACTION_MOVE_SPEED                   200
 #define ACTION_1_MOVE_DURATION              .7f

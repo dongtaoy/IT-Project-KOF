@@ -59,6 +59,7 @@ public:
     
 private:
     bool isStand();
+    bool isSquat();
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
     
