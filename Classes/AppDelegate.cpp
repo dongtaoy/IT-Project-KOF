@@ -59,8 +59,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     searchPaths.insert(searchPaths.begin(), "res");
     fileUtils->setSearchPaths(searchPaths);
     
-    GKHWrapperCpp gkh;
-    gkh.authenticateLocalPlayer();
+//    GKHWrapperCpp gkh;
+//    gkh.authenticateLocalPlayer();
     
     
     
