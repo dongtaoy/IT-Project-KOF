@@ -15,7 +15,8 @@ Fighter::Fighter(Sprite* sprite, std::string name)
     this->name = name;
     this->sprite = sprite;
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
-    this->stand();
+    this->start();
+   
 }
 
 
@@ -249,17 +250,28 @@ void Fighter::squat_up()
 
 void Fighter::start()
 {
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_START)%name).str());
+    auto animate = Animate::create(animation);
+    auto sequence = Sequence::create(animate, CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
+    this->sprite->runAction(sequence);
     
 }
 
 void Fighter::win()
 {
-    
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_WIN)%name).str());
+    auto animate = Animate::create(animation);
+    this->sprite->runAction(animate);
 }
 
 void Fighter::die()
 {
-    
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_DIE)%name).str());
+    auto animate = Animate::create(animation);
+    this->sprite->runAction(animate);
 }
 
 void Fighter::kick1()

@@ -80,7 +80,7 @@
 		<key>character1/squat_moveback</key>
 		<dict>
 			<key>delay</key>
-			<real>0.08</real>
+			<real>0.12</real>
 			<key>frames</key>
 			<array>
 				<string>characters/character1/squat_moveback/02.png</string>
@@ -94,7 +94,7 @@
 		<key>character1/squat_moveforward</key>
 		<dict>
 			<key>delay</key>
-			<real>0.08</real>
+			<real>0.12</real>
 			<key>frames</key>
 			<array>
 				<string>characters/character1/squat_moveforward/00.png</string>
@@ -174,7 +174,7 @@
 		<key>character1/stand_jump</key>
 		<dict>
 			<key>delay</key>
-			<real>0.08</real>
+			<real>0.1</real>
 			<key>frames</key>
 			<array>
 				<string>characters/character1/stand_jump/00.png</string>
@@ -315,12 +315,6 @@
 			<real>0.2</real>
 			<key>frames</key>
 			<array>
-				<string>characters/character1/win/00.png</string>
-				<string>characters/character1/win/01.png</string>
-				<string>characters/character1/win/02.png</string>
-				<string>characters/character1/win/03.png</string>
-				<string>characters/character1/win/04.png</string>
-				<string>characters/character1/win/05.png</string>
 				<string>characters/character1/win/06.png</string>
 				<string>characters/character1/win/07.png</string>
 				<string>characters/character1/win/08.png</string>

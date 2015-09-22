@@ -40,12 +40,22 @@ bool GamePlayScene::init()
         return false;
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
+    
 
     
     auto node = CSLoader::createNode("GamePlay.csb");
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     this->background = node->getChildByName<Sprite*>("background");
     this->addChild(node);
+    
+    auto tempNode = this->getChildByName(GAME_PLAY_SCENE);
+    auto countDown = tempNode->getChildByName<Text*>("countDown");
+    countDown->setString(std::to_string(10));
+        
+    
+    
+    
+    
     
     
     // TODO: WITH MULTIPLAYER
@@ -72,7 +82,9 @@ bool GamePlayScene::init()
     
     player->setOpponent(opponent);
     opponent->setOpponent(player);
-//
+
+    
+    
     
     
     
@@ -113,6 +125,8 @@ void GamePlayScene::countDownTask(float dt){
         countDown->setString(std::to_string(value));
     }else{
         endCountDown();
+        this->player->win();
+        this->opponent->die();
     }
 }
 
