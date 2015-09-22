@@ -12,17 +12,17 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/die/00.png</string>
-                              <string>character6/die/01.png</string>
-                              <string>character6/die/02.png</string>
-                              <string>character6/die/03.png</string>
-                              <string>character6/die/04.png</string>
-                              <string>character6/die/05.png</string>
-                              <string>character6/die/06.png</string>
-                              <string>character6/die/07.png</string>
-                              <string>character6/die/08.png</string>
-                              <string>character6/die/09.png</string>
-                              <string>character6/squat/01.png</string>
+                              <string>characters/character6/die/00.png</string>
+                              <string>characters/character6/die/01.png</string>
+                              <string>characters/character6/die/02.png</string>
+                              <string>characters/character6/die/03.png</string>
+                              <string>characters/character6/die/04.png</string>
+                              <string>characters/character6/die/05.png</string>
+                              <string>characters/character6/die/06.png</string>
+                              <string>characters/character6/die/07.png</string>
+                              <string>characters/character6/die/08.png</string>
+                              <string>characters/character6/die/09.png</string>
+                              <string>characters/character6/squat/01.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -31,8 +31,8 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_down/00.png</string>
-                              <string>character6/squat_down/01.png</string>
+                              <string>characters/character6/squat_down/00.png</string>
+                              <string>characters/character6/squat_down/01.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -41,9 +41,9 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_hit/00.png</string>
-                              <string>character6/squat_hit/01.png</string>
-                              <string>character6/squat_hit/02.png</string>
+                              <string>characters/character6/squat_hit/00.png</string>
+                              <string>characters/character6/squat_hit/01.png</string>
+                              <string>characters/character6/squat_hit/02.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -52,11 +52,11 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_kick1/00.png</string>
-                              <string>character6/squat_kick1/01.png</string>
-                              <string>character6/squat_kick1/02.png</string>
-                              <string>character6/squat_kick1/03.png</string>
-                              <string>character6/squat_kick1/04.png</string>
+                              <string>characters/character6/squat_kick1/00.png</string>
+                              <string>characters/character6/squat_kick1/01.png</string>
+                              <string>characters/character6/squat_kick1/02.png</string>
+                              <string>characters/character6/squat_kick1/03.png</string>
+                              <string>characters/character6/squat_kick1/04.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -65,11 +65,11 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_kick2/00.png</string>
-                              <string>character6/squat_kick2/01.png</string>
-                              <string>character6/squat_kick2/02.png</string>
-                              <string>character6/squat_kick2/03.png</string>
-                              <string>character6/squat_kick2/04.png</string>
+                              <string>characters/character6/squat_kick2/00.png</string>
+                              <string>characters/character6/squat_kick2/01.png</string>
+                              <string>characters/character6/squat_kick2/02.png</string>
+                              <string>characters/character6/squat_kick2/03.png</string>
+                              <string>characters/character6/squat_kick2/04.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -78,13 +78,13 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_moveback/00.png</string>
-                              <string>character6/squat_moveback/01.png</string>
-                              <string>character6/squat_moveback/02.png</string>
-                              <string>character6/squat_moveback/03.png</string>
-                              <string>character6/squat_moveback/04.png</string>
-                              <string>character6/squat_moveback/05.png</string>
-                              <string>character6/squat_moveback/06.png</string>
+                              <string>characters/character6/squat_moveback/00.png</string>
+                              <string>characters/character6/squat_moveback/01.png</string>
+                              <string>characters/character6/squat_moveback/02.png</string>
+                              <string>characters/character6/squat_moveback/03.png</string>
+                              <string>characters/character6/squat_moveback/04.png</string>
+                              <string>characters/character6/squat_moveback/05.png</string>
+                              <string>characters/character6/squat_moveback/06.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -93,13 +93,13 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_moveforward/00.png</string>
-                              <string>character6/squat_moveforward/01.png</string>
-                              <string>character6/squat_moveforward/02.png</string>
-                              <string>character6/squat_moveforward/03.png</string>
-                              <string>character6/squat_moveforward/04.png</string>
-                              <string>character6/squat_moveforward/05.png</string>
-                              <string>character6/squat_moveforward/06.png</string>
+                              <string>characters/character6/squat_moveforward/00.png</string>
+                              <string>characters/character6/squat_moveforward/01.png</string>
+                              <string>characters/character6/squat_moveforward/02.png</string>
+                              <string>characters/character6/squat_moveforward/03.png</string>
+                              <string>characters/character6/squat_moveforward/04.png</string>
+                              <string>characters/character6/squat_moveforward/05.png</string>
+                              <string>characters/character6/squat_moveforward/06.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -108,15 +108,15 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_punch1/00.png</string>
-                              <string>character6/squat_punch1/01.png</string>
-                              <string>character6/squat_punch1/02.png</string>
-                              <string>character6/squat_punch1/03.png</string>
-                              <string>character6/squat_punch1/04.png</string>
-                              <string>character6/squat_punch1/05.png</string>
-                              <string>character6/squat_punch1/06.png</string>
-                              <string>character6/squat_punch1/07.png</string>
-                              <string>character6/squat_punch1/08.png</string>
+                              <string>characters/character6/squat_punch1/00.png</string>
+                              <string>characters/character6/squat_punch1/01.png</string>
+                              <string>characters/character6/squat_punch1/02.png</string>
+                              <string>characters/character6/squat_punch1/03.png</string>
+                              <string>characters/character6/squat_punch1/04.png</string>
+                              <string>characters/character6/squat_punch1/05.png</string>
+                              <string>characters/character6/squat_punch1/06.png</string>
+                              <string>characters/character6/squat_punch1/07.png</string>
+                              <string>characters/character6/squat_punch1/08.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -125,13 +125,13 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_punch2/00.png</string>
-                              <string>character6/squat_punch2/01.png</string>
-                              <string>character6/squat_punch2/02.png</string>
-                              <string>character6/squat_punch2/03.png</string>
-                              <string>character6/squat_punch2/04.png</string>
-                              <string>character6/squat_punch2/05.png</string>
-                              <string>character6/squat_punch2/06.png</string>
+                              <string>characters/character6/squat_punch2/00.png</string>
+                              <string>characters/character6/squat_punch2/01.png</string>
+                              <string>characters/character6/squat_punch2/02.png</string>
+                              <string>characters/character6/squat_punch2/03.png</string>
+                              <string>characters/character6/squat_punch2/04.png</string>
+                              <string>characters/character6/squat_punch2/05.png</string>
+                              <string>characters/character6/squat_punch2/06.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -140,8 +140,8 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/squat_up/00.png</string>
-                              <string>character6/squat_up/01.png</string>
+                              <string>characters/character6/squat_up/00.png</string>
+                              <string>characters/character6/squat_up/01.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -150,17 +150,17 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand/00.png</string>
-                              <string>character6/stand/01.png</string>
-                              <string>character6/stand/02.png</string>
-                              <string>character6/stand/03.png</string>
-                              <string>character6/stand/04.png</string>
-                              <string>character6/stand/05.png</string>
-                              <string>character6/stand/06.png</string>
-                              <string>character6/stand/07.png</string>
-                              <string>character6/stand/08.png</string>
-                              <string>character6/stand/09.png</string>
-                              <string>character6/stand/10.png</string>
+                              <string>characters/character6/stand/00.png</string>
+                              <string>characters/character6/stand/01.png</string>
+                              <string>characters/character6/stand/02.png</string>
+                              <string>characters/character6/stand/03.png</string>
+                              <string>characters/character6/stand/04.png</string>
+                              <string>characters/character6/stand/05.png</string>
+                              <string>characters/character6/stand/06.png</string>
+                              <string>characters/character6/stand/07.png</string>
+                              <string>characters/character6/stand/08.png</string>
+                              <string>characters/character6/stand/09.png</string>
+                              <string>characters/character6/stand/10.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -169,11 +169,11 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_hit/00.png</string>
-                              <string>character6/stand_hit/01.png</string>
-                              <string>character6/stand_hit/02.png</string>
-                              <string>character6/stand_hit/03.png</string>
-                              <string>character6/stand_hit/04.png</string>
+                              <string>characters/character6/stand_hit/00.png</string>
+                              <string>characters/character6/stand_hit/01.png</string>
+                              <string>characters/character6/stand_hit/02.png</string>
+                              <string>characters/character6/stand_hit/03.png</string>
+                              <string>characters/character6/stand_hit/04.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -182,16 +182,16 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_jump/00.png</string>
-                              <string>character6/stand_jump/01.png</string>
-                              <string>character6/stand_jump/02.png</string>
-                              <string>character6/stand_jump/03.png</string>
-                              <string>character6/stand_jump/04.png</string>
-                              <string>character6/stand_jump/05.png</string>
-                              <string>character6/stand_jump/06.png</string>
-                              <string>character6/stand_jump/07.png</string>
-                              <string>character6/stand_jump/08.png</string>
-                              <string>character6/stand_jump/09.png</string>
+                              <string>characters/character6/stand_jump/00.png</string>
+                              <string>characters/character6/stand_jump/01.png</string>
+                              <string>characters/character6/stand_jump/02.png</string>
+                              <string>characters/character6/stand_jump/03.png</string>
+                              <string>characters/character6/stand_jump/04.png</string>
+                              <string>characters/character6/stand_jump/05.png</string>
+                              <string>characters/character6/stand_jump/06.png</string>
+                              <string>characters/character6/stand_jump/07.png</string>
+                              <string>characters/character6/stand_jump/08.png</string>
+                              <string>characters/character6/stand_jump/09.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -200,13 +200,13 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_kick1/00.png</string>
-                              <string>character6/stand_kick1/01.png</string>
-                              <string>character6/stand_kick1/02.png</string>
-                              <string>character6/stand_kick1/03.png</string>
-                              <string>character6/stand_kick1/04.png</string>
-                              <string>character6/stand_kick1/05.png</string>
-                              <string>character6/stand_kick1/06.png</string>
+                              <string>characters/character6/stand_kick1/00.png</string>
+                              <string>characters/character6/stand_kick1/01.png</string>
+                              <string>characters/character6/stand_kick1/02.png</string>
+                              <string>characters/character6/stand_kick1/03.png</string>
+                              <string>characters/character6/stand_kick1/04.png</string>
+                              <string>characters/character6/stand_kick1/05.png</string>
+                              <string>characters/character6/stand_kick1/06.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -215,15 +215,15 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_kick2/00.png</string>
-                              <string>character6/stand_kick2/01.png</string>
-                              <string>character6/stand_kick2/02.png</string>
-                              <string>character6/stand_kick2/03.png</string>
-                              <string>character6/stand_kick2/04.png</string>
-                              <string>character6/stand_kick2/05.png</string>
-                              <string>character6/stand_kick2/06.png</string>
-                              <string>character6/stand_kick2/07.png</string>
-                              <string>character6/stand_kick2/08.png</string>
+                              <string>characters/character6/stand_kick2/00.png</string>
+                              <string>characters/character6/stand_kick2/01.png</string>
+                              <string>characters/character6/stand_kick2/02.png</string>
+                              <string>characters/character6/stand_kick2/03.png</string>
+                              <string>characters/character6/stand_kick2/04.png</string>
+                              <string>characters/character6/stand_kick2/05.png</string>
+                              <string>characters/character6/stand_kick2/06.png</string>
+                              <string>characters/character6/stand_kick2/07.png</string>
+                              <string>characters/character6/stand_kick2/08.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -232,12 +232,12 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_moveback/00.png</string>
-                              <string>character6/stand_moveback/01.png</string>
-                              <string>character6/stand_moveback/02.png</string>
-                              <string>character6/stand_moveback/03.png</string>
-                              <string>character6/stand_moveback/04.png</string>
-                              <string>character6/stand_moveback/05.png</string>
+                              <string>characters/character6/stand_moveback/00.png</string>
+                              <string>characters/character6/stand_moveback/01.png</string>
+                              <string>characters/character6/stand_moveback/02.png</string>
+                              <string>characters/character6/stand_moveback/03.png</string>
+                              <string>characters/character6/stand_moveback/04.png</string>
+                              <string>characters/character6/stand_moveback/05.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -246,12 +246,12 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_moveforward/00.png</string>
-                              <string>character6/stand_moveforward/01.png</string>
-                              <string>character6/stand_moveforward/02.png</string>
-                              <string>character6/stand_moveforward/03.png</string>
-                              <string>character6/stand_moveforward/04.png</string>
-                              <string>character6/stand_moveforward/05.png</string>
+                              <string>characters/character6/stand_moveforward/00.png</string>
+                              <string>characters/character6/stand_moveforward/01.png</string>
+                              <string>characters/character6/stand_moveforward/02.png</string>
+                              <string>characters/character6/stand_moveforward/03.png</string>
+                              <string>characters/character6/stand_moveforward/04.png</string>
+                              <string>characters/character6/stand_moveforward/05.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -260,11 +260,11 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_punch1/00.png</string>
-                              <string>character6/stand_punch1/01.png</string>
-                              <string>character6/stand_punch1/02.png</string>
-                              <string>character6/stand_punch1/03.png</string>
-                              <string>character6/stand_punch1/04.png</string>
+                              <string>characters/character6/stand_punch1/00.png</string>
+                              <string>characters/character6/stand_punch1/01.png</string>
+                              <string>characters/character6/stand_punch1/02.png</string>
+                              <string>characters/character6/stand_punch1/03.png</string>
+                              <string>characters/character6/stand_punch1/04.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -273,13 +273,13 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/stand_punch2/00.png</string>
-                              <string>character6/stand_punch2/01.png</string>
-                              <string>character6/stand_punch2/02.png</string>
-                              <string>character6/stand_punch2/03.png</string>
-                              <string>character6/stand_punch2/04.png</string>
-                              <string>character6/stand_punch2/05.png</string>
-                              <string>character6/stand_punch2/06.png</string>
+                              <string>characters/character6/stand_punch2/00.png</string>
+                              <string>characters/character6/stand_punch2/01.png</string>
+                              <string>characters/character6/stand_punch2/02.png</string>
+                              <string>characters/character6/stand_punch2/03.png</string>
+                              <string>characters/character6/stand_punch2/04.png</string>
+                              <string>characters/character6/stand_punch2/05.png</string>
+                              <string>characters/character6/stand_punch2/06.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -288,18 +288,18 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/start/00.png</string>
-                              <string>character6/start/01.png</string>
-                              <string>character6/start/02.png</string>
-                              <string>character6/start/03.png</string>
-                              <string>character6/start/04.png</string>
-                              <string>character6/start/05.png</string>
-                              <string>character6/start/06.png</string>
-                              <string>character6/start/07.png</string>
-                              <string>character6/start/08.png</string>
-                              <string>character6/start/09.png</string>
-                              <string>character6/start/10.png</string>
-                              <string>character6/start/11.png</string>
+                              <string>characters/character6/start/00.png</string>
+                              <string>characters/character6/start/01.png</string>
+                              <string>characters/character6/start/02.png</string>
+                              <string>characters/character6/start/03.png</string>
+                              <string>characters/character6/start/04.png</string>
+                              <string>characters/character6/start/05.png</string>
+                              <string>characters/character6/start/06.png</string>
+                              <string>characters/character6/start/07.png</string>
+                              <string>characters/character6/start/08.png</string>
+                              <string>characters/character6/start/09.png</string>
+                              <string>characters/character6/start/10.png</string>
+                              <string>characters/character6/start/11.png</string>
                         </array>
                   </dict>
                   <key>character6/die</key>
@@ -308,18 +308,18 @@
                         <real>0.2</real>
                         <key>frames</key>
                         <array>
-                              <string>character6/win/00.png</string>
-                              <string>character6/win/01.png</string>
-                              <string>character6/win/02.png</string>
-                              <string>character6/win/03.png</string>
-                              <string>character6/win/04.png</string>
-                              <string>character6/win/05.png</string>
-                              <string>character6/win/06.png</string>
-                              <string>character6/win/07.png</string>
-                              <string>character6/win/08.png</string>
-                              <string>character6/win/09.png</string>
-                              <string>character6/win/10.png</string>
-                              <string>character6/win/11.png</string>
+                              <string>characters/character6/win/00.png</string>
+                              <string>characters/character6/win/01.png</string>
+                              <string>characters/character6/win/02.png</string>
+                              <string>characters/character6/win/03.png</string>
+                              <string>characters/character6/win/04.png</string>
+                              <string>characters/character6/win/05.png</string>
+                              <string>characters/character6/win/06.png</string>
+                              <string>characters/character6/win/07.png</string>
+                              <string>characters/character6/win/08.png</string>
+                              <string>characters/character6/win/09.png</string>
+                              <string>characters/character6/win/10.png</string>
+                              <string>characters/character6/win/11.png</string>
                         </array>
                   </dict>
             </dict>
