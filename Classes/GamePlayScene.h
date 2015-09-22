@@ -60,6 +60,7 @@ private:
 //    Fighter* player;
 //    Fighter* opponent;
     Camera2d* camera;
+    bool isCountDownStart;
     
     
     SneakyJoystick* joystick;
@@ -78,6 +79,9 @@ private:
     void createJoystick();
     SneakyButton* createButtons(std::string, std::string, Vec2);
     void createBackgroundAnimation();
+    void startCountDown();
+    void countDownTask(float);
+    void endCountDown();
     
     void update(float);
     
