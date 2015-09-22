@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>character/character2/die/00.png</key>
+            <key>characters/character2/die/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{451,190},{48,90}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/die/01.png</key>
+            <key>characters/character2/die/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{426,612},{51,89}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{51,89}</string>
             </dict>
-            <key>character/character2/die/02.png</key>
+            <key>characters/character2/die/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{501,455},{59,74}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{59,74}</string>
             </dict>
-            <key>character/character2/die/03.png</key>
+            <key>characters/character2/die/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{456,566},{44,62}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{44,62}</string>
             </dict>
-            <key>character/character2/die/04.png</key>
+            <key>characters/character2/die/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{681,78},{53,67}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{53,67}</string>
             </dict>
-            <key>character/character2/die/05.png</key>
+            <key>characters/character2/die/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{749,201},{45,58}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{45,58}</string>
             </dict>
-            <key>character/character2/die/06.png</key>
+            <key>characters/character2/die/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{635,166},{53,67}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{53,67}</string>
             </dict>
-            <key>character/character2/die/07.png</key>
+            <key>characters/character2/die/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{564,176},{78,69}}</string>
@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{78,69}</string>
             </dict>
-            <key>character/character2/die/08.png</key>
+            <key>characters/character2/die/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{355,483},{91,57}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{91,57}</string>
             </dict>
-            <key>character/character2/die/09.png</key>
+            <key>characters/character2/die/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,759},{103,21}}</string>
@@ -134,7 +134,7 @@
                 <key>sourceSize</key>
                 <string>{103,21}</string>
             </dict>
-            <key>character/character2/squat/00.png</key>
+            <key>characters/character2/squat/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{699,454},{42,56}}</string>
@@ -147,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{42,56}</string>
             </dict>
-            <key>character/character2/squat_down/00.png</key>
+            <key>characters/character2/squat_down/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{645,400},{52,63}}</string>
@@ -160,7 +160,7 @@
                 <key>sourceSize</key>
                 <string>{52,63}</string>
             </dict>
-            <key>character/character2/squat_down/01.png</key>
+            <key>characters/character2/squat_down/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{696,216},{51,62}}</string>
@@ -173,7 +173,7 @@
                 <key>sourceSize</key>
                 <string>{51,62}</string>
             </dict>
-            <key>character/character2/squat_down/02.png</key>
+            <key>characters/character2/squat_down/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{750,261},{45,56}}</string>
@@ -186,7 +186,7 @@
                 <key>sourceSize</key>
                 <string>{45,56}</string>
             </dict>
-            <key>character/character2/squat_hit/00.png</key>
+            <key>characters/character2/squat_hit/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{739,140},{53,59}}</string>
@@ -199,7 +199,7 @@
                 <key>sourceSize</key>
                 <string>{53,59}</string>
             </dict>
-            <key>character/character2/squat_hit/01.png</key>
+            <key>characters/character2/squat_hit/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{476,794},{57,59}}</string>
@@ -212,7 +212,7 @@
                 <key>sourceSize</key>
                 <string>{57,59}</string>
             </dict>
-            <key>character/character2/squat_kick1/00.png</key>
+            <key>characters/character2/squat_kick1/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{296,576},{37,62}}</string>
@@ -225,7 +225,7 @@
                 <key>sourceSize</key>
                 <string>{37,62}</string>
             </dict>
-            <key>character/character2/squat_kick1/01.png</key>
+            <key>characters/character2/squat_kick1/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{756,319},{50,55}}</string>
@@ -238,7 +238,7 @@
                 <key>sourceSize</key>
                 <string>{50,55}</string>
             </dict>
-            <key>character/character2/squat_kick1/02.png</key>
+            <key>characters/character2/squat_kick1/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{735,2},{67,53}}</string>
@@ -251,7 +251,7 @@
                 <key>sourceSize</key>
                 <string>{67,53}</string>
             </dict>
-            <key>character/character2/squat_kick1/03.png</key>
+            <key>characters/character2/squat_kick1/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{489,853},{87,53}}</string>
@@ -264,7 +264,7 @@
                 <key>sourceSize</key>
                 <string>{87,53}</string>
             </dict>
-            <key>character/character2/squat_kick1/04.png</key>
+            <key>characters/character2/squat_kick1/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{544,853},{84,53}}</string>
@@ -277,7 +277,7 @@
                 <key>sourceSize</key>
                 <string>{84,53}</string>
             </dict>
-            <key>character/character2/squat_kick1/05.png</key>
+            <key>characters/character2/squat_kick1/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{735,2},{67,53}}</string>
@@ -290,7 +290,7 @@
                 <key>sourceSize</key>
                 <string>{67,53}</string>
             </dict>
-            <key>character/character2/squat_kick1/06.png</key>
+            <key>characters/character2/squat_kick1/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{756,319},{50,55}}</string>
@@ -303,7 +303,7 @@
                 <key>sourceSize</key>
                 <string>{50,55}</string>
             </dict>
-            <key>character/character2/squat_kick1/07.png</key>
+            <key>characters/character2/squat_kick1/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{296,576},{37,62}}</string>
@@ -316,7 +316,7 @@
                 <key>sourceSize</key>
                 <string>{37,62}</string>
             </dict>
-            <key>character/character2/squat_kick2/00.png</key>
+            <key>characters/character2/squat_kick2/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{524,607},{49,74}}</string>
@@ -329,7 +329,7 @@
                 <key>sourceSize</key>
                 <string>{49,74}</string>
             </dict>
-            <key>character/character2/squat_kick2/01.png</key>
+            <key>characters/character2/squat_kick2/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{361,708},{81,89}}</string>
@@ -342,7 +342,7 @@
                 <key>sourceSize</key>
                 <string>{81,89}</string>
             </dict>
-            <key>character/character2/squat_kick2/02.png</key>
+            <key>characters/character2/squat_kick2/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{255,102},{77,94}}</string>
@@ -355,7 +355,7 @@
                 <key>sourceSize</key>
                 <string>{77,94}</string>
             </dict>
-            <key>character/character2/squat_kick2/03.png</key>
+            <key>characters/character2/squat_kick2/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{125,750},{78,101}}</string>
@@ -368,7 +368,7 @@
                 <key>sourceSize</key>
                 <string>{78,101}</string>
             </dict>
-            <key>character/character2/squat_kick2/04.png</key>
+            <key>characters/character2/squat_kick2/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{150,2},{58,99}}</string>
@@ -381,7 +381,7 @@
                 <key>sourceSize</key>
                 <string>{58,99}</string>
             </dict>
-            <key>character/character2/squat_kick2/05.png</key>
+            <key>characters/character2/squat_kick2/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{128,315},{40,99}}</string>
@@ -394,7 +394,7 @@
                 <key>sourceSize</key>
                 <string>{40,99}</string>
             </dict>
-            <key>character/character2/squat_kick2/06.png</key>
+            <key>characters/character2/squat_kick2/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{256,713},{51,96}}</string>
@@ -407,7 +407,7 @@
                 <key>sourceSize</key>
                 <string>{51,96}</string>
             </dict>
-            <key>character/character2/squat_kick2/07.png</key>
+            <key>characters/character2/squat_kick2/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{524,607},{49,74}}</string>
@@ -420,7 +420,7 @@
                 <key>sourceSize</key>
                 <string>{49,74}</string>
             </dict>
-            <key>character/character2/squat_moveback/00.png</key>
+            <key>characters/character2/squat_moveback/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{367,612},{57,89}}</string>
@@ -433,7 +433,7 @@
                 <key>sourceSize</key>
                 <string>{57,89}</string>
             </dict>
-            <key>character/character2/squat_moveback/01.png</key>
+            <key>characters/character2/squat_moveback/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{483,282},{46,87}}</string>
@@ -446,7 +446,7 @@
                 <key>sourceSize</key>
                 <string>{46,87}</string>
             </dict>
-            <key>character/character2/squat_moveback/02.png</key>
+            <key>characters/character2/squat_moveback/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{608,89},{75,71}}</string>
@@ -459,7 +459,7 @@
                 <key>sourceSize</key>
                 <string>{75,71}</string>
             </dict>
-            <key>character/character2/squat_moveback/03.png</key>
+            <key>characters/character2/squat_moveback/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{673,2},{74,60}}</string>
@@ -472,7 +472,7 @@
                 <key>sourceSize</key>
                 <string>{74,60}</string>
             </dict>
-            <key>character/character2/squat_moveback/04.png</key>
+            <key>characters/character2/squat_moveback/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{606,329},{69,40}}</string>
@@ -485,7 +485,7 @@
                 <key>sourceSize</key>
                 <string>{69,40}</string>
             </dict>
-            <key>character/character2/squat_moveback/05.png</key>
+            <key>characters/character2/squat_moveback/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{736,71},{47,67}}</string>
@@ -498,7 +498,7 @@
                 <key>sourceSize</key>
                 <string>{47,67}</string>
             </dict>
-            <key>character/character2/squat_moveback/06.png</key>
+            <key>characters/character2/squat_moveback/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{562,429},{70,39}}</string>
@@ -511,7 +511,7 @@
                 <key>sourceSize</key>
                 <string>{70,39}</string>
             </dict>
-            <key>character/character2/squat_moveback/07.png</key>
+            <key>characters/character2/squat_moveback/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{835,131},{47,47}}</string>
@@ -524,7 +524,7 @@
                 <key>sourceSize</key>
                 <string>{47,47}</string>
             </dict>
-            <key>character/character2/squat_moveback/08.png</key>
+            <key>characters/character2/squat_moveback/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{794,131},{39,52}}</string>
@@ -537,7 +537,7 @@
                 <key>sourceSize</key>
                 <string>{39,52}</string>
             </dict>
-            <key>character/character2/squat_moveback/09.png</key>
+            <key>characters/character2/squat_moveback/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{575,641},{39,65}}</string>
@@ -550,7 +550,7 @@
                 <key>sourceSize</key>
                 <string>{39,65}</string>
             </dict>
-            <key>character/character2/squat_moveback/10.png</key>
+            <key>characters/character2/squat_moveback/10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{524,607},{49,74}}</string>
@@ -563,7 +563,7 @@
                 <key>sourceSize</key>
                 <string>{49,74}</string>
             </dict>
-            <key>character/character2/squat_moveforward/00.png</key>
+            <key>characters/character2/squat_moveforward/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{501,187},{61,86}}</string>
@@ -576,7 +576,7 @@
                 <key>sourceSize</key>
                 <string>{61,86}</string>
             </dict>
-            <key>character/character2/squat_moveforward/01.png</key>
+            <key>characters/character2/squat_moveforward/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{305,951},{75,71}}</string>
@@ -589,7 +589,7 @@
                 <key>sourceSize</key>
                 <string>{75,71}</string>
             </dict>
-            <key>character/character2/squat_moveforward/02.png</key>
+            <key>characters/character2/squat_moveforward/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{611,2},{74,60}}</string>
@@ -602,7 +602,7 @@
                 <key>sourceSize</key>
                 <string>{74,60}</string>
             </dict>
-            <key>character/character2/squat_moveforward/03.png</key>
+            <key>characters/character2/squat_moveforward/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{603,429},{69,40}}</string>
@@ -615,7 +615,7 @@
                 <key>sourceSize</key>
                 <string>{69,40}</string>
             </dict>
-            <key>character/character2/squat_moveforward/04.png</key>
+            <key>characters/character2/squat_moveforward/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{690,147},{47,67}}</string>
@@ -628,7 +628,7 @@
                 <key>sourceSize</key>
                 <string>{47,67}</string>
             </dict>
-            <key>character/character2/squat_moveforward/05.png</key>
+            <key>characters/character2/squat_moveforward/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{593,755},{70,39}}</string>
@@ -641,7 +641,7 @@
                 <key>sourceSize</key>
                 <string>{70,39}</string>
             </dict>
-            <key>character/character2/squat_moveforward/06.png</key>
+            <key>characters/character2/squat_moveforward/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{696,280},{39,52}}</string>
@@ -654,7 +654,7 @@
                 <key>sourceSize</key>
                 <string>{39,52}</string>
             </dict>
-            <key>character/character2/squat_moveforward/07.png</key>
+            <key>characters/character2/squat_moveforward/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{796,185},{47,47}}</string>
@@ -667,7 +667,7 @@
                 <key>sourceSize</key>
                 <string>{47,47}</string>
             </dict>
-            <key>character/character2/squat_moveforward/08.png</key>
+            <key>characters/character2/squat_moveforward/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{704,321},{50,62}}</string>
@@ -680,7 +680,7 @@
                 <key>sourceSize</key>
                 <string>{50,62}</string>
             </dict>
-            <key>character/character2/squat_moveforward/09.png</key>
+            <key>characters/character2/squat_moveforward/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{524,607},{49,74}}</string>
@@ -693,7 +693,7 @@
                 <key>sourceSize</key>
                 <string>{49,74}</string>
             </dict>
-            <key>character/character2/squat_punch1/00.png</key>
+            <key>characters/character2/squat_punch1/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{622,572},{49,66}}</string>
@@ -706,7 +706,7 @@
                 <key>sourceSize</key>
                 <string>{49,66}</string>
             </dict>
-            <key>character/character2/squat_punch1/01.png</key>
+            <key>characters/character2/squat_punch1/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{575,572},{45,67}}</string>
@@ -719,7 +719,7 @@
                 <key>sourceSize</key>
                 <string>{45,67}</string>
             </dict>
-            <key>character/character2/squat_punch1/02.png</key>
+            <key>characters/character2/squat_punch1/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{564,683},{70,69}}</string>
@@ -732,7 +732,7 @@
                 <key>sourceSize</key>
                 <string>{70,69}</string>
             </dict>
-            <key>character/character2/squat_punch1/03.png</key>
+            <key>characters/character2/squat_punch1/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{574,501},{68,69}}</string>
@@ -745,7 +745,7 @@
                 <key>sourceSize</key>
                 <string>{68,69}</string>
             </dict>
-            <key>character/character2/squat_punch1/04.png</key>
+            <key>characters/character2/squat_punch1/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{575,572},{45,67}}</string>
@@ -758,7 +758,7 @@
                 <key>sourceSize</key>
                 <string>{45,67}</string>
             </dict>
-            <key>character/character2/squat_punch2/00.png</key>
+            <key>characters/character2/squat_punch2/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{644,500},{58,64}}</string>
@@ -771,7 +771,7 @@
                 <key>sourceSize</key>
                 <string>{58,64}</string>
             </dict>
-            <key>character/character2/squat_punch2/01.png</key>
+            <key>characters/character2/squat_punch2/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{648,326},{62,54}}</string>
@@ -784,7 +784,7 @@
                 <key>sourceSize</key>
                 <string>{62,54}</string>
             </dict>
-            <key>character/character2/squat_punch2/02.png</key>
+            <key>characters/character2/squat_punch2/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{752,385},{62,50}}</string>
@@ -797,7 +797,7 @@
                 <key>sourceSize</key>
                 <string>{62,50}</string>
             </dict>
-            <key>character/character2/squat_punch2/03.png</key>
+            <key>characters/character2/squat_punch2/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{790,2},{58,49}}</string>
@@ -810,7 +810,7 @@
                 <key>sourceSize</key>
                 <string>{58,49}</string>
             </dict>
-            <key>character/character2/squat_punch2/04.png</key>
+            <key>characters/character2/squat_punch2/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{785,71},{58,49}}</string>
@@ -823,7 +823,7 @@
                 <key>sourceSize</key>
                 <string>{58,49}</string>
             </dict>
-            <key>character/character2/squat_punch2/05.png</key>
+            <key>characters/character2/squat_punch2/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{644,500},{58,64}}</string>
@@ -836,7 +836,7 @@
                 <key>sourceSize</key>
                 <string>{58,64}</string>
             </dict>
-            <key>character/character2/squat_punch2/06.png</key>
+            <key>characters/character2/squat_punch2/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{537,785},{54,66}}</string>
@@ -849,7 +849,7 @@
                 <key>sourceSize</key>
                 <string>{54,66}</string>
             </dict>
-            <key>character/character2/squat_punch2/07.png</key>
+            <key>characters/character2/squat_punch2/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{469,943},{58,79}}</string>
@@ -862,7 +862,7 @@
                 <key>sourceSize</key>
                 <string>{58,79}</string>
             </dict>
-            <key>character/character2/squat_punch2/08.png</key>
+            <key>characters/character2/squat_punch2/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{296,483},{57,91}}</string>
@@ -875,7 +875,7 @@
                 <key>sourceSize</key>
                 <string>{57,91}</string>
             </dict>
-            <key>character/character2/squat_punch2/09.png</key>
+            <key>characters/character2/squat_punch2/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{170,310},{51,98}}</string>
@@ -888,7 +888,7 @@
                 <key>sourceSize</key>
                 <string>{51,98}</string>
             </dict>
-            <key>character/character2/squat_punch2/10.png</key>
+            <key>characters/character2/squat_punch2/10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{172,203},{49,98}}</string>
@@ -901,7 +901,7 @@
                 <key>sourceSize</key>
                 <string>{49,98}</string>
             </dict>
-            <key>character/character2/squat_punch2/11.png</key>
+            <key>characters/character2/squat_punch2/11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{205,715},{49,97}}</string>
@@ -914,7 +914,7 @@
                 <key>sourceSize</key>
                 <string>{49,97}</string>
             </dict>
-            <key>character/character2/squat_punch2/12.png</key>
+            <key>characters/character2/squat_punch2/12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{223,853},{47,96}}</string>
@@ -927,7 +927,7 @@
                 <key>sourceSize</key>
                 <string>{47,96}</string>
             </dict>
-            <key>character/character2/squat_punch2/13.png</key>
+            <key>characters/character2/squat_punch2/13.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{249,509},{45,95}}</string>
@@ -940,7 +940,7 @@
                 <key>sourceSize</key>
                 <string>{45,95}</string>
             </dict>
-            <key>character/character2/squat_punch2/14.png</key>
+            <key>characters/character2/squat_punch2/14.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{431,853},{56,88}}</string>
@@ -953,7 +953,7 @@
                 <key>sourceSize</key>
                 <string>{56,88}</string>
             </dict>
-            <key>character/character2/squat_up/00.png</key>
+            <key>characters/character2/squat_up/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{699,454},{42,56}}</string>
@@ -966,7 +966,7 @@
                 <key>sourceSize</key>
                 <string>{42,56}</string>
             </dict>
-            <key>character/character2/squat_up/01.png</key>
+            <key>characters/character2/squat_up/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{704,321},{50,62}}</string>
@@ -979,7 +979,7 @@
                 <key>sourceSize</key>
                 <string>{50,62}</string>
             </dict>
-            <key>character/character2/squat_up/02.png</key>
+            <key>characters/character2/squat_up/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{699,390},{51,62}}</string>
@@ -992,7 +992,7 @@
                 <key>sourceSize</key>
                 <string>{51,62}</string>
             </dict>
-            <key>character/character2/stand/00.png</key>
+            <key>characters/character2/stand/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{581,939},{49,83}}</string>
@@ -1005,7 +1005,7 @@
                 <key>sourceSize</key>
                 <string>{49,83}</string>
             </dict>
-            <key>character/character2/stand/01.png</key>
+            <key>characters/character2/stand/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{479,612},{43,85}}</string>
@@ -1018,7 +1018,7 @@
                 <key>sourceSize</key>
                 <string>{43,85}</string>
             </dict>
-            <key>character/character2/stand/02.png</key>
+            <key>characters/character2/stand/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{456,479},{43,85}}</string>
@@ -1031,7 +1031,7 @@
                 <key>sourceSize</key>
                 <string>{43,85}</string>
             </dict>
-            <key>character/character2/stand/03.png</key>
+            <key>characters/character2/stand/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{564,2},{45,85}}</string>
@@ -1044,7 +1044,7 @@
                 <key>sourceSize</key>
                 <string>{45,85}</string>
             </dict>
-            <key>character/character2/stand/04.png</key>
+            <key>characters/character2/stand/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{479,612},{43,85}}</string>
@@ -1057,7 +1057,7 @@
                 <key>sourceSize</key>
                 <string>{43,85}</string>
             </dict>
-            <key>character/character2/stand/05.png</key>
+            <key>characters/character2/stand/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{511,2},{51,85}}</string>
@@ -1070,7 +1070,7 @@
                 <key>sourceSize</key>
                 <string>{51,85}</string>
             </dict>
-            <key>character/character2/stand/06.png</key>
+            <key>characters/character2/stand/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{564,2},{45,85}}</string>
@@ -1083,7 +1083,7 @@
                 <key>sourceSize</key>
                 <string>{45,85}</string>
             </dict>
-            <key>character/character2/stand/07.png</key>
+            <key>characters/character2/stand/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{557,89},{49,85}}</string>
@@ -1096,7 +1096,7 @@
                 <key>sourceSize</key>
                 <string>{49,85}</string>
             </dict>
-            <key>character/character2/stand_hit/00.png</key>
+            <key>characters/character2/stand_hit/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{398,799},{52,76}}</string>
@@ -1109,7 +1109,7 @@
                 <key>sourceSize</key>
                 <string>{52,76}</string>
             </dict>
-            <key>character/character2/stand_hit/01.png</key>
+            <key>characters/character2/stand_hit/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{531,275},{45,79}}</string>
@@ -1122,7 +1122,7 @@
                 <key>sourceSize</key>
                 <string>{45,79}</string>
             </dict>
-            <key>character/character2/stand_hit/02.png</key>
+            <key>characters/character2/stand_hit/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{529,942},{50,79}}</string>
@@ -1135,7 +1135,7 @@
                 <key>sourceSize</key>
                 <string>{50,79}</string>
             </dict>
-            <key>character/character2/stand_hit/03.png</key>
+            <key>characters/character2/stand_hit/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{488,371},{49,82}}</string>
@@ -1148,7 +1148,7 @@
                 <key>sourceSize</key>
                 <string>{49,82}</string>
             </dict>
-            <key>character/character2/stand_jump/00.png</key>
+            <key>characters/character2/stand_jump/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{578,256},{47,71}}</string>
@@ -1161,7 +1161,7 @@
                 <key>sourceSize</key>
                 <string>{47,71}</string>
             </dict>
-            <key>character/character2/stand_jump/01.png</key>
+            <key>characters/character2/stand_jump/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{53,2},{58,104}}</string>
@@ -1174,7 +1174,7 @@
                 <key>sourceSize</key>
                 <string>{58,104}</string>
             </dict>
-            <key>character/character2/stand_jump/02.png</key>
+            <key>characters/character2/stand_jump/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{539,356},{65,71}}</string>
@@ -1187,7 +1187,7 @@
                 <key>sourceSize</key>
                 <string>{65,71}</string>
             </dict>
-            <key>character/character2/stand_jump/03.png</key>
+            <key>characters/character2/stand_jump/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{627,256},{67,68}}</string>
@@ -1200,7 +1200,7 @@
                 <key>sourceSize</key>
                 <string>{67,68}</string>
             </dict>
-            <key>character/character2/stand_jump/04.png</key>
+            <key>characters/character2/stand_jump/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{272,853},{41,96}}</string>
@@ -1213,7 +1213,7 @@
                 <key>sourceSize</key>
                 <string>{41,96}</string>
             </dict>
-            <key>character/character2/stand_jump/05.png</key>
+            <key>characters/character2/stand_jump/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,120},{38,108}}</string>
@@ -1226,7 +1226,7 @@
                 <key>sourceSize</key>
                 <string>{38,108}</string>
             </dict>
-            <key>character/character2/stand_jump/06.png</key>
+            <key>characters/character2/stand_jump/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{520,531},{52,74}}</string>
@@ -1239,7 +1239,7 @@
                 <key>sourceSize</key>
                 <string>{52,74}</string>
             </dict>
-            <key>character/character2/stand_kick1/00.png</key>
+            <key>characters/character2/stand_kick1/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1252,7 +1252,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_kick1/01.png</key>
+            <key>characters/character2/stand_kick1/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{462,95},{44,90}}</string>
@@ -1265,7 +1265,7 @@
                 <key>sourceSize</key>
                 <string>{44,90}</string>
             </dict>
-            <key>character/character2/stand_kick1/02.png</key>
+            <key>characters/character2/stand_kick1/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{142,646},{39,101}}</string>
@@ -1278,7 +1278,7 @@
                 <key>sourceSize</key>
                 <string>{39,101}</string>
             </dict>
-            <key>character/character2/stand_kick1/03.png</key>
+            <key>characters/character2/stand_kick1/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{188,853},{33,101}}</string>
@@ -1291,7 +1291,7 @@
                 <key>sourceSize</key>
                 <string>{33,101}</string>
             </dict>
-            <key>character/character2/stand_kick1/04.png</key>
+            <key>characters/character2/stand_kick1/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{205,956},{66,98}}</string>
@@ -1304,7 +1304,7 @@
                 <key>sourceSize</key>
                 <string>{66,98}</string>
             </dict>
-            <key>character/character2/stand_kick1/05.png</key>
+            <key>characters/character2/stand_kick1/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{377,853},{52,95}}</string>
@@ -1317,7 +1317,7 @@
                 <key>sourceSize</key>
                 <string>{52,95}</string>
             </dict>
-            <key>character/character2/stand_kick1/06.png</key>
+            <key>characters/character2/stand_kick1/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{309,713},{50,95}}</string>
@@ -1330,7 +1330,7 @@
                 <key>sourceSize</key>
                 <string>{50,95}</string>
             </dict>
-            <key>character/character2/stand_kick1/07.png</key>
+            <key>characters/character2/stand_kick1/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{264,198},{46,94}}</string>
@@ -1343,7 +1343,7 @@
                 <key>sourceSize</key>
                 <string>{46,94}</string>
             </dict>
-            <key>character/character2/stand_kick1/08.png</key>
+            <key>characters/character2/stand_kick1/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1356,7 +1356,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_kick2/00.png</key>
+            <key>characters/character2/stand_kick2/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1369,7 +1369,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_kick2/01.png</key>
+            <key>characters/character2/stand_kick2/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{375,387},{46,91}}</string>
@@ -1382,7 +1382,7 @@
                 <key>sourceSize</key>
                 <string>{46,91}</string>
             </dict>
-            <key>character/character2/stand_kick2/02.png</key>
+            <key>characters/character2/stand_kick2/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{287,294},{62,93}}</string>
@@ -1395,7 +1395,7 @@
                 <key>sourceSize</key>
                 <string>{62,93}</string>
             </dict>
-            <key>character/character2/stand_kick2/03.png</key>
+            <key>characters/character2/stand_kick2/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{444,703},{41,89}}</string>
@@ -1408,7 +1408,7 @@
                 <key>sourceSize</key>
                 <string>{41,89}</string>
             </dict>
-            <key>character/character2/stand_kick2/04.png</key>
+            <key>characters/character2/stand_kick2/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{487,699},{75,84}}</string>
@@ -1421,7 +1421,7 @@
                 <key>sourceSize</key>
                 <string>{75,84}</string>
             </dict>
-            <key>character/character2/stand_kick2/05.png</key>
+            <key>characters/character2/stand_kick2/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{382,950},{72,85}}</string>
@@ -1434,7 +1434,7 @@
                 <key>sourceSize</key>
                 <string>{72,85}</string>
             </dict>
-            <key>character/character2/stand_kick2/06.png</key>
+            <key>characters/character2/stand_kick2/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{508,95},{47,86}}</string>
@@ -1447,7 +1447,7 @@
                 <key>sourceSize</key>
                 <string>{47,86}</string>
             </dict>
-            <key>character/character2/stand_kick2/07.png</key>
+            <key>characters/character2/stand_kick2/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{360,576},{34,89}}</string>
@@ -1460,7 +1460,7 @@
                 <key>sourceSize</key>
                 <string>{34,89}</string>
             </dict>
-            <key>character/character2/stand_kick2/08.png</key>
+            <key>characters/character2/stand_kick2/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{375,387},{46,91}}</string>
@@ -1473,7 +1473,7 @@
                 <key>sourceSize</key>
                 <string>{46,91}</string>
             </dict>
-            <key>character/character2/stand_kick2/09.png</key>
+            <key>characters/character2/stand_kick2/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1486,7 +1486,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_moveback/00.png</key>
+            <key>characters/character2/stand_moveback/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{135,107},{30,100}}</string>
@@ -1499,7 +1499,7 @@
                 <key>sourceSize</key>
                 <string>{30,100}</string>
             </dict>
-            <key>character/character2/stand_moveback/01.png</key>
+            <key>characters/character2/stand_moveback/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{136,209},{34,99}}</string>
@@ -1512,7 +1512,7 @@
                 <key>sourceSize</key>
                 <string>{34,99}</string>
             </dict>
-            <key>character/character2/stand_moveback/02.png</key>
+            <key>characters/character2/stand_moveback/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{104,213},{30,100}}</string>
@@ -1525,7 +1525,7 @@
                 <key>sourceSize</key>
                 <string>{30,100}</string>
             </dict>
-            <key>character/character2/stand_moveback/03.png</key>
+            <key>characters/character2/stand_moveback/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{152,853},{34,101}}</string>
@@ -1538,7 +1538,7 @@
                 <key>sourceSize</key>
                 <string>{34,101}</string>
             </dict>
-            <key>character/character2/stand_moveforward/00.png</key>
+            <key>characters/character2/stand_moveforward/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{398,2},{44,92}}</string>
@@ -1551,7 +1551,7 @@
                 <key>sourceSize</key>
                 <string>{44,92}</string>
             </dict>
-            <key>character/character2/stand_moveforward/01.png</key>
+            <key>characters/character2/stand_moveforward/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{360,2},{36,93}}</string>
@@ -1564,7 +1564,7 @@
                 <key>sourceSize</key>
                 <string>{36,93}</string>
             </dict>
-            <key>character/character2/stand_moveforward/02.png</key>
+            <key>characters/character2/stand_moveforward/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{334,98},{37,93}}</string>
@@ -1577,7 +1577,7 @@
                 <key>sourceSize</key>
                 <string>{37,93}</string>
             </dict>
-            <key>character/character2/stand_moveforward/03.png</key>
+            <key>characters/character2/stand_moveforward/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{422,96},{38,92}}</string>
@@ -1590,7 +1590,7 @@
                 <key>sourceSize</key>
                 <string>{38,92}</string>
             </dict>
-            <key>character/character2/stand_moveforward/04.png</key>
+            <key>characters/character2/stand_moveforward/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{414,480},{40,91}}</string>
@@ -1603,7 +1603,7 @@
                 <key>sourceSize</key>
                 <string>{40,91}</string>
             </dict>
-            <key>character/character2/stand_moveforward/05.png</key>
+            <key>characters/character2/stand_moveforward/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{325,615},{40,91}}</string>
@@ -1616,7 +1616,7 @@
                 <key>sourceSize</key>
                 <string>{40,91}</string>
             </dict>
-            <key>character/character2/stand_moveforward/06.png</key>
+            <key>characters/character2/stand_moveforward/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{411,191},{38,92}}</string>
@@ -1629,7 +1629,7 @@
                 <key>sourceSize</key>
                 <string>{38,92}</string>
             </dict>
-            <key>character/character2/stand_moveforward/07.png</key>
+            <key>characters/character2/stand_moveforward/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{254,396},{36,94}}</string>
@@ -1642,7 +1642,7 @@
                 <key>sourceSize</key>
                 <string>{36,94}</string>
             </dict>
-            <key>character/character2/stand_moveforward/08.png</key>
+            <key>characters/character2/stand_moveforward/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{205,814},{37,95}}</string>
@@ -1655,7 +1655,7 @@
                 <key>sourceSize</key>
                 <string>{37,95}</string>
             </dict>
-            <key>character/character2/stand_moveforward/09.png</key>
+            <key>characters/character2/stand_moveforward/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{302,811},{40,94}}</string>
@@ -1668,7 +1668,7 @@
                 <key>sourceSize</key>
                 <string>{40,94}</string>
             </dict>
-            <key>character/character2/stand_moveforward/10.png</key>
+            <key>characters/character2/stand_moveforward/10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{312,198},{44,93}}</string>
@@ -1681,7 +1681,7 @@
                 <key>sourceSize</key>
                 <string>{44,93}</string>
             </dict>
-            <key>character/character2/stand_moveforward/11.png</key>
+            <key>characters/character2/stand_moveforward/11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{373,97},{47,92}}</string>
@@ -1694,7 +1694,7 @@
                 <key>sourceSize</key>
                 <string>{47,92}</string>
             </dict>
-            <key>character/character2/stand_punch1/00.png</key>
+            <key>characters/character2/stand_punch1/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1707,7 +1707,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_punch1/01.png</key>
+            <key>characters/character2/stand_punch1/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{444,2},{65,91}}</string>
@@ -1720,7 +1720,7 @@
                 <key>sourceSize</key>
                 <string>{65,91}</string>
             </dict>
-            <key>character/character2/stand_punch1/02.png</key>
+            <key>characters/character2/stand_punch1/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{292,389},{81,92}}</string>
@@ -1733,7 +1733,7 @@
                 <key>sourceSize</key>
                 <string>{81,92}</string>
             </dict>
-            <key>character/character2/stand_punch1/03.png</key>
+            <key>characters/character2/stand_punch1/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{351,293},{80,92}}</string>
@@ -1746,7 +1746,7 @@
                 <key>sourceSize</key>
                 <string>{80,92}</string>
             </dict>
-            <key>character/character2/stand_punch1/04.png</key>
+            <key>characters/character2/stand_punch1/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{423,387},{63,90}}</string>
@@ -1759,7 +1759,7 @@
                 <key>sourceSize</key>
                 <string>{63,90}</string>
             </dict>
-            <key>character/character2/stand_punch1/05.png</key>
+            <key>characters/character2/stand_punch1/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1772,7 +1772,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_punch2/00.png</key>
+            <key>characters/character2/stand_punch2/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1785,7 +1785,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/stand_punch2/01.png</key>
+            <key>characters/character2/stand_punch2/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{146,516},{48,98}}</string>
@@ -1798,7 +1798,7 @@
                 <key>sourceSize</key>
                 <string>{48,98}</string>
             </dict>
-            <key>character/character2/stand_punch2/02.png</key>
+            <key>characters/character2/stand_punch2/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{243,615},{80,96}}</string>
@@ -1811,7 +1811,7 @@
                 <key>sourceSize</key>
                 <string>{80,96}</string>
             </dict>
-            <key>character/character2/stand_punch2/03.png</key>
+            <key>characters/character2/stand_punch2/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{183,616},{58,97}}</string>
@@ -1824,7 +1824,7 @@
                 <key>sourceSize</key>
                 <string>{58,97}</string>
             </dict>
-            <key>character/character2/stand_punch2/04.png</key>
+            <key>characters/character2/stand_punch2/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,968},{54,98}}</string>
@@ -1837,7 +1837,7 @@
                 <key>sourceSize</key>
                 <string>{54,98}</string>
             </dict>
-            <key>character/character2/stand_punch2/05.png</key>
+            <key>characters/character2/stand_punch2/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{167,103},{86,98}}</string>
@@ -1850,7 +1850,7 @@
                 <key>sourceSize</key>
                 <string>{86,98}</string>
             </dict>
-            <key>character/character2/stand_punch2/06.png</key>
+            <key>characters/character2/stand_punch2/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{210,2},{84,98}}</string>
@@ -1863,7 +1863,7 @@
                 <key>sourceSize</key>
                 <string>{84,98}</string>
             </dict>
-            <key>character/character2/stand_punch2/07.png</key>
+            <key>characters/character2/stand_punch2/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{196,516},{51,97}}</string>
@@ -1876,7 +1876,7 @@
                 <key>sourceSize</key>
                 <string>{51,97}</string>
             </dict>
-            <key>character/character2/stand_punch2/08.png</key>
+            <key>characters/character2/stand_punch2/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{145,416},{56,98}}</string>
@@ -1889,7 +1889,7 @@
                 <key>sourceSize</key>
                 <string>{56,98}</string>
             </dict>
-            <key>character/character2/stand_punch2/09.png</key>
+            <key>characters/character2/stand_punch2/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{223,300},{62,94}}</string>
@@ -1902,7 +1902,7 @@
                 <key>sourceSize</key>
                 <string>{62,94}</string>
             </dict>
-            <key>character/character2/stand_punch2/10.png</key>
+            <key>characters/character2/stand_punch2/10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{296,2},{62,94}}</string>
@@ -1915,7 +1915,7 @@
                 <key>sourceSize</key>
                 <string>{62,94}</string>
             </dict>
-            <key>character/character2/stand_punch2/11.png</key>
+            <key>characters/character2/stand_punch2/11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{315,853},{60,95}}</string>
@@ -1928,7 +1928,7 @@
                 <key>sourceSize</key>
                 <string>{60,95}</string>
             </dict>
-            <key>character/character2/stand_punch2/12.png</key>
+            <key>characters/character2/stand_punch2/12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{358,193},{51,92}}</string>
@@ -1941,7 +1941,7 @@
                 <key>sourceSize</key>
                 <string>{51,92}</string>
             </dict>
-            <key>character/character2/stand_punch2/13.png</key>
+            <key>characters/character2/stand_punch2/13.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -1954,7 +1954,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/start/00.png</key>
+            <key>characters/character2/start/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,549},{34,103}}</string>
@@ -1967,7 +1967,7 @@
                 <key>sourceSize</key>
                 <string>{34,103}</string>
             </dict>
-            <key>character/character2/start/01.png</key>
+            <key>characters/character2/start/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,444},{34,103}}</string>
@@ -1980,7 +1980,7 @@
                 <key>sourceSize</key>
                 <string>{34,103}</string>
             </dict>
-            <key>character/character2/start/02.png</key>
+            <key>characters/character2/start/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{113,2},{35,103}}</string>
@@ -1993,7 +1993,7 @@
                 <key>sourceSize</key>
                 <string>{35,103}</string>
             </dict>
-            <key>character/character2/start/03.png</key>
+            <key>characters/character2/start/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{58,229},{44,103}}</string>
@@ -2006,7 +2006,7 @@
                 <key>sourceSize</key>
                 <string>{44,103}</string>
             </dict>
-            <key>character/character2/start/04.png</key>
+            <key>characters/character2/start/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{42,120},{54,107}}</string>
@@ -2019,7 +2019,7 @@
                 <key>sourceSize</key>
                 <string>{54,107}</string>
             </dict>
-            <key>character/character2/start/05.png</key>
+            <key>characters/character2/start/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{49,116}}</string>
@@ -2032,7 +2032,7 @@
                 <key>sourceSize</key>
                 <string>{49,116}</string>
             </dict>
-            <key>character/character2/start/06.png</key>
+            <key>characters/character2/start/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,230},{54,107}}</string>
@@ -2045,7 +2045,7 @@
                 <key>sourceSize</key>
                 <string>{54,107}</string>
             </dict>
-            <key>character/character2/start/07.png</key>
+            <key>characters/character2/start/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,864},{66,102}}</string>
@@ -2058,7 +2058,7 @@
                 <key>sourceSize</key>
                 <string>{66,102}</string>
             </dict>
-            <key>character/character2/start/08.png</key>
+            <key>characters/character2/start/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{70,863},{45,102}}</string>
@@ -2071,7 +2071,7 @@
                 <key>sourceSize</key>
                 <string>{45,102}</string>
             </dict>
-            <key>character/character2/start/09.png</key>
+            <key>characters/character2/start/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{25,759},{63,102}}</string>
@@ -2084,7 +2084,7 @@
                 <key>sourceSize</key>
                 <string>{63,102}</string>
             </dict>
-            <key>character/character2/start/10.png</key>
+            <key>characters/character2/start/10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,339},{56,103}}</string>
@@ -2097,7 +2097,7 @@
                 <key>sourceSize</key>
                 <string>{56,103}</string>
             </dict>
-            <key>character/character2/start/11.png</key>
+            <key>characters/character2/start/11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{102,967},{55,101}}</string>
@@ -2110,7 +2110,7 @@
                 <key>sourceSize</key>
                 <string>{55,101}</string>
             </dict>
-            <key>character/character2/start/12.png</key>
+            <key>characters/character2/start/12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{203,410},{49,97}}</string>
@@ -2123,7 +2123,7 @@
                 <key>sourceSize</key>
                 <string>{49,97}</string>
             </dict>
-            <key>character/character2/win/00.png</key>
+            <key>characters/character2/win/00.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{433,285},{48,90}}</string>
@@ -2136,7 +2136,7 @@
                 <key>sourceSize</key>
                 <string>{48,90}</string>
             </dict>
-            <key>character/character2/win/01.png</key>
+            <key>characters/character2/win/01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{223,203},{39,95}}</string>
@@ -2149,7 +2149,7 @@
                 <key>sourceSize</key>
                 <string>{39,95}</string>
             </dict>
-            <key>character/character2/win/02.png</key>
+            <key>characters/character2/win/02.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,654},{28,103}}</string>
@@ -2162,7 +2162,7 @@
                 <key>sourceSize</key>
                 <string>{28,103}</string>
             </dict>
-            <key>character/character2/win/03.png</key>
+            <key>characters/character2/win/03.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{98,108},{35,103}}</string>
@@ -2175,7 +2175,7 @@
                 <key>sourceSize</key>
                 <string>{35,103}</string>
             </dict>
-            <key>character/character2/win/04.png</key>
+            <key>characters/character2/win/04.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{113,646},{27,102}}</string>
@@ -2188,7 +2188,7 @@
                 <key>sourceSize</key>
                 <string>{27,102}</string>
             </dict>
-            <key>character/character2/win/05.png</key>
+            <key>characters/character2/win/05.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{116,438},{27,102}}</string>
@@ -2201,7 +2201,7 @@
                 <key>sourceSize</key>
                 <string>{27,102}</string>
             </dict>
-            <key>character/character2/win/06.png</key>
+            <key>characters/character2/win/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{32,654},{43,102}}</string>
@@ -2214,7 +2214,7 @@
                 <key>sourceSize</key>
                 <string>{43,102}</string>
             </dict>
-            <key>character/character2/win/07.png</key>
+            <key>characters/character2/win/07.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{112,542},{32,102}}</string>
@@ -2227,7 +2227,7 @@
                 <key>sourceSize</key>
                 <string>{32,102}</string>
             </dict>
-            <key>character/character2/win/08.png</key>
+            <key>characters/character2/win/08.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{94,334},{32,102}}</string>
@@ -2240,7 +2240,7 @@
                 <key>sourceSize</key>
                 <string>{32,102}</string>
             </dict>
-            <key>character/character2/win/09.png</key>
+            <key>characters/character2/win/09.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{77,652},{34,102}}</string>
@@ -2253,7 +2253,7 @@
                 <key>sourceSize</key>
                 <string>{34,102}</string>
             </dict>
-            <key>character/character2/win/10.png</key>
+            <key>characters/character2/win/10.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{82,438},{32,102}}</string>
@@ -2266,7 +2266,7 @@
                 <key>sourceSize</key>
                 <string>{32,102}</string>
             </dict>
-            <key>character/character2/win/11.png</key>
+            <key>characters/character2/win/11.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{60,334},{32,102}}</string>
@@ -2279,7 +2279,7 @@
                 <key>sourceSize</key>
                 <string>{32,102}</string>
             </dict>
-            <key>character/character2/win/12.png</key>
+            <key>characters/character2/win/12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{117,860},{33,102}}</string>
@@ -2292,7 +2292,7 @@
                 <key>sourceSize</key>
                 <string>{33,102}</string>
             </dict>
-            <key>character/character2/win/13.png</key>
+            <key>characters/character2/win/13.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{90,756},{33,102}}</string>
@@ -2305,7 +2305,7 @@
                 <key>sourceSize</key>
                 <string>{33,102}</string>
             </dict>
-            <key>character/character2/win/14.png</key>
+            <key>characters/character2/win/14.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{38,444},{42,102}}</string>
@@ -2318,7 +2318,7 @@
                 <key>sourceSize</key>
                 <string>{42,102}</string>
             </dict>
-            <key>character/character2/win/15.png</key>
+            <key>characters/character2/win/15.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{75,548},{35,102}}</string>
@@ -2331,7 +2331,7 @@
                 <key>sourceSize</key>
                 <string>{35,102}</string>
             </dict>
-            <key>character/character2/win/16.png</key>
+            <key>characters/character2/win/16.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{77,652},{34,102}}</string>
@@ -2344,7 +2344,7 @@
                 <key>sourceSize</key>
                 <string>{34,102}</string>
             </dict>
-            <key>character/character2/win/17.png</key>
+            <key>characters/character2/win/17.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{38,548},{35,102}}</string>
