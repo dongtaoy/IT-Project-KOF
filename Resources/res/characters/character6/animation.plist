@@ -9,7 +9,7 @@
                   <key>character6/die</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/die/00.png</string>
@@ -27,7 +27,7 @@
                   <key>character6/squat</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat/01.png</string>
@@ -36,7 +36,7 @@
                   <key>character6/squat_down</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_down/00.png</string>
@@ -46,7 +46,7 @@
                   <key>character6/squat_hit</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_hit/00.png</string>
@@ -57,7 +57,7 @@
                   <key>character6/squat_kick1</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_kick1/00.png</string>
@@ -70,7 +70,7 @@
                   <key>character6/squat_kick2</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_kick2/00.png</string>
@@ -83,7 +83,7 @@
                   <key>character6/squat_moveback</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_moveback/00.png</string>
@@ -98,7 +98,7 @@
                   <key>character6/squat_moveforward</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_moveforward/00.png</string>
@@ -113,7 +113,7 @@
                   <key>character6/squat_punch1</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_punch1/00.png</string>
@@ -130,7 +130,7 @@
                   <key>character6/squat_punch2</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_punch2/00.png</string>
@@ -145,7 +145,7 @@
                   <key>character6/squat_up</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/squat_up/00.png</string>
@@ -155,7 +155,7 @@
                   <key>character6/stand</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand/00.png</string>
@@ -174,7 +174,7 @@
                   <key>character6/stand_hit</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_hit/00.png</string>
@@ -187,7 +187,7 @@
                   <key>character6/stand_jump</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_jump/00.png</string>
@@ -205,7 +205,7 @@
                   <key>character6/stand_kick1</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_kick1/00.png</string>
@@ -220,7 +220,7 @@
                   <key>character6/stand_kick2</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_kick2/00.png</string>
@@ -237,7 +237,7 @@
                   <key>character6/stand_moveback</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_moveback/00.png</string>
@@ -251,7 +251,7 @@
                   <key>character6/stand_moveforward</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_moveforward/00.png</string>
@@ -265,7 +265,7 @@
                   <key>character6/stand_punch1</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_punch1/00.png</string>
@@ -278,7 +278,7 @@
                   <key>character6/stand_punch2</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/stand_punch2/00.png</string>
@@ -293,7 +293,7 @@
                   <key>character6/start</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/start/00.png</string>
@@ -313,7 +313,7 @@
                   <key>character6/win</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.2</real>
+                        <real>0.1</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character6/win/00.png</string>
