@@ -20,9 +20,11 @@ class Fighter
     
 public:
     Fighter(cocos2d::Sprite*, std::string);
+    
     CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
     CC_SYNTHESIZE(Fighter*, opponent, Opponent);
     CC_SYNTHESIZE(std::string, name, Name);
+    CC_SYNTHESIZE(float, health, Health);
     
     void squat();
     void squat_down();
@@ -51,8 +53,10 @@ public:
     
     void update(float);
     
-    cocos2d::Vec2 getPosition();
+    
     void setPosition(cocos2d::Vec2);
+    cocos2d::Vec2 getPosition();
+    
     cocos2d::Vec2 getScreenPosition();
     cocos2d::Rect getBoundingBox();
     cocos2d::Node* getParent();
