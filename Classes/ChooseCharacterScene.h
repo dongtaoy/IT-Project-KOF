@@ -17,6 +17,7 @@
 #include "GameHelper.h"
 #include "GamePlayScene.h"
 #include <boost/format.hpp>
+#include <boost/lockfree/queue.hpp>
 
 
 class ChooseCharacterScene : public cocos2d::Layer, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
@@ -79,8 +80,9 @@ private:
     void onUserJoinedRoom(AppWarp::room, std::string);
     void onUserLeftRoom(AppWarp::room, std::string);
     void onChatReceived(AppWarp::chat);
-    void onPrivateChatReceived(std::string, std::string);
     void StartGame();
+    
+    void update(float);
 };
 
 #endif /* defined(__KOF__ChooseCharacterScene__) */

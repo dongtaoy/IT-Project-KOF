@@ -16,6 +16,7 @@
 #include "ChooseRoomScene.h"
 #include "GameHelper.h"
 #include <boost/algorithm/string.hpp>
+#include <boost/lockfree/stack.hpp>
 
 #define MAX_USERS 2
 
@@ -28,7 +29,7 @@ public:
     
     static void initialize(std::string);
     
-    static std::string buildMessage(int, int, std::string);
+    static std::string buildMessage(int, int, std::string = "");
     static std::vector<std::vector<std::string>> exractMessage(std::string);
     static bool isMesaageValid(std::string, std::string);
     
@@ -48,10 +49,11 @@ public:
     
     void getLiveRoomInfo(AppWarp::RoomRequestListener*);
     
-    void sendChat(std::string, bool = false);
+    void sendChat(std::string, bool = true);
     
     void sendChatAfter(int, std::string);
     
+    void sendPrivateUdpUpdate(AppWarp::byte* update,int updateLen);
     
     void resetConnectionRequestListener();
     
@@ -75,6 +77,10 @@ public:
     CC_SYNTHESIZE(std::string, background, Background);
     CC_SYNTHESIZE(int, bestof, Bestof);
     
+    std::queue<std::tuple<std::string, std::vector<std::vector<std::string>>>> chats;
+    bool isChatsEmpty();
+    std::tuple<std::string, std::vector<std::vector<std::string>>> getChatsFront();
+    
 private:
     
     static Multiplayer* _instance;
@@ -91,6 +97,10 @@ private:
     // ZoneRequestListener
     void onGetAllRoomsDone(AppWarp::liveresult);
     
+    
+    void onUserJoinedRoom(AppWarp::room, std::string);
+    void onUserLeftRoom(AppWarp::room, std::string);
+    void onChatReceived(AppWarp::chat);
 //    void onCreateRoomDone(AppWarp::room);
     
     // RoomRequestListner

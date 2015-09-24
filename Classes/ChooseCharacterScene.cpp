@@ -69,12 +69,23 @@ bool ChooseCharacterScene::init()
     node->getChildByName<Button*>(CHOOSE_CHARACTER_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonGoClicked, this));
     this->addChild(node);
     
-    this->schedule(schedule_selector(ChooseCharacterScene::sendStatusMessage), 2.0f);
+//    this->schedule(schedule_selector(ChooseCharacterScene::sendStatusMessage), .5f);
     
-    Multiplayer::getInstance()->setNotificationListener(this);
+//    Multiplayer::getInstance()->setNotificationListener(this);
+    this->scheduleUpdate();
     return true;
 }
 
+void ChooseCharacterScene::update(float dt)
+{
+    
+    if (!Multiplayer::getInstance()->isChatsEmpty())
+    {
+        std::string sender = std::get<0>(Multiplayer::getInstance()->getChatsFront());
+        CCLOG("%s", sender.c_str());
+    }
+    
+}
 
 
 
@@ -86,6 +97,7 @@ void ChooseCharacterScene::setOpponentSelected(std::string name)
     ShowSelectedCharacter(opponentSelected, false);
 }
 
+
 void ChooseCharacterScene::setPlayerSelected(std::string name)
 {
     if(playerSelected.compare("")){
@@ -94,10 +106,9 @@ void ChooseCharacterScene::setPlayerSelected(std::string name)
     playerSelected = name;
     ShowSelectedBorder(playerSelected);
     ShowSelectedCharacter(playerSelected, true);
-    std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, playerSelected);
-    Multiplayer::getInstance()->sendChat(message);
     
 }
+
 
 void ChooseCharacterScene::setPlayerReady(bool value)
 {
@@ -107,8 +118,6 @@ void ChooseCharacterScene::setPlayerReady(bool value)
             SetReadyButtonVisible(false, true);
             SetGoButtonVisible(true, true);
             playerReady = true;
-            std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_READY, playerSelected);
-            Multiplayer::getInstance()->sendChat(message);
         }else{
             MessageBox("", "Please Select a Character First");
         }
@@ -116,8 +125,6 @@ void ChooseCharacterScene::setPlayerReady(bool value)
         SetGoButtonVisible(false, true);
         SetReadyButtonVisible(true, true);
         playerReady = false;
-        std::string message = Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY, "");
-        Multiplayer::getInstance()->sendChat(message);
     }
     CheckBothReady();
 }
@@ -136,18 +143,14 @@ void ChooseCharacterScene::setOpponentReady(bool value)
     CheckBothReady();
 }
 
-//void ChooseCharacterScene::setRequiredListener()
-//{
-//    
-//}
-
 
 
 #pragma mark buttons / events
 void ChooseCharacterScene::CharacterClicked(Ref* pSender, Widget::TouchEventType type)
 {
     if(type == Widget::TouchEventType::ENDED){
-        setPlayerSelected(static_cast<Node*>(pSender)->getName());
+        std::string m = Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, static_cast<Node*>(pSender)->getName());
+        Multiplayer::getInstance()->sendChat(m);
     }
 }
 
@@ -164,7 +167,8 @@ void ChooseCharacterScene::ButtonGoClicked(Ref* pSender, Widget::TouchEventType 
 {
     if(type == Widget::TouchEventType::ENDED)
     {
-        setPlayerReady(false);
+        std::string m = Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY);
+        Multiplayer::getInstance()->sendChat(m);
     }
 }
 
@@ -172,7 +176,8 @@ void ChooseCharacterScene::ButtonReadyClicked(Ref* pSender, Widget::TouchEventTy
 {
     if(type == Widget::TouchEventType::ENDED)
     {
-        setPlayerReady(true);
+        std::string m = Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_READY);
+        Multiplayer::getInstance()->sendChat(m);
     }
 }
 
@@ -181,10 +186,7 @@ void ChooseCharacterScene::ButtonReadyClicked(Ref* pSender, Widget::TouchEventTy
 void ChooseCharacterScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
-    {
-//        StartGame();
-        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME, ""), true);
-    }
+        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME));
 }
 
 
@@ -297,19 +299,17 @@ void ChooseCharacterScene::sendStatusMessage(float dt)
 {
     std::string message = "";
     
-    
     if(playerSelected.compare(""))
     {
         message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, playerSelected);
         if(playerReady)
             message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_READY, playerSelected);
         else
-            message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY, "");
+            message += Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY);
     }
     
-//    if(message.compare(""))
-    Multiplayer::getInstance()->sendChat(message);
-    
+    if(message.compare(""))
+        Multiplayer::getInstance()->sendChat(message);
 }
 
 
@@ -345,10 +345,7 @@ void ChooseCharacterScene::onLeaveRoomDone(AppWarp::room event)
 void ChooseCharacterScene::onUserJoinedRoom(AppWarp::room, std::string name)
 {
     if(Multiplayer::getInstance()->getUsername().compare(name)){
-        CCLOG("someone joined");
-//        StartCountDown();
         this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);
-        
         Multiplayer::getInstance()->setOpponentUsername(name);
     }
 }
@@ -357,22 +354,22 @@ void ChooseCharacterScene::onUserLeftRoom(AppWarp::room, std::string name)
 {
     if(Multiplayer::getInstance()->getUsername().compare(name)){
         Multiplayer::getInstance()->setOpponentUsername("");
-//        ResetCountDown();
+        ResetCountDown();
         ResetGoReadyButton();
         
         this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(true);
         this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
-        Multiplayer::getInstance()->sendChat(Multiplayer::buildMessage(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_COUNTDOWN, ""), true);
     }
 }
 
 
 void ChooseCharacterScene::onChatReceived(AppWarp::chat event)
 {
-    if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
-        StartCountDown();
-        Multiplayer::getInstance()->setOpponentUsername(event.sender);
-    }
+//    if(event.sender.compare(Multiplayer::getInstance()->getUsername())){
+//        StartCountDown();
+//        Multiplayer::getInstance()->setOpponentUsername(event.sender);
+//    }
+    CCLOG("%s", event.chat.c_str());
     
     std::vector<std::vector<std::string>> commands = Multiplayer::exractMessage(event.chat);
     for(int i = 0 ; i < commands.size() ; i ++)
@@ -380,48 +377,42 @@ void ChooseCharacterScene::onChatReceived(AppWarp::chat event)
         std::vector<std::string> command = commands.at(i);
         switch (atoi(command.at(1).c_str()))
         {
-            case OP_CCS_START_COUNTDOWN:
-                StartCountDown();
-                break;
-            case OP_CCS_START_GAME:
-                StartGame();
-                break;
-            default:
-                break;
-        }
-    }
-    
-}
-
-void ChooseCharacterScene::onPrivateChatReceived(std::string sender, std::string message)
-{
-    
-    StartCountDown();
-    std::vector<std::vector<std::string>> commands = Multiplayer::exractMessage(message);
-    
-    for(int i = 0 ; i < commands.size() ; i ++)
-    {
-        std::vector<std::string> command = commands.at(i);
-        Multiplayer::getInstance()->setOpponentUsername(sender);
-        switch (atoi(command.at(1).c_str()))
-        {
-            case OP_CCS_CHARACTER_CHANGED:
-                setOpponentSelected(command.at(2));
-                break;
                 
+            case OP_CCS_CHARACTER_CHANGED:
+                if (!event.sender.compare(Multiplayer::getInstance()->getUsername()))
+                    setPlayerSelected(command.at(2));
+                else
+                    setOpponentSelected(command.at(2));
+                break;
+            
             case OP_CCS_READY:
-                setOpponentReady(true);
+                if (!event.sender.compare(Multiplayer::getInstance()->getUsername()))
+                    setPlayerReady(true);
+                else
+                    setOpponentReady(true);
                 break;
                 
             case OP_CCS_NOTREADY:
-                setOpponentReady(false);
+                if (!event.sender.compare(Multiplayer::getInstance()->getUsername()))
+                    setPlayerReady(false);
+                else
+                    setOpponentReady(false);
                 break;
+            
+//            case OP_CCS_START_COUNTDOWN:
+//                StartCountDown();
+//                break;
                 
+//            case OP_CCS_START_GAME:
+//                CCLOG("start game");
+//                StartGame();
+//                break;
+            
             default:
                 break;
         }
     }
-
+    
 }
 
 
@@ -453,7 +444,6 @@ void ChooseCharacterScene::StartGame()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
     auto scene = GamePlayScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    
 
 }
 

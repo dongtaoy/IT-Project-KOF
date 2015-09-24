@@ -20,6 +20,8 @@ Multiplayer::Multiplayer(std::string username)
     AppWarp::Client::initialize(APPWARP_APP_KEY,APPWARP_SECRET_KEY);
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRecoveryAllowance(60);
+    client->initUDP();
+    client->setNotificationListener(this);
     CCLOG("%d", client->getState());
 }
 
@@ -220,6 +222,7 @@ void Multiplayer::onConnectDone(int result, int)
             CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", result, AppWarp::AppWarpSessionID);
             break;
     }
+    
 }
 
 void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)
@@ -249,6 +252,43 @@ void Multiplayer::resetConnectionRequestListener()
 }
 
 
+void Multiplayer::sendPrivateUdpUpdate(AppWarp::byte* update,int updateLen)
+{
+    AppWarp::Client *client = AppWarp::Client::getInstance();
+    client->sendPrivateUdpUpdate(getOpponentUsername(), update, updateLen);
+}
+
+void Multiplayer::onUserJoinedRoom(AppWarp::room event, std::string user)
+{
+//    chats.push()
+}
+
+void Multiplayer::onUserLeftRoom(AppWarp::room event, std::string user)
+{
+    
+}
+
+
+void Multiplayer::onChatReceived(AppWarp::chat chat)
+{
+    
+    std::tuple<std::string, std::vector<std::vector<std::string>>> tuple = std::make_tuple(chat.sender, exractMessage(chat.chat));
+    chats.push(tuple);
+}
+
+bool Multiplayer::isChatsEmpty()
+{
+    return chats.empty();
+}
+
+std::tuple<std::string, std::vector<std::vector<std::string>>> Multiplayer::getChatsFront()
+{
+    std::tuple<std::string, std::vector<std::vector<std::string>>> front = chats.front();
+    
+    chats.pop();
+    
+    return front;
+}
 //void Multiplayer::onCreateRoomDone(AppWarp::room event)
 //{
 //    std::cout << event.roomId << std::endl;

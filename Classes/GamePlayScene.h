@@ -92,6 +92,8 @@ private:
     
     void onUnsubscribeRoomDone(AppWarp::room);
     void onLeaveRoomDone(AppWarp::room);
+    
+    void onUpdatePeersReceived(AppWarp::byte update[], int len, bool isUDP);
 };
 
 
