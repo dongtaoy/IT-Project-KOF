@@ -78,12 +78,12 @@ bool GamePlayScene::init()
     AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
 
     
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character5").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character5").str());
-    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character5");
-    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character5").str(), Widget::TextureResType::PLIST);
-    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character5");
-    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character5").str(), Widget::TextureResType::PLIST);
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character2").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character2").str());
+    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character2");
+    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character2").str(), Widget::TextureResType::PLIST);
+    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character2");
+    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character2").str(), Widget::TextureResType::PLIST);
 
     
     
