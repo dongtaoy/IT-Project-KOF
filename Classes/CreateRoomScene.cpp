@@ -136,61 +136,36 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
             
             std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
             
-            
-                                                  
-            
             LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
             LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room... ", 30.0f);
-            Multiplayer::getInstance()->createRoom(this, properties);
-            
+            Multiplayer::createRoom(this, properties);
         }
         
     }
 }
 
-void CreateRoomScene::onCreateRoomDone(AppWarp::room event)
+void CreateRoomScene::onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name)
 {
-    if(event.result == AppWarp::ResultCode::success){
-        CCLOG("CREATED %s", event.roomId.c_str());
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 60.0f);
-        std::string background = static_cast<Node*>(backgroundSelected)->getName();
-        std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
-        Multiplayer::getInstance()->setRoomID(event.roomId);
-        Multiplayer::getInstance()->setBackground(background);
-        Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
-        Multiplayer::getInstance()->joinRoom(this);
-    }else{
-        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-        MessageBox("CONNECTION ERROR", "ERROR");
-    }
+    MultiplayerCallback::onCreateRoomDone(roomId, owner, maxUsers, name);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 60.0f);
+    std::string background = static_cast<Node*>(backgroundSelected)->getName();
+    std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
+    Multiplayer::getInstance()->setRoomID(roomId);
+    Multiplayer::getInstance()->setBackground(background);
+    Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
 }
 
-void CreateRoomScene::onJoinRoomDone(AppWarp::room event){
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 90.0f);
-        Multiplayer::getInstance()->subscribeRoom(this);
-    }else{
-        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-        MessageBox("Fail to join room!", "CONNECTION ERROR");
-    }
+void CreateRoomScene::onJoinRoomDone(){
+    MultiplayerCallback::onJoinRoomDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 90.0f);
     
 }
 
-void CreateRoomScene::onSubscribeRoomDone(AppWarp::room event){
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
-        
-        
-       
-        auto scene = ChooseCharacterScene::createScene();
-        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    }
-    else{
-        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-        MessageBox("Fail to subscribe room!", "CONNECTION ERROR");
-    }
+void CreateRoomScene::onSubscribeRoomDone(){
+    MultiplayerCallback::onSubscribeRoomDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+    auto scene = ChooseCharacterScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 

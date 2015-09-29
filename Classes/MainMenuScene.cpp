@@ -114,16 +114,11 @@ void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventTyp
 
 }
 
-void MainMenuScene::onConnectDone(int result, int)
+void MainMenuScene::onConnectDone()
 {
-    if(result == AppWarp::ResultCode::success){
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
-        auto scene = ChooseRoomScene::createScene();
-        Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
-    }else{
-        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-        MessageBox("Connection Error", "Connection Error");
-    }
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
+    auto scene = ChooseRoomScene::createScene();
+    Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
     
 }
 

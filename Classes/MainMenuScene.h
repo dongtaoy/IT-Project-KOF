@@ -19,10 +19,10 @@
 #include "LoadingLayer.h"
 #include "GKHWrapperCpp.h"
 #include "GameHelper.h"
+#include "MultiplayerCallback.h"
 
 
-
-class MainMenuScene : public cocos2d::Layer, public AppWarp::ConnectionRequestListener
+class MainMenuScene : public cocos2d::Layer, public MultiplayerCallback
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -52,7 +52,7 @@ private:
     
     
     // ConnectionRequestListener
-    void onConnectDone(int,int);
+    void onConnectDone();
 };
 
 #endif /* defined(__KOF__MainMenuScene__) */

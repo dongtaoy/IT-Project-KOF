@@ -255,7 +255,7 @@ Node* CSLoader::createNode(const std::string& filename)
     std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
-    CCLOG("suffix = %s", suffix.c_str());
+    CCLOGINFO("suffix = %s", suffix.c_str());
     
     CSLoader* load = CSLoader::getInstance();
     
@@ -276,7 +276,7 @@ Node* CSLoader::createNode(const std::string &filename, const ccNodeLoadCallback
     std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
-    CCLOG("suffix = %s", suffix.c_str());
+    CCLOGINFO("suffix = %s", suffix.c_str());
     
     CSLoader* load = CSLoader::getInstance();
     
@@ -293,7 +293,7 @@ ActionTimeline* CSLoader::createTimeline(const std::string &filename)
     std::string path = filename;
     size_t pos = path.find_last_of('.');
     std::string suffix = path.substr(pos + 1, path.length());
-    CCLOG("suffix = %s", suffix.c_str());
+    CCLOGINFO("suffix = %s", suffix.c_str());
     
     ActionTimelineCache* cache = ActionTimelineCache::getInstance();
     
@@ -376,7 +376,7 @@ Node* CSLoader::loadNodeWithContent(const std::string& content)
     doc.Parse<0>(content.c_str());
     if (doc.HasParseError())
     {
-        CCLOG("GetParseError %d\n", doc.GetParseError());
+        CCLOGINFO("GetParseError %d\n", doc.GetParseError());
     }
     
     // cocos2dx version mono editor is based on
@@ -489,7 +489,7 @@ Node* CSLoader::loadNode(const rapidjson::Value& json)
     }
     else
     {
-        CCLOG("Not supported NodeType: %s", nodeType.c_str());
+        CCLOGINFO("Not supported NodeType: %s", nodeType.c_str());
     }
     
     return node;
@@ -612,7 +612,7 @@ Node* CSLoader::loadSprite(const rapidjson::Value& json)
         if(!sprite)
         {
             sprite = CCSprite::create();
-            CCLOG("filePath is empty. Create a sprite with no texture");
+            CCLOGINFO("filePath is empty. Create a sprite with no texture");
         }
     }
     else
@@ -724,14 +724,14 @@ Node* CSLoader::loadWidget(const rapidjson::Value& json)
             customJsonDict.Parse<0>(customProperty);
             if (customJsonDict.HasParseError())
             {
-                CCLOG("GetParseError %d\n", customJsonDict.GetParseError());
+                CCLOGINFO("GetParseError %d\n", customJsonDict.GetParseError());
             }
             
             widgetPropertiesReader->setPropsForAllCustomWidgetFromJsonDictionary(classname, widget, customJsonDict);
         }
         else
         {
-            CCLOG("Widget or WidgetReader doesn't exists!!!  Please check your protocol buffers file.");
+            CCLOGINFO("Widget or WidgetReader doesn't exists!!!  Please check your protocol buffers file.");
         }
     }
     CC_SAFE_DELETE(widgetPropertiesReader);
@@ -811,12 +811,12 @@ Node* CSLoader::createNodeWithFlatBuffersFile(const std::string &filename, const
         if (_callbackHandlers.empty())
         {
             _rootNode = nullptr;
-            CCLOG("Call back handler container has been clear.");
+            CCLOGINFO("Call back handler container has been clear.");
         }
         else
         {
             _rootNode = _callbackHandlers.back();
-            CCLOG("after pop back _rootNode name = %s", _rootNode->getName().c_str());
+            CCLOGINFO("after pop back _rootNode name = %s", _rootNode->getName().c_str());
         }
     }
     /**/
@@ -860,7 +860,7 @@ Node* CSLoader::nodeWithFlatBuffersFile(const std::string &fileName, const ccNod
     // decode plist
     auto textures = csparsebinary->textures();
     int textureSize = csparsebinary->textures()->size();
-    CCLOG("textureSize = %d", textureSize);
+    CCLOGINFO("textureSize = %d", textureSize);
     for (int i = 0; i < textureSize; ++i)
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(textures->Get(i)->c_str());
@@ -882,7 +882,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
         Node* node = nullptr;
         
         std::string classname = nodetree->classname()->c_str();
-        CCLOG("classname = %s", classname.c_str());
+        CCLOGINFO("classname = %s", classname.c_str());
         
         auto options = nodetree->options();
         
@@ -891,7 +891,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
             auto reader = ProjectNodeReader::getInstance();
             auto projectNodeOptions = (ProjectNodeOptions*)options->data();
             std::string filePath = projectNodeOptions->fileName()->c_str();
-            CCLOG("filePath = %s", filePath.c_str());
+            CCLOGINFO("filePath = %s", filePath.c_str());
             
             cocostudio::timeline::ActionTimeline* action = nullptr;
             if (filePath != "" && FileUtils::getInstance()->isFileExist(filePath))
@@ -953,7 +953,7 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
             {
                 _callbackHandlers.pushBack(node);
                 _rootNode = _callbackHandlers.back();
-                CCLOG("after push back _rootNode name = %s", _rootNode->getName().c_str());
+                CCLOGINFO("after push back _rootNode name = %s", _rootNode->getName().c_str());
             }
             /**/
             //        _loadingNodeParentHierarchy.push_back(node);
@@ -967,12 +967,12 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree *nodetree, const
         
         auto children = nodetree->children();
         int size = children->size();
-        CCLOG("size = %d", size);
+        CCLOGINFO("size = %d", size);
         for (int i = 0; i < size; ++i)
         {
             auto subNodeTree = children->Get(i);
             Node* child = nodeWithFlatBuffers(subNodeTree, callback);
-            CCLOG("child = %p", child);
+            CCLOGINFO("child = %p", child);
             if (child)
             {
                 PageView* pageView = dynamic_cast<PageView*>(node);
@@ -1048,7 +1048,7 @@ bool CSLoader::bindCallback(const std::string &callbackName,
         }
     }
     
-    CCLOG("callBackName %s cannot be found", callbackName.c_str());
+    CCLOGINFO("callBackName %s cannot be found", callbackName.c_str());
     
     return false;
     
@@ -1208,7 +1208,7 @@ Node* CSLoader::createNodeWithFlatBuffersForSimulator(const std::string& filenam
     // decode plist
     auto textures = csparsebinary->textures();
     int textureSize = csparsebinary->textures()->size();
-    //    CCLOG("textureSize = %d", textureSize);
+    //    CCLOGINFO("textureSize = %d", textureSize);
     for (int i = 0; i < textureSize; ++i)
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(textures->Get(i)->c_str());
@@ -1230,7 +1230,7 @@ Node* CSLoader::nodeWithFlatBuffersForSimulator(const flatbuffers::NodeTree *nod
     Node* node = nullptr;
     
     std::string classname = nodetree->classname()->c_str();
-    CCLOG("classname = %s", classname.c_str());
+    CCLOGINFO("classname = %s", classname.c_str());
     
     auto options = nodetree->options();
     
@@ -1239,7 +1239,7 @@ Node* CSLoader::nodeWithFlatBuffersForSimulator(const flatbuffers::NodeTree *nod
         auto reader = ProjectNodeReader::getInstance();
         auto projectNodeOptions = (ProjectNodeOptions*)options->data();
         std::string filePath = projectNodeOptions->fileName()->c_str();
-        CCLOG("filePath = %s", filePath.c_str());
+        CCLOGINFO("filePath = %s", filePath.c_str());
         
         cocostudio::timeline::ActionTimeline* action = nullptr;
         if (filePath != "" && FileUtils::getInstance()->isFileExist(filePath))
@@ -1305,12 +1305,12 @@ Node* CSLoader::nodeWithFlatBuffersForSimulator(const flatbuffers::NodeTree *nod
     
     auto children = nodetree->children();
     int size = children->size();
-    CCLOG("size = %d", size);
+    CCLOGINFO("size = %d", size);
     for (int i = 0; i < size; ++i)
     {
         auto subNodeTree = children->Get(i);
         Node* child = nodeWithFlatBuffersForSimulator(subNodeTree);
-        CCLOG("child = %p", child);
+        CCLOGINFO("child = %p", child);
         if (child)
         {
             PageView* pageView = dynamic_cast<PageView*>(node);

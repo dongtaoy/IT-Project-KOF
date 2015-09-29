@@ -100,7 +100,9 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
         Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
         Multiplayer::getInstance()->setBackground(background);
         Multiplayer::getInstance()->setRoomID(roomID);
-        Multiplayer::getInstance()->joinRoom(this);
+        
+        Multiplayer::joinRoom(this);
+        
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 30.0f);
 
@@ -108,34 +110,27 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
 }
 
 
-void ChooseRoomScene::onJoinRoomDone(AppWarp::room event){
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 60.0f);
-        Multiplayer::getInstance()->subscribeRoom(this);
-    }else{
-        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-        MessageBox("Fail to join room!", "CONNECTION ERROR");
-    }
-    
+void ChooseRoomScene::onJoinRoomDone(){
+    MultiplayerCallback::onJoinRoomDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 60.0f);
 }
 
-void ChooseRoomScene::onSubscribeRoomDone(AppWarp::room event){
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
-        auto scene = ChooseCharacterScene::createScene();
-        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    }
-    else{
-        LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
-        MessageBox("Fail to subscribe room!", "CONNECTION ERROR");
-    }
+void ChooseRoomScene::onSubscribeRoomDone(){
+    MultiplayerCallback::onSubscribeRoomDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+    auto scene = ChooseCharacterScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 
 // RoomRequestListner
-void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
+void ChooseRoomScene::onGetLiveRoomInfoDone(std::string roomId,
+                                            std::string owner,
+                                            int maxUsers,
+                                            std::string name,
+                                            std::string customData,
+                                            std::vector<std::string> users,
+                                            std::map<std::string, std::string> properties)
 {
     
     auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
@@ -143,16 +138,16 @@ void ChooseRoomScene::onGetLiveRoomInfoDone(AppWarp::liveroom room)
     list->pushBackDefaultItem();
     auto item = list->getItems().back();
     // add room id
-    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->setString(room.rm.roomId);
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->setString(roomId);
     // BEST OF
-    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF))->setString(room.properties.find(ROOM_PROPERTY_BESTOF)->second);
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF))->setString(properties.find(ROOM_PROPERTY_BESTOF)->second);
     // status
-    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(room.users.size()) + "/" + std::to_string(room.rm.maxUsers));
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(users.size()) + "/" + std::to_string(maxUsers));
     // image
-    std::string filename = (boost::format(BACKGROUND_ICON_PATH) % room.properties.find(ROOM_PROPERTY_BACKGROUND)->second).str();
+    std::string filename = (boost::format(BACKGROUND_ICON_PATH) % properties.find(ROOM_PROPERTY_BACKGROUND)->second).str();
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(filename, ui::Widget::TextureResType::PLIST);
     
-    std::string* background = new std::string(room.properties.find(ROOM_PROPERTY_BACKGROUND)->second);
+    std::string* background = new std::string(properties.find(ROOM_PROPERTY_BACKGROUND)->second);
     
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->setUserData(background);
     

@@ -16,8 +16,9 @@
 #include "CocosGUI.h"
 #include "cocostudio/CCObjectExtensionData.h"
 #include "Multiplayer.h"
+#include "MultiplayerCallback.h"
 
-class CreateRoomScene : public cocos2d::Layer, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener
+class CreateRoomScene : public cocos2d::Layer, public MultiplayerCallback
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -38,12 +39,11 @@ private:
     void CreateRoom(Ref*, ui::Widget::TouchEventType);
     void BackgroundSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
-    
-    void onCreateRoomDone(AppWarp::room event);
-    
-    
-    void onJoinRoomDone(AppWarp::room);
-    void onSubscribeRoomDone(AppWarp::room);
+#pragma mark Zone Request Listener
+    void onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name);
+#pragma mark Room Request Listener
+    void onJoinRoomDone();
+    void onSubscribeRoomDone();
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

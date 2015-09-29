@@ -53,7 +53,6 @@ bool GamePlayScene::init()
     
     
 //     TODO: WITH MULTIPLAYER
-    Multiplayer::getInstance()->setNotificationListener(this);
     if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     {
         this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
@@ -240,7 +239,7 @@ void GamePlayScene::MenuClicked(Ref* pSender, Widget::TouchEventType type)
     if (type == Widget::TouchEventType::ENDED) {
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
-        Multiplayer::getInstance()->unsubsribeRoom(this);
+//        Multiplayer::getInstance()->unsubsribeRoom(this);
     }
 }
 
@@ -345,7 +344,7 @@ void GamePlayScene::onUnsubscribeRoomDone(AppWarp::room event)
     if(event.result == AppWarp::ResultCode::success)
     {
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 60.0f);
-        Multiplayer::getInstance()->leaveRoom(this);
+//        Multiplayer::getInstance()->leaveRoom(this);
     }
 }
 
