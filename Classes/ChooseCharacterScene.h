@@ -67,7 +67,7 @@ private:
     void CharacterClicked(Ref*, ui::Widget::TouchEventType);
     void ButtonBackClicked(Ref*, ui::Widget::TouchEventType);
 
-#pragma mark command
+#pragma mark loop
     void StartGame();
     void update(float);
     void processCommand(command_t);

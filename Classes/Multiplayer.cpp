@@ -163,9 +163,9 @@ command_t Multiplayer::exractMessage(std::string message)
     return command;
 }
 
-bool Multiplayer::isMesaageValid(std::string scene, std::string message)
+bool Multiplayer::isCommandValid(int scene, command_t command)
 {
-    if (boost::algorithm::starts_with(message, scene))
+    if (command.scene == scene || command.scene == MP_GLOBLE)
         return true;
     return false;
 }
@@ -236,7 +236,6 @@ void Multiplayer::onJoinRoomDone(AppWarp::room event)
 {
     if (event.result == AppWarp::ResultCode::success) {
         AppWarp::Client::getInstance()->subscribeRoom(getRoomID());
-        
         callback->onJoinRoomDone();
     }
     else{

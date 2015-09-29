@@ -60,8 +60,6 @@ bool ChooseRoomScene::init()
     static_cast<ImageView*>(items.front())->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
     listRoom->setItemModel(items.front());
     listRoom->removeItem(0);
-//    listRoom->setTouchEnabled(false);
-//    listRoom->addEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
 
     
     Multiplayer::getInstance()->fetchRooms(this);
@@ -95,14 +93,10 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
         std::string bestof = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF)->getString();
         
         std::string background = *(std::string*)((static_cast<ImageView*>(pSender)->getChildByName<ImageView*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND)->getUserData()));
-        
-        
         Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
         Multiplayer::getInstance()->setBackground(background);
         Multiplayer::getInstance()->setRoomID(roomID);
-        
         Multiplayer::joinRoom(this);
-        
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 30.0f);
 

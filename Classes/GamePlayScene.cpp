@@ -239,7 +239,7 @@ void GamePlayScene::MenuClicked(Ref* pSender, Widget::TouchEventType type)
     if (type == Widget::TouchEventType::ENDED) {
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
-//        Multiplayer::getInstance()->unsubsribeRoom(this);
+        Multiplayer::getInstance()->unsubsribeRoom(this);
     }
 }
 
@@ -307,64 +307,18 @@ void GamePlayScene::createBackgroundAnimation()
 }
 
 
-void GamePlayScene::onChatReceived(AppWarp::chat message)
+
+
+void GamePlayScene::onUnsubscribeRoomDone()
 {
-    if (message.sender.compare(Multiplayer::getInstance()->getUsername()))
-    {
-        
-//        std::vector<std::string> command = Multiplayer::exractMessage(message.chat);
-//        
-//        switch (std::atoi(command.at(1).c_str())) {
-//            case OP_GPS_USER_LEAVED:
-//                
-//                
-//                
-//                
-//                break;
-//                
-//                
-//            default:
-//                break;
-//        }
-    }
-    CCLOG("in game play %s", message.chat.c_str());
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 60.0f);
 }
 
-void GamePlayScene::onUserLeftRoom(AppWarp::room, std::string name)
+void GamePlayScene::onLeaveRoomDone()
 {
-    
-    if (name.compare(Multiplayer::getInstance()->getUsername()))
-    {
-        MessageBox("Opponent Left", "Opponent Left");
-    }
-}
-
-void GamePlayScene::onUnsubscribeRoomDone(AppWarp::room event)
-{
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 60.0f);
-//        Multiplayer::getInstance()->leaveRoom(this);
-    }
-}
-
-void GamePlayScene::onLeaveRoomDone(AppWarp::room event)
-{
-    if(event.result == AppWarp::ResultCode::success)
-    {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
-        auto scene = MainMenuScene::createScene();
-        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    }
-}
-
-
-void GamePlayScene::onUpdatePeersReceived(AppWarp::byte update[], int len, bool isUDP)
-{
-    CCLOG("isUDP %d", isUDP);
-    for (int i = 0 ; i < len; i++)
-    {
-       CCLOG("%c", update[i]);
-    }
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+    auto scene = MainMenuScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }
+

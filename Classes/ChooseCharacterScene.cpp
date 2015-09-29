@@ -65,23 +65,11 @@ bool ChooseCharacterScene::init()
     node->getChildByName<Button*>(CHOOSE_CHARACTER_SCENE_READY_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonReadyClicked, this));
     node->getChildByName<Button*>(CHOOSE_CHARACTER_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonGoClicked, this));
     this->addChild(node);
-    
-//    this->schedule(schedule_selector(ChooseCharacterScene::sendStatusMessage), .5f);
-    
-//    Multiplayer::getInstance()->setNotificationListener(this);
     this->scheduleUpdate();
     return true;
 }
 
-void ChooseCharacterScene::update(float dt)
-{
-    
-    if (!Multiplayer::getInstance()->isCommandsEmpty())
-    {
-        processCommand(Multiplayer::getInstance()->popCommands());
-    }
-    
-}
+
 
 
 
@@ -260,9 +248,22 @@ void ChooseCharacterScene::onLeaveRoomDone()
 }
 
 
+#pragma mark loop
+void ChooseCharacterScene::update(float dt)
+{
+    
+    if (!Multiplayer::getInstance()->isCommandsEmpty())
+    {
+        processCommand(Multiplayer::getInstance()->popCommands());
+    }
+    
+}
 
 void ChooseCharacterScene::processCommand(command_t command)
 {
+    if (!Multiplayer::isCommandValid(MP_CHOOSE_CHARACTER_SCENE, command))
+        return;
+        
     if(command.sender.compare(Multiplayer::getInstance()->getUsername()))
     {
         this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);

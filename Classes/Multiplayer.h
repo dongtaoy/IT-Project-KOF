@@ -16,8 +16,6 @@
 #include "ChooseRoomScene.h"
 #include "GameHelper.h"
 #include "MultiplayerCallback.h"
-#include <boost/algorithm/string.hpp>
-#include <boost/lockfree/stack.hpp>
 
 #define MAX_USERS 2
 
@@ -61,7 +59,7 @@ public:
     bool isCommandsEmpty();
     command_t popCommands();
     static command_t exractMessage(std::string);
-    static bool isMesaageValid(std::string, std::string);
+    static bool isCommandValid(int, command_t);
     
 private:
     static Multiplayer* _instance;

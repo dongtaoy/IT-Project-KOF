@@ -24,8 +24,9 @@
 #include "SneakyButtonSkinnedBase.h"
 #include "Fighter.h"
 #include "Camera2d.h"
+#include "MultiplayerCallback.h"
 
-class GamePlayScene : public cocos2d::Layer, public AppWarp::NotificationListener, public AppWarp::RoomRequestListener
+class GamePlayScene : public cocos2d::Layer, public MultiplayerCallback
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -52,13 +53,6 @@ public:
     
     
 private:
-    
-//    std::string playerCharacter;
-//    std::string opponentCharacter;
-//
-    
-//    Fighter* player;
-//    Fighter* opponent;
     Camera2d* camera;
     bool isCountDownStart;
     
@@ -70,30 +64,24 @@ private:
     void ResumeClicked(Ref*, ui::Widget::TouchEventType);
     void MenuClicked(Ref*, ui::Widget::TouchEventType);
     
-    
-//    void buttonAClicked(Ref*, ui::Widget::TouchEventType);
-//    void buttonBClicked(Ref*, ui::Widget::TouchEventType);
-//    void buttonCClicked(Ref*, ui::Widget::TouchEventType);
-//    void buttonDClicked(Ref*, ui::Widget::TouchEventType);
-    
     void createJoystick();
+    
     SneakyButton* createButtons(std::string, std::string, Vec2);
+    
     void createBackgroundAnimation();
+    
     void startCountDown();
+    
     void countDownTask(float);
+    
     void endCountDown();
+    
     
     void update(float);
     
-    // Listener
-    void onChatReceived(AppWarp::chat);
-    void onUserLeftRoom(AppWarp::room, std::string);
     
-    
-    void onUnsubscribeRoomDone(AppWarp::room);
-    void onLeaveRoomDone(AppWarp::room);
-    
-    void onUpdatePeersReceived(AppWarp::byte update[], int len, bool isUDP);
+    void onUnsubscribeRoomDone();
+    void onLeaveRoomDone();
 };
 
 
