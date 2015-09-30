@@ -325,7 +325,9 @@ void ChooseCharacterScene::processCommand(command_t command)
             break;
         
         case OP_CCS_START_GAME:
-            StartGame();
+            if (!isGameStart) {
+                StartGame();
+            }
             break;
             
         default:
@@ -337,6 +339,7 @@ void ChooseCharacterScene::processCommand(command_t command)
 #pragma mark start game
 void ChooseCharacterScene::StartGame()
 {
+    isGameStart = true;
     LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
     
     

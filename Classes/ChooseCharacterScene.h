@@ -43,6 +43,7 @@ private:
     bool playerReady;
     bool opponentReady;
     bool isCountdownStart;
+    bool isGameStart;
     
 #pragma mark getter/setter
     void setPlayerSelected(std::string);

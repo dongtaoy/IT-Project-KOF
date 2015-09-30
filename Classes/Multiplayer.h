@@ -35,6 +35,7 @@ protected:
     CC_SYNTHESIZE(int, bestof, Bestof);
     CC_SYNTHESIZE(std::queue<command_t>, commands, Commands);
     CC_SYNTHESIZE(MultiplayerCallback*, callback, Callback);
+//    CC_SYNTHESIZE(bool, isSt, )
     
     
 public:
