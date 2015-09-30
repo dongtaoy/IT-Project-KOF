@@ -10,6 +10,7 @@
 
 Multiplayer* Multiplayer::_instance = NULL;
 
+#pragma mark Constructors
 
 Multiplayer::Multiplayer(std::string username)
 {
@@ -20,42 +21,18 @@ Multiplayer::Multiplayer(std::string username)
     AppWarp::Client::initialize(APPWARP_APP_KEY,APPWARP_SECRET_KEY);
     AppWarp::Client* client = AppWarp::Client::getInstance();
     client->setRecoveryAllowance(60);
-    CCLOG("%d", client->getState());
+    client->setConnectionRequestListener(this);
+    client->setZoneRequestListener(this);
+    client->setNotificationListener(this);
+    client->setRoomRequestListener(this);
 }
 
 
 Multiplayer* Multiplayer::getInstance()
 {
-    // Multiplayer object not initialized
-//    assert(_instance);
-    
     return _instance;
 }
 
-std::string Multiplayer::buildMessage(int scene, int op, std::string properties)
-{
-    return std::to_string(scene) + ';' + std::to_string(op) + ';' + properties + '@';
-}
-
-std::vector<std::vector<std::string>> Multiplayer::exractMessage(std::string message)
-{
-    std::vector<std::vector<std::string>> value;
-    std::vector<std::string> temp = GameHelper::split(message, '@');
-    for(int i = 0; i < temp.size() ; i ++)
-    {
-        value.push_back(GameHelper::split(temp.at(i), ';'));
-    }
-    return value;
-}
-
-bool Multiplayer::isMesaageValid(std::string scene, std::string message)
-{
-    CCLOG("CHECK IF %s in %s", scene.c_str(), message.c_str());
-    if (boost::algorithm::starts_with(message, scene))
-//        if (std::count(message.begin(), message.end(), ";") >= 2)
-            return true;
-    return false;
-}
 
 void Multiplayer::initialize(std::string username)
 {
@@ -66,94 +43,74 @@ void Multiplayer::initialize(std::string username)
         
 }
 
-void Multiplayer::connect(AppWarp::ConnectionRequestListener* listener)
+#pragma mark Actions
+
+void Multiplayer::connect(MultiplayerCallback* cb)
 {
+    Multiplayer* m = Multiplayer::getInstance();
+    m->callback = cb;
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setConnectionRequestListener(listener);
-    CCLOG("Connecting to APPWARP with %s %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY, username.c_str());
-    client->connect(username);
+    CCLOG("Connecting to APPWARP with %s %s %s", APPWARP_APP_KEY, APPWARP_SECRET_KEY, m->username.c_str());
+    client->connect(m->username);
 }
 
-void Multiplayer::fetchRooms(AppWarp::RoomRequestListener* listener)
+
+void Multiplayer::fetchRooms(MultiplayerCallback* cb)
 {
-    
+    CCLOG("Sending Request to fetch rooms");
+    Multiplayer::getInstance()->callback = cb;
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setZoneRequestListener(this);
-    client->setRoomRequestListener(listener);
     client->getAllRooms();
 }
 
-void Multiplayer::createRoom(AppWarp::ZoneRequestListener* listener, std::map<std::string, std::string> properties)
+
+void Multiplayer::createRoom(MultiplayerCallback* cb, std::map<std::string, std::string> properties)
 {
-    
+    Multiplayer::getInstance()->callback = cb;
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setZoneRequestListener(listener);
     CCLOG("Sending Request to create room");
-    client->createRoom(ROOM_NAME, username, MAX_USERS, properties);
+    client->createRoom(ROOM_NAME, Multiplayer::getInstance()->username, MAX_USERS, properties);
 }
 
-void Multiplayer::joinRoom(AppWarp::RoomRequestListener* listener)
+
+void Multiplayer::joinRoom(MultiplayerCallback* cb)
 {
+    Multiplayer* m = Multiplayer::getInstance();
+    m->callback = cb;
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(listener);
-    CCLOG("Sending Request to join room %s", roomID.c_str());
-    client->joinRoom(roomID);
+    CCLOG("Sending Request to join room %s", m->roomID.c_str());
+    client->joinRoom(m->roomID);
 }
 
-void Multiplayer::leaveRoom(AppWarp::RoomRequestListener* listener)
+
+void Multiplayer::unsubsribeRoom(MultiplayerCallback* cb)
 {
+    Multiplayer* m = Multiplayer::getInstance();
+    m->opponentUsername = "";
+    m->background = "";
+    m->bestof = 0;
+    m->userCharacter = "";
+    m->opponentCharacter = "";
+    m->callback = cb;
+    CCLOG("Sending Request to unsubsribe room %s", m->roomID.c_str());
     AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(listener);
-    CCLOG("Sending Request to leave room %s", roomID.c_str());
-    client->leaveRoom(roomID);
-    roomID = "";
+    client->unsubscribeRoom(m->roomID);
 }
 
-
-void Multiplayer::subscribeRoom(AppWarp::RoomRequestListener* listener)
+void Multiplayer::sendChat(int scene, int op, std::string properties)
 {
-    AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(listener);
-    CCLOG("Sending Request to subscribe room %s", roomID.c_str());
-    client->subscribeRoom(roomID);
+    AppWarp::Client::getInstance()->sendChat(
+                                             std::to_string(scene) + ';'
+                                             + std::to_string(op) + ';'
+                                             + properties + ';');
 }
 
-void Multiplayer::unsubsribeRoom(AppWarp::RoomRequestListener* listener)
+void Multiplayer::recoverConnection()
 {
-    opponentUsername = "";
-    background = "";
-    bestof = 0;
-    userCharacter = "";
-    opponentCharacter = "";
-    
-    resetAllListener();
-    AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(listener);
-    CCLOG("Sending Request to unsubsribe room %s", roomID.c_str());
-    client->unsubscribeRoom(roomID);
+    AppWarp::Client::getInstance()->recoverConnection();
 }
 
-void Multiplayer::sendChat(std::string message, bool broadcast)
-{
-    
-    AppWarp::Client* client = AppWarp::Client::getInstance();
-    
-    if(broadcast)
-    {
-        client->sendChat(message);
-        return;
-    }
-    
-    if(opponentUsername.compare("") != 0)
-        client->sendPrivateChat(opponentUsername, message);
-    else
-        client->sendChat(message);
-}
-
-void MultiplayersendChatAfter(int, std::string)
-{
-
-}
+#pragma mark Helper
 
 /**
  * The state of the Client. Values are -
@@ -171,18 +128,6 @@ bool Multiplayer::isConnected()
     return false;
 }
 
-void Multiplayer::recoverConnection()
-{
-    
-    AppWarp::Client::getInstance()->recoverConnection();
-}
-
-void Multiplayer::resetZoneRequestListener()
-{
-//    initZoneRequestListener()
-    AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setZoneRequestListener(this);
-}
 
 void Multiplayer::resetAllListener()
 {
@@ -193,22 +138,45 @@ void Multiplayer::resetAllListener()
     client->setRoomRequestListener(this);
 }
 
-void Multiplayer::setNotificationListener(AppWarp::NotificationListener* listener){
-    AppWarp::Client* client = AppWarp::Client::getInstance();
-    client->setNotificationListener(listener);
+
+bool Multiplayer::isCommandsEmpty()
+{
+    return commands.empty();
 }
 
 
+command_t Multiplayer::popCommands()
+{
+    command_t front = commands.front();
+    commands.pop();
+    return front;
+}
 
-/*
- Lisenter
- */
 
-// ConnectionRequestListener
+command_t Multiplayer::exractMessage(std::string message)
+{
+    std::vector<std::string> temp = GameHelper::split(message, ';');
+    command_t command;
+    command.scene = atoi(temp.at(0).c_str());
+    command.operation = atoi(temp.at(1).c_str());
+    command.properties = temp.at(2);
+    return command;
+}
+
+bool Multiplayer::isCommandValid(int scene, command_t command)
+{
+    if (command.scene == scene || command.scene == MP_GLOBLE)
+        return true;
+    return false;
+}
+
+#pragma mark Connection Request Listener
+
 void Multiplayer::onConnectDone(int result, int)
 {
     switch (result) {
         case AppWarp::ResultCode::success:
+            callback->onConnectDone();
             CCLOG("onConnectDone .. SUCCESS..session=%d\n", AppWarp::AppWarpSessionID);
             break;
             
@@ -220,45 +188,138 @@ void Multiplayer::onConnectDone(int result, int)
             CCLOG("onConnectDone .. FAILED with reasonCode=%d..session=%d\n", result, AppWarp::AppWarpSessionID);
             break;
     }
+    
 }
+
+
+#pragma mark Notification Listeners
+
+void Multiplayer::onChatReceived(AppWarp::chat chat)
+{
+    command_t command = exractMessage(chat.chat);
+    command.sender = chat.sender;
+    
+    commands.push(command);
+}
+
+
+void Multiplayer::onUserJoinedRoom(AppWarp::room, std::string name)
+{
+    CCLOG("%s joined", name.c_str());
+    
+    command_t command;
+    command.scene = MP_GLOBLE;
+    command.sender = name;
+    command.operation = OP_GB_USER_JOINED;
+    
+    commands.push(command);
+    
+}
+
+
+void Multiplayer::onUserLeftRoom(AppWarp::room, std::string name)
+{
+    CCLOG("%s left", name.c_str());
+    
+    command_t command;
+    command.scene = MP_GLOBLE;
+    command.sender = name;
+    command.operation = OP_GB_USER_LEFT;
+    
+    commands.push(command);
+}
+
+
+#pragma mark Room Request Listeners
+
+void Multiplayer::onJoinRoomDone(AppWarp::room event)
+{
+    if (event.result == AppWarp::ResultCode::success) {
+        AppWarp::Client::getInstance()->subscribeRoom(getRoomID());
+        callback->onJoinRoomDone();
+    }
+    else{
+        CCLOG("fail to join room");
+    }
+}
+
+
+void Multiplayer::onLeaveRoomDone(AppWarp::room event)
+{
+    if (event.result == AppWarp::ResultCode::success)
+    {
+        callback->onLeaveRoomDone();
+    }
+    else{
+        CCLOG("fail to leave room");
+    }
+}
+
+
+void Multiplayer::onSubscribeRoomDone(AppWarp::room event)
+{
+    if (event.result == AppWarp::ResultCode::success) {
+        callback->onSubscribeRoomDone();
+    }
+    else{
+        CCLOG("fail to join room");
+    }
+}
+
+
+void Multiplayer::onUnsubscribeRoomDone(AppWarp::room event)
+{
+    if (event.result == AppWarp::ResultCode::success)
+    {
+        AppWarp::Client::getInstance()->leaveRoom(getRoomID());
+        callback->onUnsubscribeRoomDone();
+    }
+    else
+    {
+        CCLOG("fail to unsubscribe room");
+    }
+    
+    
+}
+
+void Multiplayer::onGetLiveRoomInfoDone(AppWarp::liveroom event)
+{
+    if (event.result == AppWarp::ResultCode::success) {
+        callback->onGetLiveRoomInfoDone(event.rm.roomId,
+                                        event.rm.owner,
+                                        event.rm.maxUsers,
+                                        event.rm.name,
+                                        event.customData,
+                                        event.users,
+                                        event.properties);
+    }
+    else
+    {
+        CCLOG("fail to get live room info");
+    }
+}
+
+
+#pragma mark Zone Request Listener
 
 void Multiplayer::onGetAllRoomsDone(AppWarp::liveresult result)
 {
-    
     AppWarp::Client *warpClientRef;
     warpClientRef = AppWarp::Client::getInstance();
-    CCLOG("onGetAllRoomsDone : %d", result.result);
     for(std::vector<int>::size_type i = 0; i != result.list.size(); i++){
         warpClientRef->getLiveRoomInfo(result.list[i]);
     }
     
 }
 
-
-void Multiplayer::getLiveRoomInfo(AppWarp::RoomRequestListener* listener)
+void Multiplayer::onCreateRoomDone(AppWarp::room event)
 {
-    AppWarp::Client *client = AppWarp::Client::getInstance();
-    client->setRoomRequestListener(listener);
-    client->getLiveRoomInfo(roomID);
+    if (event.result == AppWarp::ResultCode::success) {
+        AppWarp::Client::getInstance()->joinRoom(event.roomId);
+        callback->onCreateRoomDone(event.roomId, event.owner, event.maxUsers, event.name);
+    }
+    else
+    {
+        CCLOG("fail to create room");
+    }
 }
-
-void Multiplayer::resetConnectionRequestListener()
-{
-    AppWarp::Client *client = AppWarp::Client::getInstance();
-    client->setConnectionRequestListener(this);
-}
-
-
-//void Multiplayer::onCreateRoomDone(AppWarp::room event)
-//{
-//    std::cout << event.roomId << std::endl;
-//}
-
-//
-//void Multiplayer::onGetLiveRoomInfoDone(AppWarp::liveroom result)
-//{
-//    std::cout << result.rm.name << std::endl;
-//    //    CCLOG("%s", result.rm.name);
-//}
-
-

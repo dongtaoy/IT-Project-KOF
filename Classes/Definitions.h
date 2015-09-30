@@ -78,7 +78,6 @@
 #define CHOOSE_CHARACTER_SCENE_FILE                 "ChooseCharacter.csb"
 #define CHOOSE_CHARACTER_SCENE_CHARACTER_WIDTH      310.0
 #define CHOOSE_CHARACTER_SCENE_CHARACTER_HEIGHT     430.0
-#define CHOOSE_CHARACTER_SCENE_CHARACTER_PLIST      "characters.plist"
 #define CHOOSE_CHARACTER_SCENE_CHARACTER_PREFIX     "character"
 #define CHOOSE_CHARACTER_SCENE_PLAYER_ICON_HOLDER   "player"
 #define CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER "opponent"
@@ -144,6 +143,11 @@
 #define ROOM_PROPERTY_BESTOF      "bestof"
 
 // Multiplayer protocol
+#define MP_GLOBLE                           100
+
+#define OP_GB_USER_JOINED                   500
+#define OP_GB_USER_LEFT                     501
+
 #define MP_CHOOSE_CHARACTER_SCENE           1
 
 #define OP_CCS_CHARACTER_CHANGED            1
@@ -187,5 +191,14 @@
 // Camera
 #define CAMERA_MOVE_THRESHOLD               150
 #define CAMERA_FIGHTER_OFFSET               10
+
+
+struct command_t
+{
+    std::string sender;
+    int scene;
+    int operation;
+    std::string properties;
+};
 
 #endif

@@ -23,7 +23,7 @@
 #include "appwarp.h"
 
 
-class ChooseRoomScene : public Layer, public AppWarp::RoomRequestListener
+class ChooseRoomScene : public Layer, public MultiplayerCallback
 {
 public:
     
@@ -50,10 +50,16 @@ private:
     
 //    
     // RoomRequestListner
-    void onGetLiveRoomInfoDone(AppWarp::liveroom);
+    void onGetLiveRoomInfoDone(std::string roomId,
+                               std::string owner,
+                               int maxUsers,
+                               std::string name,
+                               std::string customData,
+                               std::vector<std::string> users,
+                               std::map<std::string, std::string> properties);
     
-    void onJoinRoomDone(AppWarp::room);
-    void onSubscribeRoomDone(AppWarp::room);
+    void onJoinRoomDone();
+    void onSubscribeRoomDone();
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */
