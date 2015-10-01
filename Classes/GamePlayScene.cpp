@@ -152,9 +152,12 @@ void GamePlayScene::endCountDown(){
     }
 }
 
-void GamePlayScene::processCommand(command_t)
+void GamePlayScene::processCommand(command_t cmd)
 {
-    
+    if(Multiplayer::isCommandValid(MP_GAME_PLAY_SCNE, cmd))
+    {
+        CCLOG("reveived");
+    }
 }
 
 
