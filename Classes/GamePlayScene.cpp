@@ -124,6 +124,49 @@ bool GamePlayScene::init()
     this->addChild( edgeNode );
     /////////////////////////////////////////////////////////////////
     
+    float x1 = player->getSprite()->getBoundingBox().size.width;
+    float y1 = player->getSprite()->getBoundingBox().size.height;
+    float x2 = opponent->getSprite()->getBoundingBox().size.width;
+    float y2 = opponent->getSprite()->getBoundingBox().size.height;
+    
+    //    float y1 = player->getSprite()->getScaleY();
+    //
+    //    float x2 = opponent->getSprite()->getScaleX();
+    //    float y2 = opponent->getSprite()->getScaleY();
+    
+    //    Size characterSize2 = opponent->getSprite()->getContentSize();
+    addNewSpriteAtPosition(player->getSprite(),x1,y1,1);
+    addNewSpriteAtPosition(opponent->getSprite(),x2,y2,2);
+    
+    ////character1
+    //    {
+    //    auto sprite1 = background->getChildByName("left");
+    ////    sprite1->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y ) );
+    //
+    //    auto spriteBody = PhysicsBody::createBox( Size(180.0f, 440.0f), PhysicsMaterial( 0, 1, 0 ) );
+    //    spriteBody->setCollisionBitmask(1);
+    //    spriteBody->setContactTestBitmask(true);
+    //    sprite1->setPhysicsBody( spriteBody );
+    //
+    ////    this->addChild(sprite1);
+    //    }
+    //
+    //
+    //
+    /////character 2
+    //    {
+    //    auto sprite2 = background->getChildByName("right");
+    //    //    sprite1->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y ) );
+    //
+    //    auto spriteBody2 = PhysicsBody::createBox( Size(180.0f, 440.0f), PhysicsMaterial( 0, 1, 0 ) );
+    //    spriteBody2->setCollisionBitmask(2);
+    //    spriteBody2->setContactTestBitmask(true);
+    //    sprite2->setPhysicsBody( spriteBody2 );
+    //    
+    //    //////////////////////
+    //    }
+    //   
+    
     
     
     
@@ -350,4 +393,38 @@ void GamePlayScene::onLeaveRoomDone()
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }
+
+
+void GamePlayScene::addNewSpriteAtPosition(Node* sprite, float x, float y, int bitmask)
+{
+    
+    //    sprite->setTag(1);
+    auto body = PhysicsBody::createBox(Size(x-100.0f, y), PhysicsMaterial(1.0f, 0.0f, 0.3f));
+    //    auto body = PhysicsBody::createBo(100,PhysicsMaterial(1.0f, 1.0f, 1.0f));
+    //    body->setDynamic(false);
+    sprite->setPhysicsBody(body);
+    //    this->addChild(sprite);
+    body->setCollisionBitmask(bitmask);
+    body->setContactTestBitmask(true);
+    body->setRotationEnable(false);
+    //    body->applyForce(0);
+    body->setGravityEnable(true);
+    
+    
+}
+
+bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
+{
+    PhysicsBody *a = contact.getShapeA()->getBody();
+    PhysicsBody *b = contact.getShapeB()->getBody();
+    
+    // check if the bodies have collided
+    if ( ( 1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask() ) || ( 2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask() ) )
+    {
+        CCLOG( "COLLISION HAS OCCURED" );
+    }
+    
+    return true;
+}
+
 

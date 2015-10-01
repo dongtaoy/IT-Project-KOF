@@ -88,6 +88,7 @@ private:
     void SetPhysicsWorld( cocos2d::PhysicsWorld *world ) { sceneWorld = world; };
     
     bool onContactBegin( cocos2d::PhysicsContact &contact );
+    void addNewSpriteAtPosition(Node* sprite, float x, float y, int bitmask);
     
 };
 
