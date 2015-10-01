@@ -59,7 +59,7 @@
             <key>characters/character3/die/04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{686,695},{72,62}}</string>
+                <string>{{960,229},{72,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>characters/character3/die/05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{921,553},{62,62}}</string>
+                <string>{{686,689},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,11 +85,11 @@
             <key>characters/character3/die/06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{857,490},{63,62}}</string>
+                <string>{{873,620},{63,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{63,62}}</string>
                 <key>sourceSize</key>
@@ -137,11 +137,11 @@
             <key>characters/character3/squat/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{731,839},{65,63}}</string>
+                <string>{{953,499},{65,63}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,63}}</string>
                 <key>sourceSize</key>
@@ -163,11 +163,11 @@
             <key>characters/character3/squat_down/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{750,695},{64,67}}</string>
+                <string>{{739,550},{64,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{64,67}}</string>
                 <key>sourceSize</key>
@@ -176,11 +176,11 @@
             <key>characters/character3/squat_down/02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{823,606},{65,60}}</string>
+                <string>{{942,564},{65,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,60}}</string>
                 <key>sourceSize</key>
@@ -189,11 +189,11 @@
             <key>characters/character3/squat_down/03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{816,683},{65,61}}</string>
+                <string>{{806,617},{65,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,61}}</string>
                 <key>sourceSize</key>
@@ -202,11 +202,11 @@
             <key>characters/character3/squat_down/04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{796,839},{65,62}}</string>
+                <string>{{739,616},{65,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,62}}</string>
                 <key>sourceSize</key>
@@ -215,11 +215,11 @@
             <key>characters/character3/squat_hit/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{731,769},{68,64}}</string>
+                <string>{{815,487},{68,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{68,64}}</string>
                 <key>sourceSize</key>
@@ -228,11 +228,11 @@
             <key>characters/character3/squat_hit/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{791,539},{65,64}}</string>
+                <string>{{957,303},{65,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,64}}</string>
                 <key>sourceSize</key>
@@ -241,7 +241,7 @@
             <key>characters/character3/squat_kick1/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,225},{66,58}}</string>
+                <string>{{964,431},{66,58}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -254,7 +254,7 @@
             <key>characters/character3/squat_kick1/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{739,477},{75,60}}</string>
+                <string>{{739,417},{75,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,7 +306,7 @@
             <key>characters/character3/squat_kick1/05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{739,477},{75,60}}</string>
+                <string>{{739,417},{75,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,7 +319,7 @@
             <key>characters/character3/squat_kick1/06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{964,225},{66,58}}</string>
+                <string>{{964,431},{66,58}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -332,7 +332,7 @@
             <key>characters/character3/squat_kick2/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{767,345},{83,62}}</string>
+                <string>{{875,229},{83,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -345,11 +345,11 @@
             <key>characters/character3/squat_kick2/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{790,206},{86,74}}</string>
+                <string>{{948,78},{86,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{86,74}}</string>
                 <key>sourceSize</key>
@@ -436,7 +436,7 @@
             <key>characters/character3/squat_kick2/08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{767,345},{83,62}}</string>
+                <string>{{875,229},{83,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -449,7 +449,7 @@
             <key>characters/character3/squat_kick2/09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{935,364},{81,67}}</string>
+                <string>{{767,348},{81,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -462,45 +462,6 @@
             <key>characters/character3/squat_moveback/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{858,75},{64,89}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{64,89}}</string>
-                <key>sourceSize</key>
-                <string>{64,89}</string>
-            </dict>
-            <key>characters/character3/squat_moveback/01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{950,2},{75,72}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{75,72}}</string>
-                <key>sourceSize</key>
-                <string>{75,72}</string>
-            </dict>
-            <key>characters/character3/squat_moveback/02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{790,282},{84,61}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{84,61}}</string>
-                <key>sourceSize</key>
-                <string>{84,61}</string>
-            </dict>
-            <key>characters/character3/squat_moveback/03.png</key>
-            <dict>
-                <key>frame</key>
                 <string>{{502,945},{77,63}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
@@ -511,10 +472,10 @@
                 <key>sourceSize</key>
                 <string>{77,63}</string>
             </dict>
-            <key>characters/character3/squat_moveback/04.png</key>
+            <key>characters/character3/squat_moveback/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{858,906},{53,61}}</string>
+                <string>{{731,816},{53,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -523,50 +484,50 @@
                 <string>{{0,0},{53,61}}</string>
                 <key>sourceSize</key>
                 <string>{53,61}</string>
+            </dict>
+            <key>characters/character3/squat_moveback/02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{750,689},{61,53}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{61,53}}</string>
+                <key>sourceSize</key>
+                <string>{61,53}</string>
+            </dict>
+            <key>characters/character3/squat_moveback/03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{686,753},{53,61}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{53,61}}</string>
+                <key>sourceSize</key>
+                <string>{53,61}</string>
+            </dict>
+            <key>characters/character3/squat_moveback/04.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{741,753},{61,53}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{61,53}}</string>
+                <key>sourceSize</key>
+                <string>{61,53}</string>
             </dict>
             <key>characters/character3/squat_moveback/05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{866,969},{61,53}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{61,53}}</string>
-                <key>sourceSize</key>
-                <string>{61,53}</string>
-            </dict>
-            <key>characters/character3/squat_moveback/06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{803,906},{53,61}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{53,61}}</string>
-                <key>sourceSize</key>
-                <string>{53,61}</string>
-            </dict>
-            <key>characters/character3/squat_moveback/07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{803,969},{61,53}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{61,53}}</string>
-                <key>sourceSize</key>
-                <string>{61,53}</string>
-            </dict>
-            <key>characters/character3/squat_moveback/08.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{852,359},{81,67}}</string>
+                <string>{{874,293},{81,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -576,7 +537,7 @@
                 <key>sourceSize</key>
                 <string>{81,67}</string>
             </dict>
-            <key>characters/character3/squat_moveback/09.png</key>
+            <key>characters/character3/squat_moveback/06.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{300,110},{66,105}}</string>
@@ -592,7 +553,7 @@
             <key>characters/character3/squat_moveforward/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{829,141},{63,88}}</string>
+                <string>{{858,75},{63,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -605,11 +566,11 @@
             <key>characters/character3/squat_moveforward/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{949,79},{73,82}}</string>
+                <string>{{790,273},{73,82}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{73,82}}</string>
                 <key>sourceSize</key>
@@ -696,7 +657,7 @@
             <key>characters/character3/squat_punch1/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{921,490},{63,61}}</string>
+                <string>{{938,626},{63,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -709,11 +670,11 @@
             <key>characters/character3/squat_punch1/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{760,615},{66,61}}</string>
+                <string>{{885,494},{66,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{66,61}}</string>
                 <key>sourceSize</key>
@@ -735,7 +696,7 @@
             <key>characters/character3/squat_punch1/03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{878,225},{84,61}}</string>
+                <string>{{918,166},{84,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -748,7 +709,7 @@
             <key>characters/character3/squat_punch1/04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{821,428},{77,60}}</string>
+                <string>{{932,369},{77,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -761,7 +722,7 @@
             <key>characters/character3/squat_punch1/05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{921,490},{63,61}}</string>
+                <string>{{938,626},{63,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -774,7 +735,7 @@
             <key>characters/character3/squat_punch2/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{686,619},{72,74}}</string>
+                <string>{{950,2},{72,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -839,7 +800,7 @@
             <key>characters/character3/squat_punch2/05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{876,288},{69,83}}</string>
+                <string>{{790,202},{69,83}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -852,7 +813,7 @@
             <key>characters/character3/squat_punch2/06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{739,409},{66,80}}</string>
+                <string>{{850,362},{66,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -865,11 +826,11 @@
             <key>characters/character3/squat_punch2/07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{720,539},{69,74}}</string>
+                <string>{{739,479},{69,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{69,74}}</string>
                 <key>sourceSize</key>
@@ -878,11 +839,11 @@
             <key>characters/character3/squat_punch2/08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{961,293},{69,61}}</string>
+                <string>{{893,431},{69,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{69,61}}</string>
                 <key>sourceSize</key>
@@ -891,11 +852,11 @@
             <key>characters/character3/squat_up/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{731,839},{65,63}}</string>
+                <string>{{953,499},{65,63}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,63}}</string>
                 <key>sourceSize</key>
@@ -904,11 +865,11 @@
             <key>characters/character3/squat_up/01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{739,906},{65,62}}</string>
+                <string>{{808,553},{65,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,62}}</string>
                 <key>sourceSize</key>
@@ -917,11 +878,11 @@
             <key>characters/character3/squat_up/02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{797,764},{65,61}}</string>
+                <string>{{875,557},{65,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,61}}</string>
                 <key>sourceSize</key>
@@ -930,11 +891,11 @@
             <key>characters/character3/squat_up/03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{750,695},{64,67}}</string>
+                <string>{{739,550},{64,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{64,67}}</string>
                 <key>sourceSize</key>
@@ -1125,7 +1086,7 @@
             <key>characters/character3/stand_jump/00.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{829,141},{63,88}}</string>
+                <string>{{858,75},{63,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -1164,7 +1125,7 @@
             <key>characters/character3/stand_jump/03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{919,163},{60,87}}</string>
+                <string>{{829,140},{60,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -1190,7 +1151,7 @@
             <key>characters/character3/stand_jump/05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{900,433},{55,75}}</string>
+                <string>{{816,430},{55,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -1203,7 +1164,7 @@
             <key>characters/character3/stand_jump/06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{919,163},{60,87}}</string>
+                <string>{{829,140},{60,87}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -1229,7 +1190,7 @@
             <key>characters/character3/stand_jump/08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{829,141},{63,88}}</string>
+                <string>{{858,75},{63,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -2081,7 +2042,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:67d555521bd64fdbe6b0a74a447811bf:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:98af6efd0f0ec84bc7c0dc4079e5417d:1/1$</string>
             <key>textureFileName</key>
             <string>sprite.png</string>
         </dict>

@@ -240,15 +240,24 @@
 			<real>0.1</real>
 			<key>frames</key>
 			<array>
-				<string>characters/character5/stand_moveforward/00.png</string>
-				<string>characters/character5/stand_moveforward/01.png</string>
-				<string>characters/character5/stand_moveforward/02.png</string>
-				<string>characters/character5/stand_moveforward/03.png</string>
-				<string>characters/character5/stand_moveforward/04.png</string>
-				<string>characters/character5/stand_moveforward/05.png</string>
+				<string>characters/character5/stand_moveback/05.png</string>
+                        <string>characters/character5/stand_moveback/04.png</string>
+                        <string>characters/character5/stand_moveback/03.png</string>
+                        <string>characters/character5/stand_moveback/02.png</string>
+                        <string>characters/character5/stand_moveback/01.png</string>
+                        <string>characters/character5/stand_moveback/00.png</string>
 			</array>
 		</dict>
 		<key>character5/stand_punch1</key>
+		<dict>
+			<key>delay</key>
+			<real>0.15</real>
+			<key>frames</key>
+			<array>
+				<string>characters/character5/stand_punch2/00.png</string>
+			</array>
+		</dict>
+		<key>character5/stand_punch2</key>
 		<dict>
 			<key>delay</key>
 			<real>0.1</real>
@@ -258,19 +267,6 @@
 				<string>characters/character5/stand_punch1/01.png</string>
 				<string>characters/character5/stand_punch1/02.png</string>
 				<string>characters/character5/stand_punch1/03.png</string>
-				<string>characters/character5/stand_punch1/04.png</string>
-				<string>characters/character5/stand_punch1/05.png</string>
-			</array>
-		</dict>
-		<key>character5/stand_punch2</key>
-		<dict>
-			<key>delay</key>
-			<real>0.1</real>
-			<key>frames</key>
-			<array>
-				<string>characters/character5/stand_punch2/00.png</string>
-				<string>characters/character5/stand_punch2/01.png</string>
-				<string>characters/character5/stand_punch2/02.png</string>
 			</array>
 		</dict>
 		<key>character5/start</key>
