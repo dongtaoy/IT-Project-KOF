@@ -14,11 +14,22 @@ Scene* GamePlayScene::createScene()
 {
 //    Multiplayer::getInstance()->resetAllListener();
     
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setDebugDrawMask( PhysicsWorld::DEBUGDRAW_ALL );
+    
+    //set the gravity (0.0f, -98.0f) is the default value. change to -200 for y axis is perfect value
+    scene->getPhysicsWorld()->setGravity( Vec2(0.0f, -200.0f));
+    //    scene->getPhysicsWorld()->setAutoStep(true);
+    //
+    //
+    //    sceneWorld->set
+    
+    
+    
     
     // 'layer' is an autorelease object
     auto layer = GamePlayScene::create();
+    layer->SetPhysicsWorld(scene->getPhysicsWorld());
     
     
     // add layer as a child to scene
@@ -52,55 +63,66 @@ bool GamePlayScene::init()
 //    countDown->setString(std::to_string(10));
     
     
-//     TODO: WITH MULTIPLAYER
-    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
-    {
-        CCLOG("123");
-        this->player = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getUserCharacter());
-        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
-        
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getOpponentCharacter());
-        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
-    
-    }
-    else
-    {
-        CCLOG("456");
-        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
-        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
-        
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
-        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
-    }
+////     TODO: WITH MULTIPLAYER
+//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
+//    {
+//        CCLOG("123");
+//        this->player = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getUserCharacter());
+//        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
+//        
+//        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getOpponentCharacter());
+//        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
+//    
+//    }
+//    else
+//    {
+//        CCLOG("456");
+//        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
+//        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
+//        
+//        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
+//        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
+//    }
     
 
-    // TODO: WITHOUT MULTIPLAYER
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
-//
-//    
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-//    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
-//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
-//    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
-//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
+     //TODO: WITHOUT MULTIPLAYER
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
 
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character5").str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character5").str());
-//    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character5");
-//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character5").str(), Widget::TextureResType::PLIST);
-//    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character5");
-//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character5").str(), Widget::TextureResType::PLIST);
-//
-//
-//    
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
+    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
+    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
+
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character5").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character5").str());
+    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character5");
+    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character5").str(), Widget::TextureResType::PLIST);
+    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character5");
+    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character5").str(), Widget::TextureResType::PLIST);
+
+
+    
     
     
     player->setOpponent(opponent);
     opponent->setOpponent(player);
 
+    /////////////////////////////////////////////////////////////////
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    auto edgeBody = PhysicsBody::createEdgeBox( visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3 );
+    
+    auto edgeNode = Node::create();
+    edgeNode ->setPosition( Point( visibleSize.width / 2 + origin.x,  float( player->getSprite()->getPosition().y)+ visibleSize.height-350.00));
+    edgeNode->setPhysicsBody( edgeBody );
+    
+    this->addChild( edgeNode );
+    /////////////////////////////////////////////////////////////////
     
     
     
@@ -157,17 +179,8 @@ void GamePlayScene::update(float dt)
     auto point = joystick->getVelocity();
     auto angle = GameHelper::vectorToDegree(point);
     
-    if (!Multiplayer::getInstance()->isCommandsEmpty())
-    {
-        Multiplayer::getInstance()->popCommands();
-    }
-    
-    
     if (buttonA->getIsActive())
     {
-        AppWarp::byte test[5] = "1234";
-        
-        AppWarp::Client::getInstance()->sendUdpUpdate(test, 5);
         player->punch1();
     }
     
@@ -307,10 +320,10 @@ void GamePlayScene::createBackgroundAnimation()
     auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
     CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     
-//     TODO: WITH MULTIPLAYER
-    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
+    //     TODO: WITH MULTIPLAYER
+    //    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
     // TODO: WITHOUT MULTIPLAYER
-//    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    auto animation = AnimationCache::getInstance()->getAnimation("background1");
     
     Size targetSize = Size( 2305.0f, 750.0f );
     Size backgroundSize = background->getContentSize();
@@ -319,7 +332,7 @@ void GamePlayScene::createBackgroundAnimation()
     
     
     background->runAction(RepeatForever::create(Animate::create(animation)));
-
+    
 }
 
 
