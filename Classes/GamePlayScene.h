@@ -78,6 +78,7 @@ private:
     
     
     void update(float);
+    void processCommand(command_t);
     
     
     void onUnsubscribeRoomDone();

@@ -158,6 +158,11 @@
 
 #define MP_GAME_PLAY_SCNE                   2
 
+#define OP_GPS_BUTTON_A                     1
+#define OP_GPS_BUTTON_B                     2
+#define OP_GPS_BUTTON_C                     3
+#define OP_GPS_BUTTON_D                     4
+
 
 // Fighter
 

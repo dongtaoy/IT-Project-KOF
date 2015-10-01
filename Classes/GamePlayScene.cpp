@@ -152,6 +152,12 @@ void GamePlayScene::endCountDown(){
     }
 }
 
+void GamePlayScene::processCommand(command_t)
+{
+    
+}
+
+
 void GamePlayScene::update(float dt)
 {
     auto point = joystick->getVelocity();
@@ -163,27 +169,31 @@ void GamePlayScene::update(float dt)
     }
     
     
+    
+    
+    
     if (buttonA->getIsActive())
     {
-        AppWarp::byte test[5] = "1234";
-        
-        AppWarp::Client::getInstance()->sendUdpUpdate(test, 5);
-        player->punch1();
+        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_A);
+//        player->punch1();
     }
     
     if (buttonB->getIsActive())
     {
-        player->punch2();
+        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_B);
+//        player->punch2();
     }
     
     if (buttonC->getIsActive())
     {
-        player->kick1();
+        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_C);
+//        player->kick1();
     }
     
     if (buttonD->getIsActive())
     {
-        player->kick2();
+        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_D);
+//        player->kick2();
     }
     
     // stand move forward
