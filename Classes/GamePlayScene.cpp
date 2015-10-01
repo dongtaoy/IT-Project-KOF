@@ -20,10 +20,7 @@ Scene* GamePlayScene::createScene()
     //set the gravity (0.0f, -98.0f) is the default value. change to -200 for y axis is perfect value
     scene->getPhysicsWorld()->setGravity( Vec2(0.0f, -200.0f));
     //    scene->getPhysicsWorld()->setAutoStep(true);
-    //
-    //
-    //    sceneWorld->set
-    
+
     
     
     
@@ -124,48 +121,20 @@ bool GamePlayScene::init()
     this->addChild( edgeNode );
     /////////////////////////////////////////////////////////////////
     
+    //get width and height for two characters
     float x1 = player->getSprite()->getBoundingBox().size.width;
     float y1 = player->getSprite()->getBoundingBox().size.height;
     float x2 = opponent->getSprite()->getBoundingBox().size.width;
     float y2 = opponent->getSprite()->getBoundingBox().size.height;
     
-    //    float y1 = player->getSprite()->getScaleY();
-    //
-    //    float x2 = opponent->getSprite()->getScaleX();
-    //    float y2 = opponent->getSprite()->getScaleY();
     
-    //    Size characterSize2 = opponent->getSprite()->getContentSize();
-    addNewSpriteAtPosition(player->getSprite(),x1,y1,1);
-    addNewSpriteAtPosition(opponent->getSprite(),x2,y2,2);
+    //get the distance between two characters
+    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
+    //add physci edge box for characters
+    addEdgeBoxForCharacter(player->getSprite(),x1,y1,1);
+    addEdgeBoxForCharacter(opponent->getSprite(),x2,y2,2);
     
-    ////character1
-    //    {
-    //    auto sprite1 = background->getChildByName("left");
-    ////    sprite1->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y ) );
-    //
-    //    auto spriteBody = PhysicsBody::createBox( Size(180.0f, 440.0f), PhysicsMaterial( 0, 1, 0 ) );
-    //    spriteBody->setCollisionBitmask(1);
-    //    spriteBody->setContactTestBitmask(true);
-    //    sprite1->setPhysicsBody( spriteBody );
-    //
-    ////    this->addChild(sprite1);
-    //    }
-    //
-    //
-    //
-    /////character 2
-    //    {
-    //    auto sprite2 = background->getChildByName("right");
-    //    //    sprite1->setPosition( Point( visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y ) );
-    //
-    //    auto spriteBody2 = PhysicsBody::createBox( Size(180.0f, 440.0f), PhysicsMaterial( 0, 1, 0 ) );
-    //    spriteBody2->setCollisionBitmask(2);
-    //    spriteBody2->setContactTestBitmask(true);
-    //    sprite2->setPhysicsBody( spriteBody2 );
-    //    
-    //    //////////////////////
-    //    }
-    //   
+  
     
     
     
@@ -178,6 +147,20 @@ bool GamePlayScene::init()
     this->buttonC = createButtons(GAME_PLAY_SCENE_BUTTON_C_NORMAL, GAME_PLAY_SCENE_BUTTON_C_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_C_X, GAME_PLAY_SCENE_BUTTON_C_Y));
     this->buttonD = createButtons(GAME_PLAY_SCENE_BUTTON_D_NORMAL, GAME_PLAY_SCENE_BUTTON_D_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_D_X, GAME_PLAY_SCENE_BUTTON_D_Y));
     this->scheduleUpdate();
+    
+    
+    
+    //add event listener
+    auto contactListener = EventListenerPhysicsContact::create();
+    contactListener->onContactBegin = CC_CALLBACK_1(GamePlayScene::onContactBegin, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+//    auto contactListenr1 = EventListenerCustom::create(characterTooClose, characterTooClose(characterDistance,closeDistance));
+//    auto contactListener1 = EventListenerCustom::create(character, characterTooClose(characterDistance, closeDistance));
+    if (characterDistance != 0) {
+        updatePlayerHp();
+    }
+    
     return true;
 }
 
@@ -219,27 +202,44 @@ void GamePlayScene::endCountDown(){
 
 void GamePlayScene::update(float dt)
 {
+    //get the distance between two characters
+    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
+    ui::LoadingBar* playerHp = static_cast<ui::LoadingBar*>(this->getChildByName("GamePlayScene")->getChildByName("playerRightHP"));
+    
     auto point = joystick->getVelocity();
     auto angle = GameHelper::vectorToDegree(point);
     
     if (buttonA->getIsActive())
     {
         player->punch1();
+        if (characterDistance <180) {
+            updatePlayerHp();
+        }
+        
     }
     
     if (buttonB->getIsActive())
     {
         player->punch2();
+        if (characterDistance <180) {
+            updatePlayerHp();
+        }
     }
     
     if (buttonC->getIsActive())
     {
         player->kick1();
+        if (characterDistance <180) {
+            updatePlayerHp();
+        }
     }
     
     if (buttonD->getIsActive())
     {
         player->kick2();
+        if (characterDistance <180) {
+            updatePlayerHp();
+        }
     }
     
     // stand move forward
@@ -281,6 +281,9 @@ void GamePlayScene::update(float dt)
     if (std::isnan(angle))
     {
         player->stand();
+    }
+    if (playerHp->getPercent() == 0) {
+        opponent->die();
     }
     player->update(dt);
     camera->update(dt);
@@ -395,19 +398,23 @@ void GamePlayScene::onLeaveRoomDone()
 }
 
 
-void GamePlayScene::addNewSpriteAtPosition(Node* sprite, float x, float y, int bitmask)
+void GamePlayScene::addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask)
 {
     
     //    sprite->setTag(1);
-    auto body = PhysicsBody::createBox(Size(x-100.0f, y), PhysicsMaterial(1.0f, 0.0f, 0.3f));
-    //    auto body = PhysicsBody::createBo(100,PhysicsMaterial(1.0f, 1.0f, 1.0f));
     //    body->setDynamic(false);
-    sprite->setPhysicsBody(body);
     //    this->addChild(sprite);
+    
+    //add physic body for characters
+    auto body = PhysicsBody::createBox(Size(x-50.0f, y), PhysicsMaterial(1.0f, 0.0f, 0.3f));
+    sprite->setPhysicsBody(body);
+    
+    //set colission detect
     body->setCollisionBitmask(bitmask);
     body->setContactTestBitmask(true);
+    
+    //keep character still
     body->setRotationEnable(false);
-    //    body->applyForce(0);
     body->setGravityEnable(true);
     
     
@@ -422,9 +429,56 @@ bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
     if ( ( 1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask() ) || ( 2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask() ) )
     {
         CCLOG( "COLLISION HAS OCCURED" );
+        updatePlayerHp();
     }
+    
+   
+    
     
     return true;
 }
 
+void GamePlayScene::characterTooClose(float characterDistance, float closeDistance)
+{
+    
+}
+
+void GamePlayScene::updatePlayerHp()
+{
+    //get player health bar
+    ui::LoadingBar* playerHp = static_cast<ui::LoadingBar*>(this->getChildByName("GamePlayScene")->getChildByName("playerRightHP"));
+    
+    //amount of damage caused by punch1
+    if (buttonA->getIsActive())
+    {
+    
+        float percent = playerHp->getPercent();
+        playerHp->setPercent(percent-3);
+    }
+    
+    //amount of damage caused by punch2
+    if (buttonB->getIsActive())
+    {
+        
+        float percent = playerHp->getPercent();
+        playerHp->setPercent(percent-4);
+    }
+    
+    //amount of damage caused by kick1
+    if (buttonC->getIsActive())
+    {
+        
+        float percent = playerHp->getPercent();
+        playerHp->setPercent(percent-3);
+    }
+    
+    //amount of damage caused by kick2
+    if (buttonD->getIsActive())
+    {
+        
+        float percent = playerHp->getPercent();
+        playerHp->setPercent(percent-4);
+    }
+    
+}
 

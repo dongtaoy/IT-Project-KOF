@@ -87,8 +87,10 @@ private:
     
     void SetPhysicsWorld( cocos2d::PhysicsWorld *world ) { sceneWorld = world; };
     
-    bool onContactBegin( cocos2d::PhysicsContact &contact );
-    void addNewSpriteAtPosition(Node* sprite, float x, float y, int bitmask);
+    bool onContactBegin( cocos2d::PhysicsContact &contact);
+    void addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask);
+    void updatePlayerHp();
+    void characterTooClose(float characterDistance, float closeDistance);
     
 };
 
