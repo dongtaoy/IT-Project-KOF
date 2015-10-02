@@ -176,6 +176,19 @@ void ChooseRoomScene::SearchRoom(Ref* pSender, Widget::TouchEventType type)
     }
 }
 
+void ChooseRoomScene::onRoomDestroyed(std::string roomID){
+    auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+    for (int i =0 ; i < list->getItems().size(); i++ ){
+        auto item = list->getItem(i);
+        std::string id = static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->getString();
+        if(!(id.compare(roomID))){
+            list->removeItem(i);
+            return;
+        }
+    }
+}
+
 
 
 

@@ -60,9 +60,12 @@ private:
     
     void onJoinRoomDone();
     void onSubscribeRoomDone();
+    void onRoomDestroyed(std::string);
     
-    // Search Room
+    // Search Roomt
     void SearchRoom(Ref*, ui::Widget::TouchEventType);
+    
+    
 
 };
 

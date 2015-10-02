@@ -13,7 +13,15 @@ class MultiplayerCallback
 {
 public:
     
+#pragma mark Lobby Request Listeners
+    virtual void onJoinLobbyDone(){ CCLOG("join lobby done...");};
+    virtual void onSubscribeLobbyDone(){ CCLOG("subscribe loby done"); };
+    
+    virtual void onUnsubscribeLobbyDone() { CCLOG("unsubsribe lobby done"); };
+    virtual void onLeaveLobbyDone(){ CCLOG("leave lobby done...");};
+    
 #pragma mark Room Request Listeners
+
     virtual void onJoinRoomDone(){ CCLOG("join room done..."); };
     virtual void onSubscribeRoomDone(){ CCLOG("Subscribe room done..."); };
     
@@ -33,6 +41,9 @@ public:
     virtual void onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name){ CCLOG("create room done..."); };
     
     virtual void onConnectDone(){ CCLOG("connection done"); };
+    
+    virtual void onRoomCreated(std::string roomID, std::string bestOf, std::string background){ CCLOG("room created"); };
+    virtual void onRoomDestroyed(std::string roomID) { CCLOG("room destroyed"); };
 };
 
 #endif /* MultiplayerCallback_h */
