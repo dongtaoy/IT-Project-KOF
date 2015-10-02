@@ -54,6 +54,11 @@ bool ChooseRoomScene::init()
     ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName(CREATE_BUTTON));
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
     
+    // search button
+    ui::Button* buttonSearch = static_cast<ui::Button*>(node->getChildByName(SEARCH_BUTTON));
+    buttonSearch->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::SearchRoom, this));
+    
+    
     ui::ListView* listRoom = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     Vector<Widget *> items = listRoom->getItems();
     assert(items.front());
@@ -93,10 +98,12 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
         std::string bestof = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF)->getString();
         
         std::string background = *(std::string*)((static_cast<ImageView*>(pSender)->getChildByName<ImageView*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND)->getUserData()));
+        
         Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
         Multiplayer::getInstance()->setBackground(background);
         Multiplayer::getInstance()->setRoomID(roomID);
         Multiplayer::joinRoom(this);
+        CCLOG("###########%s", this->getName().c_str());
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 30.0f);
 
@@ -145,6 +152,28 @@ void ChooseRoomScene::onGetLiveRoomInfoDone(std::string roomId,
     
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->setUserData(background);
     
+}
+
+void ChooseRoomScene::SearchRoom(Ref* pSender, Widget::TouchEventType type)
+{
+    if (type == Widget::TouchEventType::ENDED){
+        auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+        auto sprite = static_cast<ui::ImageView*>(node->getChildByName(CHOOSE_ROOM_SCENE_SPRITE_SEARCH));
+	    auto textSearch = static_cast<ui::TextField*>(sprite->getChildByName(CHOOSE_ROOM_SCENE_TEXT_SEARCH));
+	    
+	    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+	    for (int i =0 ; i < list->getItems().size(); i++ ){
+	        auto item = list->getItem(i);
+	        std::string id = static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->getString();
+	        if(!(id.compare(textSearch->getString()))){
+	            OnSelectedItem(item, Widget::TouchEventType::ENDED);
+	            return;
+	        }
+	    }
+	    MessageBox("", "Room ID does not exist!");
+	    
+	    CCLOG("%s",textSearch->getString().c_str());
+    }
 }
 
 

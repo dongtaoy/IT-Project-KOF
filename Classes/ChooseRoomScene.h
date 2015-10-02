@@ -60,6 +60,10 @@ private:
     
     void onJoinRoomDone();
     void onSubscribeRoomDone();
+    
+    // Search Room
+    void SearchRoom(Ref*, ui::Widget::TouchEventType);
+
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */
