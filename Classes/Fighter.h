@@ -50,6 +50,8 @@ public:
     void punch1();
     void punch2();
     
+    bool checkBoundary(bool);
+    
     
     void update(float);
     

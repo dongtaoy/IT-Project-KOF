@@ -27,20 +27,22 @@ void Fighter::update(float)
     auto opponentBox = opponent->getBoundingBox();
     auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
-
-    if ((std::abs(this->getPosition().x - opponent->getPosition().x) + playerBox.size.width / 2 + opponentBox.size.width / 2 + 2 * CAMERA_FIGHTER_OFFSET ) * this->sprite->getParent()->getScaleX() > visibleSize.width)
-    {
-        if (this->getPosition().x > opponent->getPosition().x)
-        {
-            auto x = visibleSize.width / this->getParent()->getScaleX() + opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
-            this->setPosition(Vec2(x-5, this->getPosition().y));
-        }
-        else
-        {
-            auto x = visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
-            this->setPosition(Vec2(-x+5, this->getPosition().y));
-        }
-    }
+//    if (getPosition().x)
+//    CCLOG("PLAYER")
+    
+//    if ((std::abs(this->getPosition().x - opponent->getPosition().x) + playerBox.size.width / 2 + opponentBox.size.width / 2 + 2 * CAMERA_FIGHTER_OFFSET ) * this->sprite->getParent()->getScaleX() > visibleSize.width)
+//    {
+//        if (this->getPosition().x > opponent->getPosition().x)
+//        {
+//            auto x = visibleSize.width / this->getParent()->getScaleX() + opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
+//            this->setPosition(Vec2(x-5, this->getPosition().y));
+//        }
+//        else
+//        {
+//            auto x = visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
+//            this->setPosition(Vec2(-x+5, this->getPosition().y));
+//        }
+//    }
     
 //    CCLOG("%f %f ", visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET, this->getScreenPosition().x);
 //    
@@ -141,36 +143,46 @@ void Fighter::stand_jump(Vec2 direction)
 
 void Fighter::stand_moveback()
 {
-    
-    if(!(this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
+    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
-        auto animate = Animate::create(animation);
-//        animate->setDuration(ACTION_1_MOVE_DURATION);
-        auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_STAND_MOVEBACK);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        if (!this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK))
+        {
+            this->sprite->stopAllActions();
+            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
+            auto animate = Animate::create(animation);
+            auto animateForever = RepeatForever::create(animate);
+            animateForever->setTag(ACTION_1_STAND_MOVEBACK);
+            this->sprite->runAction(animateForever);
+        }
+        if (checkBoundary(false))
+        {
+            auto moveby = MoveBy::create(0.2f, Vec2(-50, 0));
+            moveby->setTag(ACTION_UNSTOPPABLE);
+            this->sprite->runAction(moveby);
+        }
     }
 }
 
 void Fighter::stand_moveforward()
 {
     
-    if(!(this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
+    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
-        auto animate = Animate::create(animation);
-        auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_STAND_MOVEFORWARD);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        if (!this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD))
+        {
+            this->sprite->stopAllActions();
+            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
+            auto animate = Animate::create(animation);
+            auto animateForever = RepeatForever::create(animate);
+            animateForever->setTag(ACTION_1_STAND_MOVEFORWARD);
+            this->sprite->runAction(animateForever);
+        }
+        if (checkBoundary(true))
+        {
+            auto moveby = MoveBy::create(0.2f, Vec2(50, 0));
+            moveby->setTag(ACTION_UNSTOPPABLE);
+            this->sprite->runAction(moveby);
+        }
     }
 }
 
@@ -213,33 +225,45 @@ void Fighter::squat_hit()
 
 void Fighter::squat_moveback()
 {
-    if(!(this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)) && isActionStoppable())
+    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
-        auto animate = Animate::create(animation);
-        auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_SQUAT_MOVEBACK);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        if (!this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK))
+        {
+            this->sprite->stopAllActions();
+            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
+            auto animate = Animate::create(animation);
+            auto animateForever = RepeatForever::create(animate);
+            animateForever->setTag(ACTION_1_SQUAT_MOVEBACK);
+            this->sprite->runAction(animateForever);
+        }
+        if (checkBoundary(false))
+        {
+            auto moveby = MoveBy::create(0.2f, Vec2(-50, 0));
+            moveby->setTag(ACTION_UNSTOPPABLE);
+            this->sprite->runAction(moveby);
+        }
     }
 }
 
 void Fighter::squat_moveforward()
 {
-    if(!(this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
+    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
     {
-        this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
-        auto animate = Animate::create(animation);
-        auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_SQUAT_MOVEFORWARD);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        if (!this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD))
+        {
+            this->sprite->stopAllActions();
+            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
+            auto animate = Animate::create(animation);
+            auto animateForever = RepeatForever::create(animate);
+            animateForever->setTag(ACTION_1_SQUAT_MOVEFORWARD);
+            this->sprite->runAction(animateForever);
+        }
+        if (checkBoundary(true))
+        {
+            auto moveby = MoveBy::create(0.2f, Vec2(50, 0));
+            moveby->setTag(ACTION_UNSTOPPABLE);
+            this->sprite->runAction(moveby);
+        }
     }
 }
 
@@ -412,16 +436,37 @@ bool Fighter::isSquat()
 
 bool Fighter::isActionStoppable()
 {
-    if (   this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)
+    if (
+        this->sprite->getNumberOfRunningActions() == 1
+        && (this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)
         || this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD)
         || this->sprite->getActionByTag(ACTION_1_STAND)
         || this->sprite->getActionByTag(ACTION_1_SQUAT)
         || this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)
         || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)
+        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD))
          )
         return true;
     return false;
+}
+
+bool Fighter::checkBoundary(bool forward)
+{
+    auto ox = opponent->getPosition().x;
+    auto px = forward ? getPosition().x + 50 : getPosition().x - 50;
+    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
+    auto playerBox = this->getBoundingBox();
+    
+    if (px + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
+        return false;
+    
+    if (px - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
+        return false;
+    
+    CCLOG("%f %f %f", px, px, std::abs(ox - px));
+    if (std::abs(ox - px) > 650)
+        return false;
+    return true;
 }
 
 

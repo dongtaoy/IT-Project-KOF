@@ -35,14 +35,14 @@ protected:
     CC_SYNTHESIZE(int, bestof, Bestof);
     CC_SYNTHESIZE(std::queue<command_t>, commands, Commands);
     CC_SYNTHESIZE(MultiplayerCallback*, callback, Callback);
-//    CC_SYNTHESIZE(bool, isSt, )
+    CC_SYNTHESIZE(std::string, prevMessage, PrevMessage);
     
     
 public:
 #pragma mark Constructors
     static Multiplayer* getInstance();
     static void initialize(std::string);
-    static void sendChat(int, int, std::string = "");
+    
     
     
 #pragma mark Actions
@@ -52,7 +52,8 @@ public:
     static void unsubsribeRoom(MultiplayerCallback*);
     static void connect(MultiplayerCallback*);
     static void recoverConnection();
-    
+    static void sendChat(int, int, std::string = "");
+    static void sendChat(std::string);
     
 #pragma mark Helper
     void resetAllListener();
@@ -61,7 +62,9 @@ public:
     command_t popCommands();
     static command_t exractMessage(std::string);
     static bool isCommandValid(int, command_t);
-    
+    static std::string buildMessage(int scene, int op, std::string properties="");
+    static std::string buildProperties(std::initializer_list<std::string> properties);
+    static bool isPlayer(std::string name);
 private:
     static Multiplayer* _instance;
     

@@ -162,6 +162,9 @@
 #define OP_GPS_BUTTON_B                     2
 #define OP_GPS_BUTTON_C                     3
 #define OP_GPS_BUTTON_D                     4
+#define OP_GPS_STAND_MOVEFORWARD            5
+#define OP_GPS_STAND_MOVEBACK               6
+#define OP_GPS_STAND                        7
 
 
 // Fighter
@@ -193,6 +196,8 @@
 #define ACTION_1_MOVE_DURATION              .7f
 
 
+#define ACTION_UNSTOPPABLE                  1000
+//#define ACTION_STOPPABLE                    1001
 // Camera
 #define CAMERA_MOVE_THRESHOLD               150
 #define CAMERA_FIGHTER_OFFSET               10
