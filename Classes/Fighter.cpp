@@ -111,6 +111,8 @@ void Fighter::stand()
         auto repeat = RepeatForever::create(animate);
         repeat->setTag(ACTION_1_STAND);
         this->sprite->runAction(repeat);
+        auto pos = this->getPosition();
+//        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_STAND, Multiplayer::buildProperties({pos.x, pos.y}));
     }
 }
 

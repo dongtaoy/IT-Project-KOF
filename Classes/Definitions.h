@@ -163,6 +163,12 @@
 #define OP_GPS_BUTTON_C                     3
 #define OP_GPS_BUTTON_D                     4
 
+#define OP_GPS_STAND_MOVEFORWARD                 5
+#define OP_GPS_STAND_MOVEBACK                    6
+#define OP_GPS_STAND                        7
+//#define OP_GPS_SQUAT_DOWN                        7
+//#define OP_GPS_SQU
+
 
 // Fighter
 
@@ -198,12 +204,19 @@
 #define CAMERA_FIGHTER_OFFSET               10
 
 
+// LOCKSTEP
+#define LOCK_STEP_DELAY                     100
+#define GAME_FRAME_DELAY                    20
+#define GAME_FRAMES_PER_LOCK_STEP           4
+//#define LOCK_S
+
 struct command_t
 {
     std::string sender;
     int scene;
     int operation;
     std::string properties;
+    int lockstepId;
 };
 
 #endif

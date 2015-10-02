@@ -77,6 +77,10 @@ bool ChooseCharacterScene::init()
 #pragma mark getters / setters
 void ChooseCharacterScene::setOpponentSelected(std::string name)
 {
+    if(!name.compare(""))
+    {
+        return;
+    }
     this->opponentSelected = name;
     ShowSelectedCharacter(opponentSelected, false);
 }
@@ -119,6 +123,8 @@ void ChooseCharacterScene::setPlayerReady(bool value)
 
 void ChooseCharacterScene::setOpponentReady(bool value)
 {
+    if (!opponentSelected.compare(""))
+        return;
     if (value) {
         SetReadyButtonVisible(false, false);
         SetGoButtonVisible(true, false);

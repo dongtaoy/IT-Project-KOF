@@ -44,6 +44,7 @@ public:
     CC_SYNTHESIZE(Fighter*, player, Player);
     CC_SYNTHESIZE(Fighter*, opponent, Opponent);
     CC_SYNTHESIZE(cocos2d::Sprite*, background, Background);
+//    CC_SYNTHESIZE(<#varType#>, <#varName#>, <#funName#>)
     
     
     CC_SYNTHESIZE(SneakyButton*, buttonA, ButtonA);
@@ -51,6 +52,15 @@ public:
     CC_SYNTHESIZE(SneakyButton*, buttonC, ButtonC);
     CC_SYNTHESIZE(SneakyButton*, buttonD, ButtonD);
     
+    
+    CC_SYNTHESIZE(int, lockstepId, LockstepId);
+    CC_SYNTHESIZE(int, accumilatedTime, AccumilatedTime)
+    CC_SYNTHESIZE(int, gameFrame, GameFrame);
+    CC_SYNTHESIZE(std::vector<command_t>, nextCommands, NextCommands);
+    CC_SYNTHESIZE(int, isStart, IsStart);
+    
+    CC_SYNTHESIZE(std::deque<command_t>, pendingCommands, PendingCommands);
+//    CC_SYNTHESIZE(std::vector<<#class _Tp#>>, <#funName#>)
     
 private:
     Camera2d* camera;
@@ -78,8 +88,11 @@ private:
     
     
     void update(float);
+    void gameFrameTurn();
+    bool lockStepTurn();
+    bool NextTurn();
     void processCommand(command_t);
-    
+    std::string processInput();
     
     void onUnsubscribeRoomDone();
     void onLeaveRoomDone();

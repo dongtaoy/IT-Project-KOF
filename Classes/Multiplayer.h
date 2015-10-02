@@ -16,11 +16,12 @@
 #include "ChooseRoomScene.h"
 #include "GameHelper.h"
 #include "MultiplayerCallback.h"
+#include <initializer_list>
 
 #define MAX_USERS 2
 
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener, public AppWarp::ChatRequestListener
 {
     
 
@@ -33,16 +34,15 @@ protected:
     CC_SYNTHESIZE(std::string, roomID, RoomID);
     CC_SYNTHESIZE(std::string, background, Background);
     CC_SYNTHESIZE(int, bestof, Bestof);
-    CC_SYNTHESIZE(std::queue<command_t>, commands, Commands);
+    CC_SYNTHESIZE(std::deque<command_t>, commands, Commands);
     CC_SYNTHESIZE(MultiplayerCallback*, callback, Callback);
-//    CC_SYNTHESIZE(bool, isSt, )
-    
+    CC_SYNTHESIZE(std::string, prevChat, PrevChat);
     
 public:
 #pragma mark Constructors
     static Multiplayer* getInstance();
     static void initialize(std::string);
-    static void sendChat(int, int, std::string = "");
+    
     
     
 #pragma mark Actions
@@ -54,13 +54,22 @@ public:
     static void recoverConnection();
     
     
+    static void sendChat(int, int, std::string = "");
+    static void sendChat(std::string, int);
 #pragma mark Helper
+    static bool isPlayer(std::string);
     void resetAllListener();
     bool isConnected();
     bool isCommandsEmpty();
     command_t popCommands();
-    static command_t exractMessage(std::string);
+   
+    static Point extractPos(std::string);
+    static command_t extractMessage(std::string);
+    static std::string buildMessage(int, int, std::string = "");
+    static std::string buildProperties(std::initializer_list<std::string> properties);
     static bool isCommandValid(int, command_t);
+
+    
     
 private:
     static Multiplayer* _instance;
@@ -90,6 +99,9 @@ private:
 #pragma mark Zone Request Listener
     void onGetLiveRoomInfoDone(AppWarp::liveroom);
     void onCreateRoomDone(AppWarp::room);
+    
+#pragma mark Chat Request Listener
+    void onSendChatDone(int result);
     
 };
 

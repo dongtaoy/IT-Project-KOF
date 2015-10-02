@@ -55,7 +55,6 @@ bool GamePlayScene::init()
 //     TODO: WITH MULTIPLAYER
     if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     {
-        CCLOG("123");
         this->player = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getUserCharacter());
         node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
         
@@ -65,7 +64,6 @@ bool GamePlayScene::init()
     }
     else
     {
-        CCLOG("456");
         this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
         node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
         
@@ -120,7 +118,10 @@ void GamePlayScene::startGame()
 {
     LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
     CCLOG("GAME STARTED");
+//    CCLOG("")
 //    this->startCountDown();
+    isStart = true;
+    Multiplayer::sendChat(processInput(), lockstepId);
 }
 
 void GamePlayScene::startCountDown()
@@ -156,92 +157,240 @@ void GamePlayScene::processCommand(command_t cmd)
 {
     if(Multiplayer::isCommandValid(MP_GAME_PLAY_SCNE, cmd))
     {
-        CCLOG("reveived");
+        
+            switch (cmd.operation) {
+                CCLOG("%s", cmd.properties.c_str());
+                case OP_GPS_BUTTON_A:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->punch1();
+                    else
+                        opponent->punch1();
+                    
+                    break;
+                case OP_GPS_BUTTON_B:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->punch1();
+                    else
+                        opponent->punch2();
+                    break;
+            
+                case OP_GPS_BUTTON_C:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->kick1();
+                    else
+                        opponent->kick1();
+                    break;
+            
+                case OP_GPS_BUTTON_D:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->kick2();
+                    else
+                        opponent->kick2();
+                    break;
+                case OP_GPS_STAND:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->stand();
+                    else
+                        opponent->stand();
+//                        opponent->setPosition(Multiplayer::extractPos(cmd.properties));
+                        
+                    break;
+            
+                case OP_GPS_STAND_MOVEFORWARD:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->stand_moveforward();
+                    else
+                        opponent->stand_moveforward();
+                    break;
+                
+                case OP_GPS_STAND_MOVEBACK:
+                    if (Multiplayer::isPlayer(cmd.sender))
+                        player->stand_moveback();
+                    else
+                        opponent->stand_moveback();
+                    break;
+                
+                default:
+                    break;
+            
+        }
     }
 }
 
-
-void GamePlayScene::update(float dt)
+std::string GamePlayScene::processInput()
 {
+    
     auto point = joystick->getVelocity();
     auto angle = GameHelper::vectorToDegree(point);
     
-    if (!Multiplayer::getInstance()->isCommandsEmpty())
-    {
-        Multiplayer::getInstance()->popCommands();
-    }
+    Point pos = player->getSprite()->getPosition();
+    std::string properties = Multiplayer::buildProperties({ std::to_string(pos.x), std::to_string(pos.y) });
+    
+    std::string message;
     
     
-    
-    
-    
-    if (buttonA->getIsActive())
-    {
-        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_A);
-//        player->punch1();
-    }
-    
-    if (buttonB->getIsActive())
-    {
-        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_B);
-//        player->punch2();
-    }
-    
-    if (buttonC->getIsActive())
-    {
-        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_C);
-//        player->kick1();
-    }
-    
-    if (buttonD->getIsActive())
-    {
-        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_D);
-//        player->kick2();
-    }
     
     // stand move forward
     if (angle > 337.5f || angle <  22.5f)
     {
-        player->stand_moveforward();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND_MOVEFORWARD, properties);
+//        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_STAND_MOVEFORWARD, properties);
+//        player->stand_moveforward();
     }
     
     // jump
     if (angle >  22.5f && angle < 157.5f)
     {
-        player->stand_jump(point);
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_B, properties);
+//        player->stand_jump(point);
     }
     
     // stand move back
     if (angle > 157.5f && angle < 202.5f)
     {
-        player->stand_moveback();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND_MOVEBACK, properties);
+//        Multiplayer::sendChat(MP_GAME_PLAY_SCNE, OP_GPS_STAND_MOVEBACK, properties);
+//        player->stand_moveback();
     }
     
     
     // squat moveback
     if (angle > 202.5f && angle < 247.5f)
     {
-        player->squat_moveback();
+//        player->squat_moveback();
     }
     
     // squat
     if (angle > 247.5f && angle < 292.5f)
     {
-        player->squat_down();
+//        player->squat_down();
     }
     
     if (angle > 292.5f && angle < 337.5f)
     {
-        player->squat_moveforward();
+//        player->squat_moveforward();
     }
     
     if (std::isnan(angle))
     {
-        player->stand();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND, properties);
+        
     }
+    
+    if (buttonA->getIsActive())
+    {
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_A, properties);
+    }
+    
+    if (buttonB->getIsActive())
+    {
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_B, properties);
+        //        player->punch2();
+    }
+    
+    if (buttonC->getIsActive())
+    {
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_C, properties);
+        //        player->kick1();
+    }
+    
+    if (buttonD->getIsActive())
+    {
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_D, properties);
+        //        player->kick2();
+    }
+    
+    if (!message.compare(""))
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND, properties);
+    return message;
+}
+
+
+void GamePlayScene::update(float dt)
+{
+    for(int i = 0 ; i < Multiplayer::getInstance()->getCommands().size() ; i++)
+    {
+        
+        command_t cmd = Multiplayer::getInstance()->getCommands().front();
+        CCLOG("%s %s %d", cmd.properties.c_str(), cmd.sender.c_str(), cmd.lockstepId);
+        pendingCommands.push_back(Multiplayer::getInstance()->popCommands());
+        
+        
+    }
+    
+    
+    
+    
+    
+//    CCLOG("%f", dt * 1000);
+    
+    
+    accumilatedTime = accumilatedTime + dt * 1000;
+//
+//    //in case the FPS is too slow, we may need to update the game multiple times a frame
+    while(accumilatedTime > GAME_FRAME_DELAY) {
+        gameFrameTurn();
+        accumilatedTime = accumilatedTime - GAME_FRAME_DELAY;
+    }
+    
+//    while (!Multiplayer::getInstance()->isCommandsEmpty())
+//    {
+//        processCommand(Multiplayer::getInstance()->popCommands());
+//    }
+    
+    
+    
     player->update(dt);
+    opponent->update(dt);
     camera->update(dt);
     
+}
+
+void GamePlayScene::gameFrameTurn()
+{
+    
+    if(gameFrame == 0) {
+        if(lockStepTurn()) {
+            gameFrame++;
+        }
+    } else {
+        //update game
+        gameFrame++;
+        if(gameFrame == GAME_FRAMES_PER_LOCK_STEP) {
+            gameFrame = 0;
+        }
+    }
+}
+
+bool GamePlayScene::lockStepTurn()
+{
+    CCLOG("LockStepTurnID: %d", lockstepId);
+    bool nextTurn = NextTurn();
+    if(nextTurn) {
+        for (int i = 0 ; i < 2 ; i ++)
+        {
+            command_t m = pendingCommands.front();
+            pendingCommands.pop_front();
+            processCommand(m);
+        }
+        lockstepId++;
+        std::string m = processInput();
+        Multiplayer::sendChat(m, lockstepId);
+        
+    }
+    
+    return nextTurn;
+}
+
+
+bool GamePlayScene::NextTurn() {
+    
+    CCLOG("received: %lu", pendingCommands.size());
+    
+    if (pendingCommands.size() >= 2)
+        return true;
+    
+    return false;
 }
 
 

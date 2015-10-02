@@ -14,7 +14,6 @@
 #include "Definitions.h"
 #include <boost/format.hpp>
 
-
 class Fighter
 {
     
@@ -61,7 +60,6 @@ public:
     cocos2d::Rect getBoundingBox();
     cocos2d::Node* getParent();
     
-private:
     bool isStand();
     bool isSquat();
     bool isActionStoppable();
