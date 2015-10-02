@@ -193,6 +193,24 @@
 #define CAMERA_FIGHTER_OFFSET               10
 
 
+//GamePlayScene
+//Physics
+
+#define Character_Gravity_X                 0.0f
+#define Character_Gravity_Y                 -200.0f
+#define Physic_Edge_Offset                  350.0f
+#define Character1_bitmask                  1
+#define Character2_bitmask                  2
+#define Character_Edge_Offset               50.0f
+#define Physic_Box_Density                  1.0f
+#define Physic_Box_Restitution              0.0f
+#define Physic_Box_Friction                 1.0f
+#define Punch1_damage                       3
+#define Punch2_damage                       4
+#define Kick1_damage                        3
+#define Kick2_damage                        4
+
+
 struct command_t
 {
     std::string sender;

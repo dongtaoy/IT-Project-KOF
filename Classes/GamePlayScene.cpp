@@ -18,7 +18,7 @@ Scene* GamePlayScene::createScene()
     scene->getPhysicsWorld()->setDebugDrawMask( PhysicsWorld::DEBUGDRAW_ALL );
     
     //set the gravity (0.0f, -98.0f) is the default value. change to -200 for y axis is perfect value
-    scene->getPhysicsWorld()->setGravity( Vec2(0.0f, -200.0f));
+    scene->getPhysicsWorld()->setGravity( Vec2(Character_Gravity_X, Character_Gravity_Y));
     //    scene->getPhysicsWorld()->setAutoStep(true);
 
     
@@ -115,7 +115,7 @@ bool GamePlayScene::init()
     auto edgeBody = PhysicsBody::createEdgeBox( visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3 );
     
     auto edgeNode = Node::create();
-    edgeNode ->setPosition( Point( visibleSize.width / 2 + origin.x,  float( player->getSprite()->getPosition().y)+ visibleSize.height-350.00));
+    edgeNode ->setPosition( Point( visibleSize.width / 2 + origin.x,  float( player->getSprite()->getPosition().y)+ visibleSize.height- Physic_Edge_Offset));
     edgeNode->setPhysicsBody( edgeBody );
     
     this->addChild( edgeNode );
@@ -129,10 +129,10 @@ bool GamePlayScene::init()
     
     
     //get the distance between two characters
-    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
+//    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
     //add physci edge box for characters
-    addEdgeBoxForCharacter(player->getSprite(),x1,y1,1);
-    addEdgeBoxForCharacter(opponent->getSprite(),x2,y2,2);
+    addEdgeBoxForCharacter(player->getSprite(),x1,y1,Character1_bitmask);
+    addEdgeBoxForCharacter(opponent->getSprite(),x2,y2,Character2_bitmask);
     
   
     
@@ -157,9 +157,6 @@ bool GamePlayScene::init()
 
 //    auto contactListenr1 = EventListenerCustom::create(characterTooClose, characterTooClose(characterDistance,closeDistance));
 //    auto contactListener1 = EventListenerCustom::create(character, characterTooClose(characterDistance, closeDistance));
-    if (characterDistance != 0) {
-        updatePlayerHp();
-    }
     
     return true;
 }
@@ -407,7 +404,7 @@ void GamePlayScene::addEdgeBoxForCharacter(Node* sprite, float x, float y, int b
     //    this->addChild(sprite);
     
     //add physic body for characters
-    auto body = PhysicsBody::createBox(Size(x-50.0f, y), PhysicsMaterial(1.0f, 0.0f, 0.3f));
+    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
     sprite->setPhysicsBody(body);
     
     //set colission detect
@@ -427,7 +424,7 @@ bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
     PhysicsBody *b = contact.getShapeB()->getBody();
     
     // check if the bodies have collided
-    if ( ( 1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask() ) || ( 2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask() ) )
+    if ( ( Character1_bitmask == a->getCollisionBitmask() && Character2_bitmask == b->getCollisionBitmask() ) || ( Character2_bitmask == a->getCollisionBitmask() && Character1_bitmask == b->getCollisionBitmask() ) )
     {
         CCLOG( "COLLISION HAS OCCURED" );
         updatePlayerHp();
@@ -439,10 +436,7 @@ bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
     return true;
 }
 
-void GamePlayScene::characterTooClose(float characterDistance, float closeDistance)
-{
-    
-}
+
 
 void GamePlayScene::updatePlayerHp()
 {
@@ -454,7 +448,7 @@ void GamePlayScene::updatePlayerHp()
     {
     
         float percent = playerHp->getPercent();
-        playerHp->setPercent(percent-3);
+        playerHp->setPercent(percent - Punch1_damage);
     }
     
     //amount of damage caused by punch2
@@ -462,7 +456,7 @@ void GamePlayScene::updatePlayerHp()
     {
         
         float percent = playerHp->getPercent();
-        playerHp->setPercent(percent-4);
+        playerHp->setPercent(percent - Punch2_damage);
     }
     
     //amount of damage caused by kick1
@@ -470,7 +464,7 @@ void GamePlayScene::updatePlayerHp()
     {
         
         float percent = playerHp->getPercent();
-        playerHp->setPercent(percent-3);
+        playerHp->setPercent(percent - Kick1_damage);
     }
     
     //amount of damage caused by kick2
@@ -478,7 +472,7 @@ void GamePlayScene::updatePlayerHp()
     {
         
         float percent = playerHp->getPercent();
-        playerHp->setPercent(percent-4);
+        playerHp->setPercent(percent - Kick2_damage);
     }
     
 }
