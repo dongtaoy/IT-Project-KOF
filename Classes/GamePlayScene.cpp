@@ -203,7 +203,8 @@ void GamePlayScene::endCountDown(){
 void GamePlayScene::update(float dt)
 {
     //get the distance between two characters
-    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
+//    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
+//    float closeDistance = opponent->getSprite()->getBoundingBox().size.width/2 + player->getBoundingBox().size.width/2;
     ui::LoadingBar* playerHp = static_cast<ui::LoadingBar*>(this->getChildByName("GamePlayScene")->getChildByName("playerRightHP"));
     
     auto point = joystick->getVelocity();
@@ -212,7 +213,7 @@ void GamePlayScene::update(float dt)
     if (buttonA->getIsActive())
     {
         player->punch1();
-        if (characterDistance <180) {
+        if (player->characterDistance() < player->characterCloseEnough()) {
             updatePlayerHp();
         }
         
@@ -221,7 +222,7 @@ void GamePlayScene::update(float dt)
     if (buttonB->getIsActive())
     {
         player->punch2();
-        if (characterDistance <180) {
+        if (player->characterDistance() < player->characterCloseEnough()) {
             updatePlayerHp();
         }
     }
@@ -229,7 +230,7 @@ void GamePlayScene::update(float dt)
     if (buttonC->getIsActive())
     {
         player->kick1();
-        if (characterDistance <180) {
+        if (player->characterDistance() < player->characterCloseEnough()) {
             updatePlayerHp();
         }
     }
@@ -237,7 +238,7 @@ void GamePlayScene::update(float dt)
     if (buttonD->getIsActive())
     {
         player->kick2();
-        if (characterDistance <180) {
+        if (player->characterDistance() < player->characterCloseEnough()) {
             updatePlayerHp();
         }
     }

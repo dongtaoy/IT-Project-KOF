@@ -60,6 +60,8 @@ public:
     cocos2d::Vec2 getScreenPosition();
     cocos2d::Rect getBoundingBox();
     cocos2d::Node* getParent();
+    float characterDistance();
+    float characterCloseEnough();
     
 private:
     bool isStand();
@@ -70,8 +72,7 @@ private:
 //    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
 //    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);
 //private:
-    
-    
+   
     
     
     

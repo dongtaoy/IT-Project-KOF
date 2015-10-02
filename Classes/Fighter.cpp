@@ -425,5 +425,14 @@ bool Fighter::isActionStoppable()
 }
 
 
+float Fighter::characterDistance()
+{
+    return opponent->getSprite()->getPositionX() - sprite->getPositionX();
+}
+
+float Fighter::characterCloseEnough()
+{
+    return opponent->getSprite()->getBoundingBox().size.width/2 + sprite->getBoundingBox().size.width/2;
+}
 
 
