@@ -16,7 +16,7 @@ Fighter::Fighter(Sprite* sprite, std::string name)
     this->sprite = sprite;
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
     this->start();
-   
+    
 }
 
 
@@ -27,38 +27,6 @@ void Fighter::update(float)
     auto opponentBox = opponent->getBoundingBox();
     auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
-
-    if ((std::abs(this->getPosition().x - opponent->getPosition().x) + playerBox.size.width / 2 + opponentBox.size.width / 2 + 2 * CAMERA_FIGHTER_OFFSET ) * this->sprite->getParent()->getScaleX() > visibleSize.width)
-    {
-        if (this->getPosition().x > opponent->getPosition().x)
-        {
-            auto x = visibleSize.width / this->getParent()->getScaleX() + opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
-            this->setPosition(Vec2(x-5, this->getPosition().y));
-        }
-        else
-        {
-            auto x = visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
-            this->setPosition(Vec2(-x+5, this->getPosition().y));
-        }
-    }
-    
-//    CCLOG("%f %f ", visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET, this->getScreenPosition().x);
-//    
-//    if (std::abs(this->getScreenPosition().x - opponent->getScreenPosition().x) + (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() + 2 * CAMERA_FIGHTER_OFFSET > visibleSize.width )
-//    {
-//        CCLOG("in");
-//        if (this->getPosition().x > opponent->getPosition().x)
-//        {
-//            auto x = visibleSize.width + opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET;
-//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(x, this->getScreenPosition().y)));
-//        }
-//        else
-//        {
-//            auto x = visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET;
-//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(-x, this->getScreenPosition().y)));
-//        }
-//        
-//    }
     
     if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
     {
@@ -70,6 +38,15 @@ void Fighter::update(float)
         this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
     }
     
+    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
+    {
+        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
+    
+    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
+    {
+        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
     
 }
 
@@ -109,7 +86,7 @@ void Fighter::stand()
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND)%name).str());
         auto animate = Animate::create(animation);
         auto repeat = RepeatForever::create(animate);
-        repeat->setTag(ACTION_1_STAND);
+        repeat->setTag(OP_GPS_ACTION_1_STAND);
         this->sprite->runAction(repeat);
     }
 }
@@ -119,20 +96,19 @@ void Fighter::stand_hit()
     
 }
 
-void Fighter::stand_jump(Vec2 direction)
+void Fighter::stand_jump(int distance)
 {
-    Vec2 dispalcement = Vec2(direction.x * ACTION_MOVE_SPEED, 0);
     
     if(isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_JUMP)%name).str());
         auto animate = Animate::create(animation);
-        auto jumpBy = JumpBy::create(animate->getDuration(), dispalcement, 300.0f, 1);
-        auto spawn = Spawn::create(animate, jumpBy, NULL);
+        auto jumpTo = JumpTo::create(animate->getDuration(), Vec2(getPosition().x + distance, getPosition().y), 300.0f, 1);
+        auto spawn = Spawn::create(animate, jumpTo, NULL);
         auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
         auto sequence = Sequence::create(spawn, callFunc, NULL);
-        sequence->setTag(ACTION_2_STAND_JUMP);
+        sequence->setTag(OP_GPS_ACTION_2_STAND_JUMP);
         this->sprite->runAction(sequence);
     }
 }
@@ -142,14 +118,14 @@ void Fighter::stand_jump(Vec2 direction)
 void Fighter::stand_moveback()
 {
     
-    if(!(this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
         auto animate = Animate::create(animation);
-//        animate->setDuration(ACTION_1_MOVE_DURATION);
+        //        animate->setDuration(ACTION_1_MOVE_DURATION);
         auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_STAND_MOVEBACK);
+        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
@@ -160,13 +136,13 @@ void Fighter::stand_moveback()
 void Fighter::stand_moveforward()
 {
     
-    if(!(this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
         auto animate = Animate::create(animation);
         auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_STAND_MOVEFORWARD);
+        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
@@ -179,13 +155,13 @@ void Fighter::stand_moveforward()
 
 void Fighter::squat()
 {
-    if (!(this->sprite->getActionByTag(ACTION_1_SQUAT)))
+    if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)))
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT)%name).str());
         auto animate = Animate::create(animation);
         auto repeat = RepeatForever::create(animate);
-        repeat->setTag(ACTION_1_SQUAT);
+        repeat->setTag(OP_GPS_ACTION_1_SQUAT);
         this->sprite->runAction(repeat);
         
     }
@@ -193,14 +169,14 @@ void Fighter::squat()
 
 void Fighter::squat_down()
 {
-    if (!(this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)) && !(this->sprite->getActionByTag(ACTION_1_SQUAT)) && isActionStoppable())
+    if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_DOWN)) && !(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_DOWN)%name).str());
         auto animate = Animate::create(animation);
         auto func = CallFunc::create([&]{this->sprite->stopAllActions();this->squat();});
         auto sequence = Sequence::create(animate, func, NULL);
-        sequence->setTag(ACTION_1_SQUAT_DOWN);
+        sequence->setTag(OP_GPS_ACTION_1_SQUAT_DOWN);
         this->sprite->runAction(sequence);
     }
 }
@@ -213,13 +189,13 @@ void Fighter::squat_hit()
 
 void Fighter::squat_moveback()
 {
-    if(!(this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)) && isActionStoppable())
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
         auto animate = Animate::create(animation);
         auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_SQUAT_MOVEBACK);
+        animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK);
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
@@ -229,13 +205,13 @@ void Fighter::squat_moveback()
 
 void Fighter::squat_moveforward()
 {
-    if(!(this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
         auto animate = Animate::create(animation);
         auto animateForever = RepeatForever::create(animate);
-        animateForever->setTag(ACTION_1_SQUAT_MOVEFORWARD);
+        animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
@@ -294,9 +270,9 @@ void Fighter::kick1()
         };
         auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
         if(!isSquat())
-            sequence->setTag(ACTION_2_STAND_KICK1);
+            sequence->setTag(OP_GPS_ACTION_2_STAND_KICK1);
         else
-            sequence->setTag(ACTION_2_SQUAT_KICK1);
+            sequence->setTag(OP_GPS_ACTION_2_SQUAT_KICK1);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     }
@@ -322,9 +298,9 @@ void Fighter::kick2()
         };
         auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
         if(!isSquat())
-            sequence->setTag(ACTION_2_STAND_KICK2);
+            sequence->setTag(OP_GPS_ACTION_2_STAND_KICK2);
         else
-            sequence->setTag(ACTION_2_SQUAT_KICK2);
+            sequence->setTag(OP_GPS_ACTION_2_SQUAT_KICK2);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     }
@@ -350,9 +326,9 @@ void Fighter::punch1()
         };
         auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
         if(!isSquat())
-            sequence->setTag(ACTION_2_STAND_PUNCH1);
+            sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH1);
         else
-            sequence->setTag(ACTION_2_SQUAT_PUNCH1);
+            sequence->setTag(OP_GPS_ACTION_2_SQUAT_PUNCH1);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     }
@@ -378,9 +354,9 @@ void Fighter::punch2()
         };
         auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
         if(!isSquat())
-            sequence->setTag(ACTION_2_STAND_PUNCH2);
+            sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH2);
         else
-            sequence->setTag(ACTION_2_SQUAT_PUNCH2);
+            sequence->setTag(OP_GPS_ACTION_2_SQUAT_PUNCH2);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     }
@@ -389,21 +365,21 @@ void Fighter::punch2()
 
 bool Fighter::isStand()
 {
-    if(this->sprite->getActionByTag(ACTION_1_STAND))
+    if(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND))
         return true;
     return false;
 }
 
 bool Fighter::isSquat()
 {
-    if (   this->sprite->getActionByTag(ACTION_1_SQUAT)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)
-        || this->sprite->getActionByTag(ACTION_2_SQUAT_PUNCH1)
-        || this->sprite->getActionByTag(ACTION_2_SQUAT_PUNCH2)
-        || this->sprite->getActionByTag(ACTION_2_SQUAT_KICK1)
-        || this->sprite->getActionByTag(ACTION_2_SQUAT_KICK2)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)
+    if (   this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_DOWN)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_PUNCH1)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_PUNCH2)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_KICK1)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_KICK2)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)
         )
         return true;
     
@@ -412,18 +388,17 @@ bool Fighter::isSquat()
 
 bool Fighter::isActionStoppable()
 {
-    if (   this->sprite->getActionByTag(ACTION_1_STAND_MOVEBACK)
-        || this->sprite->getActionByTag(ACTION_1_STAND_MOVEFORWARD)
-        || this->sprite->getActionByTag(ACTION_1_STAND)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_DOWN)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEBACK)
-        || this->sprite->getActionByTag(ACTION_1_SQUAT_MOVEFORWARD)
-         )
+    if (   this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_DOWN)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)
+        )
         return true;
     return false;
 }
-
 
 
 
