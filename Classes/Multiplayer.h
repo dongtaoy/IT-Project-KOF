@@ -64,6 +64,7 @@ public:
     static bool isCommandValid(int, command_t);
     static std::string buildMessage(int scene, int op, std::string properties="");
     static std::string buildProperties(std::initializer_list<std::string> properties);
+    static Point extractPos(std::string properties);
     static bool isPlayer(std::string name);
 private:
     static Multiplayer* _instance;

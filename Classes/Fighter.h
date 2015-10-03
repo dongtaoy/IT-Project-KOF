@@ -36,8 +36,8 @@ public:
     void stand();
     void stand_hit();
     void stand_jump(int);
-    void stand_moveback(int);
-    void stand_moveforward(int);
+    void stand_moveback();
+    void stand_moveforward();
     
     void start();
     void win();
@@ -49,8 +49,6 @@ public:
     
     void punch1();
     void punch2();
-    
-    bool checkBoundary(int);
     
     
     void update(float);
@@ -68,9 +66,9 @@ public:
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
     
-//    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
-//    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);
-//private:
+    //    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
+    //    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);
+    //private:
     
     
     

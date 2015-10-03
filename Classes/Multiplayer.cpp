@@ -101,7 +101,7 @@ void Multiplayer::unsubsribeRoom(MultiplayerCallback* cb)
 
 void Multiplayer::sendChat(int scene, int op, std::string properties)
 {
-
+    
     AppWarp::Client::getInstance()->sendChat(
                                             std::to_string(scene) + ';'
                                             + std::to_string(op) + ';'
@@ -111,12 +111,14 @@ void Multiplayer::sendChat(int scene, int op, std::string properties)
 
 void Multiplayer::sendChat(std::string message)
 {
+    
     Multiplayer* m = Multiplayer::getInstance();
-    if (m->isSuccessSent)
-    {
-        AppWarp::Client::getInstance()->sendChat(message);
-    }
-
+    if (!message.compare(m->prevMessage))
+        return;
+    CCLOG("sending %s", message.c_str());
+    m->prevMessage = message;
+    AppWarp::Client::getInstance()->sendChat(message);
+    
 }
 
 void Multiplayer::recoverConnection()
@@ -130,6 +132,14 @@ bool Multiplayer::isPlayer(std::string name)
 {
     return !Multiplayer::getInstance()->getUsername().compare(name);
 }
+
+
+Point Multiplayer::extractPos(std::string properties)
+{
+    std::vector<std::string> value = GameHelper::split(properties, '%');
+    return Point(std::stof(value.at(0).c_str()), std::stof(value.at(1)));
+}
+
 
 /**
  * The state of the Client. Values are -

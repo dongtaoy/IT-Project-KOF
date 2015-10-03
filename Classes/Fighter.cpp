@@ -16,7 +16,7 @@ Fighter::Fighter(Sprite* sprite, std::string name)
     this->sprite = sprite;
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
     this->start();
-   
+    
 }
 
 
@@ -27,40 +27,6 @@ void Fighter::update(float)
     auto opponentBox = opponent->getBoundingBox();
     auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
-//    if (getPosition().x)
-//    CCLOG("PLAYER")
-    
-//    if ((std::abs(this->getPosition().x - opponent->getPosition().x) + playerBox.size.width / 2 + opponentBox.size.width / 2 + 2 * CAMERA_FIGHTER_OFFSET ) * this->sprite->getParent()->getScaleX() > visibleSize.width)
-//    {
-//        if (this->getPosition().x > opponent->getPosition().x)
-//        {
-//            auto x = visibleSize.width / this->getParent()->getScaleX() + opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
-//            this->setPosition(Vec2(x-5, this->getPosition().y));
-//        }
-//        else
-//        {
-//            auto x = visibleSize.width / this->getParent()->getScaleX() - opponent->getPosition().x - playerBox.size.width / 2 - opponentBox.size.width / 2 - 2 * CAMERA_FIGHTER_OFFSET;
-//            this->setPosition(Vec2(-x+5, this->getPosition().y));
-//        }
-//    }
-    
-//    CCLOG("%f %f ", visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET, this->getScreenPosition().x);
-//    
-//    if (std::abs(this->getScreenPosition().x - opponent->getScreenPosition().x) + (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() + 2 * CAMERA_FIGHTER_OFFSET > visibleSize.width )
-//    {
-//        CCLOG("in");
-//        if (this->getPosition().x > opponent->getPosition().x)
-//        {
-//            auto x = visibleSize.width + opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET;
-//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(x, this->getScreenPosition().y)));
-//        }
-//        else
-//        {
-//            auto x = visibleSize.width - opponent->getScreenPosition().x - (opponentBox.size.width/2 + playerBox.size.width/2) * this->getParent()->getScaleX() - 2 * CAMERA_FIGHTER_OFFSET;
-//            this->setPosition(this->getParent()->convertToNodeSpace(Vec2(-x, this->getScreenPosition().y)));
-//        }
-//        
-//    }
     
     if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
     {
@@ -72,6 +38,15 @@ void Fighter::update(float)
         this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
     }
     
+    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
+    {
+        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
+    
+    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
+    {
+        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
     
 }
 
@@ -123,69 +98,55 @@ void Fighter::stand_hit()
 
 void Fighter::stand_jump(int distance)
 {
-    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
+    
+    if(isActionStoppable())
     {
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_JUMP)%name).str());
         auto animate = Animate::create(animation);
-        animate->setTag(OP_GPS_ACTION_2_STAND_JUMP);
-        this->sprite->runAction(animate);
-        JumpBy* jumpBy;
-        if (checkBoundary(distance))
-            jumpBy = JumpBy::create(animate->getDuration(), Vec2(distance, 0), 300.0f, 1);
-        else
-            jumpBy = JumpBy::create(animate->getDuration(), Vec2(0, 0), 300.0f, 1);
-        jumpBy->setTag(ACTION_UNSTOPPABLE);
-        this->sprite->runAction(jumpBy);
+        auto jumpTo = JumpTo::create(animate->getDuration(), Vec2(getPosition().x + distance, getPosition().y), 300.0f, 1);
+        auto spawn = Spawn::create(animate, jumpTo, NULL);
+        auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
+        auto sequence = Sequence::create(spawn, callFunc, NULL);
+        sequence->setTag(OP_GPS_ACTION_2_STAND_JUMP);
+        this->sprite->runAction(sequence);
     }
 }
 
 
 
-void Fighter::stand_moveback(int x)
-{
-    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
-    {
-        if (!this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK))
-        {
-            this->sprite->stopAllActions();
-            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
-            auto animate = Animate::create(animation);
-            auto animateForever = RepeatForever::create(animate);
-            animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
-            this->sprite->runAction(animateForever);
-        }
-        if (checkBoundary(-ACTION_MOVE_SPEED))
-        {
-            auto moveTo = MoveTo::create(0.2f, Vec2(x, getPosition().y));
-            //            auto moveby = MoveBy::create(0.2f, Vec2(ACTION_?MOVE_SPEED, 0));
-            //            moveby->setTag(ACTION_UNSTOPPABLE);
-            this->sprite->runAction(moveTo);
-        }
-    }
-}
-
-void Fighter::stand_moveforward(int x)
+void Fighter::stand_moveback()
 {
     
-    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
     {
-        if (!this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD))
-        {
-            this->sprite->stopAllActions();
-            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
-            auto animate = Animate::create(animation);
-            auto animateForever = RepeatForever::create(animate);
-            animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-            this->sprite->runAction(animateForever);
-        }
-        if (checkBoundary(ACTION_MOVE_SPEED))
-        {
-            auto moveTo = MoveTo::create(0.2f, Vec2(x, getPosition().y));
-//            auto moveby = MoveBy::create(0.2f, Vec2(ACTION_?MOVE_SPEED, 0));
-//            moveby->setTag(ACTION_UNSTOPPABLE);
-            this->sprite->runAction(moveTo);
-        }
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
+        auto animate = Animate::create(animation);
+        //        animate->setDuration(ACTION_1_MOVE_DURATION);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
+    }
+}
+
+void Fighter::stand_moveforward()
+{
+    
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
+    {
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
+        auto animate = Animate::create(animation);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
     }
 }
 
@@ -228,45 +189,33 @@ void Fighter::squat_hit()
 
 void Fighter::squat_moveback()
 {
-    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)) && isActionStoppable())
     {
-        if (!this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK))
-        {
-            this->sprite->stopAllActions();
-            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
-            auto animate = Animate::create(animation);
-            auto animateForever = RepeatForever::create(animate);
-            animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-            this->sprite->runAction(animateForever);
-        }
-        if (checkBoundary(-ACTION_MOVE_SPEED))
-        {
-            auto moveby = MoveBy::create(0.2f, Vec2(-ACTION_MOVE_SPEED, 0));
-            moveby->setTag(ACTION_UNSTOPPABLE);
-            this->sprite->runAction(moveby);
-        }
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
+        auto animate = Animate::create(animation);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
     }
 }
 
 void Fighter::squat_moveforward()
 {
-    if (!this->sprite->getActionByTag(ACTION_UNSTOPPABLE))
+    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
     {
-        if (!this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD))
-        {
-            this->sprite->stopAllActions();
-            auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
-            auto animate = Animate::create(animation);
-            auto animateForever = RepeatForever::create(animate);
-            animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-            this->sprite->runAction(animateForever);
-        }
-        if (checkBoundary(ACTION_MOVE_SPEED))
-        {
-            auto moveby = MoveBy::create(0.2f, Vec2(ACTION_MOVE_SPEED, 0));
-            moveby->setTag(ACTION_UNSTOPPABLE);
-            this->sprite->runAction(moveby);
-        }
+        this->sprite->stopAllActions();
+        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
+        auto animate = Animate::create(animation);
+        auto animateForever = RepeatForever::create(animate);
+        animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
+        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
+        auto movebyForever = RepeatForever::create(moveby);
+        this->sprite->runAction(animateForever);
+        this->sprite->runAction(movebyForever);
     }
 }
 
@@ -439,39 +388,17 @@ bool Fighter::isSquat()
 
 bool Fighter::isActionStoppable()
 {
-    if (
-        this->sprite->getNumberOfRunningActions() == 1
-        && (this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)
+    if (   this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_DOWN)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)
-        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD))
-         )
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)
+        )
         return true;
     return false;
 }
-
-bool Fighter::checkBoundary(int displacement)
-{
-    auto ox = opponent->getPosition().x;
-    auto px = getPosition().x + displacement;
-    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
-    auto playerBox = this->getBoundingBox();
-    
-    if (px + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
-        return false;
-    
-    if (px - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
-        return false;
-    
-    CCLOG("%f %f %f", ox, px, std::abs(ox - px));
-    if (std::abs(ox - px) > 650)
-        return false;
-    return true;
-}
-
 
 
 

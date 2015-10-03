@@ -154,84 +154,65 @@ void GamePlayScene::processCommand(command_t cmd)
 {
     if(Multiplayer::isCommandValid(MP_GAME_PLAY_SCNE, cmd))
     {
+        if (!Multiplayer::isPlayer(cmd.sender))
+        {
         switch (cmd.operation) {
             case OP_GPS_ACTION_2_STAND_PUNCH1:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->punch1();
-                else
-                    opponent->punch1();
+                opponent->setPosition(Multiplayer::extractPos(cmd.properties));
+                opponent->punch1();
                 break;
             case OP_GPS_ACTION_2_STAND_PUNCH2:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->punch2();
-                else
-                    opponent->punch2();
+                opponent->setPosition(Multiplayer::extractPos(cmd.properties));
+                opponent->punch2();
                 break;
                 
             case OP_GPS_ACTION_2_STAND_KICK1:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->kick1();
-                else
-                    opponent->kick1();
+                opponent->setPosition(Multiplayer::extractPos(cmd.properties));
+                opponent->kick1();
                 break;
                 
             case OP_GPS_ACTION_2_STAND_KICK2:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->kick2();
-                else
-                    opponent->kick2();
+                opponent->setPosition(Multiplayer::extractPos(cmd.properties));
+                opponent->kick2();
                 break;
+            
             case OP_GPS_ACTION_1_STAND:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->stand();
-                else
-                    opponent->stand();
+                opponent->setPosition(Multiplayer::extractPos(cmd.properties));
+                opponent->stand();
                 break;
                 
             case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->stand_moveforward(atoi(cmd.properties.c_str()));
-                else
-                    opponent->stand_moveforward(atoi(cmd.properties.c_str()));
+                    opponent->stand_moveforward();
                 break;
                 
             case OP_GPS_ACTION_1_STAND_MOVEBACK:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->stand_moveback(atoi(cmd.properties.c_str()));
-                else
-                    opponent->stand_moveback(atoi(cmd.properties.c_str()));
+                    opponent->stand_moveback();
                 break;
                 
             case OP_GPS_ACTION_2_STAND_JUMP:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->stand_jump(atoi(cmd.properties.c_str()));
-                else
-                    opponent->stand_jump(atoi(cmd.properties.c_str()));
+                opponent->stand_jump(atoi(GameHelper::split(cmd.properties, '%').at(0).c_str()));
+//                if (Multiplayer::isPlayer(cmd.sender))
+//                    player->stand_jump(Vec2(atoi(cmd.properties.c_str()));
+//                else
+//                    opponent->stand_jump(atoi(cmd.properties.c_str()));
                 break;
                 
             case OP_GPS_ACTION_1_SQUAT_DOWN:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->squat_down();
-                else
+                    opponent->setPosition(Multiplayer::extractPos(cmd.properties));
                     opponent->squat_down();
                 break;
             
             case OP_GPS_ACTION_1_SQUAT_MOVEFORWARD:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->squat_moveforward();
-                else
                     opponent->squat_moveforward();
                 break;
                 
             case OP_GPS_ACTION_1_SQUAT_MOVEBACK:
-                if (Multiplayer::isPlayer(cmd.sender))
-                    player->squat_moveback();
-                else
                     opponent->squat_moveback();
                 break;
                 
             default:
                 break;
+        }
         }
     }
 }
@@ -244,127 +225,123 @@ void GamePlayScene::update(float dt)
     
     if (!Multiplayer::getInstance()->isCommandsEmpty())
     {
-        processCommand(Multiplayer::getInstance()->popCommands());
+        if (opponent->isActionStoppable())
+            processCommand(Multiplayer::getInstance()->popCommands());
     }
-//
     
+    auto pos = player->getPosition();
+    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});;
     
-    int operation = 0;
-    std::string properties;
+    std::string message;
     
     // stand move forward
     if (angle > 337.5f || angle <  22.5f)
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-        operation = OP_GPS_ACTION_1_STAND_MOVEFORWARD;
-        properties = std::to_string(int(player->getPosition().x + ACTION_MOVE_SPEED));
-//        player->stand_moveforward();
-    }
-    
-    // jump
-    if (angle >  22.5f && angle < 157.5f)
-    {
-        int distance = point.x * 200;
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_JUMP, std::to_string(distance));
-        
-        operation = OP_GPS_ACTION_2_STAND_JUMP;
-        properties = std::to_string(distance);
-//        player->stand_jump(point.x * 200);
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+        player->stand_moveforward();
     }
     
     // stand move back
     if (angle > 157.5f && angle < 202.5f)
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
-        
-        operation = OP_GPS_ACTION_1_STAND_MOVEBACK;
-        properties = std::to_string(int(player->getPosition().x - ACTION_MOVE_SPEED));
-//        player->stand_moveback();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
+        player->stand_moveback();
+    }
+    // stand
+    
+    
+    // jump
+    if (angle >  22.5f && angle < 157.5f)
+    {
+        if (player->isActionStoppable())
+        {
+            int distance = point.x * ACTION_MOVE_SPEED;
+            message = Multiplayer::buildMessage(
+                                                MP_GAME_PLAY_SCNE,
+                                                OP_GPS_ACTION_2_STAND_JUMP,
+                                                Multiplayer::buildProperties({std::to_string(distance)}));
+            CCLOG("sending jump %s", message.c_str());
+            player->stand_jump(distance);
+        }
     }
     
-    
+
     
     // squat moveback
     if (angle > 202.5f && angle < 247.5f)
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-        
-        operation = OP_GPS_ACTION_1_SQUAT_MOVEBACK;
-//        player->squat_moveback();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
+        player->squat_moveback();
     }
-    
+
     // squat
     if (angle > 247.5f && angle < 292.5f)
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN);
-
-        operation = OP_GPS_ACTION_1_SQUAT_DOWN;
-//        player->squat_down();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN, properties);
+        player->squat_down();
     }
-    
+
     if (angle > 292.5f && angle < 337.5f)
     {
-        operation = OP_GPS_ACTION_1_SQUAT_MOVEFORWARD;
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);s
-//        player->squat_moveforward();
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
+        player->squat_moveforward();
     }
-//    
-    if (std::isnan(angle))
-    {
-        operation = OP_GPS_ACTION_1_STAND;
-//        player->stand();
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND);
-    }
+    
+
     
     
     if (buttonA->getIsActive())
     {
-        operation = OP_GPS_ACTION_2_STAND_PUNCH1;
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH1);
-//                player->punch1();
+        if (player->isActionStoppable())
+        {
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH1, properties);
+            player->punch1();
+        }
     }
-    
+
     if (buttonB->getIsActive())
     {
-        operation = OP_GPS_ACTION_2_STAND_PUNCH2;
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH2);
-//                player->punch2();
+        if (player->isActionStoppable())
+        {
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH2, properties);
+            player->punch2();
+        }
     }
-    
+
     if (buttonC->getIsActive())
     {
-        operation = OP_GPS_ACTION_2_STAND_KICK1;
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1);
-//                player->kick1();
+        if (player->isActionStoppable())
+        {
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1, properties);
+            player->kick1();
+    
+        }
     }
     
     if (buttonD->getIsActive())
     {
-        operation = OP_GPS_ACTION_2_STAND_KICK2;
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK2);
-//                player->kick2();
-    }
-    
-    
-    accumilatedTime = accumilatedTime + dt * 1000;
-    if (accumilatedTime > GAME_FRAME_DELAY) {
-        if (operation && player->isActionStoppable())
+        if (player->isActionStoppable())
         {
-            
-            std::string message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, operation, properties);
-            if (!(operation == prevOperation && prevOperation == OP_GPS_ACTION_1_STAND))
-            {
-                prevOperation = operation;
-                Multiplayer::sendChat(message);
-            }
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK2, properties);
+            player->kick2();
         }
-        accumilatedTime = accumilatedTime - GAME_FRAME_DELAY;
     }
-//    CCLOG("player %f OPPONENT %f diff %f",  player->getPosition().x, opponent->getPosition().x, std::abs(player->getPosition().x-opponent->getPosition().x));
-//    player->update(dt);
-//    opponent->update(dt);
-//    player->stand();
-//    opponent->stand();
+    if (std::isnan(angle))
+    {
+        if (player->isActionStoppable()) {
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
+            player->stand();
+        }
+        
+        
+    }
+
+    
+    player->update(dt);
+    opponent->update(dt);
+    
+    if(message.compare(""))
+        Multiplayer::sendChat(message);
     camera->update(dt);
     
     

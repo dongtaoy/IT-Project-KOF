@@ -192,7 +192,7 @@
 
 
 
-#define ACTION_MOVE_SPEED                   50
+#define ACTION_MOVE_SPEED                   200
 #define ACTION_1_MOVE_DURATION              .7f
 
 
@@ -201,6 +201,7 @@
 // Camera
 #define CAMERA_MOVE_THRESHOLD               150
 #define CAMERA_FIGHTER_OFFSET               10
+#define SCREEN_FIGHTER_OFFSET               140
 #define GAME_FRAME_DELAY                    50
 
 struct command_t
