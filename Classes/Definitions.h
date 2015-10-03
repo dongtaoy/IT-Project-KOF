@@ -207,19 +207,27 @@
 //GamePlayScene
 //Physics
 
-#define Character_Gravity_X                 0.0f
-#define Character_Gravity_Y                 -200.0f
-#define Physic_Edge_Offset                  350.0f
-#define Character1_bitmask                  1
-#define Character2_bitmask                  2
-#define Character_Edge_Offset               50.0f
-#define Physic_Box_Density                  1.0f
-#define Physic_Box_Restitution              0.0f
-#define Physic_Box_Friction                 1.0f
-#define Punch1_damage                       3
-#define Punch2_damage                       4
-#define Kick1_damage                        3
-#define Kick2_damage                        4
+#define GRAVITY_X                           0.0f
+#define GRAVITY_Y                           -200.0f
+
+#define PUNCH1_DAMAGE                       3
+#define PUNCH2_DAMAGE                       4
+#define KICK1_DAMAGE                        5
+#define KICK2_DAMAGE                        6
+
+//#define Character_Gravity_X                 0.0f
+//#define Character_Gravity_Y                 -200.0f
+//#define Physic_Edge_Offset                  350.0f
+//#define Character1_bitmask                  1
+//#define Character2_bitmask                  2
+//#define Character_Edge_Offset               50.0f
+//#define Physic_Box_Density                  1.0f
+//#define Physic_Box_Restitution              0.0f
+//#define Physic_Box_Friction                 1.0f
+//#define Punch1_damage                       3
+//#define Punch2_damage                       4
+//#define Kick1_damage                        3
+//#define Kick2_damage                        4
 
 
 struct command_t

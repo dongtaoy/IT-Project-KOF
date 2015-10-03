@@ -18,7 +18,7 @@ Scene* GamePlayScene::createScene()
     scene->getPhysicsWorld()->setDebugDrawMask( PhysicsWorld::DEBUGDRAW_ALL );
     
     //set the gravity (0.0f, -98.0f) is the default value. change to -200 for y axis is perfect value
-    scene->getPhysicsWorld()->setGravity( Vec2(Character_Gravity_X, Character_Gravity_Y));
+    scene->getPhysicsWorld()->setGravity( Vec2(GRAVITY_X, GRAVITY_Y));
     //    scene->getPhysicsWorld()->setAutoStep(true);
 
     
@@ -26,7 +26,7 @@ Scene* GamePlayScene::createScene()
     
     // 'layer' is an autorelease object
     auto layer = GamePlayScene::create();
-    layer->SetPhysicsWorld(scene->getPhysicsWorld());
+    layer->setWorld(scene->getPhysicsWorld());
     
     
     // add layer as a child to scene
@@ -51,6 +51,11 @@ bool GamePlayScene::init()
 
     
     auto node = CSLoader::createNode("GamePlay.csb");
+    auto size = node->getBoundingBox().size;
+    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
+    
+    node->setPhysicsBody(physicsBody);
+    
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     this->background = node->getChildByName<Sprite*>("background");
     this->addChild(node);
@@ -58,49 +63,45 @@ bool GamePlayScene::init()
 //    auto tempNode = this->getChildByName(GAME_PLAY_SCENE);
 //    auto countDown = tempNode->getChildByName<Text*>("countDown");
 //    countDown->setString(std::to_string(10));
-    
+    auto leftHp = this->getChildByName("GamePlayScene")->getChildByName<LoadingBar*>("playerLeftHP");
+    auto rightHp = this->getChildByName("GamePlayScene")->getChildByName<LoadingBar*>("playerRightHP");
     
 
 //     TODO: WITH MULTIPLAYER
     if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
     {
-        this->player = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getUserCharacter());
+        this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, Multiplayer::getInstance()->getUserCharacter(), false);
         node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
         
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getOpponentCharacter());
+        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, Multiplayer::getInstance()->getOpponentCharacter(), true);
         node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
     
     }
     else
     {
-        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
+        this->player = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, Multiplayer::getInstance()->getUserCharacter(), true);
         node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
         
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
+        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, Multiplayer::getInstance()->getOpponentCharacter(), false);
         node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
     }
     
-    // TODO: WITHOUT MULTIPLAYER
+//     TODO: WITHOUT MULTIPLAYER
 //    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
 //    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
 //
+
 //    
 //    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
 //    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-//    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+//    this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, "character1", false);
 //    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
-//    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+//    this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, "character1", true);
 //    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
-//
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character5").str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character5").str());
-//    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character5");
-//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character5").str(), Widget::TextureResType::PLIST);
-//    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character5");
-//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character5").str(), Widget::TextureResType::PLIST);
-//
-//
-//
+
+    
+
+
     
     
     player->setOpponent(opponent);
@@ -110,27 +111,21 @@ bool GamePlayScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto edgeBody = PhysicsBody::createEdgeBox( visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3 );
     
-    auto edgeNode = Node::create();
-    edgeNode ->setPosition( Point( visibleSize.width / 2 + origin.x,  float( player->getSprite()->getPosition().y)+ visibleSize.height- Physic_Edge_Offset));
-    edgeNode->setPhysicsBody( edgeBody );
-    
-    this->addChild( edgeNode );
     /////////////////////////////////////////////////////////////////
     
     //get width and height for two characters
-    float x1 = player->getSprite()->getBoundingBox().size.width;
-    float y1 = player->getSprite()->getBoundingBox().size.height;
-    float x2 = opponent->getSprite()->getBoundingBox().size.width;
-    float y2 = opponent->getSprite()->getBoundingBox().size.height;
-    
-    
+//    float x1 = player->getSprite()->getBoundingBox().size.width;
+//    float y1 = player->getSprite()->getBoundingBox().size.height;
+//    float x2 = opponent->getSprite()->getBoundingBox().size.width;
+//    float y2 = opponent->getSprite()->getBoundingBox().size.height;
+//    
+//    
     //get the distance between two characters
 //    float characterDistance = opponent->getSprite()->getPositionX() - player->getSprite()->getPositionX();
     //add physci edge box for characters
-    addEdgeBoxForCharacter(player->getSprite(),x1,y1,Character1_bitmask);
-    addEdgeBoxForCharacter(opponent->getSprite(),x2,y2,Character2_bitmask);
+//    addEdgeBoxForCharacter(player->getSprite(),x1,y1,Character1_bitmask);
+//    addEdgeBoxForCharacter(opponent->getSprite(),x2,y2,Character2_bitmask);
     
   
     
@@ -149,9 +144,9 @@ bool GamePlayScene::init()
     
     
     //add event listener
-    auto contactListener = EventListenerPhysicsContact::create();
-    contactListener->onContactBegin = CC_CALLBACK_1(GamePlayScene::onContactBegin, this);
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+//    auto contactListener = EventListenerPhysicsContact::create();
+//    contactListener->onContactBegin = CC_CALLBACK_1(GamePlayScene::onContactBegin, this);
+//    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 //    auto contactListenr1 = EventListenerCustom::create(characterTooClose, characterTooClose(characterDistance,closeDistance));
 //    auto contactListener1 = EventListenerCustom::create(character, characterTooClose(characterDistance, closeDistance));
@@ -222,24 +217,21 @@ void GamePlayScene::processCommand(command_t cmd)
                 break;
             
             case OP_GPS_ACTION_1_STAND:
+                player->gethealth()->setPercent(std::atoi(GameHelper::split(cmd.properties, '%').at(2).c_str()));
                 opponent->setPosition(Multiplayer::extractPos(cmd.properties));
                 opponent->stand();
                 break;
                 
             case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
-                    opponent->stand_moveforward();
+                opponent->stand_moveforward();
                 break;
                 
             case OP_GPS_ACTION_1_STAND_MOVEBACK:
-                    opponent->stand_moveback();
+                opponent->stand_moveback();
                 break;
                 
             case OP_GPS_ACTION_2_STAND_JUMP:
                 opponent->stand_jump(atoi(GameHelper::split(cmd.properties, '%').at(0).c_str()));
-//                if (Multiplayer::isPlayer(cmd.sender))
-//                    player->stand_jump(Vec2(atoi(cmd.properties.c_str()));
-//                else
-//                    opponent->stand_jump(atoi(cmd.properties.c_str()));
                 break;
                 
             case OP_GPS_ACTION_1_SQUAT_DOWN:
@@ -305,7 +297,6 @@ void GamePlayScene::update(float dt)
                                                 MP_GAME_PLAY_SCNE,
                                                 OP_GPS_ACTION_2_STAND_JUMP,
                                                 Multiplayer::buildProperties({std::to_string(distance)}));
-            CCLOG("sending jump %s", message.c_str());
             player->stand_jump(distance);
         }
     }
@@ -374,7 +365,8 @@ void GamePlayScene::update(float dt)
     if (std::isnan(angle))
     {
         if (player->isActionStoppable()) {
-            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
+            auto p = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y), std::to_string(opponent->gethealth()->getPercent())});
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, p);
             player->stand();
         }
         
@@ -469,9 +461,9 @@ void GamePlayScene::createBackgroundAnimation()
     CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     
     //     TODO: WITH MULTIPLAYER
-    //    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
+    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
     // TODO: WITHOUT MULTIPLAYER
-    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+//    auto animation = AnimationCache::getInstance()->getAnimation("background1");
     
     Size targetSize = Size( 2305.0f, 750.0f );
     Size backgroundSize = background->getContentSize();
@@ -508,16 +500,16 @@ void GamePlayScene::addEdgeBoxForCharacter(Node* sprite, float x, float y, int b
     //    this->addChild(sprite);
     
     //add physic body for characters
-    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
-    sprite->setPhysicsBody(body);
-    
-    //set colission detect
-    body->setCollisionBitmask(bitmask);
-    body->setContactTestBitmask(true);
-    
-    //keep character still
-    body->setRotationEnable(false);
-    body->setGravityEnable(true);
+//    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
+//    sprite->setPhysicsBody(body);
+//    
+//    //set colission detect
+//    body->setCollisionBitmask(bitmask);
+//    body->setContactTestBitmask(true);
+//    
+//    //keep character still
+//    body->setRotationEnable(false);
+//    body->setGravityEnable(true);
     
     
 }
@@ -528,11 +520,11 @@ bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
     PhysicsBody *b = contact.getShapeB()->getBody();
     
     // check if the bodies have collided
-    if ( ( Character1_bitmask == a->getCollisionBitmask() && Character2_bitmask == b->getCollisionBitmask() ) || ( Character2_bitmask == a->getCollisionBitmask() && Character1_bitmask == b->getCollisionBitmask() ) )
-    {
-        CCLOG( "COLLISION HAS OCCURED" );
-        updatePlayerHp();
-    }
+//    if ( ( Character1_bitmask == a->getCollisionBitmask() && Character2_bitmask == b->getCollisionBitmask() ) || ( Character2_bitmask == a->getCollisionBitmask() && Character1_bitmask == b->getCollisionBitmask() ) )
+//    {
+//        CCLOG( "COLLISION HAS OCCURED" );
+//        updatePlayerHp();
+//    }
     
    
     
@@ -544,40 +536,40 @@ bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
 
 void GamePlayScene::updatePlayerHp()
 {
-    //get player health bar
-    ui::LoadingBar* playerHp = static_cast<ui::LoadingBar*>(this->getChildByName("GamePlayScene")->getChildByName("playerRightHP"));
-    
-    //amount of damage caused by punch1
-    if (buttonA->getIsActive())
-    {
-    
-        float percent = playerHp->getPercent();
-        playerHp->setPercent(percent - Punch1_damage);
-    }
-    
-    //amount of damage caused by punch2
-    if (buttonB->getIsActive())
-    {
-        
-        float percent = playerHp->getPercent();
-        playerHp->setPercent(percent - Punch2_damage);
-    }
-    
-    //amount of damage caused by kick1
-    if (buttonC->getIsActive())
-    {
-        
-        float percent = playerHp->getPercent();
-        playerHp->setPercent(percent - Kick1_damage);
-    }
-    
-    //amount of damage caused by kick2
-    if (buttonD->getIsActive())
-    {
-        
-        float percent = playerHp->getPercent();
-        playerHp->setPercent(percent - Kick2_damage);
-    }
-    
+//    //get player health bar
+//    ui::LoadingBar* playerHp = static_cast<ui::LoadingBar*>(this->getChildByName("GamePlayScene")->getChildByName("playerRightHP"));
+//    
+//    //amount of damage caused by punch1
+//    if (buttonA->getIsActive())
+//    {
+//    
+//        float percent = playerHp->getPercent();
+//        playerHp->setPercent(percent - Punch1_damage);
+//    }
+//    
+//    //amount of damage caused by punch2
+//    if (buttonB->getIsActive())
+//    {
+//        
+//        float percent = playerHp->getPercent();
+//        playerHp->setPercent(percent - Punch2_damage);
+//    }
+//    
+//    //amount of damage caused by kick1
+//    if (buttonC->getIsActive())
+//    {
+//        
+//        float percent = playerHp->getPercent();
+//        playerHp->setPercent(percent - Kick1_damage);
+//    }
+//    
+//    //amount of damage caused by kick2
+//    if (buttonD->getIsActive())
+//    {
+//        
+//        float percent = playerHp->getPercent();
+//        playerHp->setPercent(percent - Kick2_damage);
+//    }
+//    
 }
 

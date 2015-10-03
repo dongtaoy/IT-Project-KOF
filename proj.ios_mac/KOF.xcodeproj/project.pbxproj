@@ -749,7 +749,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
-					/usr/local/Cellar/boost/1.57.0/include,
+					/usr/local/Cellar/boost/1.58.0/include,
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -790,7 +790,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
-					/usr/local/Cellar/boost/1.57.0/include,
+					/usr/local/Cellar/boost/1.58.0/include,
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
