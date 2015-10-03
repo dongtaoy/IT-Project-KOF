@@ -20,7 +20,7 @@
 #define MAX_USERS 2
 
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener, public AppWarp::ChatRequestListener
 {
     
 
@@ -36,7 +36,7 @@ protected:
     CC_SYNTHESIZE(std::queue<command_t>, commands, Commands);
     CC_SYNTHESIZE(MultiplayerCallback*, callback, Callback);
     CC_SYNTHESIZE(std::string, prevMessage, PrevMessage);
-    
+    CC_SYNTHESIZE(bool, isSuccessSent, IsSuccessSent);
     
 public:
 #pragma mark Constructors
@@ -93,6 +93,9 @@ private:
 #pragma mark Zone Request Listener
     void onGetLiveRoomInfoDone(AppWarp::liveroom);
     void onCreateRoomDone(AppWarp::room);
+    
+#pragma mark Chat Request Listener
+    void onSendChatDone(int result);
     
 };
 

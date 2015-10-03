@@ -35,9 +35,9 @@ public:
     
     void stand();
     void stand_hit();
-    void stand_jump(cocos2d::Vec2);
-    void stand_moveback();
-    void stand_moveforward();
+    void stand_jump(int);
+    void stand_moveback(int);
+    void stand_moveforward(int);
     
     void start();
     void win();
@@ -50,7 +50,7 @@ public:
     void punch1();
     void punch2();
     
-    bool checkBoundary(bool);
+    bool checkBoundary(int);
     
     
     void update(float);
@@ -63,7 +63,6 @@ public:
     cocos2d::Rect getBoundingBox();
     cocos2d::Node* getParent();
     
-private:
     bool isStand();
     bool isSquat();
     bool isActionStoppable();

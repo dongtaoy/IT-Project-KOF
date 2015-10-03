@@ -53,43 +53,43 @@ bool GamePlayScene::init()
     
     
 //     TODO: WITH MULTIPLAYER
-//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
-//    {
-//        this->player = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getUserCharacter());
-//        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
-//        
-//        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getOpponentCharacter());
-//        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
-//    
-//    }
-//    else
-//    {
-//        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
-//        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
-//        
-//        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
-//        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
-//    }
+    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
+    {
+        this->player = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getUserCharacter());
+        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
+        
+        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getOpponentCharacter());
+        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
+    
+    }
+    else
+    {
+        this->player = new Fighter(background->getChildByName<Sprite*>("left"), Multiplayer::getInstance()->getUserCharacter());
+        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
+        
+        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), Multiplayer::getInstance()->getOpponentCharacter());
+        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
+    }
     
 
     // TODO: WITHOUT MULTIPLAYER
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
-
-    
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
-    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
-    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
-    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
-
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character5").str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character5").str());
-    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character5");
-    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character5").str(), Widget::TextureResType::PLIST);
-    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character5");
-    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character5").str(), Widget::TextureResType::PLIST);
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
+//
+//    
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
+//    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character1");
+//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
+//    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character1");
+//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
+//
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character5").str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character5").str());
+//    this->player = new Fighter(background->getChildByName<Sprite*>("left"), "character5");
+//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character5").str(), Widget::TextureResType::PLIST);
+//    this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), "character5");
+//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character5").str(), Widget::TextureResType::PLIST);
 //
 //
 //    
@@ -155,54 +155,79 @@ void GamePlayScene::processCommand(command_t cmd)
     if(Multiplayer::isCommandValid(MP_GAME_PLAY_SCNE, cmd))
     {
         switch (cmd.operation) {
-            case OP_GPS_BUTTON_A:
+            case OP_GPS_ACTION_2_STAND_PUNCH1:
                 if (Multiplayer::isPlayer(cmd.sender))
                     player->punch1();
                 else
                     opponent->punch1();
-                
                 break;
-            case OP_GPS_BUTTON_B:
+            case OP_GPS_ACTION_2_STAND_PUNCH2:
                 if (Multiplayer::isPlayer(cmd.sender))
-                    player->punch1();
+                    player->punch2();
                 else
                     opponent->punch2();
                 break;
                 
-            case OP_GPS_BUTTON_C:
+            case OP_GPS_ACTION_2_STAND_KICK1:
                 if (Multiplayer::isPlayer(cmd.sender))
                     player->kick1();
                 else
                     opponent->kick1();
                 break;
                 
-            case OP_GPS_BUTTON_D:
+            case OP_GPS_ACTION_2_STAND_KICK2:
                 if (Multiplayer::isPlayer(cmd.sender))
                     player->kick2();
                 else
                     opponent->kick2();
                 break;
-            case OP_GPS_STAND:
+            case OP_GPS_ACTION_1_STAND:
                 if (Multiplayer::isPlayer(cmd.sender))
                     player->stand();
                 else
                     opponent->stand();
-                //                        opponent->setPosition(Multiplayer::extractPos(cmd.properties));
-                
                 break;
                 
-            case OP_GPS_STAND_MOVEFORWARD:
+            case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
                 if (Multiplayer::isPlayer(cmd.sender))
-                    player->stand_moveforward();
+                    player->stand_moveforward(atoi(cmd.properties.c_str()));
                 else
-                    opponent->stand_moveforward();
+                    opponent->stand_moveforward(atoi(cmd.properties.c_str()));
                 break;
                 
-            case OP_GPS_STAND_MOVEBACK:
+            case OP_GPS_ACTION_1_STAND_MOVEBACK:
                 if (Multiplayer::isPlayer(cmd.sender))
-                    player->stand_moveback();
+                    player->stand_moveback(atoi(cmd.properties.c_str()));
                 else
-                    opponent->stand_moveback();
+                    opponent->stand_moveback(atoi(cmd.properties.c_str()));
+                break;
+                
+            case OP_GPS_ACTION_2_STAND_JUMP:
+                if (Multiplayer::isPlayer(cmd.sender))
+                    player->stand_jump(atoi(cmd.properties.c_str()));
+                else
+                    opponent->stand_jump(atoi(cmd.properties.c_str()));
+                break;
+                
+            case OP_GPS_ACTION_1_SQUAT_DOWN:
+                if (Multiplayer::isPlayer(cmd.sender))
+                    player->squat_down();
+                else
+                    opponent->squat_down();
+                break;
+            
+            case OP_GPS_ACTION_1_SQUAT_MOVEFORWARD:
+                if (Multiplayer::isPlayer(cmd.sender))
+                    player->squat_moveforward();
+                else
+                    opponent->squat_moveforward();
+                break;
+                
+            case OP_GPS_ACTION_1_SQUAT_MOVEBACK:
+                if (Multiplayer::isPlayer(cmd.sender))
+                    player->squat_moveback();
+                else
+                    opponent->squat_moveback();
                 break;
                 
             default:
@@ -217,35 +242,44 @@ void GamePlayScene::update(float dt)
     auto point = joystick->getVelocity();
     auto angle = GameHelper::vectorToDegree(point);
     
-//    if (!Multiplayer::getInstance()->isCommandsEmpty())
-//    {
-//        processCommand(Multiplayer::getInstance()->popCommands());
-//    }
-//    
+    if (!Multiplayer::getInstance()->isCommandsEmpty())
+    {
+        processCommand(Multiplayer::getInstance()->popCommands());
+    }
+//
     
     
-    std::string message;
-    
-    
+    int operation = 0;
+    std::string properties;
     
     // stand move forward
     if (angle > 337.5f || angle <  22.5f)
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND_MOVEFORWARD);
-        player->stand_moveforward();
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+        operation = OP_GPS_ACTION_1_STAND_MOVEFORWARD;
+        properties = std::to_string(int(player->getPosition().x + ACTION_MOVE_SPEED));
+//        player->stand_moveforward();
     }
     
     // jump
     if (angle >  22.5f && angle < 157.5f)
     {
-        player->stand_jump(point);
+        int distance = point.x * 200;
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_JUMP, std::to_string(distance));
+        
+        operation = OP_GPS_ACTION_2_STAND_JUMP;
+        properties = std::to_string(distance);
+//        player->stand_jump(point.x * 200);
     }
     
     // stand move back
     if (angle > 157.5f && angle < 202.5f)
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND_MOVEBACK);
-        player->stand_moveback();
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
+        
+        operation = OP_GPS_ACTION_1_STAND_MOVEBACK;
+        properties = std::to_string(int(player->getPosition().x - ACTION_MOVE_SPEED));
+//        player->stand_moveback();
     }
     
     
@@ -253,58 +287,84 @@ void GamePlayScene::update(float dt)
     // squat moveback
     if (angle > 202.5f && angle < 247.5f)
     {
-        player->squat_moveback();
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
+        
+        operation = OP_GPS_ACTION_1_SQUAT_MOVEBACK;
+//        player->squat_moveback();
     }
     
     // squat
     if (angle > 247.5f && angle < 292.5f)
     {
-        player->squat_down();
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN);
+
+        operation = OP_GPS_ACTION_1_SQUAT_DOWN;
+//        player->squat_down();
     }
     
     if (angle > 292.5f && angle < 337.5f)
     {
-        
-        player->squat_moveforward();
+        operation = OP_GPS_ACTION_1_SQUAT_MOVEFORWARD;
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);s
+//        player->squat_moveforward();
     }
-    
+//    
     if (std::isnan(angle))
     {
-        player->stand();
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_STAND);
+        operation = OP_GPS_ACTION_1_STAND;
+//        player->stand();
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND);
     }
     
     
     if (buttonA->getIsActive())
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_A);
-                player->punch1();
+        operation = OP_GPS_ACTION_2_STAND_PUNCH1;
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH1);
+//                player->punch1();
     }
     
     if (buttonB->getIsActive())
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_B);
-                player->punch2();
+        operation = OP_GPS_ACTION_2_STAND_PUNCH2;
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH2);
+//                player->punch2();
     }
     
     if (buttonC->getIsActive())
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_C);
-                player->kick1();
+        operation = OP_GPS_ACTION_2_STAND_KICK1;
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1);
+//                player->kick1();
     }
     
     if (buttonD->getIsActive())
     {
-//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_BUTTON_D);
-                player->kick2();
+        operation = OP_GPS_ACTION_2_STAND_KICK2;
+//        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK2);
+//                player->kick2();
     }
     
-    if (message.compare(""))
-        Multiplayer::sendChat(message);
     
+    accumilatedTime = accumilatedTime + dt * 1000;
+    if (accumilatedTime > GAME_FRAME_DELAY) {
+        if (operation && player->isActionStoppable())
+        {
+            
+            std::string message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, operation, properties);
+            if (!(operation == prevOperation && prevOperation == OP_GPS_ACTION_1_STAND))
+            {
+                prevOperation = operation;
+                Multiplayer::sendChat(message);
+            }
+        }
+        accumilatedTime = accumilatedTime - GAME_FRAME_DELAY;
+    }
 //    CCLOG("player %f OPPONENT %f diff %f",  player->getPosition().x, opponent->getPosition().x, std::abs(player->getPosition().x-opponent->getPosition().x));
 //    player->update(dt);
 //    opponent->update(dt);
+//    player->stand();
+//    opponent->stand();
     camera->update(dt);
     
     
@@ -387,9 +447,9 @@ void GamePlayScene::createBackgroundAnimation()
     CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     
 //     TODO: WITH MULTIPLAYER
-//    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
+    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
     // TODO: WITHOUT MULTIPLAYER
-    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+//    auto animation = AnimationCache::getInstance()->getAnimation("background1");
     
     Size targetSize = Size( 2305.0f, 750.0f );
     Size backgroundSize = background->getContentSize();

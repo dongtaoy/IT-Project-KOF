@@ -25,6 +25,8 @@ Multiplayer::Multiplayer(std::string username)
     client->setZoneRequestListener(this);
     client->setNotificationListener(this);
     client->setRoomRequestListener(this);
+    client->setChatRequestListener(this);
+    isSuccessSent = true;
 }
 
 
@@ -99,19 +101,22 @@ void Multiplayer::unsubsribeRoom(MultiplayerCallback* cb)
 
 void Multiplayer::sendChat(int scene, int op, std::string properties)
 {
+
     AppWarp::Client::getInstance()->sendChat(
-                                             std::to_string(scene) + ';'
-                                             + std::to_string(op) + ';'
-                                             + properties + ';');
+                                            std::to_string(scene) + ';'
+                                            + std::to_string(op) + ';'
+                                            + properties + ';');
+        
 }
 
 void Multiplayer::sendChat(std::string message)
 {
     Multiplayer* m = Multiplayer::getInstance();
-    if (!message.compare(m->prevMessage))
-        return;
-    m->prevMessage = message;
-    AppWarp::Client::getInstance()->sendChat(message);
+    if (m->isSuccessSent)
+    {
+        AppWarp::Client::getInstance()->sendChat(message);
+    }
+
 }
 
 void Multiplayer::recoverConnection()
@@ -352,4 +357,15 @@ void Multiplayer::onCreateRoomDone(AppWarp::room event)
     {
         CCLOG("fail to create room");
     }
+}
+
+
+void Multiplayer::onSendChatDone(int result)
+{
+    isSuccessSent = true;
+    if (result == AppWarp::ResultCode::success)
+        CCLOG("sent success");
+    else
+        CCLOG("sent failed");
+    
 }

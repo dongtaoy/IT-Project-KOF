@@ -50,7 +50,8 @@ public:
     CC_SYNTHESIZE(SneakyButton*, buttonB, ButtonB);
     CC_SYNTHESIZE(SneakyButton*, buttonC, ButtonC);
     CC_SYNTHESIZE(SneakyButton*, buttonD, ButtonD);
-    
+    CC_SYNTHESIZE(int, accumilatedTime, AccumilatedTime);
+    CC_SYNTHESIZE(int, prevOperation, PrevOperation);
     
 private:
     Camera2d* camera;
