@@ -76,18 +76,18 @@ void Fighter::update(float)
     }
     
     
-    if (isLeft)
-    {
-        if (getPosition().x + SCREEN_FIGHTER_OFFSET > opponent->getPosition().x) {
-            this->setPosition(Vec2(opponent->getPosition().x - SCREEN_FIGHTER_OFFSET, getPosition().y));
-        }
-    }
-    else
-    {
-        if (getPosition().x - SCREEN_FIGHTER_OFFSET < opponent->getPosition().x) {
-            this->setPosition(Vec2(opponent->getPosition().x + SCREEN_FIGHTER_OFFSET, getPosition().y));
-        }
-    }
+//    if (isLeft)
+//    {
+//        if (getPosition().x + SCREEN_FIGHTER_OFFSET > opponent->getPosition().x) {
+//            this->setPosition(Vec2(opponent->getPosition().x - SCREEN_FIGHTER_OFFSET, getPosition().y));
+//        }
+//    }
+//    else
+//    {
+//        if (getPosition().x - SCREEN_FIGHTER_OFFSET < opponent->getPosition().x) {
+//            this->setPosition(Vec2(opponent->getPosition().x + SCREEN_FIGHTER_OFFSET, getPosition().y));
+//        }
+//    }
     
 }
 

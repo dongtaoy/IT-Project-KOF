@@ -54,7 +54,7 @@ bool GamePlayScene::init()
     auto size = node->getBoundingBox().size;
     auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
     
-    node->setPhysicsBody(physicsBody);
+//    node->setPhysicsBody(physicsBody);
     
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     this->background = node->getChildByName<Sprite*>("background");
