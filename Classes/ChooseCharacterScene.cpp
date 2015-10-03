@@ -171,7 +171,11 @@ void ChooseCharacterScene::ButtonReadyClicked(Ref* pSender, Widget::TouchEventTy
 void ChooseCharacterScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
+    {
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Loading...", 15.0f);
         Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME);
+    }
 }
 
 
