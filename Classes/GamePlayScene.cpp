@@ -48,13 +48,10 @@ bool GamePlayScene::init()
         return false;
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
-
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode("GamePlay.csb");
-    auto size = node->getBoundingBox().size;
-    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
-    
-//    node->setPhysicsBody(physicsBody);
     
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     this->background = node->getChildByName<Sprite*>("background");
@@ -68,36 +65,36 @@ bool GamePlayScene::init()
     
 
 //     TODO: WITH MULTIPLAYER
-    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
-    {
-        this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, Multiplayer::getInstance()->getUserCharacter(), false);
-        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
-        
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, Multiplayer::getInstance()->getOpponentCharacter(), true);
-        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
-    
-    }
-    else
-    {
-        this->player = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, Multiplayer::getInstance()->getUserCharacter(), true);
-        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
-        
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, Multiplayer::getInstance()->getOpponentCharacter(), false);
-        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
-    }
+//    if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
+//    {
+//        this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, Multiplayer::getInstance()->getUserCharacter(), false);
+//        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
+//        
+//        this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, Multiplayer::getInstance()->getOpponentCharacter(), true);
+//        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
+//    
+//    }
+//    else
+//    {
+//        this->player = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, Multiplayer::getInstance()->getUserCharacter(), true);
+//        node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % Multiplayer::getInstance()->getUserCharacter()).str(), Widget::TextureResType::PLIST);
+//        
+//        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, Multiplayer::getInstance()->getOpponentCharacter(), false);
+//        node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % Multiplayer::getInstance()->getOpponentCharacter()).str(), Widget::TextureResType::PLIST);
+//    }
     
 //     TODO: WITHOUT MULTIPLAYER
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
-//
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % "background1" ).str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % "background1" ).str());
 
-//    
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-//    this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, "character1", false);
-//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
-//    this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, "character1", true);
-//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
+
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
+    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
+    this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, "character1", false);
+    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
+    this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, "character1", true);
+    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
 
     
 
@@ -108,10 +105,14 @@ bool GamePlayScene::init()
     opponent->setOpponent(player);
 
     /////////////////////////////////////////////////////////////////
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    auto size = node->getBoundingBox().size;
+    auto edgeNode = Node::create();
+    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
+    edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + player->getScreenPosition().y));
+    edgeNode->setPhysicsBody(physicsBody);
     
+    this->addChild(edgeNode);
     /////////////////////////////////////////////////////////////////
     
     //get width and height for two characters
@@ -260,11 +261,11 @@ void GamePlayScene::update(float dt)
     auto point = joystick->getVelocity();
     auto angle = GameHelper::vectorToDegree(point);
     
-    if (!Multiplayer::getInstance()->isCommandsEmpty())
-    {
-        if (opponent->isActionStoppable())
-            processCommand(Multiplayer::getInstance()->popCommands());
-    }
+//    if (!Multiplayer::getInstance()->isCommandsEmpty())
+//    {
+//        if (opponent->isActionStoppable())
+//            processCommand(Multiplayer::getInstance()->popCommands());
+//    }
     
     auto pos = player->getPosition();
     std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});;
@@ -377,8 +378,8 @@ void GamePlayScene::update(float dt)
     player->update(dt);
     opponent->update(dt);
     
-    if(message.compare(""))
-        Multiplayer::sendChat(message);
+//    if(message.compare(""))
+//        Multiplayer::sendChat(message);
     camera->update(dt);
     
     
@@ -461,9 +462,9 @@ void GamePlayScene::createBackgroundAnimation()
     CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     
     //     TODO: WITH MULTIPLAYER
-    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
+//    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
     // TODO: WITHOUT MULTIPLAYER
-//    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    auto animation = AnimationCache::getInstance()->getAnimation("background1");
     
     Size targetSize = Size( 2305.0f, 750.0f );
     Size backgroundSize = background->getContentSize();

@@ -21,23 +21,25 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
     auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX(),
                      this->sprite->getContentSize().height * this->sprite->getScaleY());
     size = this->sprite->getBoundingBox().size;
-    
-    
-//    auto body = PhysicsBody::createBox(size, PhysicsMaterial(1.0f,0.0f,1.0f));
+    auto body = PhysicsBody::createBox(size, PhysicsMaterial(1.0f,0.0f,1.0f));
+    body->setRotationEnable(false);
+    body->setGravityEnable(true);
+//    body->applyForce(Vec2(0.0f, -99999.0f));
+    this->sprite->setPhysicsBody(body);
+//    auto node = Node::create();
+//    node-
+//    node->setPhysicsBody(body);
+//    this->sprite->addChild(node);
+//    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
+//    sprite->setPhysicsBody(body);
+//    
+//        //set colission detect
+//    body->setCollisionBitmask(bitmask);
+//    body->setContactTestBitmask(true);
+//    
+//        //keep character still
 //    body->setRotationEnable(false);
-//    body->setGravityEnable(false);
-//    this->sprite->setPhysicsBody(body);
-    
-    //    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
-    //    sprite->setPhysicsBody(body);
-    //
-    //    //set colission detect
-    //    body->setCollisionBitmask(bitmask);
-    //    body->setContactTestBitmask(true);
-    //
-    //    //keep character still
-    //    body->setRotationEnable(false);
-//        body->setGravityEnable(true);
+//    body->setGravityEnable(true);
     
     
     this->start();
@@ -75,6 +77,8 @@ void Fighter::update(float)
         this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
     }
     
+    
+//    if (isle)
     
 //    if (isLeft)
 //    {
@@ -415,6 +419,7 @@ void Fighter::punch2()
             {
                 auto h = opponent->gethealth();
                 h->setPercent(h->getPercent() - PUNCH2_DAMAGE);
+//                opponent->
             }
             
             if (!this->isSquat()) {
@@ -478,8 +483,8 @@ bool Fighter::isHit()
     CCLOG("here");
     auto px = getPosition().x;
     auto ox = opponent->getPosition().x;
-    auto pw = getSprite()->getBoundingBox().size.width * getSprite()->getScaleX() / 2;
-    auto ow = opponent->getSprite()->getBoundingBox().size.width * opponent->getSprite()->getScaleX() / 2;
+    auto pw = getSprite()->getBoundingBox().size.width / 2;// * getSprite()->getScaleX() / 2;
+    auto ow = opponent->getSprite()->getBoundingBox().size.width / 2;// * opponent->getSprite()->getScaleX() / 2;
     if (isLeft) {
         if ((px + pw) > (ox - ow))
         {
