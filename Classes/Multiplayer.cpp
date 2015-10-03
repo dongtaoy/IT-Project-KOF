@@ -25,6 +25,8 @@ Multiplayer::Multiplayer(std::string username)
     client->setZoneRequestListener(this);
     client->setNotificationListener(this);
     client->setRoomRequestListener(this);
+    client->setChatRequestListener(this);
+    isSuccessSent = true;
 }
 
 
@@ -99,10 +101,24 @@ void Multiplayer::unsubsribeRoom(MultiplayerCallback* cb)
 
 void Multiplayer::sendChat(int scene, int op, std::string properties)
 {
+    
     AppWarp::Client::getInstance()->sendChat(
-                                             std::to_string(scene) + ';'
-                                             + std::to_string(op) + ';'
-                                             + properties + ';');
+                                            std::to_string(scene) + ';'
+                                            + std::to_string(op) + ';'
+                                            + properties + ';');
+        
+}
+
+void Multiplayer::sendChat(std::string message)
+{
+    
+    Multiplayer* m = Multiplayer::getInstance();
+    if (!message.compare(m->prevMessage))
+        return;
+    CCLOG("sending %s", message.c_str());
+    m->prevMessage = message;
+    AppWarp::Client::getInstance()->sendChat(message);
+    
 }
 
 void Multiplayer::recoverConnection()
@@ -111,6 +127,19 @@ void Multiplayer::recoverConnection()
 }
 
 #pragma mark Helper
+
+bool Multiplayer::isPlayer(std::string name)
+{
+    return !Multiplayer::getInstance()->getUsername().compare(name);
+}
+
+
+Point Multiplayer::extractPos(std::string properties)
+{
+    std::vector<std::string> value = GameHelper::split(properties, '%');
+    return Point(std::stof(value.at(0).c_str()), std::stof(value.at(1)));
+}
+
 
 /**
  * The state of the Client. Values are -
@@ -161,6 +190,22 @@ command_t Multiplayer::exractMessage(std::string message)
     command.operation = atoi(temp.at(1).c_str());
     command.properties = temp.at(2);
     return command;
+}
+
+std::string Multiplayer::buildProperties(std::initializer_list<std::string> properties)
+{
+    std::string value;
+    for(auto i = properties.begin(); i != properties.end(); i++)
+    {
+        value += *i + '%';
+    }
+    return value;
+
+}
+
+std::string Multiplayer::buildMessage(int scene, int op, std::string properties)
+{
+    return std::to_string(scene) + ';' + std::to_string(op) + ';' + properties + ';';
 }
 
 bool Multiplayer::isCommandValid(int scene, command_t command)
@@ -322,4 +367,15 @@ void Multiplayer::onCreateRoomDone(AppWarp::room event)
     {
         CCLOG("fail to create room");
     }
+}
+
+
+void Multiplayer::onSendChatDone(int result)
+{
+    isSuccessSent = true;
+    if (result == AppWarp::ResultCode::success)
+        CCLOG("sent success");
+    else
+        CCLOG("sent failed");
+    
 }

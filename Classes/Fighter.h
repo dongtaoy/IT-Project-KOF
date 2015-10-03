@@ -35,7 +35,7 @@ public:
     
     void stand();
     void stand_hit();
-    void stand_jump(cocos2d::Vec2);
+    void stand_jump(int);
     void stand_moveback();
     void stand_moveforward();
     
@@ -63,16 +63,10 @@ public:
     float characterDistance();
     float characterCloseEnough();
     
-private:
     bool isStand();
     bool isSquat();
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
-    
-//    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
-//    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);
-//private:
-   
     
     
     

@@ -158,28 +158,36 @@
 
 #define MP_GAME_PLAY_SCNE                   2
 
+//#define OP_GPS_BUTTON_A                     1
+//#define OP_GPS_BUTTON_B                     2
+//#define OP_GPS_BUTTON_C                     3
+//#define OP_GPS_BUTTON_D                     4
+//#define OP_GPS_STAND_MOVEFORWARD            5
+//#define OP_GPS_STAND_MOVEBACK               6
+//#define OP_GPS_STAND                        7
+
 
 // Fighter
 
-#define ACTION_1_STAND                      100
-#define ACTION_1_STAND_MOVEFORWARD          101
-#define ACTION_1_STAND_MOVEBACK             102
+#define OP_GPS_ACTION_1_STAND                      100
+#define OP_GPS_ACTION_1_STAND_MOVEFORWARD          101
+#define OP_GPS_ACTION_1_STAND_MOVEBACK             102
 
-#define ACTION_1_SQUAT                      150
-#define ACTION_1_SQUAT_DOWN                 151
-#define ACTION_1_SQUAT_MOVEBACK             152
-#define ACTION_1_SQUAT_MOVEFORWARD          153
+#define OP_GPS_ACTION_1_SQUAT                      150
+#define OP_GPS_ACTION_1_SQUAT_DOWN                 151
+#define OP_GPS_ACTION_1_SQUAT_MOVEBACK             152
+#define OP_GPS_ACTION_1_SQUAT_MOVEFORWARD          153
 
-#define ACTION_2_STAND_JUMP                 201
-#define ACTION_2_STAND_PUNCH1               202
-#define ACTION_2_STAND_PUNCH2               203
-#define ACTION_2_STAND_KICK1                204
-#define ACTION_2_STAND_KICK2                205
+#define OP_GPS_ACTION_2_STAND_JUMP                 200
+#define OP_GPS_ACTION_2_STAND_PUNCH1               202
+#define OP_GPS_ACTION_2_STAND_PUNCH2               203
+#define OP_GPS_ACTION_2_STAND_KICK1                204
+#define OP_GPS_ACTION_2_STAND_KICK2                205
 
-#define ACTION_2_SQUAT_PUNCH1               250
-#define ACTION_2_SQUAT_PUNCH2               251
-#define ACTION_2_SQUAT_KICK1                252
-#define ACTION_2_SQUAT_KICK2                253
+#define OP_GPS_ACTION_2_SQUAT_PUNCH1               250
+#define OP_GPS_ACTION_2_SQUAT_PUNCH2               251
+#define OP_GPS_ACTION_2_SQUAT_KICK1                252
+#define OP_GPS_ACTION_2_SQUAT_KICK2                253
 
 
 
@@ -188,10 +196,13 @@
 #define ACTION_1_MOVE_DURATION              .7f
 
 
+#define ACTION_UNSTOPPABLE                  1000
+//#define ACTION_STOPPABLE                    1001
 // Camera
 #define CAMERA_MOVE_THRESHOLD               150
 #define CAMERA_FIGHTER_OFFSET               10
-
+#define SCREEN_FIGHTER_OFFSET               140
+#define GAME_FRAME_DELAY                    50
 
 //GamePlayScene
 //Physics

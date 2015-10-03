@@ -70,13 +70,11 @@ bool ChooseCharacterScene::init()
 }
 
 
-
-
-
-
 #pragma mark getters / setters
 void ChooseCharacterScene::setOpponentSelected(std::string name)
 {
+    if(!name.compare(""))
+        return;
     this->opponentSelected = name;
     ShowSelectedCharacter(opponentSelected, false);
 }
@@ -120,6 +118,8 @@ void ChooseCharacterScene::setPlayerReady(bool value)
 void ChooseCharacterScene::setOpponentReady(bool value)
 {
     if (value) {
+        if (!opponentSelected.compare(""))
+            return;
         SetReadyButtonVisible(false, false);
         SetGoButtonVisible(true, false);
         opponentReady = true;
@@ -171,7 +171,11 @@ void ChooseCharacterScene::ButtonReadyClicked(Ref* pSender, Widget::TouchEventTy
 void ChooseCharacterScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
+    {
+        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Loading...", 15.0f);
         Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME);
+    }
 }
 
 
