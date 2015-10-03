@@ -9,12 +9,37 @@
 #include "Fighter.h"
 
 USING_NS_CC;
+using namespace ui;
 
-Fighter::Fighter(Sprite* sprite, std::string name)
+Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isLeft)
 {
     this->name = name;
+    this->isLeft = isLeft;
     this->sprite = sprite;
+    this->health = health;
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
+    auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX(),
+                     this->sprite->getContentSize().height * this->sprite->getScaleY());
+    size = this->sprite->getBoundingBox().size;
+    
+    
+//    auto body = PhysicsBody::createBox(size, PhysicsMaterial(1.0f,0.0f,1.0f));
+//    body->setRotationEnable(false);
+//    body->setGravityEnable(false);
+//    this->sprite->setPhysicsBody(body);
+    
+    //    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
+    //    sprite->setPhysicsBody(body);
+    //
+    //    //set colission detect
+    //    body->setCollisionBitmask(bitmask);
+    //    body->setContactTestBitmask(true);
+    //
+    //    //keep character still
+    //    body->setRotationEnable(false);
+//        body->setGravityEnable(true);
+    
+    
     this->start();
     
 }
@@ -27,7 +52,7 @@ void Fighter::update(float)
     auto opponentBox = opponent->getBoundingBox();
     auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
-    
+    // background size
     if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
     {
         this->setPosition(Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
@@ -38,6 +63,8 @@ void Fighter::update(float)
         this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
     }
     
+    
+    // screen size
     if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
     {
         this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
@@ -46,6 +73,20 @@ void Fighter::update(float)
     if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
     {
         this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
+    
+    
+    if (isLeft)
+    {
+        if (getPosition().x + SCREEN_FIGHTER_OFFSET > opponent->getPosition().x) {
+            this->setPosition(Vec2(opponent->getPosition().x - SCREEN_FIGHTER_OFFSET, getPosition().y));
+        }
+    }
+    else
+    {
+        if (getPosition().x - SCREEN_FIGHTER_OFFSET < opponent->getPosition().x) {
+            this->setPosition(Vec2(opponent->getPosition().x + SCREEN_FIGHTER_OFFSET, getPosition().y));
+        }
     }
     
 }
@@ -261,13 +302,22 @@ void Fighter::kick1()
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK1) % name).str());
         auto animate = Animate::create(animation);
         auto func = [&]{
+            
+            if (this->isHit())
+            {
+                auto h = opponent->gethealth();
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+            }
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
                 return;
             }
             this->squat();
+            
         };
+        
+        
         auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK1);
@@ -289,12 +339,21 @@ void Fighter::kick2()
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK2) % name).str());
         auto animate = Animate::create(animation);
         auto func = [&]{
+            
+            if (this->isHit())
+            {
+                auto h = opponent->gethealth();
+                h->setPercent(h->getPercent() - KICK2_DAMAGE);
+            }
+            
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
                 return;
             }
             this->squat();
+            
+            
         };
         auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
         if(!isSquat())
@@ -317,6 +376,12 @@ void Fighter::punch1()
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH1) % name).str());
         auto animate = Animate::create(animation);
         auto func = [&]{
+            if (this->isHit())
+            {
+                auto h = opponent->gethealth();
+                h->setPercent(h->getPercent() - PUNCH1_DAMAGE);
+            }
+            
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
@@ -345,6 +410,13 @@ void Fighter::punch2()
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH2) % name).str());
         auto animate = Animate::create(animation);
         auto func = [&]{
+            
+            if (this->isHit())
+            {
+                auto h = opponent->gethealth();
+                h->setPercent(h->getPercent() - PUNCH2_DAMAGE);
+            }
+            
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
@@ -401,4 +473,27 @@ bool Fighter::isActionStoppable()
 }
 
 
+bool Fighter::isHit()
+{
+    CCLOG("here");
+    auto px = getPosition().x;
+    auto ox = opponent->getPosition().x;
+    auto pw = getSprite()->getBoundingBox().size.width * getSprite()->getScaleX() / 2;
+    auto ow = opponent->getSprite()->getBoundingBox().size.width * opponent->getSprite()->getScaleX() / 2;
+    if (isLeft) {
+        if ((px + pw) > (ox - ow))
+        {
+            return true;
+        }
+        return false;
+    }
+    else
+    {
+        if ((px - pw) < (ox + ow))
+        {
+            return true;
+        }
+        return false;
+    }
+}
 

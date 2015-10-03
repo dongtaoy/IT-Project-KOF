@@ -52,6 +52,7 @@ public:
     CC_SYNTHESIZE(SneakyButton*, buttonD, ButtonD);
     CC_SYNTHESIZE(int, accumilatedTime, AccumilatedTime);
     CC_SYNTHESIZE(int, prevOperation, PrevOperation);
+    CC_SYNTHESIZE(cocos2d::PhysicsWorld*, world, World);
     
 private:
     Camera2d* camera;
@@ -84,6 +85,16 @@ private:
     
     void onUnsubscribeRoomDone();
     void onLeaveRoomDone();
+    
+//    cocos2d::PhysicsWorld *sceneWorld;
+//    
+//    void SetPhysicsWorld( cocos2d::PhysicsWorld *world ) { sceneWorld = world; };
+    
+    bool onContactBegin( cocos2d::PhysicsContact &contact);
+    void addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask);
+    void updatePlayerHp();
+    void characterTooClose(float characterDistance, float closeDistance);
+    
 };
 
 

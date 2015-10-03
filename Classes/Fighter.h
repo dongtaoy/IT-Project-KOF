@@ -13,18 +13,19 @@
 #include "cocos2d.h"
 #include "Definitions.h"
 #include <boost/format.hpp>
-
+#include "CocosGUI.h"
 
 class Fighter
 {
     
 public:
-    Fighter(cocos2d::Sprite*, std::string);
+    Fighter(cocos2d::Sprite*, cocos2d::ui::LoadingBar*, std::string, bool);
     
     CC_SYNTHESIZE(cocos2d::Sprite*, sprite, Sprite);
     CC_SYNTHESIZE(Fighter*, opponent, Opponent);
     CC_SYNTHESIZE(std::string, name, Name);
-    CC_SYNTHESIZE(float, health, Health);
+    CC_SYNTHESIZE(cocos2d::ui::LoadingBar*, health, health);
+    CC_SYNTHESIZE(bool, isLeft, IsLeft);
     
     void squat();
     void squat_down();
@@ -61,18 +62,12 @@ public:
     cocos2d::Rect getBoundingBox();
     cocos2d::Node* getParent();
     
+    
     bool isStand();
     bool isSquat();
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
-    
-    //    static cocos2d::Vec2 toBackgroundCoord(cocos2d::Sprite*, Fighter*);
-    //    static cocos2d::Vec2 toScreenCoord(cocos2d::Sprite*, Fighter*);
-    //private:
-    
-    
-    
-    
+    bool isHit();
     
 };
 
