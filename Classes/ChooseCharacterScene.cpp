@@ -367,7 +367,7 @@ void ChooseCharacterScene::StartGame()
     
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
     auto scene = GamePlayScene::createScene();
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    Director::getInstance()->replaceScene(scene);
 
 }
 

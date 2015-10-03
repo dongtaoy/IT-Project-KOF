@@ -17,13 +17,15 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
     this->isLeft = isLeft;
     this->sprite = sprite;
     this->health = health;
-    this->physicsSprite = Sprite::create("res/Resources/Empty.png");
-    this->physicsSprite->setPosition(this->sprite->getPosition().x,  this->sprite->getPosition().y + 100);
+    
     
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
     
     auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX() - 50,
                      this->sprite->getContentSize().height * this->sprite->getScaleY());
+    
+    this->physicsSprite = Sprite::create("res/Resources/Empty.png");
+    this->physicsSprite->setPosition(this->sprite->getPosition().x,  this->sprite->getPosition().y + 100);
     auto body = PhysicsBody::createBox(size);
     body->setRotationEnable(false);
     body->setGravityEnable(true);

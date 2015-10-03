@@ -387,9 +387,9 @@ void GamePlayScene::update(float dt)
         command_t cmd = Multiplayer::exractMessage(message);
         if (cmd.operation == OP_GPS_ACTION_1_STAND && prevOperation == OP_GPS_ACTION_1_STAND)
         {
-            CCLOG("innnnnn");
+//            CCLOG("innnnnn");
             if (accumilatedTime > 2000) {
-                CCLOG("sent");
+//                CCLOG("sent");
                 accumilatedTime = 0;
                 Multiplayer::sendChat(message);
             }
