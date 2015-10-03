@@ -18,34 +18,18 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
     this->sprite = sprite;
     this->health = health;
     this->physicsSprite = Sprite::create("res/Resources/Empty.png");
-    this->physicsSprite->setPosition(this->sprite->getPosition());
-    this->sprite->getParent()->addChild(this->physicsSprite);
+    this->physicsSprite->setPosition(this->sprite->getPosition().x,  this->sprite->getPosition().y + 100);
+    
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
     
     auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX() - 50,
                      this->sprite->getContentSize().height * this->sprite->getScaleY());
-//    auto size = this->sprite->getBoundingBox().size;
-    auto body = PhysicsBody::createBox(size);//(50.0f);//(size, PhysicsMaterial(1.0f,0.0f,1.0f));
+    auto body = PhysicsBody::createBox(size);
     body->setRotationEnable(false);
     body->setGravityEnable(true);
-//    body->applyForce(Vec2(0.0f, -99999.0f));
     this->physicsSprite->setPhysicsBody(body);
-//    auto node = Node::create();
-//    node-
-//    node->setPhysicsBody(body);
-//    this->sprite->addChild(node);
-//    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
-//    sprite->setPhysicsBody(body);
-//    
-//        //set colission detect
-//    body->setCollisionBitmask(bitmask);
-//    body->setContactTestBitmask(true);
-//    
-//        //keep character still
-//    body->setRotationEnable(false);
-//    body->setGravityEnable(true);
     
-    
+    this->sprite->getParent()->addChild(this->physicsSprite);
     this->start();
     
 }

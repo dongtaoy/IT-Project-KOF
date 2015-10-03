@@ -51,6 +51,8 @@ bool GamePlayScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    
+    
     auto node = CSLoader::createNode("GamePlay.csb");
     
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -63,6 +65,17 @@ bool GamePlayScene::init()
     auto leftHp = this->getChildByName("GamePlayScene")->getChildByName<LoadingBar*>("playerLeftHP");
     auto rightHp = this->getChildByName("GamePlayScene")->getChildByName<LoadingBar*>("playerRightHP");
     
+    
+    
+    /////////////////////////////////////////////////////////////////
+    
+    auto size = node->getBoundingBox().size;
+    auto edgeNode = Node::create();
+    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
+    edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + visibleSize.height * 0.03));
+    edgeNode->setPhysicsBody(physicsBody);
+    this->addChild(edgeNode);
+    /////////////////////////////////////////////////////////////////
 
 //     TODO: WITH MULTIPLAYER
     if(Multiplayer::getInstance()->getUsername().compare(Multiplayer::getInstance()->getOpponentUsername()) < 0)
@@ -104,16 +117,7 @@ bool GamePlayScene::init()
     player->setOpponent(opponent);
     opponent->setOpponent(player);
 
-    /////////////////////////////////////////////////////////////////
     
-    auto size = node->getBoundingBox().size;
-    auto edgeNode = Node::create();
-    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
-    edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + player->getScreenPosition().y));
-    edgeNode->setPhysicsBody(physicsBody);
-    
-    this->addChild(edgeNode);
-    /////////////////////////////////////////////////////////////////
     
     //get width and height for two characters
 //    float x1 = player->getSprite()->getBoundingBox().size.width;
@@ -377,10 +381,28 @@ void GamePlayScene::update(float dt)
     
     player->update(dt);
     opponent->update(dt);
-    
-    if(message.compare(""))
-        Multiplayer::sendChat(message);
     camera->update(dt);
+    if(message.compare(""))
+    {
+        command_t cmd = Multiplayer::exractMessage(message);
+        if (cmd.operation == OP_GPS_ACTION_1_STAND && prevOperation == OP_GPS_ACTION_1_STAND)
+        {
+            CCLOG("innnnnn");
+            if (accumilatedTime > 2000) {
+                CCLOG("sent");
+                accumilatedTime = 0;
+                Multiplayer::sendChat(message);
+            }
+            accumilatedTime = accumilatedTime + dt * 1000;
+        }
+        else
+        {
+            accumilatedTime = 0;
+            Multiplayer::sendChat(message);
+        }
+        prevOperation = cmd.operation;
+    }
+    
     
     
 }
