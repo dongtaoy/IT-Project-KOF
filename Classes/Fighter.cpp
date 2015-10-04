@@ -591,6 +591,7 @@ void Fighter::setHealthPercentage(float p)
         this->die();
         opponent->win();
     }
+    isHealthChanged = true;
     this->health->setPercent(p);
 }
 

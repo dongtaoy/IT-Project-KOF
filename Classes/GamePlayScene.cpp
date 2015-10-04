@@ -222,10 +222,6 @@ void GamePlayScene::processCommand(command_t cmd)
                 break;
             
             case OP_GPS_ACTION_1_STAND:
-                player->setHealthPercentage(std::atoi(GameHelper::split(cmd.properties, '%').at(2).c_str()));
-//                if (player->gethealth() == ) {
-//                    this->scheduleOnce(schedule_selector(GamePlayScene::GoToMainMenuScene), DISPLAY_TIME_SPLASH_SCENE);
-//                }
                 opponent->setPosition(Multiplayer::extractPos(cmd.properties));
                 opponent->stand();
                 break;
@@ -255,6 +251,9 @@ void GamePlayScene::processCommand(command_t cmd)
                     opponent->squat_moveback();
                 break;
                 
+            case OP_GPS_ACTION_3_HEALTHCHANGED:
+                    opponent->setHealthPercentage(std::atof(GameHelper::split(cmd.properties, '%').at(0).c_str()));
+                break;
             default:
                 break;
         }
@@ -275,7 +274,7 @@ void GamePlayScene::update(float dt)
     }
     
     auto pos = player->getPosition();
-    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y), std::to_string(player->getHealthPercentage())});
+    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
     
     std::string message;
     
@@ -292,7 +291,6 @@ void GamePlayScene::update(float dt)
         message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
         player->stand_moveback();
     }
-    // stand
     
     
     // jump
@@ -373,13 +371,18 @@ void GamePlayScene::update(float dt)
     if (std::isnan(angle))
     {
         if (player->isActionStoppable()) {
-            auto p = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y), std::to_string(opponent->gethealth()->getPercent())});
-            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, p);
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
             player->stand();
         }
-        
-        
     }
+    
+    if (player->getIsHealthChanged())
+    {
+        player->setIsHealthChanged(false);
+        auto p = Multiplayer::buildProperties({std::to_string(player->getHealthPercentage())});
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_3_HEALTHCHANGED,p);
+    }
+    
     
     if (player->getIsDie() || opponent->getIsDie())
     {
@@ -391,7 +394,7 @@ void GamePlayScene::update(float dt)
 //        
 //        LoadingLayer::ADD
     }
-//    ui::LoadingBar* healthbar = static_cast<ui::LoadingBar>(this->getChildByName("GamePlayScene")->getChildByName(<#const std::string &name#>))
+
     
     player->update(dt);
     opponent->update(dt);
