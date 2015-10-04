@@ -47,7 +47,9 @@ public:
     
 #pragma mark Actions
     static void joinLobby(MultiplayerCallback*);
+    static void leaveLobby(MultiplayerCallback*);
     static void subscribeLobby(MultiplayerCallback*);
+    static void unsubsribeLobby(MultiplayerCallback*);
     static void joinRoom(MultiplayerCallback*);
     static void fetchRooms(MultiplayerCallback*);
     static void createRoom(MultiplayerCallback*, std::map<std::string, std::string>);

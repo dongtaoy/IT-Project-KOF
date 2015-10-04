@@ -76,6 +76,8 @@ private:
 #pragma mark listeners
     void onLeaveRoomDone();
     void onUnsubscribeRoomDone();
+    void onJoinLobbyDone();
+    void onSubscribeLobbyDone();
 };
 
 #endif /* defined(__KOF__ChooseCharacterScene__) */

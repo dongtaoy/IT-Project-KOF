@@ -44,6 +44,9 @@ private:
 #pragma mark Room Request Listener
     void onJoinRoomDone();
     void onSubscribeRoomDone();
+    
+    void onJoinLobbyDone();
+    void onSubscribeLobbyDone();
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

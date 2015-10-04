@@ -38,6 +38,7 @@ bool ChooseRoomScene::init()
         return false;
     }
     
+    Multiplayer::getInstance()->setCallback(this);
     
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -77,19 +78,40 @@ bool ChooseRoomScene::init()
 
 void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, Widget::TouchEventType type)
 {
-    auto scene = MainMenuScene::createScene();
+    if (type == Widget::TouchEventType::ENDED)
+    {
+        auto scene = MainMenuScene::createScene();
     
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    }
 }
 
 
 void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType type)
 {
-    auto scene = CreateRoomScene::createScene();
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    if (type == Widget::TouchEventType::ENDED)
+    {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing lobby...", 10.0f);
+        Multiplayer::unsubsribeLobby(this);
+    }
 }
 
+
+void ChooseRoomScene::onUnsubscribeLobbyDone() {
+    Multiplayer::leaveLobby(this);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving lobby...", 20.0f);
+};
+
+void ChooseRoomScene::onLeaveLobbyDone(){
+    if (!Multiplayer::getInstance()->getRoomID().compare("")) {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
+        auto scene = CreateRoomScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+        return;
+    }
+    Multiplayer::joinRoom(this);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 50.0f);
+}
 
 void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
     if (type == Widget::TouchEventType::ENDED){
@@ -102,10 +124,9 @@ void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
         Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
         Multiplayer::getInstance()->setBackground(background);
         Multiplayer::getInstance()->setRoomID(roomID);
-        Multiplayer::joinRoom(this);
+        Multiplayer::unsubsribeLobby(this);
         CCLOG("###########%s", this->getName().c_str());
-        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 30.0f);
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing lobby...", 10.0f);
 
     }
 }

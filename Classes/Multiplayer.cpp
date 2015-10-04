@@ -97,6 +97,18 @@ void Multiplayer::joinLobby(MultiplayerCallback* cb)
     client->joinLobby();
 }
 
+
+void Multiplayer::leaveLobby(MultiplayerCallback* cb)
+{
+    Multiplayer* m = Multiplayer::getInstance();
+    m->callback = cb;
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    CCLOG("Sending Request to leave subscribe");
+    client->leaveLobby();
+}
+
+
+
 void Multiplayer::subscribeLobby(MultiplayerCallback* cb)
 {
     Multiplayer* m = Multiplayer::getInstance();
@@ -104,6 +116,15 @@ void Multiplayer::subscribeLobby(MultiplayerCallback* cb)
     AppWarp::Client* client = AppWarp::Client::getInstance();
     CCLOG("Sending Request to join subscribe");
     client->subscribeLobby();
+}
+
+void Multiplayer::unsubsribeLobby(MultiplayerCallback* cb)
+{
+    Multiplayer* m = Multiplayer::getInstance();
+    m->callback = cb;
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    CCLOG("Sending Request to join subscribe");
+    client->unsubscribeLobby();
 }
 
 void Multiplayer::joinRoom(MultiplayerCallback* cb)
@@ -322,7 +343,7 @@ void Multiplayer::onJoinLobbyDone(AppWarp::lobby event)
 void Multiplayer::onLeaveLobbyDone(AppWarp::lobby event)
 {
     if (event.result == AppWarp::ResultCode::success){
-        callback->onLeaveRoomDone();
+        callback->onLeaveLobbyDone();
     }else{
         CCLOG("fail to leave lobby");
     }
@@ -386,6 +407,7 @@ void Multiplayer::onUnsubscribeRoomDone(AppWarp::room event)
     if (event.result == AppWarp::ResultCode::success)
     {
         AppWarp::Client::getInstance()->leaveRoom(getRoomID());
+        this->roomID = "";
         callback->onUnsubscribeRoomDone();
     }
     else

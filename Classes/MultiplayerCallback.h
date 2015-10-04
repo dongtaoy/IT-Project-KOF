@@ -15,10 +15,12 @@ public:
     
 #pragma mark Lobby Request Listeners
     virtual void onJoinLobbyDone(){ CCLOG("join lobby done...");};
-    virtual void onSubscribeLobbyDone(){ CCLOG("subscribe loby done"); };
-    
-    virtual void onUnsubscribeLobbyDone() { CCLOG("unsubsribe lobby done"); };
     virtual void onLeaveLobbyDone(){ CCLOG("leave lobby done...");};
+    
+    
+    virtual void onSubscribeLobbyDone(){ CCLOG("subscribe loby done"); };
+    virtual void onUnsubscribeLobbyDone() { CCLOG("unsubsribe lobby done"); };
+    
     
 #pragma mark Room Request Listeners
 

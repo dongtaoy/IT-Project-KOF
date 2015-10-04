@@ -146,7 +146,7 @@ void ChooseCharacterScene::ButtonBackClicked(Ref* pSender, Widget::TouchEventTyp
 {
     if(type == Widget::TouchEventType::ENDED){
         LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 20.0f);
         Multiplayer::getInstance()->unsubsribeRoom(this);
     }
 }
@@ -239,17 +239,35 @@ void ChooseCharacterScene::RemoveSelectedBorder(std::string name)
 void ChooseCharacterScene::onUnsubscribeRoomDone()
 {
     MultiplayerCallback::onUnsubscribeRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 60.0f);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 40.0f);
 }
 
 
 void ChooseCharacterScene::onLeaveRoomDone()
 {
     MultiplayerCallback::onLeaveRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "join lobby...", 60.0f);
+    Multiplayer::joinLobby(this);
+    
+}
+
+
+void ChooseCharacterScene::onJoinLobbyDone()
+{
+    MultiplayerCallback::onJoinLobbyDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing lobby...", 80.0f);
+    Multiplayer::subscribeLobby(this);
+}
+
+
+void ChooseCharacterScene::onSubscribeLobbyDone()
+{
+    MultiplayerCallback::onSubscribeLobbyDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
+
 
 
 #pragma mark loop

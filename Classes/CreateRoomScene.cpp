@@ -113,13 +113,28 @@ void CreateRoomScene::RemoveSelectedBorder(Ref* pSender)
 }
 
 
-void CreateRoomScene::GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType type)
+void CreateRoomScene::GotoChooseRoomScene(Ref*, Widget::TouchEventType type)
 {
-    
-    auto scene = ChooseRoomScene::createScene();
-    
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+    if (type == Widget::TouchEventType::ENDED)
+    {
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining lobby... ", 33.0f);
+        Multiplayer::joinLobby(this);
+    }
+}
 
+void CreateRoomScene::onJoinLobbyDone()
+{
+    MultiplayerCallback::onJoinLobbyDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing lobby... ", 66.0f);
+    Multiplayer::subscribeLobby(this);
+}
+
+void CreateRoomScene::onSubscribeLobbyDone()
+{
+    MultiplayerCallback::onSubscribeLobbyDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE... ", 100.0f);
+    auto scene = ChooseRoomScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 

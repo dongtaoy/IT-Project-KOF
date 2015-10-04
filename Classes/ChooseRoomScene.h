@@ -48,6 +48,9 @@ private:
     
     void OnSelectedItem(Ref* pSender, ui::Widget::TouchEventType);
     
+    
+    void onUnsubscribeLobbyDone();
+    void onLeaveLobbyDone();
 //    
     // RoomRequestListner
     void onGetLiveRoomInfoDone(std::string roomId,
