@@ -94,6 +94,16 @@ Vec2 Fighter::getPosition()
 
 void Fighter::setPosition(Vec2 pos)
 {
+    if (isLeft)
+    {
+        if (pos.x > opponent->getPosition().x)
+            return;
+    }
+    else
+    {
+        if (pos.x < opponent->getPosition().x)
+            return;
+    }
     this->physicsSprite->setPosition(pos);
 }
 
