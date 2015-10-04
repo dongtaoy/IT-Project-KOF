@@ -56,8 +56,6 @@ bool MainMenuScene::init()
     Multiplayer::initialize(GameHelper::randomString(5));
     
     this->addChild(node);
-    
-    
 
     return true;
 }
@@ -74,6 +72,7 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 void MainMenuScene::GoToChooseRoomScene(Ref* pSender, Widget::TouchEventType type)
 {
     if(type == Widget::TouchEventType::ENDED){
+        
         GKHWrapperCpp gkh;
         if(gkh.isLocalPlayerAuthenticated()){
             gkh.getLocalPlayerFriends();
@@ -117,12 +116,20 @@ void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventTyp
 
 void MainMenuScene::onConnectDone()
 {
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Joining lobby...", 33.3f);
+    Multiplayer::joinLobby(this);
+}
+
+void MainMenuScene::onJoinLobbyDone()
+{
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Subscribing lobby...", 66.7f);
+    Multiplayer::subscribeLobby(this);
+}
+
+void MainMenuScene::onSubscribeLobbyDone()
+{
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
-    
 }
-
-
-
 

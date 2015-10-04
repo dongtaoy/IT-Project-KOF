@@ -60,6 +60,13 @@ private:
     
     void onJoinRoomDone();
     void onSubscribeRoomDone();
+    void onRoomDestroyed(std::string);
+    
+    // Search Roomt
+    void SearchRoom(Ref*, ui::Widget::TouchEventType);
+    
+    
+
 };
 
 #endif /* defined(__KOF__ChooseRoomScene__) */

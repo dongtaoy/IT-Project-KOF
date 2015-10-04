@@ -18,6 +18,7 @@
 #define BORDER_UNSELECTED               "unselected"
 #define BACK_BUTTON                     "buttonBack"
 #define CREATE_BUTTON                   "buttonCreate"
+#define SEARCH_BUTTON                   "buttonSearch"
 
 #define CHARACTER_ICON_BIG_PATH         "characters/%s/icon_big.png"
 
@@ -106,6 +107,8 @@
 #define CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF "bestof"
 #define CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS "status"
 #define CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND "map"
+#define CHOOSE_ROOM_SCENE_SPRITE_SEARCH         "spriteSearch"
+#define CHOOSE_ROOM_SCENE_TEXT_SEARCH           "textSearch"
 
 
 // GAME PLAY

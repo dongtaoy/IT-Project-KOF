@@ -26,6 +26,8 @@ Multiplayer::Multiplayer(std::string username)
     client->setNotificationListener(this);
     client->setRoomRequestListener(this);
     client->setChatRequestListener(this);
+    client->setLobbyRequestListener(this);
+    
     isSuccessSent = true;
 }
 
@@ -74,6 +76,35 @@ void Multiplayer::createRoom(MultiplayerCallback* cb, std::map<std::string, std:
     client->createRoom(ROOM_NAME, Multiplayer::getInstance()->username, MAX_USERS, properties);
 }
 
+void Multiplayer::onRoomCreated(AppWarp::room event){
+    if (event.result == AppWarp::ResultCode::success){
+        AppWarp::Client::getInstance()->getLiveRoomInfo(event.roomId);
+    }
+}
+
+void Multiplayer::onRoomDestroyed(AppWarp::room event){
+        CCLOG("work %s", event.roomId.c_str());
+        callback->onRoomDestroyed(event.roomId);
+}
+
+
+void Multiplayer::joinLobby(MultiplayerCallback* cb)
+{
+    Multiplayer* m = Multiplayer::getInstance();
+    m->callback = cb;
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    CCLOG("Sending Request to join lobby");
+    client->joinLobby();
+}
+
+void Multiplayer::subscribeLobby(MultiplayerCallback* cb)
+{
+    Multiplayer* m = Multiplayer::getInstance();
+    m->callback = cb;
+    AppWarp::Client* client = AppWarp::Client::getInstance();
+    CCLOG("Sending Request to join subscribe");
+    client->subscribeLobby();
+}
 
 void Multiplayer::joinRoom(MultiplayerCallback* cb)
 {
@@ -277,6 +308,44 @@ void Multiplayer::onUserLeftRoom(AppWarp::room, std::string name)
 
 #pragma mark Room Request Listeners
 
+void Multiplayer::onJoinLobbyDone(AppWarp::lobby event)
+{
+    if (event.result == AppWarp::ResultCode::success){
+        AppWarp::Client::getInstance()->subscribeLobby();
+        callback->onJoinLobbyDone();
+    }
+    else{
+        CCLOG("fail to join lobby");
+    }
+}
+
+void Multiplayer::onLeaveLobbyDone(AppWarp::lobby event)
+{
+    if (event.result == AppWarp::ResultCode::success){
+        callback->onLeaveRoomDone();
+    }else{
+        CCLOG("fail to leave lobby");
+    }
+}
+
+void Multiplayer::onSubscribeLobbyDone(AppWarp::lobby event)
+{
+    if (event.result == AppWarp::ResultCode::success){
+        callback->onSubscribeLobbyDone();
+    }else{
+        CCLOG("fail to subscribe lobby");
+    }
+}
+
+void Multiplayer::onUnsubscribeLobbyDone(AppWarp::lobby event)
+{
+    if (event.result == AppWarp::ResultCode::success){
+        callback->onUnsubscribeLobbyDone();
+    }else{
+        CCLOG("fail to unsubscribe lobby");
+    }
+}
+
 void Multiplayer::onJoinRoomDone(AppWarp::room event)
 {
     if (event.result == AppWarp::ResultCode::success) {
@@ -324,7 +393,6 @@ void Multiplayer::onUnsubscribeRoomDone(AppWarp::room event)
         CCLOG("fail to unsubscribe room");
     }
     
-    
 }
 
 void Multiplayer::onGetLiveRoomInfoDone(AppWarp::liveroom event)
@@ -343,6 +411,7 @@ void Multiplayer::onGetLiveRoomInfoDone(AppWarp::liveroom event)
         CCLOG("fail to get live room info");
     }
 }
+
 
 
 #pragma mark Zone Request Listener

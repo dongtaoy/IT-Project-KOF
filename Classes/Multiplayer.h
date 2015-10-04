@@ -20,7 +20,7 @@
 #define MAX_USERS 2
 
 
-class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener, public AppWarp::ChatRequestListener
+class Multiplayer : public AppWarp::ConnectionRequestListener, public AppWarp::ZoneRequestListener, public AppWarp::RoomRequestListener, public AppWarp::NotificationListener, public AppWarp::ChatRequestListener, public AppWarp::LobbyRequestListener
 {
     
 
@@ -46,6 +46,8 @@ public:
     
     
 #pragma mark Actions
+    static void joinLobby(MultiplayerCallback*);
+    static void subscribeLobby(MultiplayerCallback*);
     static void joinRoom(MultiplayerCallback*);
     static void fetchRooms(MultiplayerCallback*);
     static void createRoom(MultiplayerCallback*, std::map<std::string, std::string>);
@@ -84,12 +86,21 @@ private:
     void onUserLeftRoom(AppWarp::room, std::string);
     void onChatReceived(AppWarp::chat);
     
+#pragma mark Lobby Request Listener 
+    void onJoinLobbyDone(AppWarp::lobby);
+    void onLeaveLobbyDone(AppWarp::lobby);
+    void onSubscribeLobbyDone(AppWarp::lobby);
+    void onUnsubscribeLobbyDone(AppWarp::lobby);
+    
 #pragma mark Room Request Listener
     void onJoinRoomDone(AppWarp::room);
     void onLeaveRoomDone(AppWarp::room);
     
     void onSubscribeRoomDone(AppWarp::room);
     void onUnsubscribeRoomDone(AppWarp::room);
+    
+    void onRoomCreated(AppWarp::room);
+    void onRoomDestroyed(AppWarp::room);
     
 #pragma mark Zone Request Listener
     void onGetLiveRoomInfoDone(AppWarp::liveroom);

@@ -88,14 +88,14 @@
                         <real>0.1</real>
                         <key>frames</key>
                         <array>
-                              <string>characters/character4/squat_moveback/00.png</string>
-                              <string>characters/character4/squat_moveback/01.png</string>
-                              <string>characters/character4/squat_moveback/02.png</string>
-                              <string>characters/character4/squat_moveback/03.png</string>
-                              <string>characters/character4/squat_moveback/04.png</string>
-                              <string>characters/character4/squat_moveback/05.png</string>
-                              <string>characters/character4/squat_moveback/06.png</string>
-                              <string>characters/character4/squat_moveback/07.png</string>
+                              <string>characters/character4/squat_moveforward/07.png</string>
+                              <string>characters/character4/squat_moveforward/06.png</string>
+                              <string>characters/character4/squat_moveforward/05.png</string>
+                              <string>characters/character4/squat_moveforward/04.png</string>
+                              <string>characters/character4/squat_moveforward/03.png</string>
+                              <string>characters/character4/squat_moveforward/02.png</string>
+                              <string>characters/character4/squat_moveforward/01.png</string>
+                              <string>characters/character4/squat_moveforward/00.png</string>
                         </array>
                   </dict>
                   <key>character4/squat_moveforward</key>
@@ -187,7 +187,7 @@
                   <key>character4/stand_jump</key>
                   <dict>
                         <key>delay</key>
-                        <real>0.1</real>
+                        <real>0.08</real>
                         <key>frames</key>
                         <array>
                               <string>characters/character4/stand_jump/00.png</string>
@@ -259,14 +259,14 @@
                         <real>0.1</real>
                         <key>frames</key>
                         <array>
-                              <string>characters/character4/stand_moveforward/00.png</string>
-                              <string>characters/character4/stand_moveforward/01.png</string>
-                              <string>characters/character4/stand_moveforward/02.png</string>
-                              <string>characters/character4/stand_moveforward/03.png</string>
-                              <string>characters/character4/stand_moveforward/04.png</string>
-                              <string>characters/character4/stand_moveforward/05.png</string>
-                              <string>characters/character4/stand_moveforward/06.png</string>
-                              <string>characters/character4/stand_moveforward/07.png</string>
+                              <string>characters/character4/stand_moveback/07.png</string>
+                              <string>characters/character4/stand_moveback/06.png</string>
+                              <string>characters/character4/stand_moveback/05.png</string>
+                              <string>characters/character4/stand_moveback/04.png</string>
+                              <string>characters/character4/stand_moveback/03.png</string>
+                              <string>characters/character4/stand_moveback/02.png</string>
+                              <string>characters/character4/stand_moveback/01.png</string>
+                              <string>characters/character4/stand_moveback/00.png</string>
                         </array>
                   </dict>
                   <key>character4/stand_punch1</key>

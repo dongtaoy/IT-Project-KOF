@@ -90,17 +90,16 @@
 			<real>0.1</real>
 			<key>frames</key>
 			<array>
-				<string>characters/character2/squat_moveback/00.png</string>
-				<string>characters/character2/squat_moveback/01.png</string>
-				<string>characters/character2/squat_moveback/02.png</string>
-				<string>characters/character2/squat_moveback/03.png</string>
-				<string>characters/character2/squat_moveback/04.png</string>
-				<string>characters/character2/squat_moveback/05.png</string>
-				<string>characters/character2/squat_moveback/06.png</string>
-				<string>characters/character2/squat_moveback/07.png</string>
-				<string>characters/character2/squat_moveback/08.png</string>
-				<string>characters/character2/squat_moveback/09.png</string>
-				<string>characters/character2/squat_moveback/10.png</string>
+				<string>characters/character2/squat_moveforward/09.png</string>
+				<string>characters/character2/squat_moveforward/08.png</string>
+				<string>characters/character2/squat_moveforward/07.png</string>
+				<string>characters/character2/squat_moveforward/06.png</string>
+				<string>characters/character2/squat_moveforward/05.png</string>
+				<string>characters/character2/squat_moveforward/04.png</string>
+				<string>characters/character2/squat_moveforward/03.png</string>
+				<string>characters/character2/squat_moveforward/02.png</string>
+				<string>characters/character2/squat_moveforward/01.png</string>
+				<string>characters/character2/squat_moveforward/00.png</string>
 			</array>
 		</dict>
 		<key>character2/squat_moveforward</key>
@@ -171,7 +170,7 @@
 		<key>character2/stand</key>
 		<dict>
 			<key>delay</key>
-			<real>0.3</real>
+			<real>0.1</real>
 			<key>frames</key>
 			<array>
 				<string>characters/character2/stand/00.png</string>
@@ -199,7 +198,7 @@
 		<key>character2/stand_jump</key>
 		<dict>
 			<key>delay</key>
-			<real>0.15</real>
+			<real>0.12</real>
 			<key>frames</key>
 			<array>
 				<string>characters/character2/stand_jump/00.png</string>
@@ -249,47 +248,31 @@
 		<key>character2/stand_moveback</key>
 		<dict>
 			<key>delay</key>
-			<real>0.1</real>
+			<real>0.15</real>
 			<key>frames</key>
 			<array>
-				<string>characters/character2/stand_moveforward/11.png</string>
-				<string>characters/character2/stand_moveforward/10.png</string>
-				<string>characters/character2/stand_moveforward/09.png</string>
-				<string>characters/character2/stand_moveforward/08.png</string>
-				<string>characters/character2/stand_moveforward/07.png</string>
-				<string>characters/character2/stand_moveforward/06.png</string>
-				<string>characters/character2/stand_moveforward/05.png</string>
-				<string>characters/character2/stand_moveforward/04.png</string>
-				<string>characters/character2/stand_moveforward/03.png</string>
-				<string>characters/character2/stand_moveforward/02.png</string>
-				<string>characters/character2/stand_moveforward/01.png</string>
-				<string>characters/character2/stand_moveforward/00.png</string>
+				<string>characters/character2/stand_moveback/00.png</string>
+				<string>characters/character2/stand_moveback/01.png</string>
+				<string>characters/character2/stand_moveback/02.png</string>
+				<string>characters/character2/stand_moveback/03.png</string>
 			</array>
 		</dict>
 		<key>character2/stand_moveforward</key>
 		<dict>
 			<key>delay</key>
-			<real>0.1</real>
+			<real>0.15</real>
 			<key>frames</key>
 			<array>
-				<string>characters/character2/stand_moveforward/00.png</string>
-				<string>characters/character2/stand_moveforward/01.png</string>
-				<string>characters/character2/stand_moveforward/02.png</string>
-				<string>characters/character2/stand_moveforward/03.png</string>
-				<string>characters/character2/stand_moveforward/04.png</string>
-				<string>characters/character2/stand_moveforward/05.png</string>
-				<string>characters/character2/stand_moveforward/06.png</string>
-				<string>characters/character2/stand_moveforward/07.png</string>
-				<string>characters/character2/stand_moveforward/08.png</string>
-				<string>characters/character2/stand_moveforward/09.png</string>
-				<string>characters/character2/stand_moveforward/10.png</string>
-				<string>characters/character2/stand_moveforward/11.png</string>
+				<string>characters/character2/stand_moveback/03.png</string>
+				<string>characters/character2/stand_moveback/02.png</string>
+				<string>characters/character2/stand_moveback/01.png</string>
+				<string>characters/character2/stand_moveback/00.png</string>
 			</array>
 		</dict>
 		<key>character2/stand_punch1</key>
 		<dict>
 			<key>delay</key>
-			<real>0.1</real>
+			<real>0.15</real>
 			<key>frames</key>
 			<array>
 				<string>characters/character2/stand_punch1/00.png</string>
