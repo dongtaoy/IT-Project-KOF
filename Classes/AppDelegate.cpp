@@ -2,6 +2,7 @@
 #include "SplashScene.h"
 #include "GamePlayScene.h"
 #include "GKHWrapperCpp.h"
+#include "GameCenterDelegate.h"
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1334, 750);
@@ -59,9 +60,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     searchPaths.insert(searchPaths.begin(), "res");
     fileUtils->setSearchPaths(searchPaths);
     
-    GKHWrapperCpp gkh;
-    gkh.authenticateLocalPlayer();
     
+    GameCenterDelegate::initialize();
+    GameCenterDelegate* gcd = GameCenterDelegate::getInstance();
+    GKHWrapperCpp gkh;
+    
+    gkh.setDelegate(gcd);
+    gkh.authenticateLocalPlayer();
     
     
     // create a scene. it's an autorelease object
