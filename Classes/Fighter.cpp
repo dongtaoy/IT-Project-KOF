@@ -140,7 +140,16 @@ void Fighter::stand()
 
 void Fighter::stand_hit()
 {
-    
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_HIT)%name).str());
+    auto animate = Animate::create(animation);
+    auto func = [&]{
+        this->sprite->stopAllActions();
+        this->stand();
+    };
+    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    this->sprite->runAction(sequence);
+
 }
 
 void Fighter::stand_jump(int distance)
@@ -235,7 +244,15 @@ void Fighter::squat_down()
 
 void Fighter::squat_hit()
 {
-    
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_HIT)%name).str());
+    auto animate = Animate::create(animation);
+    auto func = [&]{
+        this->sprite->stopAllActions();
+        this->squat();
+    };
+    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    this->sprite->runAction(sequence);
 }
 
 
@@ -314,13 +331,23 @@ void Fighter::kick1()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK1) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
-            
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
                 h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
@@ -331,7 +358,7 @@ void Fighter::kick1()
         };
         
         
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK1);
         else
@@ -351,14 +378,23 @@ void Fighter::kick2()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK2) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
-            
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - KICK2_DAMAGE);
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
-            
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
@@ -366,9 +402,11 @@ void Fighter::kick2()
             }
             this->squat();
             
-            
         };
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        
+        
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
+
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK2);
         else
@@ -388,21 +426,34 @@ void Fighter::punch1()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH1) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - PUNCH1_DAMAGE);
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
-            
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
                 return;
             }
             this->squat();
+            
         };
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        
+        
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH1);
         else
@@ -422,23 +473,34 @@ void Fighter::punch2()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH2) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
-            
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - PUNCH2_DAMAGE);
-//                opponent->
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
-            
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
                 return;
             }
             this->squat();
+            
         };
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        
+        
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH2);
         else
