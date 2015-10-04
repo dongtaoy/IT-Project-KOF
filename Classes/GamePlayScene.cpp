@@ -215,7 +215,6 @@ void GamePlayScene::processCommand(command_t cmd)
                 break;
             
             case OP_GPS_ACTION_1_STAND:
-                player->gethealth()->setPercent(std::atoi(GameHelper::split(cmd.properties, '%').at(2).c_str()));
                 opponent->setPosition(Multiplayer::extractPos(cmd.properties));
                 opponent->stand();
                 break;
@@ -245,6 +244,9 @@ void GamePlayScene::processCommand(command_t cmd)
                     opponent->squat_moveback();
                 break;
                 
+            case OP_GPS_ACTION_3_HEALTHCHANGED:
+                    opponent->setHealthPercentage(std::atof(GameHelper::split(cmd.properties, '%').at(0).c_str()));
+                break;
             default:
                 break;
         }
@@ -266,7 +268,7 @@ void GamePlayScene::update(float dt)
     }
     
     auto pos = player->getPosition();
-    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});;
+    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
     
     std::string message;
     
@@ -283,7 +285,6 @@ void GamePlayScene::update(float dt)
         message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
         player->stand_moveback();
     }
-    // stand
     
     
     // jump
@@ -364,14 +365,30 @@ void GamePlayScene::update(float dt)
     if (std::isnan(angle))
     {
         if (player->isActionStoppable()) {
-            auto p = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y), std::to_string(opponent->gethealth()->getPercent())});
-            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, p);
+            message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
             player->stand();
         }
-        
-        
     }
     
+    if (player->getIsHealthChanged())
+    {
+        player->setIsHealthChanged(false);
+        auto p = Multiplayer::buildProperties({std::to_string(player->getHealthPercentage())});
+        message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_3_HEALTHCHANGED,p);
+    }
+    
+    
+    if (player->getIsDie() || opponent->getIsDie())
+    {
+        
+        MenuClicked(nullptr, Widget::TouchEventType::ENDED);
+        this->unscheduleUpdate();
+//        GKHWrapperCpp gkh;
+//        gkh.submitScoreToCatagory(<#int64_t s#>, <#std::string c#>);
+//        
+//        LoadingLayer::ADD
+    }
+
     
     player->update(dt);
     opponent->update(dt);
@@ -589,4 +606,22 @@ void GamePlayScene::updatePlayerHp()
 //    }
 //    
 }
+
+bool GamePlayScene::opponentDie()
+{
+    if (opponent->gethealth() <= 0)
+    {
+        return true;
+    }
+}
+
+void GamePlayScene::GoToMainMenuScene( float dt )
+{
+    
+    auto scene = GamePlayScene::createScene();
+    
+    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+}
+
+
 

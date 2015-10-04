@@ -194,6 +194,9 @@
 #define OP_GPS_ACTION_2_SQUAT_KICK2                253
 #define OP_GPS_ACTION_2_SQUAT_HIT                  254
 
+#define OP_GPS_ACTION_3_WIN                        300
+#define OP_GPS_ACTION_3_HEALTHCHANGED              301
+
 
 
 #define ACTION_MOVE_SPEED                   200

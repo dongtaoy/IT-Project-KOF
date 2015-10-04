@@ -17,7 +17,7 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
     this->isLeft = isLeft;
     this->sprite = sprite;
     this->health = health;
-    
+    this->isDie = false;
     
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
     
@@ -314,15 +314,22 @@ void Fighter::win()
     this->sprite->stopAllActions();
     auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_WIN)%name).str());
     auto animate = Animate::create(animation);
-    this->sprite->runAction(animate);
+    auto animateForever = RepeatForever::create(animate);
+    animateForever->setTag(OP_GPS_ACTION_3_WIN);
+    this->sprite->runAction(animateForever);
 }
 
 void Fighter::die()
 {
     this->sprite->stopAllActions();
     auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_DIE)%name).str());
+    auto func = [&]
+    {
+        isDie = true;
+    };
     auto animate = Animate::create(animation);
-    this->sprite->runAction(animate);
+    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    this->sprite->runAction(sequence);
 }
 
 void Fighter::kick1()
@@ -341,7 +348,7 @@ void Fighter::kick1()
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
                 }
@@ -388,7 +395,7 @@ void Fighter::kick2()
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
                 }
@@ -436,7 +443,7 @@ void Fighter::punch1()
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
                 }
@@ -483,7 +490,7 @@ void Fighter::punch2()
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
                 }
@@ -576,4 +583,21 @@ bool Fighter::isHit()
         return false;
     }
 }
+
+
+void Fighter::setHealthPercentage(float p)
+{
+    if (p <= 0) {
+        this->die();
+        opponent->win();
+    }
+    isHealthChanged = true;
+    this->health->setPercent(p);
+}
+
+float Fighter::getHealthPercentage()
+{
+    return this->gethealth()->getPercent();
+}
+
 
