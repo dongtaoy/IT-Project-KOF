@@ -69,6 +69,7 @@
 		8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */; };
 		8793B6161B99E40C00277AC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6121B99E40C00277AC7 /* README.md */; };
 		8793B61C1B99E67800277AC7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793B61B1B99E67800277AC7 /* GameKit.framework */; };
+		879E0AAF1BC0D17D008B95D0 /* GameCenterDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */; settings = {ASSET_TAGS = (); }; };
 		879FB8481B7AED3900E4F0BF /* appwarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8311B7AED3900E4F0BF /* appwarp.cpp */; };
 		879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */; };
 		879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8341B7AED3900E4F0BF /* base64.cpp */; };
@@ -203,6 +204,8 @@
 		8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKHWrapperCpp.mm; sourceTree = "<group>"; };
 		8793B6121B99E40C00277AC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8793B61B1B99E67800277AC7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameCenterDelegate.cpp; sourceTree = "<group>"; };
+		879E0AAE1BC0D17D008B95D0 /* GameCenterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterDelegate.h; sourceTree = "<group>"; };
 		879FB8311B7AED3900E4F0BF /* appwarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp.cpp; sourceTree = "<group>"; };
 		879FB8321B7AED3900E4F0BF /* appwarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appwarp.h; sourceTree = "<group>"; };
 		879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp_extended.cpp; sourceTree = "<group>"; };
@@ -419,6 +422,8 @@
 				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
 				87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */,
 				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
+				879E0AAE1BC0D17D008B95D0 /* GameCenterDelegate.h */,
+				879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -659,6 +664,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879E0AAF1BC0D17D008B95D0 /* GameCenterDelegate.cpp in Sources */,
 				8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */,
 				879FB8511B7AED3900E4F0BF /* urlencode.cpp in Sources */,
 				87778A511BA69D3900290F2B /* SneakyButton.cpp in Sources */,

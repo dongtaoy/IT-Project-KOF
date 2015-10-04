@@ -17,29 +17,21 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
     this->isLeft = isLeft;
     this->sprite = sprite;
     this->health = health;
+    
+    
     this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
-    auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX(),
+    
+    auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX() - 50,
                      this->sprite->getContentSize().height * this->sprite->getScaleY());
-    size = this->sprite->getBoundingBox().size;
     
+    this->physicsSprite = Sprite::create("res/Resources/Empty.png");
+    this->physicsSprite->setPosition(this->sprite->getPosition().x,  this->sprite->getPosition().y + 100);
+    auto body = PhysicsBody::createBox(size);
+    body->setRotationEnable(false);
+    body->setGravityEnable(true);
+    this->physicsSprite->setPhysicsBody(body);
     
-//    auto body = PhysicsBody::createBox(size, PhysicsMaterial(1.0f,0.0f,1.0f));
-//    body->setRotationEnable(false);
-//    body->setGravityEnable(false);
-//    this->sprite->setPhysicsBody(body);
-    
-    //    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
-    //    sprite->setPhysicsBody(body);
-    //
-    //    //set colission detect
-    //    body->setCollisionBitmask(bitmask);
-    //    body->setContactTestBitmask(true);
-    //
-    //    //keep character still
-    //    body->setRotationEnable(false);
-//        body->setGravityEnable(true);
-    
-    
+    this->sprite->getParent()->addChild(this->physicsSprite);
     this->start();
     
 }
@@ -47,34 +39,37 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
 
 void Fighter::update(float)
 {
-    auto visibleSize = Director::getInstance()->getWinSize();
-    auto playerBox = this->getBoundingBox();
-    auto opponentBox = opponent->getBoundingBox();
-    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
-    
+//    auto visibleSize = Director::getInstance()->getWinSize();
+//    auto playerBox = this->getBoundingBox();
+//    auto opponentBox = opponent->getBoundingBox();
+//    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
+//    
     // background size
-    if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
-    {
-        this->setPosition(Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
-    }
+//    if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
+//    {
+//        this->setPosition(Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
+//    }
+//    
+//    if (this->getPosition().x + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
+//    {
+//        this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
+//    }
+//    
+//    
+//    // screen size
+//    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
+//    {
+//        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+//    }
+//    
+//    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
+//    {
+//        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+//    }
     
-    if (this->getPosition().x + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
-    {
-        this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
-    }
+    this->sprite->setPosition(this->physicsSprite->getPosition().x, this->sprite->getPosition().y);
     
-    
-    // screen size
-    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
-    {
-        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
-    }
-    
-    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
-    {
-        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
-    }
-    
+//    if (isle)
     
 //    if (isLeft)
 //    {
@@ -94,12 +89,22 @@ void Fighter::update(float)
 
 Vec2 Fighter::getPosition()
 {
-    return this->sprite->getPosition();
+    return this->physicsSprite->getPosition();
 }
 
 void Fighter::setPosition(Vec2 pos)
 {
-    this->sprite->setPosition(pos);
+    if (isLeft)
+    {
+        if (pos.x > opponent->getPosition().x)
+            return;
+    }
+    else
+    {
+        if (pos.x < opponent->getPosition().x)
+            return;
+    }
+    this->physicsSprite->setPosition(pos);
 }
 
 Rect Fighter::getBoundingBox()
@@ -123,6 +128,7 @@ void Fighter::stand()
 {
     if (!isStand() && (this->sprite->getNumberOfRunningActions() < 1 || isActionStoppable()))
     {
+        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND)%name).str());
         auto animate = Animate::create(animation);
@@ -134,7 +140,18 @@ void Fighter::stand()
 
 void Fighter::stand_hit()
 {
-    
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_HIT)%name).str());
+    auto animate = Animate::create(animation);
+    animate->setDuration(0.8f);
+    auto func = [&]{
+        this->sprite->stopAllActions();
+        this->stand();
+    };
+    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
+    this->sprite->runAction(sequence);
+
 }
 
 void Fighter::stand_jump(int distance)
@@ -142,15 +159,18 @@ void Fighter::stand_jump(int distance)
     
     if(isActionStoppable())
     {
+        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_JUMP)%name).str());
         auto animate = Animate::create(animation);
-        auto jumpTo = JumpTo::create(animate->getDuration(), Vec2(getPosition().x + distance, getPosition().y), 300.0f, 1);
-        auto spawn = Spawn::create(animate, jumpTo, NULL);
+        auto jumpBy = JumpBy::create(animate->getDuration(), Vec2(0, 0), 300.0f, 1);
+        auto moveBy = MoveBy::create(animate->getDuration(), Vec2(distance, 0));
+        auto spawn = Spawn::create(animate, jumpBy, NULL);
         auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
         auto sequence = Sequence::create(spawn, callFunc, NULL);
         sequence->setTag(OP_GPS_ACTION_2_STAND_JUMP);
         this->sprite->runAction(sequence);
+        this->physicsSprite->runAction(moveBy);
     }
 }
 
@@ -161,6 +181,7 @@ void Fighter::stand_moveback()
     
     if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
     {
+        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
         auto animate = Animate::create(animation);
@@ -170,7 +191,7 @@ void Fighter::stand_moveback()
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        this->physicsSprite->runAction(movebyForever);
     }
 }
 
@@ -179,6 +200,7 @@ void Fighter::stand_moveforward()
     
     if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
     {
+        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
         auto animate = Animate::create(animation);
@@ -187,7 +209,7 @@ void Fighter::stand_moveforward()
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        this->physicsSprite->runAction(movebyForever);
     }
 }
 
@@ -224,7 +246,17 @@ void Fighter::squat_down()
 
 void Fighter::squat_hit()
 {
-    
+    this->sprite->stopAllActions();
+    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_HIT)%name).str());
+    auto animate = Animate::create(animation);
+    animate->setDuration(0.5f);
+    auto func = [&]{
+        this->sprite->stopAllActions();
+        this->squat();
+    };
+    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
+    this->sprite->runAction(sequence);
 }
 
 
@@ -232,6 +264,7 @@ void Fighter::squat_moveback()
 {
     if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)) && isActionStoppable())
     {
+        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
         auto animate = Animate::create(animation);
@@ -240,7 +273,7 @@ void Fighter::squat_moveback()
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        this->physicsSprite->runAction(movebyForever);
     }
 }
 
@@ -248,6 +281,7 @@ void Fighter::squat_moveforward()
 {
     if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
     {
+        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
         auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
         auto animate = Animate::create(animation);
@@ -256,7 +290,7 @@ void Fighter::squat_moveforward()
         auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
         auto movebyForever = RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
-        this->sprite->runAction(movebyForever);
+        this->physicsSprite->runAction(movebyForever);
     }
 }
 
@@ -301,13 +335,23 @@ void Fighter::kick1()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK1) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
-            
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
                 h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
@@ -318,7 +362,7 @@ void Fighter::kick1()
         };
         
         
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK1);
         else
@@ -338,14 +382,23 @@ void Fighter::kick2()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK2) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
-            
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - KICK2_DAMAGE);
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
-            
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
@@ -353,9 +406,11 @@ void Fighter::kick2()
             }
             this->squat();
             
-            
         };
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        
+        
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
+
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK2);
         else
@@ -375,21 +430,34 @@ void Fighter::punch1()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH1) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - PUNCH1_DAMAGE);
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
-            
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
                 return;
             }
             this->squat();
+            
         };
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        
+        
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH1);
         else
@@ -409,22 +477,34 @@ void Fighter::punch2()
         else
             animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH2) % name).str());
         auto animate = Animate::create(animation);
-        auto func = [&]{
-            
+        
+        auto preFunc = [&]
+        {
             if (this->isHit())
             {
                 auto h = opponent->gethealth();
-                h->setPercent(h->getPercent() - PUNCH2_DAMAGE);
+                h->setPercent(h->getPercent() - KICK1_DAMAGE);
+                if (opponent->isStand()) {
+                    opponent->stand_hit();
+                }
+                if (opponent->isSquat()) {
+                    opponent->squat_hit();
+                }
             }
-            
+        };
+        
+        auto func = [&]{
             if (!this->isSquat()) {
                 this->sprite->stopAllActions();
                 this->stand();
                 return;
             }
             this->squat();
+            
         };
-        auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+        
+        
+        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH2);
         else
@@ -478,8 +558,8 @@ bool Fighter::isHit()
     CCLOG("here");
     auto px = getPosition().x;
     auto ox = opponent->getPosition().x;
-    auto pw = getSprite()->getBoundingBox().size.width * getSprite()->getScaleX() / 2;
-    auto ow = opponent->getSprite()->getBoundingBox().size.width * opponent->getSprite()->getScaleX() / 2;
+    auto pw = getSprite()->getBoundingBox().size.width / 2;// * getSprite()->getScaleX() / 2;
+    auto ow = opponent->getSprite()->getBoundingBox().size.width / 2;// * opponent->getSprite()->getScaleX() / 2;
     if (isLeft) {
         if ((px + pw) > (ox - ow))
         {

@@ -76,6 +76,7 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, Widget::TouchEventType typ
     if(type == Widget::TouchEventType::ENDED){
         GKHWrapperCpp gkh;
         if(gkh.isLocalPlayerAuthenticated()){
+            gkh.getLocalPlayerFriends();
             // Initialize Multiplayer
             if(Multiplayer::getInstance()->isConnected()){
                 auto scene = ChooseRoomScene::createScene();

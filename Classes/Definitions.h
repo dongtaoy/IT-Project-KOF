@@ -183,12 +183,13 @@
 #define OP_GPS_ACTION_2_STAND_PUNCH2               203
 #define OP_GPS_ACTION_2_STAND_KICK1                204
 #define OP_GPS_ACTION_2_STAND_KICK2                205
+#define OP_GPS_ACTION_2_STAND_HIT                  206
 
 #define OP_GPS_ACTION_2_SQUAT_PUNCH1               250
 #define OP_GPS_ACTION_2_SQUAT_PUNCH2               251
 #define OP_GPS_ACTION_2_SQUAT_KICK1                252
 #define OP_GPS_ACTION_2_SQUAT_KICK2                253
-
+#define OP_GPS_ACTION_2_SQUAT_HIT                  254
 
 
 
