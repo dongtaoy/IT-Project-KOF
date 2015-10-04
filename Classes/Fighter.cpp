@@ -89,12 +89,12 @@ void Fighter::update(float)
 
 Vec2 Fighter::getPosition()
 {
-    return this->sprite->getPosition();
+    return this->physicsSprite->getPosition();
 }
 
 void Fighter::setPosition(Vec2 pos)
 {
-    this->sprite->setPosition(pos);
+    this->physicsSprite->setPosition(pos);
 }
 
 Rect Fighter::getBoundingBox()
