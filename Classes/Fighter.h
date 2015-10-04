@@ -27,6 +27,7 @@ public:
     CC_SYNTHESIZE(cocos2d::ui::LoadingBar*, health, health);
     CC_SYNTHESIZE(bool, isLeft, IsLeft);
     CC_SYNTHESIZE(cocos2d::Sprite*, physicsSprite, physicsSprite);
+    CC_SYNTHESIZE(bool, isDie, IsDie);
     
     void squat();
     void squat_down();
@@ -52,6 +53,8 @@ public:
     void punch1();
     void punch2();
     
+    void setHealthPercentage(float);
+    float getHealthPercentage();
     
     void update(float);
     
@@ -69,6 +72,8 @@ public:
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
     bool isHit();
+    
+   
     
 };
 

@@ -25,6 +25,7 @@
 #include "Fighter.h"
 #include "Camera2d.h"
 #include "MultiplayerCallback.h"
+#include "GKHWrapperCpp.h"
 
 class GamePlayScene : public cocos2d::Layer, public MultiplayerCallback
 {
@@ -94,6 +95,9 @@ private:
     void addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask);
     void updatePlayerHp();
     void characterTooClose(float characterDistance, float closeDistance);
+    
+    void GoToMainMenuScene( float dt );
+    bool opponentDie();
     
 };
 

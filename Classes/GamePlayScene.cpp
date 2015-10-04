@@ -222,7 +222,10 @@ void GamePlayScene::processCommand(command_t cmd)
                 break;
             
             case OP_GPS_ACTION_1_STAND:
-                player->gethealth()->setPercent(std::atoi(GameHelper::split(cmd.properties, '%').at(2).c_str()));
+                player->setHealthPercentage(std::atoi(GameHelper::split(cmd.properties, '%').at(2).c_str()));
+//                if (player->gethealth() == ) {
+//                    this->scheduleOnce(schedule_selector(GamePlayScene::GoToMainMenuScene), DISPLAY_TIME_SPLASH_SCENE);
+//                }
                 opponent->setPosition(Multiplayer::extractPos(cmd.properties));
                 opponent->stand();
                 break;
@@ -272,7 +275,7 @@ void GamePlayScene::update(float dt)
     }
     
     auto pos = player->getPosition();
-    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});;
+    std::string properties = Multiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y), std::to_string(player->getHealthPercentage())});
     
     std::string message;
     
@@ -378,6 +381,17 @@ void GamePlayScene::update(float dt)
         
     }
     
+    if (player->getIsDie() || opponent->getIsDie())
+    {
+        
+        MenuClicked(nullptr, Widget::TouchEventType::ENDED);
+        this->unscheduleUpdate();
+//        GKHWrapperCpp gkh;
+//        gkh.submitScoreToCatagory(<#int64_t s#>, <#std::string c#>);
+//        
+//        LoadingLayer::ADD
+    }
+//    ui::LoadingBar* healthbar = static_cast<ui::LoadingBar>(this->getChildByName("GamePlayScene")->getChildByName(<#const std::string &name#>))
     
     player->update(dt);
     opponent->update(dt);
@@ -595,4 +609,22 @@ void GamePlayScene::updatePlayerHp()
 //    }
 //    
 }
+
+bool GamePlayScene::opponentDie()
+{
+    if (opponent->gethealth() <= 0)
+    {
+        return true;
+    }
+}
+
+void GamePlayScene::GoToMainMenuScene( float dt )
+{
+    
+    auto scene = GamePlayScene::createScene();
+    
+    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
+}
+
+
 
