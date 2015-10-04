@@ -143,11 +143,13 @@ void Fighter::stand_hit()
     this->sprite->stopAllActions();
     auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_HIT)%name).str());
     auto animate = Animate::create(animation);
+    animate->setDuration(0.8f);
     auto func = [&]{
         this->sprite->stopAllActions();
         this->stand();
     };
     auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
     this->sprite->runAction(sequence);
 
 }
@@ -247,11 +249,13 @@ void Fighter::squat_hit()
     this->sprite->stopAllActions();
     auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_HIT)%name).str());
     auto animate = Animate::create(animation);
+    animate->setDuration(0.5f);
     auto func = [&]{
         this->sprite->stopAllActions();
         this->squat();
     };
     auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
     this->sprite->runAction(sequence);
 }
 
