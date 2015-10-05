@@ -439,11 +439,15 @@ void Fighter::kick1()
             {
                 auto h = opponent->gethealth();
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
-                if (opponent->isStand()) {
+                if (opponent->isStand())
+                {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
-                if (opponent->isSquat()) {
+                if (opponent->isSquat())
+                {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -518,9 +522,11 @@ void Fighter::kick2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -595,9 +601,11 @@ void Fighter::punch1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -672,9 +680,11 @@ void Fighter::punch2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -809,4 +819,9 @@ float Fighter::getHealthPercentage()
     return this->gethealth()->getPercent();
 }
 
+void Fighter::playHitSoundEffect()
+{
+    //character get hit
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/get_hit.wav",false);
+}
 

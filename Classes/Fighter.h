@@ -74,7 +74,7 @@ public:
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
     bool isHit();
-   
+    void playHitSoundEffect();
     
 };
 
