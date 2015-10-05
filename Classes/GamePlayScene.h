@@ -99,6 +99,9 @@ private:
     void GoToMainMenuScene( float dt );
     bool opponentDie();
     
+    void updateMusicSlideBar(Ref* pSender, ui::Slider::EventType type);
+    void updateCheckBox(Ref *pSender,ui::CheckBox::EventType type);
+    void updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type);
 };
 
 

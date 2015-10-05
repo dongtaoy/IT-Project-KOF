@@ -438,6 +438,9 @@ void GamePlayScene::PauseClicked(Ref* pSender, Widget::TouchEventType type)
         this->addChild(node);
         node->getChildByName<Button*>("buttonResume")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::ResumeClicked, this));
         node->getChildByName<Button*>("buttonMenu")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::MenuClicked, this));
+        node->getChildByName<CheckBox*>("chekboxMute")->addEventListener(CC_CALLBACK_2(GamePlayScene::updateCheckBox, this));
+        node->getChildByName<Slider*>("soundSlidebar")->addEventListener(CC_CALLBACK_2(GamePlayScene::updateMusicSlideBar, this));
+        node->getChildByName<Slider*>("effectSlidebar")->addEventListener(CC_CALLBACK_2(GamePlayScene::updateEffectSlideBar, this));
     }
 }
 
@@ -634,5 +637,34 @@ void GamePlayScene::GoToMainMenuScene( float dt )
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
+void GamePlayScene::updateMusicSlideBar(Ref* pSender, ui::Slider::EventType type)
+{
+    ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+    float percent = musicSlideBar->getPercent();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(percent*0.01);
+    
+}
 
+void GamePlayScene::updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type)
+{
+    ui::Slider* effectSlideBar = static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+    float percent1 = effectSlideBar->getPercent();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(percent1*0.01);
+}
+
+
+void GamePlayScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
+{
+    ui::Slider* effectSlideBar = static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+    float percent1 = effectSlideBar->getPercent();
+    if (type ==CheckBox::EventType::SELECTED) {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(0.0);
+    }
+    if (type ==CheckBox::EventType::UNSELECTED) {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(percent1*0.01);
+    }
+    
+}
 
