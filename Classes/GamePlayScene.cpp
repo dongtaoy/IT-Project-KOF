@@ -54,6 +54,12 @@ bool GamePlayScene::init()
     //stop backgorund music
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     
+    //    preload the fight background music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/Fightmusic.mp3");
+    //    play the fight background music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/Fightmusic.mp3",true);
+    
+    
     auto node = CSLoader::createNode("GamePlay.csb");
     
     node->getChildByName<Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -527,7 +533,7 @@ void GamePlayScene::onLeaveRoomDone()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
     auto scene = MainMenuScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3");
 }
 
 

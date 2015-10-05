@@ -39,12 +39,11 @@ bool SplashScene::init()
     Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-////    preload the background music
-//    
-//    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/backgroundmusic.mp3");
-////    play the background music
-//    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3",true);
-//    
+//    preload the background music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/backgroundmusic.mp3");
+//    play the background music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3",true);
+    
     
     
     auto node = CSLoader::createNode("SplashScreen.csb");
