@@ -299,6 +299,8 @@ void Fighter::squat_up()
     
 }
 
+
+
 void Fighter::start()
 {
     this->sprite->stopAllActions();
@@ -307,6 +309,30 @@ void Fighter::start()
     auto sequence = Sequence::create(animate, CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
     this->sprite->runAction(sequence);
     
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("music/soundEffect/character1/start.wav");
+    auto name =  this->getName();
+    if (name.compare("character1")==0){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/start.wav",false);
+    }
+    if (name.compare("character2")==0){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/start.wav",false);
+    }
+
+    if (name.compare("character3")==0){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/start.wav",false);
+    }
+
+    if (name.compare("character4")==0){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/start.wav",false);
+    }
+    if (name.compare("character5")==0){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/start.wav",false);
+    }
+    if (name.compare("character6")==0){
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/start.wav",false);
+    }
+
+
 }
 
 void Fighter::win()

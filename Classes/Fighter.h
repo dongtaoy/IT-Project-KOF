@@ -14,6 +14,7 @@
 #include "Definitions.h"
 #include <boost/format.hpp>
 #include "CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 class Fighter
 {
@@ -73,7 +74,6 @@ public:
     bool isActionStoppable();
     bool canMove(cocos2d::Vec2);
     bool isHit();
-    
    
     
 };

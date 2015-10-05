@@ -51,7 +51,8 @@ bool GamePlayScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    
+    //stop backgorund music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     
     auto node = CSLoader::createNode("GamePlay.csb");
     
@@ -102,12 +103,12 @@ bool GamePlayScene::init()
 //
 //
 //    
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character1").str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character1").str());
-//    this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, "character1", false);
-//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character1").str(), Widget::TextureResType::PLIST);
-//    this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, "character1", true);
-//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character1").str(), Widget::TextureResType::PLIST);
+//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % "character3").str());
+//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % "character3").str());
+//    this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, "character3", false);
+//    node->getChildByName<ImageView*>("playerLeft")->loadTexture((boost::format("characters/%s/icon_game_left.png") % "character3").str(), Widget::TextureResType::PLIST);
+//    this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, "character3", true);
+//    node->getChildByName<ImageView*>("playerRight")->loadTexture((boost::format("characters/%s/icon_game_right.png") % "character3").str(), Widget::TextureResType::PLIST);
 
     
 
@@ -356,7 +357,6 @@ void GamePlayScene::update(float dt)
         {
             message = Multiplayer::buildMessage(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1, properties);
             player->kick1();
-            
         }
     }
     
@@ -386,12 +386,11 @@ void GamePlayScene::update(float dt)
     
     if (player->getIsDie() || opponent->getIsDie())
     {
-        
         MenuClicked(nullptr, Widget::TouchEventType::ENDED);
         this->unscheduleUpdate();
 //        GKHWrapperCpp gkh;
-//        gkh.submitScoreToCatagory(<#int64_t s#>, <#std::string c#>);
-//        
+//        gkh.submitScoreToCatagory(<#int64_t s#>, co);
+        
 //        LoadingLayer::ADD
     }
 
@@ -501,9 +500,9 @@ void GamePlayScene::createBackgroundAnimation()
     CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     
     //     TODO: WITH MULTIPLAYER
-    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
+//    auto animation = AnimationCache::getInstance()->getAnimation(Multiplayer::getInstance()->getBackground());
     // TODO: WITHOUT MULTIPLAYER
-//    auto animation = AnimationCache::getInstance()->getAnimation("background1");
+    auto animation = AnimationCache::getInstance()->getAnimation("background1");
     
     Size targetSize = Size( 2305.0f, 750.0f );
     Size backgroundSize = background->getContentSize();
@@ -613,13 +612,13 @@ void GamePlayScene::updatePlayerHp()
 //    
 }
 
-bool GamePlayScene::opponentDie()
-{
-    if (opponent->gethealth() <= 0)
-    {
-        return true;
-    }
-}
+//bool GamePlayScene::opponentDie()
+//{
+//    if (opponent->gethealth() <= 0)
+//    {
+//        return true;
+//    }
+//}
 
 void GamePlayScene::GoToMainMenuScene( float dt )
 {
