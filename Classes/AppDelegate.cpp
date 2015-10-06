@@ -1,9 +1,6 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
-#include "GamePlayScene.h"
 #include "GKHWrapperCpp.h"
-#include "GameCenterDelegate.h"
-USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1334, 750);
 
@@ -50,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
-    Size frameSize = glview->getFrameSize();
+    cocos2d::Size frameSize = glview->getFrameSize();
     
     register_all_packages();
     
@@ -61,11 +58,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     fileUtils->setSearchPaths(searchPaths);
     
     
-    GameCenterDelegate::initialize();
-    GameCenterDelegate* gcd = GameCenterDelegate::getInstance();
     GKHWrapperCpp gkh;
-    
-    gkh.setDelegate(gcd);
     gkh.authenticateLocalPlayer();
     
     

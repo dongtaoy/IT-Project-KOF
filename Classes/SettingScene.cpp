@@ -8,9 +8,6 @@
 
 #include "SettingScene.h"
 
-using namespace ui;
-USING_NS_CC;
-
 Scene* SettingScene::createScene()
 {
     // 'scene' is an autorelease object
@@ -36,8 +33,8 @@ bool SettingScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getWinSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getWinSize();
+    cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
     
     
     //TODO: help text
@@ -58,7 +55,7 @@ bool SettingScene::init()
     
     //get the node of checkbox
     
-    CheckBox* musicCheckBox = static_cast<CheckBox*>(this->getChildByName("SettingScene")->getChildByName("check_box"));
+    cocos2d::ui::CheckBox* musicCheckBox = static_cast<cocos2d::ui::CheckBox*>(this->getChildByName("SettingScene")->getChildByName("check_box"));
     
     musicCheckBox->addEventListener(CC_CALLBACK_2(SettingScene::updateCheckBox, this));
     
@@ -71,26 +68,25 @@ bool SettingScene::init()
 void SettingScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
-    
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }
 
 void SettingScene::updateSlideBar(Ref* pSender, ui::Slider::EventType type)
 {
-    ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
-    float percent = musicSlideBar->getPercent();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(percent*0.01);
+//    ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+//    float percent = musicSlideBar->getPercent();
+//    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(percent*0.01);
 }
 
 
 void SettingScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
 {
-    if (type ==CheckBox::EventType::SELECTED) {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-    }
-    if (type ==CheckBox::EventType::UNSELECTED) {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    }
+//    if (type ==CheckBox::EventType::SELECTED) {
+//        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+//    }
+//    if (type ==CheckBox::EventType::UNSELECTED) {
+//        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+//    }
     
 }

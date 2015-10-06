@@ -19,8 +19,10 @@ class PhotonMultiplayer : private ExitGames::LoadBalancing::Listener
 {
 public:
     static PhotonMultiplayer* _instance;
+    static void initialize(ExitGames::Common::JString);
     static PhotonMultiplayer* getInstance();
     
+    void service();
     
     void run(void);
     void connect(void);
@@ -28,10 +30,9 @@ public:
     void opJoinRandomRoom(void);
     void disconnect(void);
     void sendEvent(void);
-    void service(void);
     
 private:
-    PhotonMultiplayer();
+    PhotonMultiplayer(ExitGames::Common::JString);
     // receive and print out debug out here
     virtual void debugReturn(int debugLevel, const ExitGames::Common::JString& string);
     

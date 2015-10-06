@@ -15,22 +15,30 @@ static const ExitGames::Common::JString appVersion = L"1.0";
 
 PhotonMultiplayer* PhotonMultiplayer::_instance = NULL;
 
-PhotonMultiplayer* PhotonMultiplayer::getInstance()
+void PhotonMultiplayer::initialize(ExitGames::Common::JString name)
 {
     if (_instance == NULL)
     {
-        _instance = new PhotonMultiplayer();
-        return _instance;
+        _instance = new PhotonMultiplayer(name);
     }
-    
+}
+
+
+PhotonMultiplayer* PhotonMultiplayer::getInstance()
+{
     return _instance;
 }
 
 // functions
-PhotonMultiplayer::PhotonMultiplayer()
-:c(*this, appId, appVersion, "abc", ExitGames::Photon::ConnectionProtocol::UDP, ExitGames::LoadBalancing::AuthenticationValues(), true, false)
+PhotonMultiplayer::PhotonMultiplayer(ExitGames::Common::JString name)
+:c(*this, appId, appVersion, name, ExitGames::Photon::ConnectionProtocol::UDP, ExitGames::LoadBalancing::AuthenticationValues(), true, false)
 {
     
+}
+
+void PhotonMultiplayer::service()
+{
+    c.service();
 }
 
 void PhotonMultiplayer::connect(void)
@@ -41,6 +49,7 @@ void PhotonMultiplayer::connect(void)
 
 void PhotonMultiplayer::disconnect(void)
 {
+    
 }
 
 void PhotonMultiplayer::opCreateRoom(void)
@@ -60,11 +69,6 @@ void PhotonMultiplayer::sendEvent(void)
 {
 }
 
-void PhotonMultiplayer::service()
-{
-    //    printf("out:%d", c.getBytesOut());
-    c.service();
-}
 
 // protocol implementations
 

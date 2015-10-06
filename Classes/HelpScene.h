@@ -9,9 +9,11 @@
 #ifndef __KOF__HelpScene__
 #define __KOF__HelpScene__
 
+#include "MainMenuScene.h"
+
 #include <stdio.h>
 #include "cocos2d.h"
-#include "MainMenuScene.h"
+#include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 
 class HelpScene : public cocos2d::Layer

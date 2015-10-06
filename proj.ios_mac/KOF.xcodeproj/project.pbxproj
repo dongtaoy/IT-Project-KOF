@@ -56,14 +56,6 @@
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		8740B0221B7F605300395343 /* HelpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0201B7F605300395343 /* HelpScene.cpp */; };
 		8740B0251B7F606200395343 /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0231B7F606200395343 /* SettingScene.cpp */; };
-		87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87468D731B805F5E00299169 /* ChooseRoomScene.cpp */; };
-		8764F07A1B8CAB7000937F18 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */; };
-		877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8777462F1B8D89FD00D63086 /* Multiplayer.cpp */; };
-		87778A511BA69D3900290F2B /* SneakyButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87778A4D1BA69D3900290F2B /* SneakyButton.cpp */; };
-		87778A521BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87778A4F1BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp */; };
-		87778A551BA6FFBA00290F2B /* GamePlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87778A541BA6FFBA00290F2B /* GamePlayScene.cpp */; };
-		87783CD61B9F068F00427625 /* SneakyJoystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87783CD41B9F068F00427625 /* SneakyJoystick.cpp */; };
-		87783CDA1B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */; };
 		878D7FB61BC3A76400DC10DC /* libCommon-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6A1BC3A76300DC10DC /* libCommon-cpp_debug_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
 		878D7FB71BC3A76400DC10DC /* libCommon-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6B1BC3A76300DC10DC /* libCommon-cpp_debug_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
 		878D7FB81BC3A76400DC10DC /* libCommon-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6C1BC3A76300DC10DC /* libCommon-cpp_release_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
@@ -82,7 +74,6 @@
 		8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */; };
 		8793B6161B99E40C00277AC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6121B99E40C00277AC7 /* README.md */; };
 		8793B61C1B99E67800277AC7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793B61B1B99E67800277AC7 /* GameKit.framework */; };
-		879E0AAF1BC0D17D008B95D0 /* GameCenterDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */; settings = {ASSET_TAGS = (); }; };
 		879FB8481B7AED3900E4F0BF /* appwarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8311B7AED3900E4F0BF /* appwarp.cpp */; };
 		879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */; };
 		879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879FB8341B7AED3900E4F0BF /* base64.cpp */; };
@@ -100,7 +91,6 @@
 		87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A088D21BA2A69D00320585 /* Fighter.cpp */; };
 		87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */; };
 		87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */; };
-		B0D4FEB31BA6A23800932737 /* ChooseCharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0D4FEB11BA6A23800932737 /* ChooseCharacterScene.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -193,21 +183,6 @@
 		8740B0211B7F605300395343 /* HelpScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpScene.h; sourceTree = "<group>"; };
 		8740B0231B7F606200395343 /* SettingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
 		8740B0241B7F606200395343 /* SettingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingScene.h; sourceTree = "<group>"; };
-		87468D731B805F5E00299169 /* ChooseRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseRoomScene.cpp; sourceTree = "<group>"; };
-		87468D741B805F5E00299169 /* ChooseRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseRoomScene.h; sourceTree = "<group>"; };
-		8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreateRoomScene.cpp; sourceTree = "<group>"; };
-		8764F0791B8CAB7000937F18 /* CreateRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRoomScene.h; sourceTree = "<group>"; };
-		8777462F1B8D89FD00D63086 /* Multiplayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Multiplayer.cpp; sourceTree = "<group>"; };
-		877746301B8D89FD00D63086 /* Multiplayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Multiplayer.h; sourceTree = "<group>"; };
-		87778A4D1BA69D3900290F2B /* SneakyButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyButton.cpp; sourceTree = "<group>"; };
-		87778A4E1BA69D3900290F2B /* SneakyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyButton.h; sourceTree = "<group>"; };
-		87778A4F1BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyButtonSkinnedBase.cpp; sourceTree = "<group>"; };
-		87778A501BA69D3900290F2B /* SneakyButtonSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyButtonSkinnedBase.h; sourceTree = "<group>"; };
-		87778A541BA6FFBA00290F2B /* GamePlayScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePlayScene.cpp; sourceTree = "<group>"; };
-		87783CD41B9F068F00427625 /* SneakyJoystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyJoystick.cpp; sourceTree = "<group>"; };
-		87783CD51B9F068F00427625 /* SneakyJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyJoystick.h; sourceTree = "<group>"; };
-		87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyJoystickSkinnedBase.cpp; sourceTree = "<group>"; };
-		87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyJoystickSkinnedBase.h; sourceTree = "<group>"; };
 		878D7F2B1BC3A76300DC10DC /* ANSIString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSIString.h; sourceTree = "<group>"; };
 		878D7F2C1BC3A76300DC10DC /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
 		878D7F2D1BC3A76300DC10DC /* BaseCharString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCharString.h; sourceTree = "<group>"; };
@@ -342,8 +317,6 @@
 		8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKHWrapperCpp.mm; sourceTree = "<group>"; };
 		8793B6121B99E40C00277AC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8793B61B1B99E67800277AC7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
-		879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameCenterDelegate.cpp; sourceTree = "<group>"; };
-		879E0AAE1BC0D17D008B95D0 /* GameCenterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterDelegate.h; sourceTree = "<group>"; };
 		879FB8311B7AED3900E4F0BF /* appwarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp.cpp; sourceTree = "<group>"; };
 		879FB8321B7AED3900E4F0BF /* appwarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appwarp.h; sourceTree = "<group>"; };
 		879FB8331B7AED3900E4F0BF /* appwarp_extended.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = appwarp_extended.cpp; sourceTree = "<group>"; };
@@ -379,11 +352,9 @@
 		87CD653F1BB53474003121CE /* MultiplayerCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiplayerCallback.h; sourceTree = "<group>"; };
 		87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHelper.cpp; sourceTree = "<group>"; };
 		87E23D8E1B9C00F500F5A01E /* GameHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelper.h; sourceTree = "<group>"; };
-		87E23D911B9C085500F5A01E /* GamePlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlayScene.h; sourceTree = "<group>"; };
 		87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingLayer.cpp; sourceTree = "<group>"; };
 		87E23D971B9C8DED00F5A01E /* LoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingLayer.h; sourceTree = "<group>"; };
-		B0D4FEB11BA6A23800932737 /* ChooseCharacterScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseCharacterScene.cpp; sourceTree = "<group>"; };
-		B0D4FEB21BA6A23800932737 /* ChooseCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCharacterScene.h; sourceTree = "<group>"; };
+		B01820A01BC3B34900FBE4A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -537,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				879FB8571B7AF7DE00E4F0BF /* Definitions.h */,
+				B01820A01BC3B34900FBE4A1 /* AppDelegate.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				879FB8551B7AF66400E4F0BF /* SplashScene.h */,
 				879FB8541B7AF66400E4F0BF /* SplashScene.cpp */,
@@ -546,18 +518,8 @@
 				8740B0201B7F605300395343 /* HelpScene.cpp */,
 				8740B0241B7F606200395343 /* SettingScene.h */,
 				8740B0231B7F606200395343 /* SettingScene.cpp */,
-				87468D741B805F5E00299169 /* ChooseRoomScene.h */,
-				87468D731B805F5E00299169 /* ChooseRoomScene.cpp */,
-				8764F0791B8CAB7000937F18 /* CreateRoomScene.h */,
-				8764F0781B8CAB7000937F18 /* CreateRoomScene.cpp */,
-				B0D4FEB21BA6A23800932737 /* ChooseCharacterScene.h */,
-				B0D4FEB11BA6A23800932737 /* ChooseCharacterScene.cpp */,
-				87E23D911B9C085500F5A01E /* GamePlayScene.h */,
-				87778A541BA6FFBA00290F2B /* GamePlayScene.cpp */,
 				87E23D971B9C8DED00F5A01E /* LoadingLayer.h */,
 				87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */,
-				877746301B8D89FD00D63086 /* Multiplayer.h */,
-				8777462F1B8D89FD00D63086 /* Multiplayer.cpp */,
 				87CD653F1BB53474003121CE /* MultiplayerCallback.h */,
 				87E23D8E1B9C00F500F5A01E /* GameHelper.h */,
 				87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */,
@@ -565,16 +527,6 @@
 				87A088CC1BA2A41D00320585 /* Camera2d.cpp */,
 				87A088D31BA2A69D00320585 /* Fighter.h */,
 				87A088D21BA2A69D00320585 /* Fighter.cpp */,
-				87778A4D1BA69D3900290F2B /* SneakyButton.cpp */,
-				87778A4E1BA69D3900290F2B /* SneakyButton.h */,
-				87778A4F1BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp */,
-				87778A501BA69D3900290F2B /* SneakyButtonSkinnedBase.h */,
-				87783CD41B9F068F00427625 /* SneakyJoystick.cpp */,
-				87783CD51B9F068F00427625 /* SneakyJoystick.h */,
-				87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */,
-				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
-				879E0AAE1BC0D17D008B95D0 /* GameCenterDelegate.h */,
-				879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */,
 				878D7FC21BC3A88C00DC10DC /* PhotonMultiplayer.cpp */,
 				878D7FC31BC3A88C00DC10DC /* PhotonMultiplayer.hpp */,
 			);
@@ -1091,39 +1043,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				879E0AAF1BC0D17D008B95D0 /* GameCenterDelegate.cpp in Sources */,
 				8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */,
 				879FB8511B7AED3900E4F0BF /* urlencode.cpp in Sources */,
-				87778A511BA69D3900290F2B /* SneakyButton.cpp in Sources */,
 				879FB84A1B7AED3900E4F0BF /* base64.cpp in Sources */,
-				87783CD61B9F068F00427625 /* SneakyJoystick.cpp in Sources */,
 				87A088CE1BA2A41D00320585 /* Camera2d.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				879FB8561B7AF66400E4F0BF /* SplashScene.cpp in Sources */,
-				87778A551BA6FFBA00290F2B /* GamePlayScene.cpp in Sources */,
-				8764F07A1B8CAB7000937F18 /* CreateRoomScene.cpp in Sources */,
 				879FB84D1B7AED3900E4F0BF /* requests.cpp in Sources */,
 				8740B0251B7F606200395343 /* SettingScene.cpp in Sources */,
 				8740B0221B7F605300395343 /* HelpScene.cpp in Sources */,
-				B0D4FEB31BA6A23800932737 /* ChooseCharacterScene.cpp in Sources */,
-				877746311B8D89FD00D63086 /* Multiplayer.cpp in Sources */,
 				8793B6141B99E40C00277AC7 /* GKHDelegate.cpp in Sources */,
 				879FB84F1B7AED3900E4F0BF /* socket.cpp in Sources */,
 				879FB84B1B7AED3900E4F0BF /* cJSON.c in Sources */,
 				8793B6161B99E40C00277AC7 /* README.md in Sources */,
-				87783CDA1B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp in Sources */,
 				879FB8501B7AED3900E4F0BF /* udpsocket.cpp in Sources */,
 				879FB8491B7AED3900E4F0BF /* appwarp_extended.cpp in Sources */,
 				87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */,
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,
-				87468D751B805F5E00299169 /* ChooseRoomScene.cpp in Sources */,
 				8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */,
 				879FB84E1B7AED3900E4F0BF /* SHA1.cpp in Sources */,
 				879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */,
 				87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */,
 				878D7FC41BC3A88C00DC10DC /* PhotonMultiplayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
-				87778A521BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,

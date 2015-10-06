@@ -36,7 +36,7 @@ bool SplashScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getWinSize();
+    cocos2d::Size visibleSize = Director::getInstance()->getWinSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     //preload the background music

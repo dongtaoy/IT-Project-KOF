@@ -9,14 +9,17 @@
 #ifndef __KOF__SettingScene__
 #define __KOF__SettingScene__
 
+#include "MainMenuScene.h"
+
+
+
 #include <stdio.h>
 #include "cocos2d.h"
-#include "Definitions.h"
-#include "MainMenuScene.h"
+#include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
-#include "SimpleAudioEngine.h"
 
-
+// Scenes
+//#include "MainMenuScene.h"
 
 class SettingScene : public cocos2d::Layer
 {
@@ -32,9 +35,9 @@ public:
     
 private:
     
-    void GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type);
-    void updateSlideBar(Ref* pSender, ui::Slider::EventType type);
-    void updateCheckBox(Ref *pSender,ui::CheckBox::EventType type);
+    void GotoMainMenuScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
+    void updateSlideBar(Ref* pSender, cocos2d::ui::Slider::EventType type);
+    void updateCheckBox(Ref *pSender,cocos2d::ui::CheckBox::EventType type);
     
 };
 

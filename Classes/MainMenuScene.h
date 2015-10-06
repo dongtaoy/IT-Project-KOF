@@ -9,11 +9,10 @@
 #ifndef __KOF__MainMenuScene__
 #define __KOF__MainMenuScene__
 
+#include "PhotonMultiplayer.hpp"
 #include "cocos2d.h"
 
 #include "definitions.h"
-#include "Multiplayer.h"
-#include "ChooseRoomScene.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
 #include "LoadingLayer.h"
@@ -33,6 +32,8 @@ public:
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+    
+    void update(float);
     
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);
