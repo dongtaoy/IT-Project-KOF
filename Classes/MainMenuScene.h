@@ -9,12 +9,17 @@
 #ifndef __KOF__MainMenuScene__
 #define __KOF__MainMenuScene__
 
+
 #include "PhotonMultiplayer.hpp"
+#include "ChooseRoomScene.h"
+
 #include "cocos2d.h"
+
 
 #include "definitions.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
+
 #include "LoadingLayer.h"
 #include "GKHWrapperCpp.h"
 #include "GameHelper.h"

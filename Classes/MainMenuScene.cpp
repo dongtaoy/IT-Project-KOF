@@ -49,10 +49,10 @@ bool MainMenuScene::init()
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
     PhotonMultiplayer::initialize("abc");
+    PhotonMultiplayer::getInstance()->setListener(this);
     
-    PhotonMultiplayer::getInstance()->connect();
-//    PhotonMultiplayer* p = PhotonMultiplayer::getInstance();
-//    p->connect();
+    
+    
     
     this->scheduleUpdate();
     this->addChild(node);
@@ -82,8 +82,16 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::Touch
         
         GKHWrapperCpp gkh;
         if(gkh.isLocalPlayerAuthenticated()){
-            gkh.getLocalPlayerFriends();
-            // Initialize Multiplayer
+            if (!PhotonMultiplayer::getInstance()->isConnected())
+            {
+                PhotonMultiplayer::getInstance()->connect();
+                LoadingLayer::SetTextAndLoadingBar(this, false, "Connecting....", 50.0f);
+            }
+            else
+            {
+                auto scene = ChooseRoomScene::createScene();
+                Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+            }
         }else{
             MessageBox("Player is not signed in", "Game Center Unavailable");
         }
@@ -115,8 +123,9 @@ void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventTyp
 
 void MainMenuScene::onConnectDone()
 {
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Joining lobby...", 33.3f);
-//    Multiplayer::joinLobby(this);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
+    auto scene = ChooseRoomScene::createScene();
+    Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void MainMenuScene::onJoinLobbyDone()
@@ -128,7 +137,6 @@ void MainMenuScene::onJoinLobbyDone()
 void MainMenuScene::onSubscribeLobbyDone()
 {
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
-//    auto scene = ChooseRoomScene::createScene();
-//    Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
+
 }
 

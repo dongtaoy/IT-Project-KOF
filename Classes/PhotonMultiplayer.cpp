@@ -43,7 +43,8 @@ void PhotonMultiplayer::service()
 
 void PhotonMultiplayer::connect(void)
 {
-    printf("connect %d\n", c.connect());
+    CCLOG("connecting");
+    c.connect();
     
 }
 
@@ -68,6 +69,20 @@ void PhotonMultiplayer::run(void)
 void PhotonMultiplayer::sendEvent(void)
 {
 }
+
+void PhotonMultiplayer::setListener(MultiplayerCallback* l)
+{
+    this->listener = l;
+}
+
+bool PhotonMultiplayer::isConnected()
+{
+    if (c.getState() == ExitGames::LoadBalancing::PeerStates::JoinedLobby)
+        return true;
+    
+    return false;
+}
+
 
 
 // protocol implementations
@@ -116,6 +131,11 @@ void PhotonMultiplayer::connectReturn(int errorCode, const ExitGames::Common::JS
     printf("here\n %d\n", c.getRoundTripTime());
     printf("%d\n", c.getRoundTripTimeVariance());
     printf("return %d", errorCode);
+    if (errorCode) {
+        return;
+    }
+    listener->onConnectDone();
+    
 }
 
 void PhotonMultiplayer::disconnectReturn(void)
@@ -156,10 +176,5 @@ void PhotonMultiplayer::onLobbyStatsUpdate(const ExitGames::Common::JVector<Exit
 
 void PhotonMultiplayer::onAvailableRegions(const ExitGames::Common::JVector<ExitGames::Common::JString>& availableRegions, const ExitGames::Common::JVector<ExitGames::Common::JString>& availableRegionServers)
 {
-    for (int i = 0; i < availableRegions.getSize(); i++) {
-        printf("%ls\n", availableRegions.getElementAt(i).cstr());
-    }
-    //    EGLOG(ExitGames::Common::DebugLevel::INFO, "");
-    c.selectRegion(availableRegions[4]);
-    std::cout << "12";
+    c.selectRegion("au");
 }

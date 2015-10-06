@@ -91,6 +91,9 @@
 		87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A088D21BA2A69D00320585 /* Fighter.cpp */; };
 		87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D8D1B9C00F500F5A01E /* GameHelper.cpp */; };
 		87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */; };
+		B01820A31BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B01820A21BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp */; settings = {ASSET_TAGS = (); }; };
+		B01820A51BC3F20400FBE4A1 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B01820A41BC3F20400FBE4A1 /* CreateRoomScene.cpp */; settings = {ASSET_TAGS = (); }; };
+		B01820A91BC3F64900FBE4A1 /* format.cc in Sources */ = {isa = PBXBuildFile; fileRef = B01820A71BC3F64900FBE4A1 /* format.cc */; settings = {ASSET_TAGS = (); }; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -355,6 +358,12 @@
 		87E23D961B9C8DED00F5A01E /* LoadingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingLayer.cpp; sourceTree = "<group>"; };
 		87E23D971B9C8DED00F5A01E /* LoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingLayer.h; sourceTree = "<group>"; };
 		B01820A01BC3B34900FBE4A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B01820A11BC3EEF600FBE4A1 /* ChooseRoomScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseRoomScene.h; sourceTree = "<group>"; };
+		B01820A21BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseRoomScene.cpp; sourceTree = "<group>"; };
+		B01820A41BC3F20400FBE4A1 /* CreateRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreateRoomScene.cpp; sourceTree = "<group>"; };
+		B01820A61BC3F20700FBE4A1 /* CreateRoomScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateRoomScene.h; sourceTree = "<group>"; };
+		B01820A71BC3F64900FBE4A1 /* format.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = format.cc; sourceTree = "<group>"; };
+		B01820A81BC3F64900FBE4A1 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -507,7 +516,13 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B01820A11BC3EEF600FBE4A1 /* ChooseRoomScene.h */,
+				B01820A21BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp */,
+				B01820A61BC3F20700FBE4A1 /* CreateRoomScene.h */,
+				B01820A41BC3F20400FBE4A1 /* CreateRoomScene.cpp */,
 				879FB8571B7AF7DE00E4F0BF /* Definitions.h */,
+				B01820A81BC3F64900FBE4A1 /* format.h */,
+				B01820A71BC3F64900FBE4A1 /* format.cc */,
 				B01820A01BC3B34900FBE4A1 /* AppDelegate.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				879FB8551B7AF66400E4F0BF /* SplashScene.h */,
@@ -1049,7 +1064,9 @@
 				87A088CE1BA2A41D00320585 /* Camera2d.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				879FB8561B7AF66400E4F0BF /* SplashScene.cpp in Sources */,
+				B01820A91BC3F64900FBE4A1 /* format.cc in Sources */,
 				879FB84D1B7AED3900E4F0BF /* requests.cpp in Sources */,
+				B01820A51BC3F20400FBE4A1 /* CreateRoomScene.cpp in Sources */,
 				8740B0251B7F606200395343 /* SettingScene.cpp in Sources */,
 				8740B0221B7F605300395343 /* HelpScene.cpp in Sources */,
 				8793B6141B99E40C00277AC7 /* GKHDelegate.cpp in Sources */,
@@ -1062,6 +1079,7 @@
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,
 				8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */,
 				879FB84E1B7AED3900E4F0BF /* SHA1.cpp in Sources */,
+				B01820A31BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp in Sources */,
 				879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */,
 				87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */,
 				878D7FC41BC3A88C00DC10DC /* PhotonMultiplayer.cpp in Sources */,
