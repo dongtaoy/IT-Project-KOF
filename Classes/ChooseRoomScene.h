@@ -49,27 +49,19 @@ private:
     
     void OnSelectedItem(Ref* pSender, cocos2d::ui::Widget::TouchEventType);
     
-    
-    void onUnsubscribeLobbyDone();
-    void onLeaveLobbyDone();
-//    
     // RoomRequestListner
-    void onGetLiveRoomInfoDone(std::string roomId,
-                               std::string owner,
-                               int maxUsers,
-                               std::string name,
-                               std::string customData,
-                               std::vector<std::string> users,
-                               std::map<std::string, std::string> properties);
+    void createRoomListEntry(std::string roomId,
+                             int nonUsers,
+                             int maxUsers,
+                             std::map<std::string, std::string> properties);
     
     void onJoinRoomDone();
-    void onSubscribeRoomDone();
     void onRoomDestroyed(std::string);
     
     // Search Roomt
     void SearchRoom(Ref*, cocos2d::ui::Widget::TouchEventType);
     
-    
+    void update(float);
 
 };
 

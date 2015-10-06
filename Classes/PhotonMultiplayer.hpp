@@ -13,6 +13,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include "LoadBalancing-cpp/inc/Client.h"
+
+#include "Definitions.h"
 #include "MultiplayerCallback.h"
 
 
@@ -22,6 +24,7 @@ public:
     static PhotonMultiplayer* _instance;
     static void initialize(ExitGames::Common::JString);
     static PhotonMultiplayer* getInstance();
+    static std::string JStringToString(ExitGames::Common::JString);
     
     void service();
     void setListener(MultiplayerCallback*);
@@ -32,6 +35,8 @@ public:
     void disconnect(void);
     void sendEvent(void);
     bool isConnected();
+    std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>>  getRoomList(void);
+    
     
 private:
     PhotonMultiplayer(ExitGames::Common::JString);
@@ -62,6 +67,9 @@ private:
     virtual void leaveRoomReturn(int errorCode, const ExitGames::Common::JString& errorString);
     virtual void joinLobbyReturn(void);
     virtual void leaveLobbyReturn(void);
+    
+    
+    
     
     ExitGames::LoadBalancing::Client c;
     ExitGames::Common::Logger mLogger;
