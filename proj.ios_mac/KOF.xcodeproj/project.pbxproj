@@ -64,6 +64,19 @@
 		87778A551BA6FFBA00290F2B /* GamePlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87778A541BA6FFBA00290F2B /* GamePlayScene.cpp */; };
 		87783CD61B9F068F00427625 /* SneakyJoystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87783CD41B9F068F00427625 /* SneakyJoystick.cpp */; };
 		87783CDA1B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */; };
+		878D7FB61BC3A76400DC10DC /* libCommon-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6A1BC3A76300DC10DC /* libCommon-cpp_debug_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FB71BC3A76400DC10DC /* libCommon-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6B1BC3A76300DC10DC /* libCommon-cpp_debug_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FB81BC3A76400DC10DC /* libCommon-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6C1BC3A76300DC10DC /* libCommon-cpp_release_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FB91BC3A76400DC10DC /* libCommon-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6D1BC3A76300DC10DC /* libCommon-cpp_release_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FBA1BC3A76400DC10DC /* libLoadBalancing-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F971BC3A76300DC10DC /* libLoadBalancing-cpp_debug_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FBB1BC3A76400DC10DC /* libLoadBalancing-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F981BC3A76300DC10DC /* libLoadBalancing-cpp_debug_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FBC1BC3A76400DC10DC /* libLoadBalancing-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F991BC3A76300DC10DC /* libLoadBalancing-cpp_release_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FBD1BC3A76400DC10DC /* libLoadBalancing-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F9A1BC3A76300DC10DC /* libLoadBalancing-cpp_release_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FBE1BC3A76400DC10DC /* libPhoton-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7FB21BC3A76400DC10DC /* libPhoton-cpp_debug_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FBF1BC3A76400DC10DC /* libPhoton-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7FB31BC3A76400DC10DC /* libPhoton-cpp_debug_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FC01BC3A76400DC10DC /* libPhoton-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7FB41BC3A76400DC10DC /* libPhoton-cpp_release_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FC11BC3A76400DC10DC /* libPhoton-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7FB51BC3A76400DC10DC /* libPhoton-cpp_release_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
+		878D7FC41BC3A88C00DC10DC /* PhotonMultiplayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878D7FC21BC3A88C00DC10DC /* PhotonMultiplayer.cpp */; settings = {ASSET_TAGS = (); }; };
 		8793B6131B99E40C00277AC7 /* GameKitHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B60C1B99E40C00277AC7 /* GameKitHelper.mm */; };
 		8793B6141B99E40C00277AC7 /* GKHDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8793B60E1B99E40C00277AC7 /* GKHDelegate.cpp */; };
 		8793B6151B99E40C00277AC7 /* GKHWrapperCpp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8793B6111B99E40C00277AC7 /* GKHWrapperCpp.mm */; };
@@ -195,6 +208,131 @@
 		87783CD51B9F068F00427625 /* SneakyJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyJoystick.h; sourceTree = "<group>"; };
 		87783CD81B9F0BF600427625 /* SneakyJoystickSkinnedBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SneakyJoystickSkinnedBase.cpp; sourceTree = "<group>"; };
 		87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyJoystickSkinnedBase.h; sourceTree = "<group>"; };
+		878D7F2B1BC3A76300DC10DC /* ANSIString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSIString.h; sourceTree = "<group>"; };
+		878D7F2C1BC3A76300DC10DC /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
+		878D7F2D1BC3A76300DC10DC /* BaseCharString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCharString.h; sourceTree = "<group>"; };
+		878D7F2E1BC3A76300DC10DC /* BaseListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListener.h; sourceTree = "<group>"; };
+		878D7F2F1BC3A76300DC10DC /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		878D7F301BC3A76300DC10DC /* CustomType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomType.h; sourceTree = "<group>"; };
+		878D7F311BC3A76300DC10DC /* CustomTypeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTypeBase.h; sourceTree = "<group>"; };
+		878D7F321BC3A76300DC10DC /* CustomTypeFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTypeFactory.h; sourceTree = "<group>"; };
+		878D7F331BC3A76300DC10DC /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
+		878D7F341BC3A76300DC10DC /* DeSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeSerializer.h; sourceTree = "<group>"; };
+		878D7F351BC3A76300DC10DC /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
+		878D7F361BC3A76300DC10DC /* DictionaryBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryBase.h; sourceTree = "<group>"; };
+		878D7F371BC3A76300DC10DC /* EGTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGTime.h; sourceTree = "<group>"; };
+		878D7F391BC3A76300DC10DC /* DebugLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLevel.h; sourceTree = "<group>"; };
+		878D7F3A1BC3A76300DC10DC /* TypeCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeCode.h; sourceTree = "<group>"; };
+		878D7F3B1BC3A76300DC10DC /* Hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hashtable.h; sourceTree = "<group>"; };
+		878D7F3D1BC3A76300DC10DC /* ArrayLengthType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayLengthType.h; sourceTree = "<group>"; };
+		878D7F3E1BC3A76300DC10DC /* CompileTimeAssertTrue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileTimeAssertTrue.h; sourceTree = "<group>"; };
+		878D7F3F1BC3A76300DC10DC /* ConfirmAllowed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmAllowed.h; sourceTree = "<group>"; };
+		878D7F401BC3A76300DC10DC /* ConfirmAllowedKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmAllowedKey.h; sourceTree = "<group>"; };
+		878D7F411BC3A76300DC10DC /* CustomTypeCallbackWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTypeCallbackWrapper.h; sourceTree = "<group>"; };
+		878D7F421BC3A76300DC10DC /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		878D7F431BC3A76300DC10DC /* debug_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug_assert.h; sourceTree = "<group>"; };
+		878D7F441BC3A76300DC10DC /* DeSerializerImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeSerializerImplementation.h; sourceTree = "<group>"; };
+		878D7F451BC3A76300DC10DC /* EnableIf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableIf.h; sourceTree = "<group>"; };
+		878D7F461BC3A76300DC10DC /* EndianCorrectCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndianCorrectCast.h; sourceTree = "<group>"; };
+		878D7F471BC3A76300DC10DC /* EndianCorrectCastImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndianCorrectCastImplementation.h; sourceTree = "<group>"; };
+		878D7F481BC3A76300DC10DC /* IsDerivedFrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsDerivedFrom.h; sourceTree = "<group>"; };
+		878D7F491BC3A76300DC10DC /* IsPrimitiveType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsPrimitiveType.h; sourceTree = "<group>"; };
+		878D7F4A1BC3A76300DC10DC /* KeyToObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyToObject.h; sourceTree = "<group>"; };
+		878D7F4B1BC3A76300DC10DC /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
+		878D7F4C1BC3A76300DC10DC /* ObjectToStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectToStringConverter.h; sourceTree = "<group>"; };
+		878D7F4D1BC3A76300DC10DC /* PrimitiveToStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimitiveToStringConverter.h; sourceTree = "<group>"; };
+		878D7F4E1BC3A76300DC10DC /* RemoveConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveConst.h; sourceTree = "<group>"; };
+		878D7F4F1BC3A76300DC10DC /* RemovePointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemovePointer.h; sourceTree = "<group>"; };
+		878D7F501BC3A76300DC10DC /* SerializerImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerializerImplementation.h; sourceTree = "<group>"; };
+		878D7F511BC3A76300DC10DC /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		878D7F521BC3A76300DC10DC /* ToStringImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToStringImplementation.h; sourceTree = "<group>"; };
+		878D7F531BC3A76300DC10DC /* TypeName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeName.h; sourceTree = "<group>"; };
+		878D7F541BC3A76300DC10DC /* ValueToObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueToObject.h; sourceTree = "<group>"; };
+		878D7F551BC3A76300DC10DC /* JString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JString.h; sourceTree = "<group>"; };
+		878D7F561BC3A76300DC10DC /* JVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVector.h; sourceTree = "<group>"; };
+		878D7F571BC3A76300DC10DC /* KeyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyObject.h; sourceTree = "<group>"; };
+		878D7F581BC3A76300DC10DC /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		878D7F5A1BC3A76300DC10DC /* Allocate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Allocate.h; sourceTree = "<group>"; };
+		878D7F5C1BC3A76300DC10DC /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
+		878D7F5D1BC3A76300DC10DC /* Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interface.h; sourceTree = "<group>"; };
+		878D7F5E1BC3A76300DC10DC /* MemoryPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryPool.h; sourceTree = "<group>"; };
+		878D7F5F1BC3A76300DC10DC /* MemoryPoolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryPoolManager.h; sourceTree = "<group>"; };
+		878D7F601BC3A76300DC10DC /* RawStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawStorage.h; sourceTree = "<group>"; };
+		878D7F611BC3A76300DC10DC /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
+		878D7F621BC3A76300DC10DC /* platform_definition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_definition.h; sourceTree = "<group>"; };
+		878D7F631BC3A76300DC10DC /* platformLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformLayer.h; sourceTree = "<group>"; };
+		878D7F641BC3A76300DC10DC /* porting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = porting.h; sourceTree = "<group>"; };
+		878D7F651BC3A76300DC10DC /* Serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Serializer.h; sourceTree = "<group>"; };
+		878D7F661BC3A76300DC10DC /* ToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToString.h; sourceTree = "<group>"; };
+		878D7F671BC3A76300DC10DC /* UTF8String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTF8String.h; sourceTree = "<group>"; };
+		878D7F681BC3A76300DC10DC /* ValueObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueObject.h; sourceTree = "<group>"; };
+		878D7F6A1BC3A76300DC10DC /* libCommon-cpp_debug_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCommon-cpp_debug_iphoneos.a"; sourceTree = "<group>"; };
+		878D7F6B1BC3A76300DC10DC /* libCommon-cpp_debug_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCommon-cpp_debug_iphonesimulator.a"; sourceTree = "<group>"; };
+		878D7F6C1BC3A76300DC10DC /* libCommon-cpp_release_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCommon-cpp_release_iphoneos.a"; sourceTree = "<group>"; };
+		878D7F6D1BC3A76300DC10DC /* libCommon-cpp_release_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCommon-cpp_release_iphonesimulator.a"; sourceTree = "<group>"; };
+		878D7F701BC3A76300DC10DC /* AuthenticationValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationValues.h; sourceTree = "<group>"; };
+		878D7F711BC3A76300DC10DC /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		878D7F731BC3A76300DC10DC /* CustomAuthenticationType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAuthenticationType.h; sourceTree = "<group>"; };
+		878D7F741BC3A76300DC10DC /* DisconnectCause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisconnectCause.h; sourceTree = "<group>"; };
+		878D7F751BC3A76300DC10DC /* ErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorCode.h; sourceTree = "<group>"; };
+		878D7F761BC3A76300DC10DC /* LobbyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyType.h; sourceTree = "<group>"; };
+		878D7F771BC3A76300DC10DC /* MatchmakingMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingMode.h; sourceTree = "<group>"; };
+		878D7F781BC3A76300DC10DC /* PeerStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerStates.h; sourceTree = "<group>"; };
+		878D7F791BC3A76300DC10DC /* ServerType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
+		878D7F7A1BC3A76300DC10DC /* FriendInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendInfo.h; sourceTree = "<group>"; };
+		878D7F7C1BC3A76300DC10DC /* AuthenticationValuesSecretSetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationValuesSecretSetter.h; sourceTree = "<group>"; };
+		878D7F7E1BC3A76300DC10DC /* EventCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCode.h; sourceTree = "<group>"; };
+		878D7F7F1BC3A76300DC10DC /* JoinType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinType.h; sourceTree = "<group>"; };
+		878D7F801BC3A76300DC10DC /* OperationCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationCode.h; sourceTree = "<group>"; };
+		878D7F811BC3A76300DC10DC /* ParameterCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterCode.h; sourceTree = "<group>"; };
+		878D7F831BC3A76300DC10DC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		878D7F841BC3A76300DC10DC /* Room.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room.h; sourceTree = "<group>"; };
+		878D7F851BC3A76300DC10DC /* MutablePlayerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutablePlayerFactory.h; sourceTree = "<group>"; };
+		878D7F861BC3A76300DC10DC /* MutableRoomFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutableRoomFactory.h; sourceTree = "<group>"; };
+		878D7F871BC3A76300DC10DC /* PlayerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerFactory.h; sourceTree = "<group>"; };
+		878D7F881BC3A76300DC10DC /* PlayerMovementInformant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerMovementInformant.h; sourceTree = "<group>"; };
+		878D7F891BC3A76300DC10DC /* PlayerPropertiesCacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPropertiesCacher.h; sourceTree = "<group>"; };
+		878D7F8A1BC3A76300DC10DC /* PlayerPropertiesUpdateInformant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPropertiesUpdateInformant.h; sourceTree = "<group>"; };
+		878D7F8B1BC3A76300DC10DC /* RoomFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFactory.h; sourceTree = "<group>"; };
+		878D7F8C1BC3A76300DC10DC /* RoomPropertiesCacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomPropertiesCacher.h; sourceTree = "<group>"; };
+		878D7F8D1BC3A76300DC10DC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		878D7F8E1BC3A76300DC10DC /* Listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Listener.h; sourceTree = "<group>"; };
+		878D7F8F1BC3A76300DC10DC /* LobbyStatsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyStatsRequest.h; sourceTree = "<group>"; };
+		878D7F901BC3A76300DC10DC /* LobbyStatsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyStatsResponse.h; sourceTree = "<group>"; };
+		878D7F911BC3A76300DC10DC /* MutablePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutablePlayer.h; sourceTree = "<group>"; };
+		878D7F921BC3A76300DC10DC /* MutableRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutableRoom.h; sourceTree = "<group>"; };
+		878D7F931BC3A76300DC10DC /* Peer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Peer.h; sourceTree = "<group>"; };
+		878D7F941BC3A76300DC10DC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		878D7F951BC3A76300DC10DC /* Room.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room.h; sourceTree = "<group>"; };
+		878D7F971BC3A76300DC10DC /* libLoadBalancing-cpp_debug_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLoadBalancing-cpp_debug_iphoneos.a"; sourceTree = "<group>"; };
+		878D7F981BC3A76300DC10DC /* libLoadBalancing-cpp_debug_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLoadBalancing-cpp_debug_iphonesimulator.a"; sourceTree = "<group>"; };
+		878D7F991BC3A76300DC10DC /* libLoadBalancing-cpp_release_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLoadBalancing-cpp_release_iphoneos.a"; sourceTree = "<group>"; };
+		878D7F9A1BC3A76300DC10DC /* libLoadBalancing-cpp_release_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLoadBalancing-cpp_release_iphonesimulator.a"; sourceTree = "<group>"; };
+		878D7F9E1BC3A76400DC10DC /* ConnectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionProtocol.h; sourceTree = "<group>"; };
+		878D7F9F1BC3A76400DC10DC /* ErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorCode.h; sourceTree = "<group>"; };
+		878D7FA01BC3A76400DC10DC /* EventCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCache.h; sourceTree = "<group>"; };
+		878D7FA11BC3A76400DC10DC /* EventCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCode.h; sourceTree = "<group>"; };
+		878D7FA21BC3A76400DC10DC /* EventKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventKey.h; sourceTree = "<group>"; };
+		878D7FA31BC3A76400DC10DC /* NetworkPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkPort.h; sourceTree = "<group>"; };
+		878D7FA41BC3A76400DC10DC /* OperationCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationCode.h; sourceTree = "<group>"; };
+		878D7FA51BC3A76400DC10DC /* ParameterCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterCode.h; sourceTree = "<group>"; };
+		878D7FA61BC3A76400DC10DC /* PeerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerState.h; sourceTree = "<group>"; };
+		878D7FA71BC3A76400DC10DC /* ReceiverGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiverGroup.h; sourceTree = "<group>"; };
+		878D7FA81BC3A76400DC10DC /* StatusCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCode.h; sourceTree = "<group>"; };
+		878D7FA91BC3A76400DC10DC /* EventData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventData.h; sourceTree = "<group>"; };
+		878D7FAA1BC3A76400DC10DC /* LitePeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LitePeer.h; sourceTree = "<group>"; };
+		878D7FAB1BC3A76400DC10DC /* OperationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationRequest.h; sourceTree = "<group>"; };
+		878D7FAC1BC3A76400DC10DC /* OperationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationResponse.h; sourceTree = "<group>"; };
+		878D7FAD1BC3A76400DC10DC /* PhotonListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotonListener.h; sourceTree = "<group>"; };
+		878D7FAE1BC3A76400DC10DC /* PhotonPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotonPeer.h; sourceTree = "<group>"; };
+		878D7FAF1BC3A76400DC10DC /* TrafficStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrafficStats.h; sourceTree = "<group>"; };
+		878D7FB01BC3A76400DC10DC /* TrafficStatsGameLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrafficStatsGameLevel.h; sourceTree = "<group>"; };
+		878D7FB21BC3A76400DC10DC /* libPhoton-cpp_debug_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_debug_iphoneos.a"; sourceTree = "<group>"; };
+		878D7FB31BC3A76400DC10DC /* libPhoton-cpp_debug_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_debug_iphonesimulator.a"; sourceTree = "<group>"; };
+		878D7FB41BC3A76400DC10DC /* libPhoton-cpp_release_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphoneos.a"; sourceTree = "<group>"; };
+		878D7FB51BC3A76400DC10DC /* libPhoton-cpp_release_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphonesimulator.a"; sourceTree = "<group>"; };
+		878D7FC21BC3A88C00DC10DC /* PhotonMultiplayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhotonMultiplayer.cpp; sourceTree = "<group>"; };
+		878D7FC31BC3A88C00DC10DC /* PhotonMultiplayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PhotonMultiplayer.hpp; sourceTree = "<group>"; };
 		8793B60B1B99E40C00277AC7 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
 		8793B60C1B99E40C00277AC7 /* GameKitHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameKitHelper.mm; sourceTree = "<group>"; };
 		8793B60D1B99E40C00277AC7 /* GKCppAlternatives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCppAlternatives.h; sourceTree = "<group>"; };
@@ -260,18 +398,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				878D7FBD1BC3A76400DC10DC /* libLoadBalancing-cpp_release_iphonesimulator.a in Frameworks */,
+				878D7FBA1BC3A76400DC10DC /* libLoadBalancing-cpp_debug_iphoneos.a in Frameworks */,
+				878D7FBE1BC3A76400DC10DC /* libPhoton-cpp_debug_iphoneos.a in Frameworks */,
 				8793B61C1B99E67800277AC7 /* GameKit.framework in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
+				878D7FBC1BC3A76400DC10DC /* libLoadBalancing-cpp_release_iphoneos.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				878D7FB81BC3A76400DC10DC /* libCommon-cpp_release_iphoneos.a in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
+				878D7FBF1BC3A76400DC10DC /* libPhoton-cpp_debug_iphonesimulator.a in Frameworks */,
+				878D7FB91BC3A76400DC10DC /* libCommon-cpp_release_iphonesimulator.a in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
+				878D7FB61BC3A76400DC10DC /* libCommon-cpp_debug_iphoneos.a in Frameworks */,
+				878D7FC11BC3A76400DC10DC /* libPhoton-cpp_release_iphonesimulator.a in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
+				878D7FB71BC3A76400DC10DC /* libCommon-cpp_debug_iphonesimulator.a in Frameworks */,
+				878D7FC01BC3A76400DC10DC /* libPhoton-cpp_release_iphoneos.a in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
+				878D7FBB1BC3A76400DC10DC /* libLoadBalancing-cpp_debug_iphonesimulator.a in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +483,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				878D7F281BC3A76300DC10DC /* Photon-iOS-SDK */,
 				8793B60A1B99E40C00277AC7 /* GameKitHelperCpp */,
 				879FB8301B7AED3900E4F0BF /* AppWarpX_3.0 */,
 				46880B8319C43A87006E1F66 /* Classes */,
@@ -424,6 +575,8 @@
 				87783CD91B9F0BF600427625 /* SneakyJoystickSkinnedBase.h */,
 				879E0AAE1BC0D17D008B95D0 /* GameCenterDelegate.h */,
 				879E0AAD1BC0D17D008B95D0 /* GameCenterDelegate.cpp */,
+				878D7FC21BC3A88C00DC10DC /* PhotonMultiplayer.cpp */,
+				878D7FC31BC3A88C00DC10DC /* PhotonMultiplayer.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -475,6 +628,280 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		878D7F281BC3A76300DC10DC /* Photon-iOS-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F291BC3A76300DC10DC /* Common-cpp */,
+				878D7F6E1BC3A76300DC10DC /* LoadBalancing-cpp */,
+				878D7F9B1BC3A76300DC10DC /* Photon-cpp */,
+			);
+			path = "Photon-iOS-SDK";
+			sourceTree = "<group>";
+		};
+		878D7F291BC3A76300DC10DC /* Common-cpp */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F2A1BC3A76300DC10DC /* inc */,
+				878D7F691BC3A76300DC10DC /* lib */,
+			);
+			path = "Common-cpp";
+			sourceTree = "<group>";
+		};
+		878D7F2A1BC3A76300DC10DC /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F2B1BC3A76300DC10DC /* ANSIString.h */,
+				878D7F2C1BC3A76300DC10DC /* Base.h */,
+				878D7F2D1BC3A76300DC10DC /* BaseCharString.h */,
+				878D7F2E1BC3A76300DC10DC /* BaseListener.h */,
+				878D7F2F1BC3A76300DC10DC /* Common.h */,
+				878D7F301BC3A76300DC10DC /* CustomType.h */,
+				878D7F311BC3A76300DC10DC /* CustomTypeBase.h */,
+				878D7F321BC3A76300DC10DC /* CustomTypeFactory.h */,
+				878D7F331BC3A76300DC10DC /* defines.h */,
+				878D7F341BC3A76300DC10DC /* DeSerializer.h */,
+				878D7F351BC3A76300DC10DC /* Dictionary.h */,
+				878D7F361BC3A76300DC10DC /* DictionaryBase.h */,
+				878D7F371BC3A76300DC10DC /* EGTime.h */,
+				878D7F381BC3A76300DC10DC /* Enums */,
+				878D7F3B1BC3A76300DC10DC /* Hashtable.h */,
+				878D7F3C1BC3A76300DC10DC /* Helpers */,
+				878D7F551BC3A76300DC10DC /* JString.h */,
+				878D7F561BC3A76300DC10DC /* JVector.h */,
+				878D7F571BC3A76300DC10DC /* KeyObject.h */,
+				878D7F581BC3A76300DC10DC /* Logger.h */,
+				878D7F591BC3A76300DC10DC /* MemoryManagement */,
+				878D7F611BC3A76300DC10DC /* Object.h */,
+				878D7F621BC3A76300DC10DC /* platform_definition.h */,
+				878D7F631BC3A76300DC10DC /* platformLayer.h */,
+				878D7F641BC3A76300DC10DC /* porting.h */,
+				878D7F651BC3A76300DC10DC /* Serializer.h */,
+				878D7F661BC3A76300DC10DC /* ToString.h */,
+				878D7F671BC3A76300DC10DC /* UTF8String.h */,
+				878D7F681BC3A76300DC10DC /* ValueObject.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		878D7F381BC3A76300DC10DC /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F391BC3A76300DC10DC /* DebugLevel.h */,
+				878D7F3A1BC3A76300DC10DC /* TypeCode.h */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		878D7F3C1BC3A76300DC10DC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F3D1BC3A76300DC10DC /* ArrayLengthType.h */,
+				878D7F3E1BC3A76300DC10DC /* CompileTimeAssertTrue.h */,
+				878D7F3F1BC3A76300DC10DC /* ConfirmAllowed.h */,
+				878D7F401BC3A76300DC10DC /* ConfirmAllowedKey.h */,
+				878D7F411BC3A76300DC10DC /* CustomTypeCallbackWrapper.h */,
+				878D7F421BC3A76300DC10DC /* Data.h */,
+				878D7F431BC3A76300DC10DC /* debug_assert.h */,
+				878D7F441BC3A76300DC10DC /* DeSerializerImplementation.h */,
+				878D7F451BC3A76300DC10DC /* EnableIf.h */,
+				878D7F461BC3A76300DC10DC /* EndianCorrectCast.h */,
+				878D7F471BC3A76300DC10DC /* EndianCorrectCastImplementation.h */,
+				878D7F481BC3A76300DC10DC /* IsDerivedFrom.h */,
+				878D7F491BC3A76300DC10DC /* IsPrimitiveType.h */,
+				878D7F4A1BC3A76300DC10DC /* KeyToObject.h */,
+				878D7F4B1BC3A76300DC10DC /* MathHelper.h */,
+				878D7F4C1BC3A76300DC10DC /* ObjectToStringConverter.h */,
+				878D7F4D1BC3A76300DC10DC /* PrimitiveToStringConverter.h */,
+				878D7F4E1BC3A76300DC10DC /* RemoveConst.h */,
+				878D7F4F1BC3A76300DC10DC /* RemovePointer.h */,
+				878D7F501BC3A76300DC10DC /* SerializerImplementation.h */,
+				878D7F511BC3A76300DC10DC /* Thread.h */,
+				878D7F521BC3A76300DC10DC /* ToStringImplementation.h */,
+				878D7F531BC3A76300DC10DC /* TypeName.h */,
+				878D7F541BC3A76300DC10DC /* ValueToObject.h */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		878D7F591BC3A76300DC10DC /* MemoryManagement */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F5A1BC3A76300DC10DC /* Allocate.h */,
+				878D7F5B1BC3A76300DC10DC /* Internal */,
+			);
+			path = MemoryManagement;
+			sourceTree = "<group>";
+		};
+		878D7F5B1BC3A76300DC10DC /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F5C1BC3A76300DC10DC /* Entry.h */,
+				878D7F5D1BC3A76300DC10DC /* Interface.h */,
+				878D7F5E1BC3A76300DC10DC /* MemoryPool.h */,
+				878D7F5F1BC3A76300DC10DC /* MemoryPoolManager.h */,
+				878D7F601BC3A76300DC10DC /* RawStorage.h */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		878D7F691BC3A76300DC10DC /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F6A1BC3A76300DC10DC /* libCommon-cpp_debug_iphoneos.a */,
+				878D7F6B1BC3A76300DC10DC /* libCommon-cpp_debug_iphonesimulator.a */,
+				878D7F6C1BC3A76300DC10DC /* libCommon-cpp_release_iphoneos.a */,
+				878D7F6D1BC3A76300DC10DC /* libCommon-cpp_release_iphonesimulator.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		878D7F6E1BC3A76300DC10DC /* LoadBalancing-cpp */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F6F1BC3A76300DC10DC /* inc */,
+				878D7F961BC3A76300DC10DC /* lib */,
+			);
+			path = "LoadBalancing-cpp";
+			sourceTree = "<group>";
+		};
+		878D7F6F1BC3A76300DC10DC /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F701BC3A76300DC10DC /* AuthenticationValues.h */,
+				878D7F711BC3A76300DC10DC /* Client.h */,
+				878D7F721BC3A76300DC10DC /* Enums */,
+				878D7F7A1BC3A76300DC10DC /* FriendInfo.h */,
+				878D7F7B1BC3A76300DC10DC /* Internal */,
+				878D7F8E1BC3A76300DC10DC /* Listener.h */,
+				878D7F8F1BC3A76300DC10DC /* LobbyStatsRequest.h */,
+				878D7F901BC3A76300DC10DC /* LobbyStatsResponse.h */,
+				878D7F911BC3A76300DC10DC /* MutablePlayer.h */,
+				878D7F921BC3A76300DC10DC /* MutableRoom.h */,
+				878D7F931BC3A76300DC10DC /* Peer.h */,
+				878D7F941BC3A76300DC10DC /* Player.h */,
+				878D7F951BC3A76300DC10DC /* Room.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		878D7F721BC3A76300DC10DC /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F731BC3A76300DC10DC /* CustomAuthenticationType.h */,
+				878D7F741BC3A76300DC10DC /* DisconnectCause.h */,
+				878D7F751BC3A76300DC10DC /* ErrorCode.h */,
+				878D7F761BC3A76300DC10DC /* LobbyType.h */,
+				878D7F771BC3A76300DC10DC /* MatchmakingMode.h */,
+				878D7F781BC3A76300DC10DC /* PeerStates.h */,
+				878D7F791BC3A76300DC10DC /* ServerType.h */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		878D7F7B1BC3A76300DC10DC /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F7C1BC3A76300DC10DC /* AuthenticationValuesSecretSetter.h */,
+				878D7F7D1BC3A76300DC10DC /* Enums */,
+				878D7F851BC3A76300DC10DC /* MutablePlayerFactory.h */,
+				878D7F861BC3A76300DC10DC /* MutableRoomFactory.h */,
+				878D7F871BC3A76300DC10DC /* PlayerFactory.h */,
+				878D7F881BC3A76300DC10DC /* PlayerMovementInformant.h */,
+				878D7F891BC3A76300DC10DC /* PlayerPropertiesCacher.h */,
+				878D7F8A1BC3A76300DC10DC /* PlayerPropertiesUpdateInformant.h */,
+				878D7F8B1BC3A76300DC10DC /* RoomFactory.h */,
+				878D7F8C1BC3A76300DC10DC /* RoomPropertiesCacher.h */,
+				878D7F8D1BC3A76300DC10DC /* Utils.h */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		878D7F7D1BC3A76300DC10DC /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F7E1BC3A76300DC10DC /* EventCode.h */,
+				878D7F7F1BC3A76300DC10DC /* JoinType.h */,
+				878D7F801BC3A76300DC10DC /* OperationCode.h */,
+				878D7F811BC3A76300DC10DC /* ParameterCode.h */,
+				878D7F821BC3A76300DC10DC /* Properties */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		878D7F821BC3A76300DC10DC /* Properties */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F831BC3A76300DC10DC /* Player.h */,
+				878D7F841BC3A76300DC10DC /* Room.h */,
+			);
+			path = Properties;
+			sourceTree = "<group>";
+		};
+		878D7F961BC3A76300DC10DC /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F971BC3A76300DC10DC /* libLoadBalancing-cpp_debug_iphoneos.a */,
+				878D7F981BC3A76300DC10DC /* libLoadBalancing-cpp_debug_iphonesimulator.a */,
+				878D7F991BC3A76300DC10DC /* libLoadBalancing-cpp_release_iphoneos.a */,
+				878D7F9A1BC3A76300DC10DC /* libLoadBalancing-cpp_release_iphonesimulator.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		878D7F9B1BC3A76300DC10DC /* Photon-cpp */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F9C1BC3A76400DC10DC /* inc */,
+				878D7FB11BC3A76400DC10DC /* lib */,
+			);
+			path = "Photon-cpp";
+			sourceTree = "<group>";
+		};
+		878D7F9C1BC3A76400DC10DC /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F9D1BC3A76400DC10DC /* Enums */,
+				878D7FA91BC3A76400DC10DC /* EventData.h */,
+				878D7FAA1BC3A76400DC10DC /* LitePeer.h */,
+				878D7FAB1BC3A76400DC10DC /* OperationRequest.h */,
+				878D7FAC1BC3A76400DC10DC /* OperationResponse.h */,
+				878D7FAD1BC3A76400DC10DC /* PhotonListener.h */,
+				878D7FAE1BC3A76400DC10DC /* PhotonPeer.h */,
+				878D7FAF1BC3A76400DC10DC /* TrafficStats.h */,
+				878D7FB01BC3A76400DC10DC /* TrafficStatsGameLevel.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		878D7F9D1BC3A76400DC10DC /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				878D7F9E1BC3A76400DC10DC /* ConnectionProtocol.h */,
+				878D7F9F1BC3A76400DC10DC /* ErrorCode.h */,
+				878D7FA01BC3A76400DC10DC /* EventCache.h */,
+				878D7FA11BC3A76400DC10DC /* EventCode.h */,
+				878D7FA21BC3A76400DC10DC /* EventKey.h */,
+				878D7FA31BC3A76400DC10DC /* NetworkPort.h */,
+				878D7FA41BC3A76400DC10DC /* OperationCode.h */,
+				878D7FA51BC3A76400DC10DC /* ParameterCode.h */,
+				878D7FA61BC3A76400DC10DC /* PeerState.h */,
+				878D7FA71BC3A76400DC10DC /* ReceiverGroup.h */,
+				878D7FA81BC3A76400DC10DC /* StatusCode.h */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		878D7FB11BC3A76400DC10DC /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				878D7FB21BC3A76400DC10DC /* libPhoton-cpp_debug_iphoneos.a */,
+				878D7FB31BC3A76400DC10DC /* libPhoton-cpp_debug_iphonesimulator.a */,
+				878D7FB41BC3A76400DC10DC /* libPhoton-cpp_release_iphoneos.a */,
+				878D7FB51BC3A76400DC10DC /* libPhoton-cpp_release_iphonesimulator.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
 		};
 		8793B60A1B99E40C00277AC7 /* GameKitHelperCpp */ = {
 			isa = PBXGroup;
@@ -694,6 +1121,7 @@
 				879FB84E1B7AED3900E4F0BF /* SHA1.cpp in Sources */,
 				879FB8521B7AED3900E4F0BF /* utilities.cpp in Sources */,
 				87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */,
+				878D7FC41BC3A88C00DC10DC /* PhotonMultiplayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				87778A521BA69D3900290F2B /* SneakyButtonSkinnedBase.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -736,10 +1164,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/avalon/platform/ios/ads/provider",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -756,16 +1181,24 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 					/usr/local/Cellar/boost/1.58.0/include,
+					"$(SRCROOT)/Photon-iOS-SDK/",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/avalon/platform/ios/ads/provider/samsungadhub";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Photon-iOS-SDK/Common-cpp/lib",
+					"$(PROJECT_DIR)/Photon-iOS-SDK/LoadBalancing-cpp/lib",
+					"$(PROJECT_DIR)/Photon-iOS-SDK/Photon-cpp/lib",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-lCommon-cpp_$(CONFIGURATION)_$(PLATFORM_NAME)",
+					"-lPhoton-cpp_$(CONFIGURATION)_$(PLATFORM_NAME)",
+					"-lLoadBalancing-cpp_$(CONFIGURATION)_$(PLATFORM_NAME)",
 				);
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos9.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
@@ -779,10 +1212,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/avalon/platform/ios/ads/provider",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -797,16 +1227,24 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 					/usr/local/Cellar/boost/1.58.0/include,
+					"$(SRCROOT)/Photon-iOS-SDK/",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/avalon/platform/ios/ads/provider/samsungadhub";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Photon-iOS-SDK/Common-cpp/lib",
+					"$(PROJECT_DIR)/Photon-iOS-SDK/LoadBalancing-cpp/lib",
+					"$(PROJECT_DIR)/Photon-iOS-SDK/Photon-cpp/lib",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-lCommon-cpp_$(CONFIGURATION)_$(PLATFORM_NAME)",
+					"-lPhoton-cpp_$(CONFIGURATION)_$(PLATFORM_NAME)",
+					"-lLoadBalancing-cpp_$(CONFIGURATION)_$(PLATFORM_NAME)",
 				);
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos9.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
