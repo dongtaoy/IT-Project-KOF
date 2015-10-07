@@ -19,7 +19,7 @@
 #include "CocosGUI.h"
 
 #include "Definitions.h"
-//#include "CreateRoomScene.h"
+#include "CreateRoomScene.h"
 //#include "ChooseCharacterScene.h"
 #include "MultiplayerCallback.h"
 

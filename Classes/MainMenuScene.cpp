@@ -102,7 +102,6 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::Touch
 void MainMenuScene::GoToHelpScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     auto scene = HelpScene::createScene();
-    
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
@@ -110,7 +109,6 @@ void MainMenuScene::GoToHelpScene(Ref* pSender, cocos2d::ui::Widget::TouchEventT
 void MainMenuScene::GoToSettingScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = SettingScene::createScene();
-    
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 

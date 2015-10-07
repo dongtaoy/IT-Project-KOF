@@ -516,11 +516,11 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				879FB8571B7AF7DE00E4F0BF /* Definitions.h */,
 				B01820A11BC3EEF600FBE4A1 /* ChooseRoomScene.h */,
 				B01820A21BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp */,
 				B01820A61BC3F20700FBE4A1 /* CreateRoomScene.h */,
 				B01820A41BC3F20400FBE4A1 /* CreateRoomScene.cpp */,
-				879FB8571B7AF7DE00E4F0BF /* Definitions.h */,
 				B01820A81BC3F64900FBE4A1 /* format.h */,
 				B01820A71BC3F64900FBE4A1 /* format.cc */,
 				B01820A01BC3B34900FBE4A1 /* AppDelegate.h */,

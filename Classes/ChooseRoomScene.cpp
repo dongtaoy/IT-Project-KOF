@@ -88,8 +88,8 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, cocos2d::ui::Widget::Tou
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing lobby...", 10.0f);
-//        Multiplayer::unsubsribeLobby(this);
+        auto scene = CreateRoomScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
 

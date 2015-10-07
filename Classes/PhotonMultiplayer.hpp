@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include "Definitions.h"
 #include "LoadBalancing-cpp/inc/Client.h"
 #include "MultiplayerCallback.h"
 
@@ -27,7 +28,7 @@ public:
     void setListener(MultiplayerCallback*);
     void run(void);
     void connect(void);
-    void opCreateRoom(void);
+    void opCreateRoom(std::map<std::string, std::string>);
     void opJoinRandomRoom(void);
     void disconnect(void);
     void sendEvent(void);

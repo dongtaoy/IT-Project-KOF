@@ -9,13 +9,17 @@
 #ifndef __KOF__CreateRoomScene__
 #define __KOF__CreateRoomScene__
 
+#include "PhotonMultiplayer.hpp"
+
 #include <stdio.h>
-#include "ChooseRoomScene.h"
-#include "Definitions.h"
 #include "cocos2d.h"
+#include "cocostudio/CocoStudio.h"
 #include "CocosGUI.h"
-#include "cocostudio/CCObjectExtensionData.h"
-//#include "MultiplayerCallback.h"
+
+#include "Definitions.h"
+#include "LoadingLayer.h"
+#include "MultiplayerCallback.h"
+#include "ChooseRoomScene.h"
 
 class CreateRoomScene : public cocos2d::Layer, public MultiplayerCallback
 {
@@ -31,6 +35,9 @@ public:
 private:
     Ref* backgroundSelected;
     Ref* bestOfSelected;
+    
+    void update(float);
+    
     void CheckboxSelectedChanged(Ref*, cocos2d::ui::CheckBox::EventType);
     void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     void RemoveSelectedBorder(Ref*);
