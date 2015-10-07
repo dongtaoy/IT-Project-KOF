@@ -119,6 +119,42 @@ bool PhotonMultiplayer::isConnected()
 }
 
 
+std::string PhotonMultiplayer::JStringToString(ExitGames::Common::JString input)
+{
+    std::string output;
+    for (int i = 0 ; i < input.length(); i++)
+    {
+        if (input.charAt(i) != '\"'){
+            output += input.charAt(i);
+        }
+    }
+    
+    
+    return output;
+}
+
+std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>>  PhotonMultiplayer::getRoomList(void)
+{
+    std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>> v;
+    
+    ExitGames::Common::JVector<ExitGames::LoadBalancing::Room*> r = c.getRoomList();
+    for (int i = 0 ; i < r.getSize() ; i++)
+    {
+        std::string name = JStringToString(r[i]->getName());
+        int numUsers = r[i]->getPlayerCount();
+        int maxUsers = r[i]->getMaxPlayers();
+        std::map<std::string, std::string> p;
+        ExitGames::Common::JString backgroundK = ROOM_PROPERTY_BACKGROUND;
+        std::string backgroundV = JStringToString(r[i]->getCustomProperties().getValue(backgroundK)->toString());
+        ExitGames::Common::JString bestofK = ROOM_PROPERTY_BESTOF;
+        std::string bestofV = JStringToString(r[i]->getCustomProperties().getValue(bestofK)->toString());
+        p[ROOM_PROPERTY_BACKGROUND] = backgroundV;
+        p[ROOM_PROPERTY_BESTOF] = bestofV;
+        v.push_back(std::make_tuple(name, numUsers, maxUsers, p));
+    }
+    return v;
+}
+
 
 // protocol implementations
 
