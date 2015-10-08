@@ -48,13 +48,10 @@ bool MainMenuScene::init()
     ui::Button* buttonLeaderboard =  static_cast<ui::Button*>(node->getChildByName("buttonLeaderboard"));
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
-    PhotonMultiplayer::initialize("abc");
+    PhotonMultiplayer::initialize(GameHelper::randomString(5).c_str());
     PhotonMultiplayer::getInstance()->setListener(this);
-    
-    
-    
-    
     this->scheduleUpdate();
+    
     this->addChild(node);
 
     return true;
@@ -124,17 +121,5 @@ void MainMenuScene::onConnectDone()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
-}
-
-void MainMenuScene::onJoinLobbyDone()
-{
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Subscribing lobby...", 66.7f);
-//    Multiplayer::subscribeLobby(this);
-}
-
-void MainMenuScene::onSubscribeLobbyDone()
-{
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
-
 }
 

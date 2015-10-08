@@ -23,6 +23,40 @@ void PhotonMultiplayer::initialize(ExitGames::Common::JString name)
     }
 }
 
+ExitGames::Common::JString PhotonMultiplayer::buildProperties(std::initializer_list<std::string> properties)
+{
+    std::string value;
+    for(auto i = properties.begin(); i != properties.end(); i++)
+    {
+        value += *i + '%';
+    }
+    return value.c_str();
+    
+}
+
+ExitGames::Common::JString PhotonMultiplayer::buildEvent(int scene, int op, std::string properties)
+{
+    ExitGames::Common::JString output;
+    output += std::to_string(scene).c_str();
+    output += ';';
+    output += std::to_string(op).c_str();
+    output += ';';
+    output += properties.c_str();
+    output += ';';
+    return output;
+}
+
+command_t PhotonMultiplayer::extractEvent(std::string message)
+{
+    std::vector<std::string> temp = GameHelper::split(message, ';');
+    command_t command;
+    command.scene = atoi(temp.at(0).c_str());
+    command.operation = atoi(temp.at(1).c_str());
+    command.properties = temp.at(2);
+    return command;
+}
+
+
 
 PhotonMultiplayer* PhotonMultiplayer::getInstance()
 {
@@ -67,7 +101,7 @@ void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properti
     
     printf("backgorund: %ls\n", bestofV.cstr());
     
-    ExitGames::Common::JString name = "123";
+    ExitGames::Common::JString name = GameHelper::randomIntString(5).c_str();
     
     p.put(backgroundK, backgroundV);
     p.put(bestofK, bestofV);
@@ -77,9 +111,6 @@ void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properti
     v.addElement(backgroundK);
     v.addElement(bestofK);
     
-    
-//    p.put(ROOM_PROPERTY_BACKGROUND, properties.find(ROOM_PROPERTY_BACKGROUND)->second, 1);
-//    p.put(ROOM_PROPERTY_BESTOF, properties.find(ROOM_PROPERTY_BESTOF)->second, 1);
     c.opCreateRoom(
                    name,
                    true,
@@ -93,6 +124,17 @@ void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properti
                    3600);
 }
 
+
+void PhotonMultiplayer::opLeaveRoom()
+{
+    c.opLeaveRoom();
+}
+
+void PhotonMultiplayer::opJoinRoom(std::string id)
+{
+    c.opJoinRoom(id.c_str());
+}
+
 void PhotonMultiplayer::opJoinRandomRoom(void)
 {
 }
@@ -101,9 +143,19 @@ void PhotonMultiplayer::run(void)
 {
 }
 
-void PhotonMultiplayer::sendEvent(void)
+void PhotonMultiplayer::sendEvent(std::string event)
 {
+    
+    c.opRaiseEvent(true, StringToJString(event), 0);
 }
+
+void PhotonMultiplayer::sendEvent(int scene, int op, std::string properties)
+{
+//    printf("sending events");
+    c.opRaiseEvent(true, buildEvent(scene, op, properties), 0);
+}
+
+
 
 void PhotonMultiplayer::setListener(MultiplayerCallback* l)
 {
@@ -116,6 +168,11 @@ bool PhotonMultiplayer::isConnected()
         return true;
     
     return false;
+}
+
+std::string PhotonMultiplayer::getRoomID()
+{
+    return JStringToString(c.getCurrentlyJoinedRoom().getName());
 }
 
 
@@ -133,11 +190,19 @@ std::string PhotonMultiplayer::JStringToString(ExitGames::Common::JString input)
     return output;
 }
 
+ExitGames::Common::JString PhotonMultiplayer::StringToJString(std::string input)
+{
+    ExitGames::Common::JString output = input.c_str();
+    return output;
+}
+
+
 std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>>  PhotonMultiplayer::getRoomList(void)
 {
     std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>> v;
     
     ExitGames::Common::JVector<ExitGames::LoadBalancing::Room*> r = c.getRoomList();
+    
     for (int i = 0 ; i < r.getSize() ; i++)
     {
         std::string name = JStringToString(r[i]->getName());
@@ -184,17 +249,20 @@ void PhotonMultiplayer::serverErrorReturn(int errorCode)
 }
 
 
-
 void PhotonMultiplayer::joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& /*playernrs*/, const ExitGames::LoadBalancing::Player& player)
 {
+    listener->joinRoomEventAction();
 }
 
 void PhotonMultiplayer::leaveRoomEventAction(int playerNr, bool isInactive)
 {
+    listener->leaveRoomEventAction();
 }
+
 
 void PhotonMultiplayer::customEventAction(int /*playerNr*/, nByte /*eventCode*/, const ExitGames::Common::Object& eventContent)
 {
+    listener->customEventAction(extractEvent(JStringToString(eventContent.toString())));
 }
 
 void PhotonMultiplayer::connectReturn(int errorCode, const ExitGames::Common::JString& errorString)
@@ -203,7 +271,6 @@ void PhotonMultiplayer::connectReturn(int errorCode, const ExitGames::Common::JS
     printf("RoundTripTimeVariance: %ds\n", c.getRoundTripTimeVariance());
     printf("ConnectReturn: %d", errorCode);
     if (errorCode) {
-        
         return;
     }
     listener->onConnectDone();
@@ -212,21 +279,19 @@ void PhotonMultiplayer::connectReturn(int errorCode, const ExitGames::Common::JS
 
 void PhotonMultiplayer::disconnectReturn(void)
 {
+    
 }
 
 void PhotonMultiplayer::createRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable& gameProperties, const ExitGames::Common::Hashtable& /*playerProperties*/, int errorCode, const ExitGames::Common::JString& errorString)
 {
-    for(int i = 0 ; i < gameProperties.getKeys().getSize(); i++)
-    {
-        printf("%ls", gameProperties.getKeys()[i].toString().cstr());
-    }
     printf("createRoomReturn: %d", errorCode);
-//    callback 
-    
+    listener->onCreateRoomDone();
 }
 void PhotonMultiplayer::joinRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable& /*gameProperties*/, const ExitGames::Common::Hashtable& /*playerProperties*/, int errorCode, const ExitGames::Common::JString& errorString)
 {
+    
     printf("joinRoomReturn: %d", errorCode);
+    listener->onJoinRoomDone();
 }
 
 void PhotonMultiplayer::joinRandomRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable& /*gameProperties*/, const ExitGames::Common::Hashtable& /*playerProperties*/, int errorCode, const ExitGames::Common::JString& errorString)
@@ -236,6 +301,8 @@ void PhotonMultiplayer::joinRandomRoomReturn(int localPlayerNr, const ExitGames:
 
 void PhotonMultiplayer::leaveRoomReturn(int errorCode, const ExitGames::Common::JString& errorString)
 {
+    printf("leaveRoomReturn: %d", errorCode);
+    listener->onLeaveRoomDone();
 }
 
 void PhotonMultiplayer::joinLobbyReturn(void)
@@ -259,4 +326,11 @@ void PhotonMultiplayer::onAvailableRegions(const ExitGames::Common::JVector<Exit
 {
     
     c.selectRegion("au");
+}
+
+
+void PhotonMultiplayer::onRoomListUpdate(void)
+{
+    printf("onRoomListUpdate");
+    listener->onRoomListUpdate();
 }

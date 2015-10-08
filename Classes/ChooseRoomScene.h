@@ -20,7 +20,7 @@
 
 #include "Definitions.h"
 #include "CreateRoomScene.h"
-//#include "ChooseCharacterScene.h"
+#include "ChooseCharacterScene.h"
 #include "MultiplayerCallback.h"
 
 
@@ -50,13 +50,13 @@ private:
     void OnSelectedItem(Ref* pSender, cocos2d::ui::Widget::TouchEventType);
     
     // RoomRequestListner
+    void onRoomListUpdate();
     void createRoomListEntry(std::string roomId,
                              int nonUsers,
                              int maxUsers,
                              std::map<std::string, std::string> properties);
     
     void onJoinRoomDone();
-    void onRoomDestroyed(std::string);
     
     // Search Roomt
     void SearchRoom(Ref*, cocos2d::ui::Widget::TouchEventType);

@@ -20,22 +20,22 @@
 #define CREATE_BUTTON                   "buttonCreate"
 #define SEARCH_BUTTON                   "buttonSearch"
 
-#define CHARACTER_ICON_BIG_PATH         "characters/%s/icon_big.png"
+#define CHARACTER_ICON_BIG_PATH         "characters/{0}/icon_big.png"
 
 #define BACKGROUND_PLIST                "backgrounds/backgrounds.plist"
 #define BACKGROUND_ICON_PATH            "backgrounds/{0}/icon.png"
 
-#define CHARACTER_SPRITE_PATH           "characters/%s/sprite.plist"
-#define CHARACTER_ANIMATION_PATH        "characters/%s/animation.plist"
+#define CHARACTER_SPRITE_PATH           "characters/{0}/sprite.plist"
+#define CHARACTER_ANIMATION_PATH        "characters/{0}/animation.plist"
 
-#define BACKGROUND_SPRITE_PATH          "backgrounds/%s/sprite.plist"
-#define BACKGROUND_ANIMATION_PATH       "backgrounds/%s/animation.plist"
+#define BACKGROUND_SPRITE_PATH          "backgrounds/{0}/sprite.plist"
+#define BACKGROUND_ANIMATION_PATH       "backgrounds/{0}/animation.plist"
 
 #define COUNTDOWN_SPRITE_PATH           "countdown/sprite.plist"
 #define COUNTDOWN_ANIMATION_PATH        "countdown/animation.plist"
 
-#define CHARACTER_SPRITE_PATH           "characters/%s/sprite.plist"
-#define CHARACTER_ANIMATION_PATH        "characters/%s/animation.plist"
+#define CHARACTER_SPRITE_PATH           "characters/{0}/sprite.plist"
+#define CHARACTER_ANIMATION_PATH        "characters/{0}/animation.plist"
 
 #define CHARACTER_SQUAT                 "%s/squat"
 #define CHARACTER_SQUAT_DOWN            "%s/squat_down"

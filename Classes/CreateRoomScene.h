@@ -20,6 +20,8 @@
 #include "LoadingLayer.h"
 #include "MultiplayerCallback.h"
 #include "ChooseRoomScene.h"
+#include "ChooseCharacterScene.h"
+
 
 class CreateRoomScene : public cocos2d::Layer, public MultiplayerCallback
 {
@@ -45,14 +47,8 @@ private:
     void CreateRoom(Ref*, ui::Widget::TouchEventType);
     void BackgroundSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
-#pragma mark Zone Request Listener
-    void onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name);
-#pragma mark Room Request Listener
-    void onJoinRoomDone();
-    void onSubscribeRoomDone();
     
-    void onJoinLobbyDone();
-    void onSubscribeLobbyDone();
+    void onCreateRoomDone();
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

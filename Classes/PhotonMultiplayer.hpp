@@ -16,6 +16,7 @@
 #include "LoadBalancing-cpp/inc/Client.h"
 
 #include "Definitions.h"
+#include "GameHelper.h"
 #include "MultiplayerCallback.h"
 
 
@@ -26,18 +27,29 @@ public:
     static void initialize(ExitGames::Common::JString);
     static PhotonMultiplayer* getInstance();
     static std::string JStringToString(ExitGames::Common::JString);
+    static ExitGames::Common::JString StringToJString(std::string);
+    static ExitGames::Common::JString buildProperties(std::initializer_list<std::string> properties);
+    static ExitGames::Common::JString buildEvent(int scene, int op, std::string properties);
+    command_t extractEvent(std::string);
     
     void service();
     void setListener(MultiplayerCallback*);
     void run(void);
     void connect(void);
     void opCreateRoom(std::map<std::string, std::string>);
+    void opLeaveRoom();
+    void opJoinRoom(std::string);
     void opJoinRandomRoom(void);
     void disconnect(void);
-    void sendEvent(void);
-    bool isConnected();
-    std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>>  getRoomList(void);
+    void sendEvent(std::string);
+    void sendEvent(int scene, int op, std::string properties);
     
+    
+    bool isConnected();
+    std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>> getRoomList(void);
+    
+    
+    std::string getRoomID();
     
 private:
     PhotonMultiplayer(ExitGames::Common::JString);
@@ -69,7 +81,7 @@ private:
     virtual void joinLobbyReturn(void);
     virtual void leaveLobbyReturn(void);
     
-    
+    virtual void onRoomListUpdate(void);
     
     
     ExitGames::LoadBalancing::Client c;

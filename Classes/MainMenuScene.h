@@ -56,8 +56,6 @@ private:
     //TODO: comments
     void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
-    void onJoinLobbyDone();
-    void onSubscribeLobbyDone();
     
     // ConnectionRequestListener
     void onConnectDone();
