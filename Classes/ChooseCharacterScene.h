@@ -23,6 +23,7 @@
 #include "Definitions.h"
 #include "LoadingLayer.h"
 #include "ChooseRoomScene.h"
+#include "GamePlayScene.h"
 
 
 class ChooseCharacterScene : public cocos2d::Layer, public MultiplayerCallback
@@ -65,7 +66,7 @@ private:
     void RemoveSelectedBorder(std::string);
     void ShowSelectedCharacter(std::string, bool);
     
-#pragma mark listeners
+#pragma mark buttons
     void ButtonReadyClicked(Ref*, ui::Widget::TouchEventType);
     void ButtonGoClicked(Ref*, ui::Widget::TouchEventType);
     void CharacterClicked(Ref*, ui::Widget::TouchEventType);
@@ -81,6 +82,8 @@ private:
     void joinRoomEventAction();
     void leaveRoomEventAction();
     void customEventAction(command_t);
+    
+    void onPlayerPropertiesChange();
 };
 
 #endif /* defined(__KOF__ChooseCharacterScene__) */

@@ -15,6 +15,7 @@
 #include "Definitions.h"
 #include "LoadBalancing-cpp/inc/Client.h"
 
+#include "cocos2d.h"
 #include "Definitions.h"
 #include "GameHelper.h"
 #include "MultiplayerCallback.h"
@@ -28,8 +29,10 @@ public:
     static PhotonMultiplayer* getInstance();
     static std::string JStringToString(ExitGames::Common::JString);
     static ExitGames::Common::JString StringToJString(std::string);
-    static ExitGames::Common::JString buildProperties(std::initializer_list<std::string> properties);
-    static ExitGames::Common::JString buildEvent(int scene, int op, std::string properties);
+    static std::string buildProperties(std::initializer_list<std::string> properties);
+    static std::string buildEvent(int scene, int op, std::string properties="");
+    static cocos2d::Point extractPos(std::string properties);
+    std::string prevEvent;
     command_t extractEvent(std::string);
     
     void service();
@@ -42,7 +45,11 @@ public:
     void opJoinRandomRoom(void);
     void disconnect(void);
     void sendEvent(std::string);
-    void sendEvent(int scene, int op, std::string properties);
+    void sendEvent(int scene, int op, std::string properties="", bool=false);
+    void addCustomProperty(std::string, std::string);
+    int getPlayerNumber();
+    int getOpponentNumber();
+    std::string getBackground();
     
     
     bool isConnected();
@@ -50,6 +57,12 @@ public:
     
     
     std::string getRoomID();
+    
+    
+protected:
+    CC_SYNTHESIZE(std::string, playerCharactor, PlayerCharactor);
+    CC_SYNTHESIZE(std::string, opponentCharactor, OpponentCharactor);
+    
     
 private:
     PhotonMultiplayer(ExitGames::Common::JString);
@@ -82,8 +95,9 @@ private:
     virtual void leaveLobbyReturn(void);
     
     virtual void onRoomListUpdate(void);
+    virtual void onPlayerPropertiesChange(int, const ExitGames::Common::Hashtable &);
     
-    
+
     ExitGames::LoadBalancing::Client c;
     ExitGames::Common::Logger mLogger;
     MultiplayerCallback* listener;

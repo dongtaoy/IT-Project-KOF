@@ -136,7 +136,8 @@ void ChooseRoomScene::onRoomListUpdate()
     std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>> roomList = PhotonMultiplayer::getInstance()->getRoomList();
     for (int i = 0; i < roomList.size(); i++)
     {
-        createRoomListEntry(std::get<0>(roomList.at(i)), std::get<1>(roomList.at(i)), std::get<2>(roomList.at(i)), std::get<3>(roomList.at(i)));
+        if (std::get<1>(roomList.at(i)) != 0 && std::get<1>(roomList.at(i)) != 2)
+            createRoomListEntry(std::get<0>(roomList.at(i)), std::get<1>(roomList.at(i)), std::get<2>(roomList.at(i)), std::get<3>(roomList.at(i)));
     }
 }
 
@@ -169,6 +170,7 @@ void ChooseRoomScene::SearchRoom(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED){
         
+
 //        auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
 //        auto sprite = static_cast<ui::ImageView*>(node->getChildByName(CHOOSE_ROOM_SCENE_SPRITE_SEARCH));
 //	    auto textSearch = static_cast<ui::TextField*>(sprite->getChildByName(CHOOSE_ROOM_SCENE_TEXT_SEARCH));

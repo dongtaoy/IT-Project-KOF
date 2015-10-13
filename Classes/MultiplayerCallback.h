@@ -33,6 +33,7 @@ public:
     
 #pragma mark event
     virtual void customEventAction(command_t) { CCLOG("customEventAction"); };
+    virtual void onPlayerPropertiesChange() { CCLOG("onPlayerPropertiesChange"); };
 };
 
 #endif /* MultiplayerCallback_h */

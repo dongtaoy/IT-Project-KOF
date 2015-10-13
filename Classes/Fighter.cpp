@@ -8,10 +8,7 @@
 
 #include "Fighter.h"
 
-USING_NS_CC;
-using namespace ui;
-
-Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isLeft)
+Fighter::Fighter(cocos2d::Sprite* sprite, cocos2d::ui::LoadingBar* health , std::string name, bool isLeft)
 {
     this->name = name;
     this->isLeft = isLeft;
@@ -19,16 +16,16 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
     this->health = health;
     this->isDie = false;
     
-    this->sprite->setSpriteFrame((boost::format(CHARACTER_INITIAL_FRAME) % name).str());
+    this->sprite->setSpriteFrame(fmt::format(CHARACTER_INITIAL_FRAME, name));
     
-    auto size = Size(this->sprite->getContentSize().width * this->sprite->getScaleX() - 50,
+    auto size = cocos2d::Size(this->sprite->getContentSize().width * this->sprite->getScaleX() - 50,
                      this->sprite->getContentSize().height * this->sprite->getScaleY());
     
-    this->physicsSprite = Sprite::create("res/Resources/Empty.png");
+    this->physicsSprite = cocos2d::Sprite::create("res/Resources/Empty.png");
     this->physicsSprite->setPosition(this->sprite->getPosition().x,  this->sprite->getPosition().y + 100);
-    auto body = PhysicsBody::createBox(size);
+    auto body = cocos2d::PhysicsBody::createBox(size);
     body->setRotationEnable(false);
-    body->setGravityEnable(true);
+    body->setGravityEnable(false);
     this->physicsSprite->setPhysicsBody(body);
     
     this->sprite->getParent()->addChild(this->physicsSprite);
@@ -39,60 +36,16 @@ Fighter::Fighter(Sprite* sprite, LoadingBar* health , std::string name, bool isL
 
 void Fighter::update(float)
 {
-//    auto visibleSize = Director::getInstance()->getWinSize();
-//    auto playerBox = this->getBoundingBox();
-//    auto opponentBox = opponent->getBoundingBox();
-//    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
-//    
-    // background size
-//    if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
-//    {
-//        this->setPosition(Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
-//    }
-//    
-//    if (this->getPosition().x + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
-//    {
-//        this->setPosition(Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
-//    }
-//    
-//    
-//    // screen size
-//    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
-//    {
-//        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
-//    }
-//    
-//    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
-//    {
-//        this->setPosition(Vec2(this->sprite->getParent()->convertToNodeSpace(Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
-//    }
-    
     this->sprite->setPosition(this->physicsSprite->getPosition().x, this->sprite->getPosition().y);
-    
-//    if (isle)
-    
-//    if (isLeft)
-//    {
-//        if (getPosition().x + SCREEN_FIGHTER_OFFSET > opponent->getPosition().x) {
-//            this->setPosition(Vec2(opponent->getPosition().x - SCREEN_FIGHTER_OFFSET, getPosition().y));
-//        }
-//    }
-//    else
-//    {
-//        if (getPosition().x - SCREEN_FIGHTER_OFFSET < opponent->getPosition().x) {
-//            this->setPosition(Vec2(opponent->getPosition().x + SCREEN_FIGHTER_OFFSET, getPosition().y));
-//        }
-//    }
-    
 }
 
 
-Vec2 Fighter::getPosition()
+cocos2d::Vec2 Fighter::getPosition()
 {
     return this->physicsSprite->getPosition();
 }
 
-void Fighter::setPosition(Vec2 pos)
+void Fighter::setPosition(cocos2d::Vec2 pos)
 {
     if (isLeft)
     {
@@ -107,17 +60,17 @@ void Fighter::setPosition(Vec2 pos)
     this->physicsSprite->setPosition(pos);
 }
 
-Rect Fighter::getBoundingBox()
+cocos2d::Rect Fighter::getBoundingBox()
 {
     return this->sprite->getBoundingBox();
 }
 
-Vec2 Fighter::getScreenPosition()
+cocos2d::Vec2 Fighter::getScreenPosition()
 {
     return this->sprite->getParent()->convertToWorldSpace(this->getPosition());
 }
 
-Node* Fighter::getParent()
+cocos2d::Node* Fighter::getParent()
 {
     return this->sprite->getParent();
 }
@@ -130,9 +83,9 @@ void Fighter::stand()
     {
         this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND)%name).str());
-        auto animate = Animate::create(animation);
-        auto repeat = RepeatForever::create(animate);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto repeat = cocos2d::RepeatForever::create(animate);
         repeat->setTag(OP_GPS_ACTION_1_STAND);
         this->sprite->runAction(repeat);
     }
@@ -141,14 +94,14 @@ void Fighter::stand()
 void Fighter::stand_hit()
 {
     this->sprite->stopAllActions();
-    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_HIT)%name).str());
-    auto animate = Animate::create(animation);
+    auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_HIT, name));
+    auto animate = cocos2d::Animate::create(animation);
     animate->setDuration(0.8f);
     auto func = [&]{
         this->sprite->stopAllActions();
         this->stand();
     };
-    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
     this->sprite->runAction(sequence);
 
@@ -161,13 +114,13 @@ void Fighter::stand_jump(int distance)
     {
         this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_JUMP)%name).str());
-        auto animate = Animate::create(animation);
-        auto jumpBy = JumpBy::create(animate->getDuration(), Vec2(0, 0), 300.0f, 1);
-        auto moveBy = MoveBy::create(animate->getDuration(), Vec2(distance, 0));
-        auto spawn = Spawn::create(animate, jumpBy, NULL);
-        auto callFunc = CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
-        auto sequence = Sequence::create(spawn, callFunc, NULL);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_JUMP, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto jumpBy = cocos2d::JumpBy::create(animate->getDuration(), cocos2d::Vec2(0, 0), 300.0f, 1);
+        auto moveBy = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(distance, 0));
+        auto spawn = cocos2d::Spawn::create(animate, jumpBy, NULL);
+        auto callFunc = cocos2d::CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
+        auto sequence = cocos2d::Sequence::create(spawn, callFunc, NULL);
         sequence->setTag(OP_GPS_ACTION_2_STAND_JUMP);
         this->sprite->runAction(sequence);
         this->physicsSprite->runAction(moveBy);
@@ -183,13 +136,13 @@ void Fighter::stand_moveback()
     {
         this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEBACK)%name).str());
-        auto animate = Animate::create(animation);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEBACK, name));
+        auto animate = cocos2d::Animate::create(animation);
         //        animate->setDuration(ACTION_1_MOVE_DURATION);
-        auto animateForever = RepeatForever::create(animate);
+        auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
+        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(-ACTION_MOVE_SPEED, 0));
+        auto movebyForever = cocos2d::RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
         this->physicsSprite->runAction(movebyForever);
     }
@@ -202,12 +155,12 @@ void Fighter::stand_moveforward()
     {
         this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_MOVEFORWARD)%name).str());
-        auto animate = Animate::create(animation);
-        auto animateForever = RepeatForever::create(animate);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEFORWARD, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
+        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(ACTION_MOVE_SPEED, 0));
+        auto movebyForever = cocos2d::RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
         this->physicsSprite->runAction(movebyForever);
     }
@@ -221,9 +174,9 @@ void Fighter::squat()
     if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)))
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT)%name).str());
-        auto animate = Animate::create(animation);
-        auto repeat = RepeatForever::create(animate);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto repeat = cocos2d::RepeatForever::create(animate);
         repeat->setTag(OP_GPS_ACTION_1_SQUAT);
         this->sprite->runAction(repeat);
         
@@ -235,10 +188,10 @@ void Fighter::squat_down()
     if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_DOWN)) && !(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)) && isActionStoppable())
     {
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_DOWN)%name).str());
-        auto animate = Animate::create(animation);
-        auto func = CallFunc::create([&]{this->sprite->stopAllActions();this->squat();});
-        auto sequence = Sequence::create(animate, func, NULL);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_DOWN, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto func = cocos2d::CallFunc::create([&]{this->sprite->stopAllActions();this->squat();});
+        auto sequence = cocos2d::Sequence::create(animate, func, NULL);
         sequence->setTag(OP_GPS_ACTION_1_SQUAT_DOWN);
         this->sprite->runAction(sequence);
     }
@@ -247,14 +200,14 @@ void Fighter::squat_down()
 void Fighter::squat_hit()
 {
     this->sprite->stopAllActions();
-    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_HIT)%name).str());
-    auto animate = Animate::create(animation);
+    auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_HIT, name));
+    auto animate = cocos2d::Animate::create(animation);
     animate->setDuration(0.5f);
     auto func = [&]{
         this->sprite->stopAllActions();
         this->squat();
     };
-    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
     this->sprite->runAction(sequence);
 }
@@ -266,12 +219,12 @@ void Fighter::squat_moveback()
     {
         this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEBACK)%name).str());
-        auto animate = Animate::create(animation);
-        auto animateForever = RepeatForever::create(animate);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_MOVEBACK, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(-ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
+        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(-ACTION_MOVE_SPEED, 0));
+        auto movebyForever = cocos2d::RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
         this->physicsSprite->runAction(movebyForever);
     }
@@ -283,12 +236,12 @@ void Fighter::squat_moveforward()
     {
         this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_MOVEFORWARD)%name).str());
-        auto animate = Animate::create(animation);
-        auto animateForever = RepeatForever::create(animate);
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_MOVEFORWARD, name));
+        auto animate = cocos2d::Animate::create(animation);
+        auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
-        auto moveby = MoveBy::create(animate->getDuration(), Vec2(ACTION_MOVE_SPEED, 0));
-        auto movebyForever = RepeatForever::create(moveby);
+        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(ACTION_MOVE_SPEED, 0));
+        auto movebyForever = cocos2d::RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
         this->physicsSprite->runAction(movebyForever);
     }
@@ -302,9 +255,9 @@ void Fighter::squat_up()
 void Fighter::start()
 {
     this->sprite->stopAllActions();
-    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_START)%name).str());
-    auto animate = Animate::create(animation);
-    auto sequence = Sequence::create(animate, CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
+    auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_START, name));
+    auto animate = cocos2d::Animate::create(animation);
+    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
     this->sprite->runAction(sequence);
     
 }
@@ -312,9 +265,9 @@ void Fighter::start()
 void Fighter::win()
 {
     this->sprite->stopAllActions();
-    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_WIN)%name).str());
-    auto animate = Animate::create(animation);
-    auto animateForever = RepeatForever::create(animate);
+    auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_WIN, name));
+    auto animate = cocos2d::Animate::create(animation);
+    auto animateForever = cocos2d::RepeatForever::create(animate);
     animateForever->setTag(OP_GPS_ACTION_3_WIN);
     this->sprite->runAction(animateForever);
 }
@@ -322,13 +275,13 @@ void Fighter::win()
 void Fighter::die()
 {
     this->sprite->stopAllActions();
-    auto animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_DIE)%name).str());
+    auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_DIE, name));
     auto func = [&]
     {
         isDie = true;
     };
-    auto animate = Animate::create(animation);
-    auto sequence = Sequence::create(animate, CallFunc::create(func), NULL);
+    auto animate = cocos2d::Animate::create(animation);
+    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     this->sprite->runAction(sequence);
 }
 
@@ -336,12 +289,12 @@ void Fighter::kick1()
 {
     if(isActionStoppable())
     {
-        Animation* animation = NULL;
+        cocos2d::Animation* animation = NULL;
         if (!isSquat())
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK1) % name).str());
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_KICK1, name));
         else
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK1) % name).str());
-        auto animate = Animate::create(animation);
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_KICK1, name));
+        auto animate = cocos2d::Animate::create(animation);
         
         auto preFunc = [&]
         {
@@ -369,7 +322,7 @@ void Fighter::kick1()
         };
         
         
-        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
+        auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(preFunc), animate, cocos2d::CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK1);
         else
@@ -383,12 +336,12 @@ void Fighter::kick2()
 {
     if(isActionStoppable())
     {
-        Animation* animation = NULL;
+        cocos2d::Animation* animation = NULL;
         if (!isSquat())
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_KICK2) % name).str());
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_KICK2, name));
         else
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_KICK2) % name).str());
-        auto animate = Animate::create(animation);
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_KICK2, name));
+        auto animate = cocos2d::Animate::create(animation);
         
         auto preFunc = [&]
         {
@@ -416,7 +369,7 @@ void Fighter::kick2()
         };
         
         
-        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
+        auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(preFunc), animate, cocos2d::CallFunc::create(func), NULL);
 
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_KICK2);
@@ -431,12 +384,12 @@ void Fighter::punch1()
 {
     if(isActionStoppable())
     {
-        Animation* animation = NULL;
+        cocos2d::Animation* animation = NULL;
         if (!isSquat())
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH1) % name).str());
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_PUNCH1, name));
         else
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH1) % name).str());
-        auto animate = Animate::create(animation);
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_PUNCH1, name));
+        auto animate = cocos2d::Animate::create(animation);
         
         auto preFunc = [&]
         {
@@ -464,7 +417,7 @@ void Fighter::punch1()
         };
         
         
-        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
+        auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(preFunc), animate, cocos2d::CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH1);
         else
@@ -478,12 +431,12 @@ void Fighter::punch2()
 {
     if(isActionStoppable())
     {
-        Animation* animation = NULL;
+        cocos2d::Animation* animation = NULL;
         if (!isSquat())
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_STAND_PUNCH2) % name).str());
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_PUNCH2, name));
         else
-            animation = AnimationCache::getInstance()->getAnimation((boost::format(CHARACTER_SQUAT_PUNCH2) % name).str());
-        auto animate = Animate::create(animation);
+            animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_PUNCH2, name));
+        auto animate = cocos2d::Animate::create(animation);
         
         auto preFunc = [&]
         {
@@ -511,7 +464,7 @@ void Fighter::punch2()
         };
         
         
-        auto sequence = Sequence::create(CallFunc::create(preFunc), animate, CallFunc::create(func), NULL);
+        auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(preFunc), animate, cocos2d::CallFunc::create(func), NULL);
         if(!isSquat())
             sequence->setTag(OP_GPS_ACTION_2_STAND_PUNCH2);
         else

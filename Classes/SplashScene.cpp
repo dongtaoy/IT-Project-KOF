@@ -53,7 +53,17 @@ bool SplashScene::init()
     this->schedule(schedule_selector(SplashScene::updateLoadingBar), 0.015f);
     
     
+    for (int i = 1 ; i <= 6 ; i ++)
+    {
+        SpriteFrameCache::getInstance()->addSpriteFramesWithFile(fmt::format(CHARACTER_SPRITE_PATH, "character" + std::to_string(i) ));
+        AnimationCache::getInstance()->addAnimationsWithFile(fmt::format(CHARACTER_ANIMATION_PATH, "character" + std::to_string(i) ));
+    }
     
+    for (int i = 1 ; i <= 4 ; i++)
+    {
+        SpriteFrameCache::getInstance()->addSpriteFramesWithFile(fmt::format(BACKGROUND_SPRITE_PATH, "background" + std::to_string(i) ));
+        AnimationCache::getInstance()->addAnimationsWithFile(fmt::format(BACKGROUND_ANIMATION_PATH, "background" + std::to_string(i) ));
+    }
     return true;
 }
 

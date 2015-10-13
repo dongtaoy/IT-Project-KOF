@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include "Definitions.h"
-#include <boost/format.hpp>
 #include "CocosGUI.h"
+#include "format.h"
 
 class Fighter
 {

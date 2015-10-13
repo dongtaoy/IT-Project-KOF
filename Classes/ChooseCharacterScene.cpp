@@ -136,6 +136,7 @@ void ChooseCharacterScene::setOpponentReady(bool value)
 void ChooseCharacterScene::CharacterClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
+        
         setPlayerSelected(static_cast<Node*>(pSender)->getName());
         PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, static_cast<Node*>(pSender)->getName());
     }
@@ -144,6 +145,7 @@ void ChooseCharacterScene::CharacterClicked(Ref* pSender, cocos2d::ui::Widget::T
 void ChooseCharacterScene::ButtonBackClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
+//                PhotonMultiplayer::getInstance()->sendEvent(1, 1, "", true);
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 50.0f);
         PhotonMultiplayer::getInstance()->opLeaveRoom();
     }
@@ -174,9 +176,9 @@ void ChooseCharacterScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
     {
-        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "waiting for player...", 2.0f);
-        Multiplayer::getInstance->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME);
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "waiting for player...", 20.0f);
+        PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME, "", true);
+//        StartGame();
     }
 }
 
@@ -250,6 +252,7 @@ void ChooseCharacterScene::onLeaveRoomDone()
 
 void ChooseCharacterScene::joinRoomEventAction()
 {
+    MultiplayerCallback::joinRoomEventAction();
     PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, playerSelected);
     ResetGoReadyButton();
     this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);
@@ -257,9 +260,16 @@ void ChooseCharacterScene::joinRoomEventAction()
 
 void ChooseCharacterScene::leaveRoomEventAction()
 {
+    MultiplayerCallback::leaveRoomEventAction();
     ResetGoReadyButton();
     this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(true);
     this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
+}
+
+void ChooseCharacterScene::onPlayerPropertiesChange()
+{
+    MultiplayerCallback::onPlayerPropertiesChange();
+//    StartGame();
 }
 
 
@@ -281,9 +291,9 @@ void ChooseCharacterScene::customEventAction(command_t event)
             break;
     
         case OP_CCS_START_GAME:
-            if (!isGameStart) {
+            if (!isGameStart)
                 StartGame();
-            }
+            
             break;
                 
         default:
@@ -295,37 +305,26 @@ void ChooseCharacterScene::customEventAction(command_t event)
 void ChooseCharacterScene::update(float dt)
 {
     PhotonMultiplayer::getInstance()->service();
+    
 }
 
 
 #pragma mark start game
 void ChooseCharacterScene::StartGame()
 {
+    if (isGameStart)
+        return;
+    
     isGameStart = true;
-    LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
     
+    PhotonMultiplayer::getInstance()->setPlayerCharactor(playerSelected);
+    PhotonMultiplayer::getInstance()->setOpponentCharactor(opponentSelected);
     
-//    Multiplayer::getInstance()->setUserCharacter(playerSelected);
-//    Multiplayer::getInstance()->setOpponentCharacter(opponentSelected);
-    
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "suiting up characters...", 35.0f);
-    
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % playerSelected ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % playerSelected).str());
-    
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % opponentSelected ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % opponentSelected).str());
-    
-    
-    // TODO: CHANGE IT AFTER FINISH ANIMATIONS
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "loading bacground...", 70.0f);
-//    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % Multiplayer::getInstance()->getBackground() ).str());
-//    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % Multiplayer::getInstance()->getBackground() ).str());
     
     
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
-//    auto scene = GamePlayScene::createScene();
-//    Director::getInstance()->replaceScene(scene);
+    auto scene = GamePlayScene::createScene();
+    Director::getInstance()->replaceScene(scene);
 
 }
 
@@ -376,10 +375,3 @@ void ChooseCharacterScene::StartGame()
 //    }
 //}
 //
-
-
-
-
-
-
-

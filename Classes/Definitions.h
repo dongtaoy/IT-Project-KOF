@@ -37,33 +37,33 @@
 #define CHARACTER_SPRITE_PATH           "characters/{0}/sprite.plist"
 #define CHARACTER_ANIMATION_PATH        "characters/{0}/animation.plist"
 
-#define CHARACTER_SQUAT                 "%s/squat"
-#define CHARACTER_SQUAT_DOWN            "%s/squat_down"
-#define CHARACTER_SQUAT_HIT             "%s/squat_hit"
-#define CHARACTER_SQUAT_KICK1           "%s/squat_kick1"
-#define CHARACTER_SQUAT_KICK2           "%s/squat_kick2"
-#define CHARACTER_SQUAT_MOVEBACK        "%s/squat_moveback"
-#define CHARACTER_SQUAT_MOVEFORWARD     "%s/squat_moveforward"
-#define CHARACTER_SQUAT_PUNCH1          "%s/squat_punch1"
-#define CHARACTER_SQUAT_PUNCH2          "%s/squat_punch2"
-#define CHARACTER_SQUAT_UP              "%s/squat_up"
+#define CHARACTER_SQUAT                 "{0}/squat"
+#define CHARACTER_SQUAT_DOWN            "{0}/squat_down"
+#define CHARACTER_SQUAT_HIT             "{0}/squat_hit"
+#define CHARACTER_SQUAT_KICK1           "{0}/squat_kick1"
+#define CHARACTER_SQUAT_KICK2           "{0}/squat_kick2"
+#define CHARACTER_SQUAT_MOVEBACK        "{0}/squat_moveback"
+#define CHARACTER_SQUAT_MOVEFORWARD     "{0}/squat_moveforward"
+#define CHARACTER_SQUAT_PUNCH1          "{0}/squat_punch1"
+#define CHARACTER_SQUAT_PUNCH2          "{0}/squat_punch2"
+#define CHARACTER_SQUAT_UP              "{0}/squat_up"
 
-#define CHARACTER_INITIAL_FRAME         "characters/%s/stand/00.png"
+#define CHARACTER_INITIAL_FRAME         "characters/{0}/stand/00.png"
 
-#define CHARACTER_STAND                 "%s/stand"
-#define CHARACTER_STAND_HIT             "%s/stand_hit"
-#define CHARACTER_STAND_JUMP            "%s/stand_jump"
-#define CHARACTER_STAND_KICK1           "%s/stand_kick1"
-#define CHARACTER_STAND_KICK2           "%s/stand_kick2"
-#define CHARACTER_STAND_MOVEBACK        "%s/stand_moveback"
-#define CHARACTER_STAND_MOVEFORWARD     "%s/stand_moveforward"
-#define CHARACTER_STAND_PUNCH1          "%s/stand_punch1"
-#define CHARACTER_STAND_PUNCH2          "%s/stand_punch2"
+#define CHARACTER_STAND                 "{0}/stand"
+#define CHARACTER_STAND_HIT             "{0}/stand_hit"
+#define CHARACTER_STAND_JUMP            "{0}/stand_jump"
+#define CHARACTER_STAND_KICK1           "{0}/stand_kick1"
+#define CHARACTER_STAND_KICK2           "{0}/stand_kick2"
+#define CHARACTER_STAND_MOVEBACK        "{0}/stand_moveback"
+#define CHARACTER_STAND_MOVEFORWARD     "{0}/stand_moveforward"
+#define CHARACTER_STAND_PUNCH1          "{0}/stand_punch1"
+#define CHARACTER_STAND_PUNCH2          "{0}/stand_punch2"
 
 
-#define CHARACTER_START                 "%s/start"
-#define CHARACTER_WIN                   "%s/win"
-#define CHARACTER_DIE                   "%s/die"
+#define CHARACTER_START                 "{0}/start"
+#define CHARACTER_WIN                   "{0}/win"
+#define CHARACTER_DIE                   "{0}/die"
 
 
 #define NUM_BACKGROUNDS 4
@@ -215,7 +215,7 @@
 //Physics
 
 #define GRAVITY_X                           0.0f
-#define GRAVITY_Y                           -200.0f
+#define GRAVITY_Y                           0.0f
 
 #define PUNCH1_DAMAGE                       3
 #define PUNCH2_DAMAGE                       4
