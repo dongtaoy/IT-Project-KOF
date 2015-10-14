@@ -169,12 +169,12 @@ void GamePlayScene::processCommand(command_t cmd)
 
 bool GamePlayScene::lockStepTurn()
 {
-    if (nextnextCommands.size() >= 2 || lockstepId < 2) {
+    if (nextCommands.size() >= 2 || lockstepId < 2) {
         if (!player->isNextAction())
             return false;
         // send Command
         command_t c = processInput();
-        nextnextCommands.push(c);
+        nextCommands.push(c);
         PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(c.scene, c.operation, c.properties));
         if (nextCommands.size() >= 2)
         {
@@ -182,13 +182,6 @@ bool GamePlayScene::lockStepTurn()
             {
                 currentCommands.push(nextCommands.top());
                 nextCommands.pop();
-            }
-        }
-        if (nextnextCommands.size() >= 2) {
-            for (int i = 0; i < 2; i ++)
-            {
-                nextCommands.push(nextnextCommands.top());
-                nextnextCommands.pop();
             }
         }
         for (int i = 0; i < currentCommands.size(); i ++)
@@ -255,7 +248,7 @@ void GamePlayScene::gameFrameTurn()
             gameFrame = 0;
         }
     }
-    CCLOG("\t\t\t\tlockstep id: %lu, gameframe: %d", lockstepId, gameFrame);
+    CCLOG("\t\t\t\t\tlockstep id: %lu, gameframe: %d", lockstepId, gameFrame);
 }
 
 
@@ -339,7 +332,7 @@ void GamePlayScene::update(float dt)
     
     
     while(accumilatedTime > GAME_FRAME_LENGTH) {
-        CCLOG("\t\t\tnextCommands: %lu nexnextCommands", nextCommands.size(), nextnextCommands.size());
+        CCLOG("\t\t\tnextCommands: %lu currentCommands: %lu", nextCommands.size(), currentCommands.size());
         gameFrameTurn ();
         accumilatedTime = accumilatedTime - GAME_FRAME_LENGTH;
     }
@@ -589,7 +582,7 @@ void GamePlayScene::onLeaveRoomDone()
 void GamePlayScene::customEventAction(command_t cmd)
 {
     if (cmd.scene == MP_GAME_PLAY_SCNE) {
-        nextnextCommands.push(cmd);
+        nextCommands.push(cmd);
 //        PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCENE_CONFIRM, cmd.operation));
     }
 //    if (cmd.scene == MP_GAME_PLAY_SCENE_CONFIRM)

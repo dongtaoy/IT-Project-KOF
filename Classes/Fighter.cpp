@@ -153,7 +153,7 @@ void Fighter::stand_moveback()
     if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)))
     {
         this->sprite->stopAllActions();
-        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH - 0.02) / 1000, cocos2d::Vec2(-35, 0));
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH - 0.001) / 1000, cocos2d::Vec2(-35, 0));
 //        auto moveTo = cocos2d::MoveTo::create(0.2f, );
         moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
         this->sprite->runAction(moveBy);
@@ -195,7 +195,7 @@ void Fighter::stand_moveforward()
 //        auto moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50, 0));
 //        moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
 //        this->sprite->runAction(moveBy);
-        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH - 0.02) / 1000, cocos2d::Vec2(35, 0));
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH - 0.001) / 1000, cocos2d::Vec2(35, 0));
 //        auto moveTo = cocos2d::MoveTo::create(0.2f, to);
         moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
         this->sprite->runAction(moveBy);
