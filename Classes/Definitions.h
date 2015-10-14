@@ -161,6 +161,8 @@
 
 #define MP_GAME_PLAY_SCNE                   2
 
+#define MP_GAME_PLAY_SCENE_CONFIRM          3
+
 //#define OP_GPS_BUTTON_A                     1
 //#define OP_GPS_BUTTON_B                     2
 //#define OP_GPS_BUTTON_C                     3
@@ -236,10 +238,14 @@
 //#define Kick1_damage                        3
 //#define Kick2_damage                        4
 
+#define GAME_FRAME_LENGTH                    40
+#define GAME_FRAME_PER_LOCKSTEP              4
+
+
 
 struct command_t
 {
-    std::string sender;
+    int sender;
     int scene;
     int operation;
     std::string properties;

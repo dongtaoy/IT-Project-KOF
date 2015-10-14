@@ -110,6 +110,8 @@ bool GamePlayScene::init()
     this->buttonD = createButtons(GAME_PLAY_SCENE_BUTTON_D_NORMAL, GAME_PLAY_SCENE_BUTTON_D_PRESSED, Vec2(GAME_PLAY_SCENE_BUTTON_D_X, GAME_PLAY_SCENE_BUTTON_D_Y));
     
     
+    lockstepId = 0;
+    gameFrame = 0;
     PhotonMultiplayer::getInstance()->setListener(this);
     this->scheduleUpdate();
     return true;
@@ -153,150 +155,311 @@ void GamePlayScene::endCountDown(){
 
 void GamePlayScene::processCommand(command_t cmd)
 {
+    switch (cmd.operation) {
+        case OP_GPS_ACTION_1_STAND:
+            if (PhotonMultiplayer::getInstance()->getPlayerNumber() == cmd.sender)
+            {
+                player->stand();
+            }
+            else
+            {
+                opponent->stand();
+            }
+            break;
+        
+        case OP_GPS_ACTION_1_STAND_MOVEBACK:
+            
+            if (PhotonMultiplayer::getInstance()->getPlayerNumber() == cmd.sender)
+            {
+                auto pos = PhotonMultiplayer::extractPos(cmd.properties);
+                player->stand_moveback(pos);
+            }
+            else
+            {
+                auto pos = PhotonMultiplayer::extractPos(cmd.properties);
+                opponent->stand_moveback(pos);
+            }
+            break;
+        
+        case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
+            if (PhotonMultiplayer::getInstance()->getPlayerNumber() == cmd.sender)
+            {
+                auto pos = PhotonMultiplayer::extractPos(cmd.properties);
+                player->stand_moveforward(pos);
+            }
+            else
+            {
+                auto pos = PhotonMultiplayer::extractPos(cmd.properties);
+                opponent->stand_moveforward(pos);
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
 
+bool GamePlayScene::lockStepTurn()
+{
+    if (confirmedCommand.size() >= 2 || lockstepId == 0) {
+        command_t c = processInput();
+        pendingCommand.push(c);
+        PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(c.scene, c.operation, c.properties));
+        if (confirmedCommand.size() >= 2)
+        {
+            for (int i = 0; i < 2; i ++)
+            {
+                processCommand(confirmedCommand.top());
+                confirmedCommand.pop();
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+void GamePlayScene::gameFrameTurn()
+{
+    if(gameFrame == 0) {
+        if(lockStepTurn()) {
+            gameFrame++;
+        }
+    } else {
+        // DO SOMETHING
+        
+        
+        
+        gameFrame++;
+        if(gameFrame == GAME_FRAME_PER_LOCKSTEP) {
+            gameFrame = 0;
+        }
+    }
+//    CCLOG("\t\t\t\tlockstep id: %lu, gameframe: %d", lockstepId, gameFrame);
 }
 
 
-void GamePlayScene::update(float dt)
+command_t GamePlayScene::processInput()
 {
-    PhotonMultiplayer::getInstance()->service();
-    
+    lockstepId++;
     auto point = joystick->getVelocity();
     auto angle = GameHelper::vectorToDegree(point);
-    
-//
-//    if (!Multiplayer::getInstance()->isCommandsEmpty())
-//    {
-//        if (opponent->isActionStoppable())
-//            processCommand(Multiplayer::getInstance()->popCommands());
-//    }
-    
     auto pos = player->getPosition();
-    std::string properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
     
-    std::string message;
+    CCLOG("current player pos %f %f", pos.x, pos.y);
+    
+    command_t output;
+    output.scene = MP_GAME_PLAY_SCNE;
+    output.sender = PhotonMultiplayer::getInstance()->getPlayerNumber();
     
     // stand move forward
     if (angle > 337.5f || angle <  22.5f)
     {
-        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-        player->stand_moveforward();
+        output.operation = OP_GPS_ACTION_1_STAND_MOVEFORWARD;
+        output.properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x + 50), std::to_string(pos.y)});
     }
     
     // stand move back
     if (angle > 157.5f && angle < 202.5f)
     {
-        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
-        player->stand_moveback();
+        output.operation = OP_GPS_ACTION_1_STAND_MOVEBACK;
+        output.properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x - 50), std::to_string(pos.y)});
     }
     
     
-    // jump
+    
+        // jump
     if (angle >  22.5f && angle < 157.5f)
     {
-        if (player->isActionStoppable())
-        {
-            int distance = point.x * ACTION_MOVE_SPEED;
-            message = PhotonMultiplayer::buildEvent(
-                                                MP_GAME_PLAY_SCNE,
-                                                OP_GPS_ACTION_2_STAND_JUMP,
-                                                PhotonMultiplayer::buildProperties({std::to_string(distance)}));
-            player->stand_jump(distance);
-        }
+        
+        int distance = point.x * ACTION_MOVE_SPEED;
+        output.operation = OP_GPS_ACTION_2_STAND_JUMP;
+        output.properties = PhotonMultiplayer::buildProperties({std::to_string(distance)});
+        
     }
     
-    
-
-    // squat moveback
-    if (angle > 202.5f && angle < 247.5f)
-    {
-        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-        player->squat_moveback();
-    }
-    
-    // squat
-    if (angle > 247.5f && angle < 292.5f)
-    {
-        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN, properties);
-        player->squat_down();
-    }
-    
-    if (angle > 292.5f && angle < 337.5f)
-    {
-        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
-        player->squat_moveforward();
-    }
-    
-    
-    
-    
-    if (buttonA->getIsActive())
-    {
-        if (player->isActionStoppable())
-        {
-            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH1, properties);
-            player->punch1();
-        }
-    }
-    
-    if (buttonB->getIsActive())
-    {
-        if (player->isActionStoppable())
-        {
-            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH2, properties);
-            player->punch2();
-        }
-    }
-    
-    if (buttonC->getIsActive())
-    {
-        if (player->isActionStoppable())
-        {
-            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1, properties);
-            player->kick1();
-            
-        }
-    }
-    
-    if (buttonD->getIsActive())
-    {
-        if (player->isActionStoppable())
-        {
-            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK2, properties);
-            player->kick2();
-        }
-    }
     if (std::isnan(angle))
     {
-        if (player->isActionStoppable()) {
-            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
-            player->stand();
-        }
+        output.operation = OP_GPS_ACTION_1_STAND;
+//        output.properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
+        
     }
     
-    if (player->getIsHealthChanged())
-    {
-        player->setIsHealthChanged(false);
-        auto p = PhotonMultiplayer::buildProperties({std::to_string(player->getHealthPercentage())});
-        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_3_HEALTHCHANGED,p);
-    }
     
+    
+//        // squat moveback
+//        if (angle > 202.5f && angle < 247.5f)
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
+//    //        player->squat_moveback();
+//        }
 //    
-//    if (player->getIsDie() || opponent->getIsDie())
-//    {
-//        
-//        MenuClicked(nullptr, cocos2d::ui::Widget::TouchEventType::ENDED);
-//        this->unscheduleUpdate();
-//    }
+//        // squat
+//        if (angle > 247.5f && angle < 292.5f)
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN, properties);
+//    //        player->squat_down();
+//        }
+//    
+//        if (angle > 292.5f && angle < 337.5f)
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
+//    //        player->squat_moveforward();
+//        }
+    
+    return output;
+}
 
-//    
-    player->update(dt);
-    opponent->update(dt);
-    camera->update(dt);
-    if(message.compare(""))
-    {
-        PhotonMultiplayer::getInstance()->sendEvent(message);
+
+
+void GamePlayScene::update(float dt)
+{
+    PhotonMultiplayer::getInstance()->service();
+    accumilatedTime = accumilatedTime + dt * 1000;
+    
+    
+    while(accumilatedTime > GAME_FRAME_LENGTH) {
+//        CCLOG("\t\t\tpending: %lu, confirmed: %lu", pendingCommand.size(), confirmedCommand.size());
+        gameFrameTurn ();
+        accumilatedTime = accumilatedTime - GAME_FRAME_LENGTH;
     }
+    
+    
+//    auto point = joystick->getVelocity();
+//    auto angle = GameHelper::vectorToDegree(point);
+//    
+////
+////    if (!Multiplayer::getInstance()->isCommandsEmpty())
+////    {
+////        if (opponent->isActionStoppable())
+////            processCommand(Multiplayer::getInstance()->popCommands());
+////    }
+//    
+//    auto pos = player->getPosition();
+//    std::string properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
+//    
+//    std::string message;
+//    
+//    // stand move forward
+//    if (angle > 337.5f || angle <  22.5f)
+//    {
+//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+////        player->stand_moveforward();
+//    }
+//    
+//    // stand move back
+//    if (angle > 157.5f && angle < 202.5f)
+//    {
+//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
+////        player->stand_moveback();
+//    }
+//    
+//    
+//    // jump
+//    if (angle >  22.5f && angle < 157.5f)
+//    {
+//        if (player->isActionStoppable())
+//        {
+//            int distance = point.x * ACTION_MOVE_SPEED;
+//            message = PhotonMultiplayer::buildEvent(
+//                                                MP_GAME_PLAY_SCNE,
+//                                                OP_GPS_ACTION_2_STAND_JUMP,
+//                                                PhotonMultiplayer::buildProperties({std::to_string(distance)}));
+////            player->stand_jump(distance);
+//        }
+//    }
+//    
+//    
+//
+//    // squat moveback
+//    if (angle > 202.5f && angle < 247.5f)
+//    {
+//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
+////        player->squat_moveback();
+//    }
+//    
+//    // squat
+//    if (angle > 247.5f && angle < 292.5f)
+//    {
+//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN, properties);
+////        player->squat_down();
+//    }
+//    
+//    if (angle > 292.5f && angle < 337.5f)
+//    {
+//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
+////        player->squat_moveforward();
+//    }
+//    
+//    
+//    
+//    
+//    if (buttonA->getIsActive())
+//    {
+//        if (player->isActionStoppable())
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH1, properties);
+////            player->punch1();
+//        }
+//    }
+//    
+//    if (buttonB->getIsActive())
+//    {
+//        if (player->isActionStoppable())
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH2, properties);
+////            player->punch2();
+//        }
+//    }
+//    
+//    if (buttonC->getIsActive())
+//    {
+//        if (player->isActionStoppable())
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1, properties);
+////            player->kick1();
+//            
+//        }
+//    }
+//    
+//    if (buttonD->getIsActive())
+//    {
+//        if (player->isActionStoppable())
+//        {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK2, properties);
+////            player->kick2();
+//        }
+//    }
+//    if (std::isnan(angle))
+//    {
+//        if (player->isActionStoppable()) {
+//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
+////            player->stand();
+//        }
+//    }
+//    
+//    if (player->getIsHealthChanged())
+//    {
+//        player->setIsHealthChanged(false);
+//        auto p = PhotonMultiplayer::buildProperties({std::to_string(player->getHealthPercentage())});
+//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_3_HEALTHCHANGED,p);
+//    }
+//    
+////    
+////    if (player->getIsDie() || opponent->getIsDie())
+////    {
+////        
+////        MenuClicked(nullptr, cocos2d::ui::Widget::TouchEventType::ENDED);
+////        this->unscheduleUpdate();
+////    }
+//
+////    
+//    player->update(dt);
+//    opponent->update(dt);
+    camera->update(dt);
+//    if(message.compare(""))
+//    {
+//        PhotonMultiplayer::getInstance()->sendEvent(message);
+//    }
 //
 //    
     
@@ -376,7 +539,6 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
 void GamePlayScene::createBackgroundAnimation()
 {
     auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
-    CCLOG("%f %f", background->getBoundingBox().size.width, background->getBoundingBox().size.height);
     
     //     TODO: WITH MULTIPLAYER
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(PhotonMultiplayer::getInstance()->getBackground());
@@ -404,62 +566,77 @@ void GamePlayScene::onLeaveRoomDone()
 
 void GamePlayScene::customEventAction(command_t cmd)
 {
-            switch (cmd.operation) {
-                case OP_GPS_ACTION_2_STAND_PUNCH1:
-                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-                    opponent->punch1();
-                    break;
-                case OP_GPS_ACTION_2_STAND_PUNCH2:
-                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-                    opponent->punch2();
-                    break;
+    if (cmd.scene == MP_GAME_PLAY_SCNE) {
+        confirmedCommand.push(cmd);
+        PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCENE_CONFIRM, cmd.operation));
+    }
+    if (cmd.scene == MP_GAME_PLAY_SCENE_CONFIRM)
+    {
+        confirmedCommand.push(pendingCommand.top());
+        pendingCommand.pop();
+    }
     
-                case OP_GPS_ACTION_2_STAND_KICK1:
-                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-                    opponent->kick1();
-                    break;
     
-                case OP_GPS_ACTION_2_STAND_KICK2:
-                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-                    opponent->kick2();
-                    break;
     
-                case OP_GPS_ACTION_1_STAND:
-                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-                    opponent->stand();
-                    break;
     
-                case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
-                    opponent->stand_moveforward();
-                    break;
     
-                case OP_GPS_ACTION_1_STAND_MOVEBACK:
-                    opponent->stand_moveback();
-                    break;
     
-                case OP_GPS_ACTION_2_STAND_JUMP:
-                    opponent->stand_jump(atoi(GameHelper::split(cmd.properties, '%').at(0).c_str()));
-                    break;
-    
-                case OP_GPS_ACTION_1_SQUAT_DOWN:
-                        opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-                        opponent->squat_down();
-                    break;
-    
-                case OP_GPS_ACTION_1_SQUAT_MOVEFORWARD:
-                        opponent->squat_moveforward();
-                    break;
-    
-                case OP_GPS_ACTION_1_SQUAT_MOVEBACK:
-                        opponent->squat_moveback();
-                    break;
-    
-                case OP_GPS_ACTION_3_HEALTHCHANGED:
-                        opponent->setHealthPercentage(std::atof(GameHelper::split(cmd.properties, '%').at(0).c_str()));
-                    break;
-                default:
-                    break;
-            }
+//            switch (cmd.operation) {
+//                case OP_GPS_ACTION_2_STAND_PUNCH1:
+//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
+//                    opponent->punch1();
+//                    break;
+//                case OP_GPS_ACTION_2_STAND_PUNCH2:
+//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
+//                    opponent->punch2();
+//                    break;
+//    
+//                case OP_GPS_ACTION_2_STAND_KICK1:
+//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
+//                    opponent->kick1();
+//                    break;
+//    
+//                case OP_GPS_ACTION_2_STAND_KICK2:
+//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
+//                    opponent->kick2();
+//                    break;
+//    
+//                case OP_GPS_ACTION_1_STAND:
+//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
+//                    opponent->stand();
+//                    break;
+//    
+//                case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
+//                    opponent->stand_moveforward();
+//                    break;
+//    
+//                case OP_GPS_ACTION_1_STAND_MOVEBACK:
+//                    opponent->stand_moveback();
+//                    break;
+//    
+//                case OP_GPS_ACTION_2_STAND_JUMP:
+//                    opponent->stand_jump(atoi(GameHelper::split(cmd.properties, '%').at(0).c_str()));
+//                    break;
+//    
+//                case OP_GPS_ACTION_1_SQUAT_DOWN:
+//                        opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
+//                        opponent->squat_down();
+//                    break;
+//    
+//                case OP_GPS_ACTION_1_SQUAT_MOVEFORWARD:
+//                        opponent->squat_moveforward();
+//                    break;
+//    
+//                case OP_GPS_ACTION_1_SQUAT_MOVEBACK:
+//                        opponent->squat_moveback();
+//                    break;
+//    
+//                case OP_GPS_ACTION_3_HEALTHCHANGED:
+//                        opponent->setHealthPercentage(std::atof(GameHelper::split(cmd.properties, '%').at(0).c_str()));
+//                    break;
+//                default:
+//                    break;
+//            }
 }
 
 
@@ -544,13 +721,6 @@ void GamePlayScene::updatePlayerHp()
 //    
 }
 
-bool GamePlayScene::opponentDie()
-{
-    if (opponent->gethealth() <= 0)
-    {
-        return true;
-    }
-}
 
 void GamePlayScene::GoToMainMenuScene( float dt )
 {

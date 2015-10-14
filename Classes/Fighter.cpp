@@ -129,9 +129,8 @@ void Fighter::stand_jump(int distance)
 
 
 
-void Fighter::stand_moveback()
+void Fighter::stand_moveback(cocos2d::Vec2 to)
 {
-    
     if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
     {
         this->physicsSprite->stopAllActions();
@@ -141,16 +140,17 @@ void Fighter::stand_moveback()
         //        animate->setDuration(ACTION_1_MOVE_DURATION);
         auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
-        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(-ACTION_MOVE_SPEED, 0));
-        auto movebyForever = cocos2d::RepeatForever::create(moveby);
+        auto moveby = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(-50,0));
+//        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(-ACTION_MOVE_SPEED, 0));
+//        auto movebyForever = cocos2d::RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
-        this->physicsSprite->runAction(movebyForever);
+        this->sprite->runAction(moveby);
+//        this->physicsSprite->runAction(moveby);
     }
 }
 
-void Fighter::stand_moveforward()
+void Fighter::stand_moveforward(cocos2d::Vec2 to)
 {
-    
     if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
     {
         this->physicsSprite->stopAllActions();
@@ -159,10 +159,12 @@ void Fighter::stand_moveforward()
         auto animate = cocos2d::Animate::create(animation);
         auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(ACTION_MOVE_SPEED, 0));
-        auto movebyForever = cocos2d::RepeatForever::create(moveby);
+        auto moveby = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50,0));
+//        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(ACTION_MOVE_SPEED, 0));
+//        auto movebyForever = cocos2d::RepeatForever::create(moveby);
         this->sprite->runAction(animateForever);
-        this->physicsSprite->runAction(movebyForever);
+        this->sprite->runAction(moveby);
+//        this->physicsSprite->runAction(moveby);
     }
 }
 

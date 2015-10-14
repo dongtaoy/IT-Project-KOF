@@ -40,8 +40,8 @@ public:
     void stand();
     void stand_hit();
     void stand_jump(int);
-    void stand_moveback();
-    void stand_moveforward();
+    void stand_moveback(cocos2d::Vec2);
+    void stand_moveforward(cocos2d::Vec2);
     
     void start();
     void win();

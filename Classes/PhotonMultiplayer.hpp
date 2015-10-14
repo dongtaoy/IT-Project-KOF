@@ -97,7 +97,8 @@ private:
     virtual void onRoomListUpdate(void);
     virtual void onPlayerPropertiesChange(int, const ExitGames::Common::Hashtable &);
     
-
+    
+//    std::stack<>
     ExitGames::LoadBalancing::Client c;
     ExitGames::Common::Logger mLogger;
     MultiplayerCallback* listener;

@@ -150,9 +150,8 @@ void PhotonMultiplayer::run(void)
 
 void PhotonMultiplayer::sendEvent(std::string event)
 {
-    if(prevEvent.compare(event))
-        c.opRaiseEvent(true, StringToJString(event), 0);
-    prevEvent = event;
+    CCLOG("sending %s", event.c_str());
+    c.opRaiseEvent(true, StringToJString(event), 0);
 }
 
 void PhotonMultiplayer::sendEvent(int scene, int op, std::string properties, bool broadcast)
@@ -301,10 +300,12 @@ void PhotonMultiplayer::leaveRoomEventAction(int playerNr, bool isInactive)
 }
 
 
-void PhotonMultiplayer::customEventAction(int /*playerNr*/, nByte /*eventCode*/, const ExitGames::Common::Object& eventContent)
+void PhotonMultiplayer::customEventAction(int playerNr, nByte /*eventCode*/, const ExitGames::Common::Object& eventContent)
 {
-    CCLOG("%ls", eventContent.toString().cstr());
-    listener->customEventAction(extractEvent(JStringToString(eventContent.toString())));
+    CCLOG("received: %ls", eventContent.toString().cstr());
+    command_t c = extractEvent(JStringToString(eventContent.toString()));
+    c.sender = playerNr;
+    listener->customEventAction(c);
 }
 
 void PhotonMultiplayer::connectReturn(int errorCode, const ExitGames::Common::JString& errorString)

@@ -59,6 +59,12 @@ public:
     CC_SYNTHESIZE(int, prevOperation, PrevOperation);
     CC_SYNTHESIZE(cocos2d::PhysicsWorld*, world, World);
     
+    
+    unsigned long lockstepId;
+    int gameFrame;
+    std::stack<command_t> pendingCommand;
+    std::stack<command_t> confirmedCommand;
+    
 private:
     Camera2d* camera;
     bool isCountDownStart;
@@ -85,7 +91,10 @@ private:
     
     
     void update(float);
+    void gameFrameTurn();
     void processCommand(command_t);
+    bool lockStepTurn();
+    command_t processInput();
     
     
     void onLeaveRoomDone();
@@ -101,7 +110,6 @@ private:
     void characterTooClose(float characterDistance, float closeDistance);
     
     void GoToMainMenuScene( float dt );
-    bool opponentDie();
     
 };
 
