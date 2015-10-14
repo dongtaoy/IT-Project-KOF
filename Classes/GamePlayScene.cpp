@@ -169,12 +169,12 @@ void GamePlayScene::processCommand(command_t cmd)
 
 bool GamePlayScene::lockStepTurn()
 {
-    if (nextCommands.size() >= 2 || lockstepId < 2) {
+    if (nextnextCommands.size() >= 2 || lockstepId < 2) {
         if (!player->isNextAction())
             return false;
         // send Command
         command_t c = processInput();
-        nextCommands.push(c);
+        nextnextCommands.push(c);
         PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(c.scene, c.operation, c.properties));
         if (nextCommands.size() >= 2)
         {
@@ -182,6 +182,14 @@ bool GamePlayScene::lockStepTurn()
             {
                 currentCommands.push(nextCommands.top());
                 nextCommands.pop();
+            }
+        }
+        if (nextnextCommands.size() >= 2)
+        {
+            for (int i = 0; i < 2; i ++)
+            {
+                nextCommands.push(nextnextCommands.top());
+                nextnextCommands.pop();
             }
         }
         for (int i = 0; i < currentCommands.size(); i ++)
@@ -582,7 +590,7 @@ void GamePlayScene::onLeaveRoomDone()
 void GamePlayScene::customEventAction(command_t cmd)
 {
     if (cmd.scene == MP_GAME_PLAY_SCNE) {
-        nextCommands.push(cmd);
+        nextnextCommands.push(cmd);
 //        PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCENE_CONFIRM, cmd.operation));
     }
 //    if (cmd.scene == MP_GAME_PLAY_SCENE_CONFIRM)
