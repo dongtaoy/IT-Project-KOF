@@ -238,8 +238,8 @@
 //#define Kick1_damage                        3
 //#define Kick2_damage                        4
 
-#define GAME_FRAME_LENGTH                    40
-#define GAME_FRAME_PER_LOCKSTEP              4
+#define GAME_FRAME_LENGTH                    30
+#define GAME_FRAME_PER_LOCKSTEP              3
 
 
 

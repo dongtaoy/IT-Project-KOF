@@ -29,7 +29,9 @@ public:
     CC_SYNTHESIZE(cocos2d::Sprite*, physicsSprite, physicsSprite);
     CC_SYNTHESIZE(bool, isDie, IsDie);
     CC_SYNTHESIZE(bool, isHealthChanged, IsHealthChanged);
+    CC_SYNTHESIZE(command_t, prevCommand, PrevCommand);
     
+    void processCommand(command_t);
     void squat();
     void squat_down();
     void squat_hit();
@@ -40,8 +42,8 @@ public:
     void stand();
     void stand_hit();
     void stand_jump(int);
-    void stand_moveback(cocos2d::Vec2);
-    void stand_moveforward(cocos2d::Vec2);
+    void stand_moveback();
+    void stand_moveforward();
     
     void start();
     void win();
@@ -74,6 +76,7 @@ public:
     bool canMove(cocos2d::Vec2);
     bool isHit();
     
+    bool isNextAction();
    
     
 };

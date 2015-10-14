@@ -76,9 +76,28 @@ cocos2d::Node* Fighter::getParent()
 }
 
 
+void Fighter::processCommand(command_t cmd)
+{
+    switch (cmd.operation) {
+        case OP_GPS_ACTION_1_STAND:
+            this->stand();
+            break;
+        
+        case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
+            this->stand_moveforward();
+            break;
+            
+        case OP_GPS_ACTION_1_STAND_MOVEBACK:
+            this->stand_moveback();
+            
+        default:
+            break;
+    }
+}
 
 void Fighter::stand()
 {
+    CCLOG("in stand: running actions: %zd", this->sprite->getNumberOfRunningActions());
     if (!isStand() && (this->sprite->getNumberOfRunningActions() < 1 || isActionStoppable()))
     {
         this->physicsSprite->stopAllActions();
@@ -129,43 +148,73 @@ void Fighter::stand_jump(int distance)
 
 
 
-void Fighter::stand_moveback(cocos2d::Vec2 to)
+void Fighter::stand_moveback()
 {
-    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
+    if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)))
     {
-        this->physicsSprite->stopAllActions();
         this->sprite->stopAllActions();
-        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEBACK, name));
-        auto animate = cocos2d::Animate::create(animation);
-        //        animate->setDuration(ACTION_1_MOVE_DURATION);
-        auto animateForever = cocos2d::RepeatForever::create(animate);
-        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
-        auto moveby = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(-50,0));
-//        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(-ACTION_MOVE_SPEED, 0));
-//        auto movebyForever = cocos2d::RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(moveby);
-//        this->physicsSprite->runAction(moveby);
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH - 0.02) / 1000, cocos2d::Vec2(-35, 0));
+//        auto moveTo = cocos2d::MoveTo::create(0.2f, );
+        moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
+        this->sprite->runAction(moveBy);
     }
+    
+    
+//    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)) && isActionStoppable())
+//    {
+//        this->physicsSprite->stopAllActions();
+//        this->sprite->stopAllActions();
+//        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEBACK, name));
+//        auto animate = cocos2d::Animate::create(animation);
+//        //        animate->setDuration(ACTION_1_MOVE_DURATION);
+//        auto animateForever = cocos2d::RepeatForever::create(animate);
+//        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
+////        auto moveby = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(-50,0));
+//        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(-1 * GAME_FRAME_LENGTH * GAME_FRAME_PER_LOCKSTEP, 0));
+//        this->sprite->runAction(animateForever);
+////        this->sprite->runAction(moveby);
+//        this->physicsSprite->runAction(moveby);
+//    }
 }
 
-void Fighter::stand_moveforward(cocos2d::Vec2 to)
+
+bool Fighter::isNextAction()
 {
-    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
-    {
-        this->physicsSprite->stopAllActions();
-        this->sprite->stopAllActions();
-        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEFORWARD, name));
-        auto animate = cocos2d::Animate::create(animation);
-        auto animateForever = cocos2d::RepeatForever::create(animate);
-        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-        auto moveby = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50,0));
-//        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(ACTION_MOVE_SPEED, 0));
-//        auto movebyForever = cocos2d::RepeatForever::create(moveby);
-        this->sprite->runAction(animateForever);
-        this->sprite->runAction(moveby);
-//        this->physicsSprite->runAction(moveby);
+    if (   this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) {
+        return false;
     }
+    return true;
+}
+
+void Fighter::stand_moveforward()
+{
+    if (!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)))
+    {
+        this->sprite->stopAllActions();
+//        auto moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50, 0));
+//        moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+//        this->sprite->runAction(moveBy);
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH - 0.02) / 1000, cocos2d::Vec2(35, 0));
+//        auto moveTo = cocos2d::MoveTo::create(0.2f, to);
+        moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+        this->sprite->runAction(moveBy);
+    }
+//    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)) && isActionStoppable())
+//    {
+//        this->physicsSprite->stopAllActions();
+//        this->sprite->stopAllActions();
+//        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEFORWARD, name));
+//        auto animate = cocos2d::Animate::create(animation);
+//        auto animateForever = cocos2d::RepeatForever::create(animate);
+//        animateForever->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+////        auto moveby = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50,0));
+//        auto moveby = cocos2d::MoveBy::create(animate->getDuration(), cocos2d::Vec2(1 * GAME_FRAME_LENGTH * GAME_FRAME_PER_LOCKSTEP, 0));
+////        auto movebyForever = cocos2d::RepeatForever::create(moveby);
+//        this->sprite->runAction(animateForever);
+////        this->sprite->runAction(moveby);
+//        this->physicsSprite->runAction(moveby);
+//    }
 }
 
 
@@ -502,9 +551,12 @@ bool Fighter::isSquat()
 
 bool Fighter::isActionStoppable()
 {
-    if (   this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)
-        || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)
-        || this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND)
+    if (
+       // this->sprite->getNumberOfRunningActions() == 1
+       // &&
+        //(  this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEBACK)
+        //|| this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD)
+         this->sprite->getActionByTag(OP_GPS_ACTION_1_STAND)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_DOWN)
         || this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK)

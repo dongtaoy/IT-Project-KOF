@@ -60,10 +60,18 @@ public:
     CC_SYNTHESIZE(cocos2d::PhysicsWorld*, world, World);
     
     
+    CC_SYNTHESIZE(bool, alreadySent, AlreadySent);
+//    CC_SYNTHESIZE(std::stack<command_t>, needToRun, NeedToRun);
+    CC_SYNTHESIZE(bool, actionAdded, ActionAdded);
+    
     unsigned long lockstepId;
     int gameFrame;
-    std::stack<command_t> pendingCommand;
-    std::stack<command_t> confirmedCommand;
+    std::stack<command_t> currentCommands;
+    std::stack<command_t> nextCommands;
+    std::stack<command_t> nextnextCommands;
+    std::stack<command_t> nextnextnextCommands;
+//    std::stack<command_t> pendingCommand;
+//    std::stack<command_t> confirmedCommand;
     
 private:
     Camera2d* camera;
