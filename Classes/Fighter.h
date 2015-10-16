@@ -14,6 +14,7 @@
 #include "Definitions.h"
 #include "CocosGUI.h"
 #include "format.h"
+#include "GameHelper.h"
 
 class Fighter
 {
@@ -26,10 +27,8 @@ public:
     CC_SYNTHESIZE(std::string, name, Name);
     CC_SYNTHESIZE(cocos2d::ui::LoadingBar*, health, health);
     CC_SYNTHESIZE(bool, isLeft, IsLeft);
-    CC_SYNTHESIZE(cocos2d::Sprite*, physicsSprite, physicsSprite);
     CC_SYNTHESIZE(bool, isDie, IsDie);
     CC_SYNTHESIZE(bool, isHealthChanged, IsHealthChanged);
-    CC_SYNTHESIZE(command_t, prevCommand, PrevCommand);
     
     void processCommand(command_t);
     void squat();

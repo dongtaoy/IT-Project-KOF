@@ -47,6 +47,7 @@ public:
     void sendEvent(std::string);
     void sendEvent(int scene, int op, std::string properties="", bool=false);
     void addCustomProperty(std::string, std::string);
+    void setRoomIsOpen(bool);
     int getPlayerNumber();
     int getOpponentNumber();
     std::string getBackground();

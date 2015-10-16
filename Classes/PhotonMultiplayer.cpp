@@ -94,6 +94,12 @@ void PhotonMultiplayer::disconnect(void)
     
 }
 
+void PhotonMultiplayer::setRoomIsOpen(bool t)
+{
+    ExitGames::LoadBalancing::MutableRoom r = c.getCurrentlyJoinedRoom();
+    r.setIsOpen(t);
+}
+
 void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properties)
 {
     ExitGames::Common::Hashtable p = ExitGames::Common::Hashtable();
@@ -150,7 +156,7 @@ void PhotonMultiplayer::run(void)
 
 void PhotonMultiplayer::sendEvent(std::string event)
 {
-    CCLOG("sending %s", event.c_str());
+//    CCLOG("sending %s", event.c_str());
     c.opRaiseEvent(true, StringToJString(event), 0);
 }
 
@@ -302,7 +308,7 @@ void PhotonMultiplayer::leaveRoomEventAction(int playerNr, bool isInactive)
 
 void PhotonMultiplayer::customEventAction(int playerNr, nByte /*eventCode*/, const ExitGames::Common::Object& eventContent)
 {
-    CCLOG("received: %ls", eventContent.toString().cstr());
+//    CCLOG("received: %ls", eventContent.toString().cstr());
     command_t c = extractEvent(JStringToString(eventContent.toString()));
     c.sender = playerNr;
     listener->customEventAction(c);

@@ -176,12 +176,16 @@
 
 #define OP_GPS_ACTION_1_STAND                      100
 #define OP_GPS_ACTION_1_STAND_MOVEFORWARD          101
+#define ANIMATION_ACTION_1_STAND_MOVEFORWARD       10001
 #define OP_GPS_ACTION_1_STAND_MOVEBACK             102
+#define ANIMATION_ACTION_1_STAND_MOVEBACK          10002
 
 #define OP_GPS_ACTION_1_SQUAT                      150
 #define OP_GPS_ACTION_1_SQUAT_DOWN                 151
 #define OP_GPS_ACTION_1_SQUAT_MOVEBACK             152
+#define ANIMATION_ACTION_1_SQUAT_MOVEBACK          15002
 #define OP_GPS_ACTION_1_SQUAT_MOVEFORWARD          153
+#define ANIMATION_ACTION_1_SQUAT_MOVEFORWARD       15003
 
 #define OP_GPS_ACTION_2_STAND_JUMP                 200
 #define OP_GPS_ACTION_2_STAND_PUNCH1               202
@@ -197,16 +201,16 @@
 #define OP_GPS_ACTION_2_SQUAT_HIT                  254
 
 #define OP_GPS_ACTION_3_WIN                        300
-#define OP_GPS_ACTION_3_HEALTHCHANGED              301
+#define OP_GPS_ACTION_3_DIE              301
 
-
+#define OP_GPS_NO_ACTION                         9999
 
 #define ACTION_MOVE_SPEED                   200
 #define ACTION_1_MOVE_DURATION              .7f
 
 
 #define ACTION_UNSTOPPABLE                  1000
-//#define ACTION_STOPPABLE                    1001
+#define ACTION_STOPPABLE                    1001
 // Camera
 #define CAMERA_MOVE_THRESHOLD               150
 #define CAMERA_FIGHTER_OFFSET               10
@@ -239,7 +243,7 @@
 //#define Kick2_damage                        4
 
 #define GAME_FRAME_LENGTH                    30
-#define GAME_FRAME_PER_LOCKSTEP              3
+#define GAME_FRAME_PER_LOCKSTEP              2
 
 
 

@@ -67,12 +67,12 @@ bool GamePlayScene::init()
     /////////////////////////////////////////////////////////////////
     
     
-    auto size = node->getBoundingBox().size;
-    auto edgeNode = Node::create();
-    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
-    edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + visibleSize.height * 0.03));
-    edgeNode->setPhysicsBody(physicsBody);
-    this->addChild(edgeNode);
+//    auto size = node->getBoundingBox().size;
+//    auto edgeNode = Node::create();
+//    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
+//    edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + visibleSize.height * 0.03));
+//    edgeNode->setPhysicsBody(physicsBody);
+//    this->addChild(edgeNode);
     
     
     /////////////////////////////////////////////////////////////////
@@ -80,6 +80,7 @@ bool GamePlayScene::init()
 //     TODO: WITH MULTIPLAYER
     if(PhotonMultiplayer::getInstance()->getPlayerNumber() > PhotonMultiplayer::getInstance()->getOpponentNumber())
     {
+        
         this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, PhotonMultiplayer::getInstance()->getPlayerCharactor(), false);
         node->getChildByName<cocos2d::ui::ImageView*>("playerRight")->loadTexture(fmt::format("characters/{0}/icon_game_right.png", PhotonMultiplayer::getInstance()->getPlayerCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
         
@@ -89,10 +90,10 @@ bool GamePlayScene::init()
     }
     else
     {
-        this->player = new Fighter(background->getChildByName<Sprite*>("left"), rightHp, PhotonMultiplayer::getInstance()->getPlayerCharactor(), true);
-        node->getChildByName<cocos2d::ui::ImageView*>("playerRight")->loadTexture(fmt::format("characters/{0}/icon_game_left.png", PhotonMultiplayer::getInstance()->getPlayerCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
+        this->player = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, PhotonMultiplayer::getInstance()->getPlayerCharactor(), true);
+        node->getChildByName<cocos2d::ui::ImageView*>("playerLeft")->loadTexture(fmt::format("characters/{0}/icon_game_left.png", PhotonMultiplayer::getInstance()->getPlayerCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
         
-        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), leftHp, PhotonMultiplayer::getInstance()->getOpponentCharactor(), false);
+        this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, PhotonMultiplayer::getInstance()->getOpponentCharactor(), false);
         node->getChildByName<cocos2d::ui::ImageView*>("playerRight")->loadTexture(fmt::format("characters/{0}/icon_game_right.png", PhotonMultiplayer::getInstance()->getOpponentCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
     }
 
@@ -112,7 +113,6 @@ bool GamePlayScene::init()
     
     lockstepId = 0;
     gameFrame = 0;
-    alreadySent = false;
     PhotonMultiplayer::getInstance()->setListener(this);
     this->scheduleUpdate();
     return true;
@@ -169,43 +169,48 @@ void GamePlayScene::processCommand(command_t cmd)
 
 bool GamePlayScene::lockStepTurn()
 {
-    if (nextnextCommands.size() >= 2 || lockstepId < 2) {
-        if (!player->isNextAction())
-            return false;
+    if (nextnextCommands.size() >= 2 || lockstepId <= 2) {
+        
         // send Command
         command_t c = processInput();
-        nextnextCommands.push(c);
+        if (prevCommand.operation == OP_GPS_ACTION_2_STAND_JUMP && c.operation == OP_GPS_ACTION_2_STAND_JUMP) {
+            c.operation = OP_GPS_ACTION_1_STAND;
+        }
+        if (!player->isNextAction())
+            c.operation = OP_GPS_NO_ACTION;
+        nextnextCommands.push_back(c);
         PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(c.scene, c.operation, c.properties));
+        prevCommand = c;
         if (nextCommands.size() >= 2)
         {
             for (int i = 0; i < 2; i ++)
             {
-                currentCommands.push(nextCommands.top());
-                nextCommands.pop();
+                currentCommands.push_back(nextCommands.front());
+                nextCommands.pop_front();
             }
         }
         if (nextnextCommands.size() >= 2)
         {
             for (int i = 0; i < 2; i ++)
             {
-                nextCommands.push(nextnextCommands.top());
-                nextnextCommands.pop();
+                nextCommands.push_back(nextnextCommands.front());
+                nextnextCommands.pop_front();
             }
         }
         for (int i = 0; i < currentCommands.size(); i ++)
         {
-            command_t c = currentCommands.top();
+            command_t c = currentCommands.at(i);
             if (c.sender == PhotonMultiplayer::getInstance()->getPlayerNumber()) {
                 if (player->isNextAction()) {
                     processCommand(c);
-                    currentCommands.pop();
+                    currentCommands.erase(currentCommands.begin()+i);// pop_front() pop();
                 }
             }
             else
             {
                 if (opponent->isNextAction()) {
                     processCommand(c);
-                    currentCommands.pop();
+                    currentCommands.erase(currentCommands.begin()+i);
                 }
             }
         }
@@ -223,18 +228,18 @@ void GamePlayScene::gameFrameTurn()
     } else {
         for (int i = 0; i < currentCommands.size(); i ++)
         {
-            command_t c = currentCommands.top();
+            command_t c = currentCommands.at(i);
             if (c.sender == PhotonMultiplayer::getInstance()->getPlayerNumber()) {
                 if (player->isNextAction()) {
                     processCommand(c);
-                    currentCommands.pop();
+                    currentCommands.erase(currentCommands.begin()+i);// pop_front() pop();
                 }
             }
             else
             {
                 if (opponent->isNextAction()) {
                     processCommand(c);
-                    currentCommands.pop();
+                    currentCommands.erase(currentCommands.begin()+i);
                 }
             }
         }
@@ -256,7 +261,7 @@ void GamePlayScene::gameFrameTurn()
             gameFrame = 0;
         }
     }
-    CCLOG("\t\t\t\t\tlockstep id: %lu, gameframe: %d", lockstepId, gameFrame);
+//    CCLOG("\t\t\t\t\tlockstep id: %lu, gameframe: %d", lockstepId, gameFrame);
 }
 
 
@@ -267,30 +272,28 @@ command_t GamePlayScene::processInput()
     auto angle = GameHelper::vectorToDegree(point);
     auto pos = player->getSprite()->getPosition();
     
-    CCLOG("current player pos %f %f", pos.x, pos.y);
     
     command_t output;
     output.scene = MP_GAME_PLAY_SCNE;
     output.sender = PhotonMultiplayer::getInstance()->getPlayerNumber();
+    output.operation = OP_GPS_NO_ACTION;
     
     // stand move forward
     if (angle > 337.5f || angle <  22.5f)
     {
         output.operation = OP_GPS_ACTION_1_STAND_MOVEFORWARD;
-        output.properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x + 50), std::to_string(pos.y)});
     }
     
     // stand move back
     if (angle > 157.5f && angle < 202.5f)
     {
         output.operation = OP_GPS_ACTION_1_STAND_MOVEBACK;
-        output.properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x - 50), std::to_string(pos.y)});
     }
     
     
     
         // jump
-    if (angle >  22.5f && angle < 157.5f)
+    if (angle > 22.5f && angle < 157.5f )
     {
         
         int distance = point.x * ACTION_MOVE_SPEED;
@@ -299,34 +302,49 @@ command_t GamePlayScene::processInput()
         
     }
     
+    if (angle > 202.5f && angle < 247.5f)
+    {
+        output.operation = OP_GPS_ACTION_1_SQUAT_MOVEBACK;
+    }
+    
+        // squat
+    if (angle > 247.5f && angle < 292.5f)
+    {
+        output.operation = OP_GPS_ACTION_1_SQUAT_DOWN;
+    }
+    
+    if (angle > 292.5f && angle < 337.5f)
+    {
+        output.operation = OP_GPS_ACTION_1_SQUAT_MOVEFORWARD;
+    }
+    
+    // stand
     if (std::isnan(angle))
     {
         output.operation = OP_GPS_ACTION_1_STAND;
-//        output.properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
         
     }
     
+    // buttons
+    if (buttonA->getIsActive())
+    {
+        output.operation = OP_GPS_ACTION_2_STAND_PUNCH1;
+    }
     
+    if (buttonB->getIsActive())
+    {
+        output.operation = OP_GPS_ACTION_2_STAND_PUNCH2;
+    }
     
-//        // squat moveback
-//        if (angle > 202.5f && angle < 247.5f)
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-//    //        player->squat_moveback();
-//        }
-//    
-//        // squat
-//        if (angle > 247.5f && angle < 292.5f)
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN, properties);
-//    //        player->squat_down();
-//        }
-//    
-//        if (angle > 292.5f && angle < 337.5f)
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
-//    //        player->squat_moveforward();
-//        }
+    if (buttonC->getIsActive())
+    {
+        output.operation = OP_GPS_ACTION_2_STAND_KICK1;
+    }
+    
+    if (buttonD->getIsActive()) {
+        output.operation = OP_GPS_ACTION_2_STAND_KICK2;
+    }
+    
     
     return output;
 }
@@ -336,11 +354,35 @@ command_t GamePlayScene::processInput()
 void GamePlayScene::update(float dt)
 {
     
+        for (int i = 0; i < nextCommands.size(); i ++)
+        {
+            currentCommands.push_back(nextCommands.front());
+            nextCommands.pop_front();
+        }
+    
+    for (int i = 0; i < currentCommands.size(); i ++)
+    {
+        command_t c = currentCommands.at(i);
+        if (c.sender == PhotonMultiplayer::getInstance()->getPlayerNumber()) {
+            if (player->isNextAction()) {
+                processCommand(c);
+                currentCommands.erase(currentCommands.begin()+i);// pop_front() pop();
+            }
+        }
+        else
+        {
+            if (opponent->isNextAction()) {
+                processCommand(c);
+                currentCommands.erase(currentCommands.begin()+i);
+            }
+        }
+    }
+    
     accumilatedTime = accumilatedTime + dt * 1000;
     
     
     while(accumilatedTime > GAME_FRAME_LENGTH) {
-        CCLOG("\t\t\tnextCommands: %lu currentCommands: %lu", nextCommands.size(), currentCommands.size());
+//        CCLOG("\t\t\tnextnextCommands: %lu nextCommands: %lu currentCommands: %lu", nextnextCommands.size(), nextCommands.size(), currentCommands.size());
         gameFrameTurn ();
         accumilatedTime = accumilatedTime - GAME_FRAME_LENGTH;
     }
@@ -590,7 +632,7 @@ void GamePlayScene::onLeaveRoomDone()
 void GamePlayScene::customEventAction(command_t cmd)
 {
     if (cmd.scene == MP_GAME_PLAY_SCNE) {
-        nextnextCommands.push(cmd);
+        nextnextCommands.push_back(cmd);
 //        PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCENE_CONFIRM, cmd.operation));
     }
 //    if (cmd.scene == MP_GAME_PLAY_SCENE_CONFIRM)

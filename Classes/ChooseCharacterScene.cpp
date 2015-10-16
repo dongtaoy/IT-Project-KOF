@@ -317,6 +317,7 @@ void ChooseCharacterScene::StartGame()
     
     isGameStart = true;
     
+    PhotonMultiplayer::getInstance()->setRoomIsOpen(false);
     PhotonMultiplayer::getInstance()->setPlayerCharactor(playerSelected);
     PhotonMultiplayer::getInstance()->setOpponentCharactor(opponentSelected);
     
@@ -325,7 +326,7 @@ void ChooseCharacterScene::StartGame()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
     auto scene = GamePlayScene::createScene();
     Director::getInstance()->replaceScene(scene);
-
+    
 }
 
 
