@@ -77,20 +77,15 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::Touch
 {
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
         
-        GKHWrapperCpp gkh;
-        if(gkh.isLocalPlayerAuthenticated()){
-            if (!PhotonMultiplayer::getInstance()->isConnected())
-            {
-                PhotonMultiplayer::getInstance()->connect();
-                LoadingLayer::SetTextAndLoadingBar(this, false, "Connecting....", 50.0f);
-            }
-            else
-            {
-                auto scene = ChooseRoomScene::createScene();
-                Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
-            }
-        }else{
-            MessageBox("Player is not signed in", "Game Center Unavailable");
+        if (!PhotonMultiplayer::getInstance()->isConnected())
+        {
+            PhotonMultiplayer::getInstance()->connect();
+            LoadingLayer::SetTextAndLoadingBar(this, false, "Connecting....", 50.0f);
+        }
+        else
+        {
+            auto scene = ChooseRoomScene::createScene();
+            Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
         }
     }
 }
@@ -111,9 +106,7 @@ void MainMenuScene::GoToSettingScene(Ref* pSender, ui::Widget::TouchEventType ty
 
 void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
-    GKHWrapperCpp gkh;
-    gkh.showLeaderBoard();
-
+    SonarCocosHelper::GameCenter::showLeaderboard();
 }
 
 void MainMenuScene::onConnectDone()

@@ -56,10 +56,11 @@
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		8740B0221B7F605300395343 /* HelpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0201B7F605300395343 /* HelpScene.cpp */; };
 		8740B0251B7F606200395343 /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8740B0231B7F606200395343 /* SettingScene.cpp */; };
-		8779A0FC1BD140A500A1502D /* IOSCPPHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8779A0F31BD140A500A1502D /* IOSCPPHelper.mm */; settings = {ASSET_TAGS = (); }; };
-		8779A0FD1BD140A500A1502D /* IOSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779A0F51BD140A500A1502D /* IOSHelper.m */; settings = {ASSET_TAGS = (); }; };
-		8779A0FE1BD140A500A1502D /* IOSResults.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8779A0F71BD140A500A1502D /* IOSResults.mm */; settings = {ASSET_TAGS = (); }; };
-		8779A0FF1BD140A500A1502D /* SonarFrameworks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8779A0FA1BD140A500A1502D /* SonarFrameworks.cpp */; settings = {ASSET_TAGS = (); }; };
+		8779A1201BD1436700A1502D /* IOSCPPHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8779A1171BD1436700A1502D /* IOSCPPHelper.mm */; settings = {ASSET_TAGS = (); }; };
+		8779A1211BD1436700A1502D /* IOSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8779A1191BD1436700A1502D /* IOSHelper.m */; settings = {ASSET_TAGS = (); }; };
+		8779A1221BD1436700A1502D /* IOSResults.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8779A11B1BD1436700A1502D /* IOSResults.mm */; settings = {ASSET_TAGS = (); }; };
+		8779A1231BD1436700A1502D /* SonarFrameworks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8779A11E1BD1436700A1502D /* SonarFrameworks.cpp */; settings = {ASSET_TAGS = (); }; };
+		8779A1251BD1438B00A1502D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8779A1241BD1438B00A1502D /* Social.framework */; };
 		878D7FB61BC3A76400DC10DC /* libCommon-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6A1BC3A76300DC10DC /* libCommon-cpp_debug_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
 		878D7FB71BC3A76400DC10DC /* libCommon-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6B1BC3A76300DC10DC /* libCommon-cpp_debug_iphonesimulator.a */; settings = {ASSET_TAGS = (); }; };
 		878D7FB81BC3A76400DC10DC /* libCommon-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878D7F6C1BC3A76300DC10DC /* libCommon-cpp_release_iphoneos.a */; settings = {ASSET_TAGS = (); }; };
@@ -180,16 +181,17 @@
 		8740B0211B7F605300395343 /* HelpScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpScene.h; sourceTree = "<group>"; };
 		8740B0231B7F606200395343 /* SettingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
 		8740B0241B7F606200395343 /* SettingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingScene.h; sourceTree = "<group>"; };
-		8779A0F21BD140A500A1502D /* IOSCPPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSCPPHelper.h; sourceTree = "<group>"; };
-		8779A0F31BD140A500A1502D /* IOSCPPHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSCPPHelper.mm; sourceTree = "<group>"; };
-		8779A0F41BD140A500A1502D /* IOSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSHelper.h; sourceTree = "<group>"; };
-		8779A0F51BD140A500A1502D /* IOSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSHelper.m; sourceTree = "<group>"; };
-		8779A0F61BD140A500A1502D /* IOSResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSResults.h; sourceTree = "<group>"; };
-		8779A0F71BD140A500A1502D /* IOSResults.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSResults.mm; sourceTree = "<group>"; };
-		8779A0F81BD140A500A1502D /* SCHDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHDefinitions.h; sourceTree = "<group>"; };
-		8779A0F91BD140A500A1502D /* SCHSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHSettings.h; sourceTree = "<group>"; };
-		8779A0FA1BD140A500A1502D /* SonarFrameworks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SonarFrameworks.cpp; sourceTree = "<group>"; };
-		8779A0FB1BD140A500A1502D /* SonarFrameworks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SonarFrameworks.h; sourceTree = "<group>"; };
+		8779A1161BD1436700A1502D /* IOSCPPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSCPPHelper.h; sourceTree = "<group>"; };
+		8779A1171BD1436700A1502D /* IOSCPPHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSCPPHelper.mm; sourceTree = "<group>"; };
+		8779A1181BD1436700A1502D /* IOSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSHelper.h; sourceTree = "<group>"; };
+		8779A1191BD1436700A1502D /* IOSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSHelper.m; sourceTree = "<group>"; };
+		8779A11A1BD1436700A1502D /* IOSResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSResults.h; sourceTree = "<group>"; };
+		8779A11B1BD1436700A1502D /* IOSResults.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSResults.mm; sourceTree = "<group>"; };
+		8779A11C1BD1436700A1502D /* SCHDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHDefinitions.h; sourceTree = "<group>"; };
+		8779A11D1BD1436700A1502D /* SCHSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHSettings.h; sourceTree = "<group>"; };
+		8779A11E1BD1436700A1502D /* SonarFrameworks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SonarFrameworks.cpp; sourceTree = "<group>"; };
+		8779A11F1BD1436700A1502D /* SonarFrameworks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SonarFrameworks.h; sourceTree = "<group>"; };
+		8779A1241BD1438B00A1502D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
 		878D7F2B1BC3A76300DC10DC /* ANSIString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSIString.h; sourceTree = "<group>"; };
 		878D7F2C1BC3A76300DC10DC /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
 		878D7F2D1BC3A76300DC10DC /* BaseCharString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCharString.h; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8779A1251BD1438B00A1502D /* Social.framework in Frameworks */,
 				878D7FBD1BC3A76400DC10DC /* libLoadBalancing-cpp_release_iphonesimulator.a in Frameworks */,
 				878D7FBA1BC3A76400DC10DC /* libLoadBalancing-cpp_debug_iphoneos.a in Frameworks */,
 				878D7FBE1BC3A76400DC10DC /* libPhoton-cpp_debug_iphoneos.a in Frameworks */,
@@ -448,7 +451,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				8779A0F11BD140A500A1502D /* SonarCocosHelperCPP */,
+				8779A1151BD1436700A1502D /* SonarCocosHelperCPP */,
 				878D7F281BC3A76300DC10DC /* Photon-iOS-SDK */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
@@ -464,6 +467,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8779A1241BD1438B00A1502D /* Social.framework */,
 				8793B61B1B99E67800277AC7 /* GameKit.framework */,
 				8262943D1AAF051F00CB7CF7 /* Security.framework */,
 				52B47A461A53D09B004E4C60 /* Security.framework */,
@@ -592,22 +596,21 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
-		8779A0F11BD140A500A1502D /* SonarCocosHelperCPP */ = {
+		8779A1151BD1436700A1502D /* SonarCocosHelperCPP */ = {
 			isa = PBXGroup;
 			children = (
-				8779A0F21BD140A500A1502D /* IOSCPPHelper.h */,
-				8779A0F31BD140A500A1502D /* IOSCPPHelper.mm */,
-				8779A0F41BD140A500A1502D /* IOSHelper.h */,
-				8779A0F51BD140A500A1502D /* IOSHelper.m */,
-				8779A0F61BD140A500A1502D /* IOSResults.h */,
-				8779A0F71BD140A500A1502D /* IOSResults.mm */,
-				8779A0F81BD140A500A1502D /* SCHDefinitions.h */,
-				8779A0F91BD140A500A1502D /* SCHSettings.h */,
-				8779A0FA1BD140A500A1502D /* SonarFrameworks.cpp */,
-				8779A0FB1BD140A500A1502D /* SonarFrameworks.h */,
+				8779A1161BD1436700A1502D /* IOSCPPHelper.h */,
+				8779A1171BD1436700A1502D /* IOSCPPHelper.mm */,
+				8779A1181BD1436700A1502D /* IOSHelper.h */,
+				8779A1191BD1436700A1502D /* IOSHelper.m */,
+				8779A11A1BD1436700A1502D /* IOSResults.h */,
+				8779A11B1BD1436700A1502D /* IOSResults.mm */,
+				8779A11C1BD1436700A1502D /* SCHDefinitions.h */,
+				8779A11D1BD1436700A1502D /* SCHSettings.h */,
+				8779A11E1BD1436700A1502D /* SonarFrameworks.cpp */,
+				8779A11F1BD1436700A1502D /* SonarFrameworks.h */,
 			);
-			name = SonarCocosHelperCPP;
-			path = "Photon-iOS-SDK/SonarCocosHelperCPP";
+			path = SonarCocosHelperCPP;
 			sourceTree = "<group>";
 		};
 		878D7F281BC3A76300DC10DC /* Photon-iOS-SDK */ = {
@@ -1027,7 +1030,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				87A088CE1BA2A41D00320585 /* Camera2d.cpp in Sources */,
-				8779A0FF1BD140A500A1502D /* SonarFrameworks.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				879FB8561B7AF66400E4F0BF /* SplashScene.cpp in Sources */,
 				87C0508C1BC660D8006E1CA6 /* GamePlayScene.cpp in Sources */,
@@ -1036,20 +1038,21 @@
 				8740B0251B7F606200395343 /* SettingScene.cpp in Sources */,
 				8740B0221B7F605300395343 /* HelpScene.cpp in Sources */,
 				87C050951BC6617D006E1CA6 /* SneakyButton.cpp in Sources */,
-				8779A0FE1BD140A500A1502D /* IOSResults.mm in Sources */,
 				87C050981BC6617D006E1CA6 /* SneakyJoystickSkinnedBase.cpp in Sources */,
 				87A088D41BA2A69D00320585 /* Fighter.cpp in Sources */,
 				879FB85D1B7B001900E4F0BF /* MainMenuScene.cpp in Sources */,
+				8779A1201BD1436700A1502D /* IOSCPPHelper.mm in Sources */,
 				87C050881BC643C8006E1CA6 /* ChooseCharacterScene.cpp in Sources */,
+				8779A1231BD1436700A1502D /* SonarFrameworks.cpp in Sources */,
 				B01820A31BC3EEFC00FBE4A1 /* ChooseRoomScene.cpp in Sources */,
 				87E23D8F1B9C00F500F5A01E /* GameHelper.cpp in Sources */,
-				8779A0FC1BD140A500A1502D /* IOSCPPHelper.mm in Sources */,
 				87C050961BC6617D006E1CA6 /* SneakyButtonSkinnedBase.cpp in Sources */,
+				8779A1211BD1436700A1502D /* IOSHelper.m in Sources */,
 				878D7FC41BC3A88C00DC10DC /* PhotonMultiplayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				8779A1221BD1436700A1502D /* IOSResults.mm in Sources */,
 				87C050971BC6617D006E1CA6 /* SneakyJoystick.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
-				8779A0FD1BD140A500A1502D /* IOSHelper.m in Sources */,
 				87E23D981B9C8DED00F5A01E /* LoadingLayer.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);

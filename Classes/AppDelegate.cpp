@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
-#include "GKHWrapperCpp.h"
+#include "SonarFrameworks.h"
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1334, 750);
 
@@ -57,10 +57,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     searchPaths.insert(searchPaths.begin(), "res");
     fileUtils->setSearchPaths(searchPaths);
     
+    SonarCocosHelper::IOS::Setup();
     
-    GKHWrapperCpp gkh;
-    gkh.authenticateLocalPlayer();
-    
+    SonarCocosHelper::GameCenter::signIn();
     
     // create a scene. it's an autorelease object
     auto scene = SplashScene::createScene();
@@ -82,8 +81,7 @@ void AppDelegate::applicationDidEnterBackground() {
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
-    GKHWrapperCpp gkh;
-    gkh.authenticateLocalPlayer();
+    SonarCocosHelper::GameCenter::signIn();
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
