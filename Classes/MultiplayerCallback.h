@@ -18,6 +18,7 @@ public:
 #pragma mark room
     virtual void onCreateRoomDone(){ CCLOG("create room done..."); };
     virtual void onJoinRoomDone(){ CCLOG("join room done..."); };
+    virtual void onJoinRoomFailed(){ CCLOG("join room failed..."); }
     virtual void onLeaveRoomDone(){ CCLOG("leave room done..."); };
     
     virtual void joinRoomEventAction() { CCLOG("on user joined "); };

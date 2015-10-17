@@ -19,6 +19,7 @@
 #define BACK_BUTTON                     "buttonBack"
 #define CREATE_BUTTON                   "buttonCreate"
 #define SEARCH_BUTTON                   "buttonSearch"
+#define QUICK_JOIN_BUTTON               "buttonQuickJoin"
 
 #define CHARACTER_ICON_BIG_PATH         "characters/{0}/icon_big.png"
 

@@ -36,7 +36,6 @@ public:
     CREATE_FUNC(CreateRoomScene);
 private:
     Ref* backgroundSelected;
-    Ref* bestOfSelected;
     
     void update(float);
     

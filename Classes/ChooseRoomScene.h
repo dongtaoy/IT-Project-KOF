@@ -49,6 +49,8 @@ private:
     
     void OnSelectedItem(Ref* pSender, cocos2d::ui::Widget::TouchEventType);
     
+    void buttonQuickJoinClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType);
+    
     // RoomRequestListner
     void onRoomListUpdate();
     void createRoomListEntry(std::string roomId,
@@ -57,7 +59,7 @@ private:
                              std::map<std::string, std::string> properties);
     
     void onJoinRoomDone();
-    
+    void onJoinRoomFailed();
     // Search Roomt
     void SearchRoom(Ref*, cocos2d::ui::Widget::TouchEventType);
     

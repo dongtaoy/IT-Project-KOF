@@ -480,10 +480,18 @@ void GamePlayScene::createBackgroundAnimation()
 
 void GamePlayScene::onLeaveRoomDone()
 {
+    MultiplayerCallback::onLeaveRoomDone();
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
+}
+
+void GamePlayScene::leaveRoomEventAction()
+{
+    MultiplayerCallback::leaveRoomEventAction();
+    opponent->die();
+    player->win();
 }
 
 void GamePlayScene::customEventAction(command_t cmd)

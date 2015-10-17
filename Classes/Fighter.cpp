@@ -22,7 +22,32 @@ Fighter::Fighter(cocos2d::Sprite* sprite, cocos2d::ui::LoadingBar* health , std:
 
 void Fighter::update(float)
 {
+    auto visibleSize = cocos2d::Director::getInstance()->getWinSize();
+    auto playerBox = this->getBoundingBox();
+    auto opponentBox = opponent->getBoundingBox();
+    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
+    // background size
+    if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
+    {
+        this->setPosition(cocos2d::Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
+    }
+    if (this->getPosition().x + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
+    {
+        this->setPosition(cocos2d::Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
+    }
+    
+    
+    // screen size
+    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
+    {
+        this->setPosition(cocos2d::Vec2(this->sprite->getParent()->convertToNodeSpace(cocos2d::Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
+    
+    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
+    {
+        this->setPosition(cocos2d::Vec2(this->sprite->getParent()->convertToNodeSpace(cocos2d::Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
+    }
 }
 
 

@@ -57,12 +57,6 @@ bool CreateRoomScene::init()
         image->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::BackgroundSelectedChanged, this));
     }
     
-    for(int i = 1 ; i <= NUM_BESTOF ; i ++)
-    {
-        cocos2d::ui::CheckBox* checkbox = static_cast<cocos2d::ui::CheckBox*>(node->getChildByName(CREATE_ROOM_SCENE_CHECKBOX_PREFIX+std::to_string(i)));
-        
-        checkbox->addEventListener(CC_CALLBACK_2(CreateRoomScene::CheckboxSelectedChanged, this));
-    }
     
     this->addChild(node);
     
@@ -71,20 +65,7 @@ bool CreateRoomScene::init()
     return true;
 }
 
-void CreateRoomScene::CheckboxSelectedChanged(Ref* pSender, cocos2d::ui::CheckBox::EventType type)
-{
-    if(type == cocos2d::ui::CheckBox::EventType::SELECTED){
-        
-        if(bestOfSelected != NULL){
-            static_cast<cocos2d::ui::CheckBox*>(bestOfSelected)->setSelected(false);
-        }
-        bestOfSelected = pSender;
-        
-    }
-    else{
-        bestOfSelected = NULL;
-    }
-}
+
 
 void CreateRoomScene::BackgroundSelectedChanged(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -129,12 +110,11 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
     
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
         
-        if(backgroundSelected != NULL && bestOfSelected != NULL)
+        if(backgroundSelected != NULL )
         {
             std::string background = static_cast<Node*>(backgroundSelected)->getName();
-            std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<cocos2d::ui::Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
             
-            std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
+            std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background}};
             
             PhotonMultiplayer::getInstance()->opCreateRoom(properties);
             LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room...", 50.0f);

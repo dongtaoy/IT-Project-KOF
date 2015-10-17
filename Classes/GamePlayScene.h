@@ -66,8 +66,6 @@ public:
     std::deque<command_t> currentCommands;
     std::deque<command_t> nextCommands;
     std::deque<command_t> nextnextCommands;
-//    std::stack<command_t> pendingCommand;
-//    std::stack<command_t> confirmedCommand;
     
 private:
     Camera2d* camera;
@@ -87,10 +85,9 @@ private:
     
     void createBackgroundAnimation();
     
+    
     void startCountDown();
-    
     void countDownTask(float);
-    
     void endCountDown();
     
     
@@ -102,16 +99,8 @@ private:
     
     
     void onLeaveRoomDone();
+    void leaveRoomEventAction();
     void customEventAction(command_t);
-    
-//    cocos2d::PhysicsWorld *sceneWorld;
-//    
-//    void SetPhysicsWorld( cocos2d::PhysicsWorld *world ) { sceneWorld = world; };
-    
-    bool onContactBegin( cocos2d::PhysicsContact &contact);
-    void addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask);
-    void updatePlayerHp();
-    void characterTooClose(float characterDistance, float closeDistance);
     
     
 };
