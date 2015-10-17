@@ -64,6 +64,9 @@ cocos2d::Node* Fighter::getParent()
 
 void Fighter::processCommand(command_t cmd)
 {
+    if (this->getIsDie() || opponent->getIsDie())
+        return;
+    
     switch (cmd.operation) {
         case OP_GPS_ACTION_1_STAND:
             this->stand();
@@ -171,7 +174,7 @@ void Fighter::stand_moveback()
         animateForever->setTag(ANIMATION_ACTION_1_STAND_MOVEBACK);
         this->sprite->runAction(animateForever);
     }
-    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH + 0.2) / 1000, cocos2d::Vec2(-40, 0));
+    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(-30, 0));
     moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
     this->sprite->runAction(moveBy);
 }
@@ -188,7 +191,7 @@ void Fighter::stand_moveforward()
         animateForever->setTag(ANIMATION_ACTION_1_STAND_MOVEFORWARD);
         this->sprite->runAction(animateForever);
     }
-    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH + 0.2) / 1000, cocos2d::Vec2(40, 0));
+    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(30, 0));
     moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
     this->sprite->runAction(moveBy);
 }
@@ -351,7 +354,7 @@ void Fighter::die()
         isDie = true;
     };
     auto animate = cocos2d::Animate::create(animation);
-    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
+    auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(func), animate, NULL);
     sequence->setTag(OP_GPS_ACTION_3_DIE);
     this->sprite->runAction(sequence);
 }

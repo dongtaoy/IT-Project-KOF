@@ -354,11 +354,12 @@ command_t GamePlayScene::processInput()
 void GamePlayScene::update(float dt)
 {
     
-        for (int i = 0; i < nextCommands.size(); i ++)
-        {
-            currentCommands.push_back(nextCommands.front());
-            nextCommands.pop_front();
-        }
+    
+    for (int i = 0; i < nextCommands.size(); i ++)
+    {
+        currentCommands.push_back(nextCommands.front());
+        nextCommands.pop_front();
+    }
     
     for (int i = 0; i < currentCommands.size(); i ++)
     {
@@ -382,151 +383,15 @@ void GamePlayScene::update(float dt)
     
     
     while(accumilatedTime > GAME_FRAME_LENGTH) {
-//        CCLOG("\t\t\tnextnextCommands: %lu nextCommands: %lu currentCommands: %lu", nextnextCommands.size(), nextCommands.size(), currentCommands.size());
         gameFrameTurn ();
         accumilatedTime = accumilatedTime - GAME_FRAME_LENGTH;
     }
     
     
     PhotonMultiplayer::getInstance()->service();
-//    auto point = joystick->getVelocity();
-//    auto angle = GameHelper::vectorToDegree(point);
-//    
-////
-////    if (!Multiplayer::getInstance()->isCommandsEmpty())
-////    {
-////        if (opponent->isActionStoppable())
-////            processCommand(Multiplayer::getInstance()->popCommands());
-////    }
-//    
-//    auto pos = player->getPosition();
-//    std::string properties = PhotonMultiplayer::buildProperties({std::to_string(pos.x), std::to_string(pos.y)});
-//    
-//    std::string message;
-//    
-//    // stand move forward
-//    if (angle > 337.5f || angle <  22.5f)
-//    {
-//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-////        player->stand_moveforward();
-//    }
-//    
-//    // stand move back
-//    if (angle > 157.5f && angle < 202.5f)
-//    {
-//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND_MOVEBACK);
-////        player->stand_moveback();
-//    }
-//    
-//    
-//    // jump
-//    if (angle >  22.5f && angle < 157.5f)
-//    {
-//        if (player->isActionStoppable())
-//        {
-//            int distance = point.x * ACTION_MOVE_SPEED;
-//            message = PhotonMultiplayer::buildEvent(
-//                                                MP_GAME_PLAY_SCNE,
-//                                                OP_GPS_ACTION_2_STAND_JUMP,
-//                                                PhotonMultiplayer::buildProperties({std::to_string(distance)}));
-////            player->stand_jump(distance);
-//        }
-//    }
-//    
-//    
-//
-//    // squat moveback
-//    if (angle > 202.5f && angle < 247.5f)
-//    {
-//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-////        player->squat_moveback();
-//    }
-//    
-//    // squat
-//    if (angle > 247.5f && angle < 292.5f)
-//    {
-//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_DOWN, properties);
-////        player->squat_down();
-//    }
-//    
-//    if (angle > 292.5f && angle < 337.5f)
-//    {
-//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
-////        player->squat_moveforward();
-//    }
-//    
-//    
-//    
-//    
-//    if (buttonA->getIsActive())
-//    {
-//        if (player->isActionStoppable())
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH1, properties);
-////            player->punch1();
-//        }
-//    }
-//    
-//    if (buttonB->getIsActive())
-//    {
-//        if (player->isActionStoppable())
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_PUNCH2, properties);
-////            player->punch2();
-//        }
-//    }
-//    
-//    if (buttonC->getIsActive())
-//    {
-//        if (player->isActionStoppable())
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK1, properties);
-////            player->kick1();
-//            
-//        }
-//    }
-//    
-//    if (buttonD->getIsActive())
-//    {
-//        if (player->isActionStoppable())
-//        {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_2_STAND_KICK2, properties);
-////            player->kick2();
-//        }
-//    }
-//    if (std::isnan(angle))
-//    {
-//        if (player->isActionStoppable()) {
-//            message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_1_STAND, properties);
-////            player->stand();
-//        }
-//    }
-//    
-//    if (player->getIsHealthChanged())
-//    {
-//        player->setIsHealthChanged(false);
-//        auto p = PhotonMultiplayer::buildProperties({std::to_string(player->getHealthPercentage())});
-//        message = PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCNE, OP_GPS_ACTION_3_HEALTHCHANGED,p);
-//    }
-//    
-////    
-////    if (player->getIsDie() || opponent->getIsDie())
-////    {
-////        
-////        MenuClicked(nullptr, cocos2d::ui::Widget::TouchEventType::ENDED);
-////        this->unscheduleUpdate();
-////    }
-//
-////    
-//    player->update(dt);
-//    opponent->update(dt);
+    player->update(dt);
+    opponent->update(dt);
     camera->update(dt);
-//    if(message.compare(""))
-//    {
-//        PhotonMultiplayer::getInstance()->sendEvent(message);
-//    }
-//
-//    
     
 }
 
@@ -604,19 +469,11 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
 void GamePlayScene::createBackgroundAnimation()
 {
     auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
-    
-    //     TODO: WITH MULTIPLAYER
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(PhotonMultiplayer::getInstance()->getBackground());
-//     TODO: WITHOUT MULTIPLAYER
-//    auto animation = AnimationCache::getInstance()->getAnimation("background1");
     cocos2d::Size targetSize = cocos2d::Size( 2305.0f, 750.0f );
     cocos2d::Size backgroundSize = background->getContentSize();
     background->setScale( ( targetSize.width / backgroundSize.width ), ( targetSize.height / backgroundSize.height ) );
-    
-    
-    
     background->runAction(RepeatForever::create(Animate::create(animation)));
-    
 }
 
 
@@ -631,169 +488,7 @@ void GamePlayScene::onLeaveRoomDone()
 
 void GamePlayScene::customEventAction(command_t cmd)
 {
-    if (cmd.scene == MP_GAME_PLAY_SCNE) {
+    if (cmd.scene == MP_GAME_PLAY_SCNE)
         nextnextCommands.push_back(cmd);
-//        PhotonMultiplayer::getInstance()->sendEvent(PhotonMultiplayer::buildEvent(MP_GAME_PLAY_SCENE_CONFIRM, cmd.operation));
-    }
-//    if (cmd.scene == MP_GAME_PLAY_SCENE_CONFIRM)
-//    {
-//        confirmedCommand.push(pendingCommand.top());
-//        pendingCommand.pop();
-//    }
-    
-    
-    
-    
-    
-    
-//            switch (cmd.operation) {
-//                case OP_GPS_ACTION_2_STAND_PUNCH1:
-//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-//                    opponent->punch1();
-//                    break;
-//                case OP_GPS_ACTION_2_STAND_PUNCH2:
-//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-//                    opponent->punch2();
-//                    break;
-//    
-//                case OP_GPS_ACTION_2_STAND_KICK1:
-//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-//                    opponent->kick1();
-//                    break;
-//    
-//                case OP_GPS_ACTION_2_STAND_KICK2:
-//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-//                    opponent->kick2();
-//                    break;
-//    
-//                case OP_GPS_ACTION_1_STAND:
-//                    opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-//                    opponent->stand();
-//                    break;
-//    
-//                case OP_GPS_ACTION_1_STAND_MOVEFORWARD:
-//                    opponent->stand_moveforward();
-//                    break;
-//    
-//                case OP_GPS_ACTION_1_STAND_MOVEBACK:
-//                    opponent->stand_moveback();
-//                    break;
-//    
-//                case OP_GPS_ACTION_2_STAND_JUMP:
-//                    opponent->stand_jump(atoi(GameHelper::split(cmd.properties, '%').at(0).c_str()));
-//                    break;
-//    
-//                case OP_GPS_ACTION_1_SQUAT_DOWN:
-//                        opponent->setPosition(PhotonMultiplayer::extractPos(cmd.properties));
-//                        opponent->squat_down();
-//                    break;
-//    
-//                case OP_GPS_ACTION_1_SQUAT_MOVEFORWARD:
-//                        opponent->squat_moveforward();
-//                    break;
-//    
-//                case OP_GPS_ACTION_1_SQUAT_MOVEBACK:
-//                        opponent->squat_moveback();
-//                    break;
-//    
-//                case OP_GPS_ACTION_3_HEALTHCHANGED:
-//                        opponent->setHealthPercentage(std::atof(GameHelper::split(cmd.properties, '%').at(0).c_str()));
-//                    break;
-//                default:
-//                    break;
-//            }
 }
-
-
-void GamePlayScene::addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask)
-{
-    
-    //    sprite->setTag(1);
-    //    body->setDynamic(false);
-    //    this->addChild(sprite);
-    
-    //add physic body for characters
-//    auto body = PhysicsBody::createBox(Size(x - Character_Edge_Offset, y), PhysicsMaterial(Physic_Box_Density, Physic_Box_Restitution, Physic_Box_Friction));
-//    sprite->setPhysicsBody(body);
-//    
-//    //set colission detect
-//    body->setCollisionBitmask(bitmask);
-//    body->setContactTestBitmask(true);
-//    
-//    //keep character still
-//    body->setRotationEnable(false);
-//    body->setGravityEnable(true);
-    
-    
-}
-
-bool GamePlayScene::onContactBegin(cocos2d::PhysicsContact &contact)
-{
-    PhysicsBody *a = contact.getShapeA()->getBody();
-    PhysicsBody *b = contact.getShapeB()->getBody();
-    
-    // check if the bodies have collided
-//    if ( ( Character1_bitmask == a->getCollisionBitmask() && Character2_bitmask == b->getCollisionBitmask() ) || ( Character2_bitmask == a->getCollisionBitmask() && Character1_bitmask == b->getCollisionBitmask() ) )
-//    {
-//        CCLOG( "COLLISION HAS OCCURED" );
-//        updatePlayerHp();
-//    }
-    
-   
-    
-    
-    return true;
-}
-
-
-
-void GamePlayScene::updatePlayerHp()
-{
-//    //get player health bar
-//    ui::LoadingBar* playerHp = static_cast<ui::LoadingBar*>(this->getChildByName("GamePlayScene")->getChildByName("playerRightHP"));
-//    
-//    //amount of damage caused by punch1
-//    if (buttonA->getIsActive())
-//    {
-//    
-//        float percent = playerHp->getPercent();
-//        playerHp->setPercent(percent - Punch1_damage);
-//    }
-//    
-//    //amount of damage caused by punch2
-//    if (buttonB->getIsActive())
-//    {
-//        
-//        float percent = playerHp->getPercent();
-//        playerHp->setPercent(percent - Punch2_damage);
-//    }
-//    
-//    //amount of damage caused by kick1
-//    if (buttonC->getIsActive())
-//    {
-//        
-//        float percent = playerHp->getPercent();
-//        playerHp->setPercent(percent - Kick1_damage);
-//    }
-//    
-//    //amount of damage caused by kick2
-//    if (buttonD->getIsActive())
-//    {
-//        
-//        float percent = playerHp->getPercent();
-//        playerHp->setPercent(percent - Kick2_damage);
-//    }
-//    
-}
-
-
-void GamePlayScene::GoToMainMenuScene( float dt )
-{
-    
-    auto scene = GamePlayScene::createScene();
-    
-    Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
-}
-
-
 

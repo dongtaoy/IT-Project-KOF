@@ -96,8 +96,7 @@ void PhotonMultiplayer::disconnect(void)
 
 void PhotonMultiplayer::setRoomIsOpen(bool t)
 {
-    ExitGames::LoadBalancing::MutableRoom r = c.getCurrentlyJoinedRoom();
-    r.setIsOpen(t);
+    c.getCurrentlyJoinedRoom().setIsVisible(t);
 }
 
 void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properties)

@@ -113,7 +113,6 @@ private:
     void updatePlayerHp();
     void characterTooClose(float characterDistance, float closeDistance);
     
-    void GoToMainMenuScene( float dt );
     
 };
 
