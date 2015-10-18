@@ -102,6 +102,10 @@ private:
     void leaveRoomEventAction();
     void customEventAction(command_t);
     
+    void updateMusicSlideBar(Ref* pSender, cocos2d::ui::Slider::EventType type);
+    void updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type);
+    void updateCheckBox(Ref *pSender,cocos2d::ui::CheckBox::EventType type);
+    
     
 };
 
