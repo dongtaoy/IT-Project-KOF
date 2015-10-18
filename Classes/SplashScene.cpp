@@ -41,9 +41,9 @@ bool SplashScene::init()
     
     //preload the background music
     
-//    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/backgroundmusic.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/backgroundmusic.mp3");
     //play the background music
-//    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3",true);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3",true);
     
     
     

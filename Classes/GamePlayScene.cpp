@@ -50,7 +50,13 @@ bool GamePlayScene::init()
     cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    //stop backgorund music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     
+    //    preload the fight background music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/Fightmusic.mp3");
+    //    play the fight background music
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/Fightmusic.mp3",true);
     
     auto node = CSLoader::createNode("GamePlay.csb");
     
@@ -493,7 +499,7 @@ void GamePlayScene::onLeaveRoomDone()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    
+     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3");
 }
 
 void GamePlayScene::leaveRoomEventAction()
