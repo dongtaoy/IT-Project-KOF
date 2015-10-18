@@ -17,6 +17,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "Definitions.h"
 
 // Scenes
 //#include "MainMenuScene.h"
@@ -36,7 +37,8 @@ public:
 private:
     
     void GotoMainMenuScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
-    void updateSlideBar(Ref* pSender, cocos2d::ui::Slider::EventType type);
+    void updateMusicSlideBar(Ref* pSender, cocos2d::ui::Slider::EventType type);
+    void updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type);
     void updateCheckBox(Ref *pSender,cocos2d::ui::CheckBox::EventType type);
     
 };

@@ -169,6 +169,12 @@
 //#define OP_GPS_STAND_MOVEBACK               6
 //#define OP_GPS_STAND                        7
 
+//Setting
+#define SETTING_SCENE_PERCENTAGE            0.01
+
+
+
+
 
 // Fighter
 
