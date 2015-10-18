@@ -39,7 +39,7 @@ public:
     void setListener(MultiplayerCallback*);
     void run(void);
     void connect(void);
-    void opCreateRoom(std::map<std::string, std::string>);
+    void opCreateRoom(std::map<std::string, std::string>, bool);
     void opLeaveRoom();
     void opJoinRoom(std::string);
     void opJoinRandomRoom(void);

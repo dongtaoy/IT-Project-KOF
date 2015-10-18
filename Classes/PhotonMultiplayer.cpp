@@ -96,10 +96,10 @@ void PhotonMultiplayer::disconnect(void)
 
 void PhotonMultiplayer::setRoomIsOpen(bool t)
 {
-    c.getCurrentlyJoinedRoom().setIsVisible(t);
+    c.getCurrentlyJoinedRoom().setIsOpen(t);
 }
 
-void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properties)
+void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properties, bool isVisible)
 {
     ExitGames::Common::Hashtable p = ExitGames::Common::Hashtable();
     
@@ -118,7 +118,7 @@ void PhotonMultiplayer::opCreateRoom(std::map<std::string, std::string> properti
     
     c.opCreateRoom(
                    name,
-                   true,
+                   isVisible,
                    true,
                    2,
                    p,

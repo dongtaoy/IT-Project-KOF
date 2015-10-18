@@ -179,22 +179,11 @@ void ChooseRoomScene::createRoomListEntry(std::string roomId,
 void ChooseRoomScene::SearchRoom(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED){
-        
-
         auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
         auto sprite = static_cast<ui::ImageView*>(node->getChildByName(CHOOSE_ROOM_SCENE_SPRITE_SEARCH));
 	    auto textSearch = static_cast<ui::TextField*>(sprite->getChildByName(CHOOSE_ROOM_SCENE_TEXT_SEARCH));
-	    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
-	    for (int i =0 ; i < list->getItems().size(); i++ ){
-	        auto item = list->getItem(i);
-	        std::string id = static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->getString();
-	        if(!(id.compare(textSearch->getString()))){
-	            OnSelectedItem(item, cocos2d::ui::Widget::TouchEventType::ENDED);
-	            return;
-	        }
-	    }
-	    MessageBox("", "Room ID does not exist!");
-	    CCLOG("%s",textSearch->getString().c_str());
+        PhotonMultiplayer::getInstance()->opJoinRoom(textSearch->getString());
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "finding room...", 50.0f);
     }
 }
 

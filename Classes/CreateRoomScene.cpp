@@ -116,7 +116,9 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
             
             std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background}};
             
-            PhotonMultiplayer::getInstance()->opCreateRoom(properties);
+            auto isVisible = !this->getChildByName(CREATE_ROOM_SCENE)->getChildByName<cocos2d::ui::CheckBox*>("privateCheckBox")->isSelected();
+            
+            PhotonMultiplayer::getInstance()->opCreateRoom(properties, isVisible);
             LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room...", 50.0f);
             
         }
