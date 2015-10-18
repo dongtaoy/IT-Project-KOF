@@ -345,6 +345,34 @@ void Fighter::start()
     auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
     this->sprite->runAction(sequence);
     
+    //win sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/win.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/win.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/win.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/win.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/win.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/win.wav",false);
+    }
 }
 
 void Fighter::win()
@@ -355,6 +383,35 @@ void Fighter::win()
     auto animateForever = cocos2d::RepeatForever::create(animate);
     animateForever->setTag(OP_GPS_ACTION_3_WIN);
     this->sprite->runAction(animateForever);
+    
+    //win sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/win.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/win.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/win.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/win.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/win.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/win.wav",false);
+    }
 }
 
 void Fighter::die()
@@ -369,6 +426,35 @@ void Fighter::die()
     auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(func), animate, NULL);
     sequence->setTag(OP_GPS_ACTION_3_DIE);
     this->sprite->runAction(sequence);
+    
+    //die sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/die.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/die.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/die.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/die.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/die.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/die.wav",false);
+    }
 }
 
 void Fighter::kick1()
@@ -389,9 +475,11 @@ void Fighter::kick1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -415,6 +503,36 @@ void Fighter::kick1()
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     
+    
+    //kick sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/kick.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/kick.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/kick.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/kick.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/kick.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/kick.wav",false);
+    }
+    
 }
 
 void Fighter::kick2()
@@ -435,9 +553,11 @@ void Fighter::kick2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -462,6 +582,35 @@ void Fighter::kick2()
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     
+    //kick sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/kick.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/kick.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/kick.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/kick.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/kick.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/kick.wav",false);
+    }
+    
 }
 
 void Fighter::punch1()
@@ -482,9 +631,11 @@ void Fighter::punch1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -508,6 +659,35 @@ void Fighter::punch1()
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     
+    //punch sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/punch.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/punch.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/punch.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/punch.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/punch.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/punch.wav",false);
+    }
+    
 }
 
 void Fighter::punch2()
@@ -528,9 +708,11 @@ void Fighter::punch2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -553,6 +735,36 @@ void Fighter::punch2()
             sequence->setTag(OP_GPS_ACTION_2_SQUAT_PUNCH2);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
+    
+    
+    //punch sound effect
+    auto name =  this->getName();
+    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/punch.wav",false);
+    }
+    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/punch.wav",false);
+    }
+    
+    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/punch.wav",false);
+    }
+    
+    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/punch.wav",false);
+    }
+    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/punch.wav",false);
+    }
+    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/punch.wav",false);
+    }
     
 }
 
@@ -660,4 +872,8 @@ bool Fighter::checkBoundary(cocos2d::Vec2 d)
     return true;
 }
 
-
+void Fighter::playHitSoundEffect()
+{
+    //character get hit
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/get_hit.wav",false);
+}

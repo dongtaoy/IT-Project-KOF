@@ -131,6 +131,7 @@
 #define GAME_PLAY_SCENE_BUTTON_D_PRESSED "Resources/d_d.png"
 #define GAME_PLAY_SCENE_BUTTON_D_X      0.9f
 #define GAME_PLAY_SCENE_BUTTON_D_Y      0.15f
+#define GMAE_PLAY_SCENE_COMPARE_SUCCESS         0
 
 
 
