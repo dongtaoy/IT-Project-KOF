@@ -12,8 +12,9 @@
 #include <stdio.h>
 #include "cocos2d.h"
 #include "Definitions.h"
-#include <boost/format.hpp>
 #include "CocosGUI.h"
+#include "format.h"
+#include "GameHelper.h"
 
 class Fighter
 {
@@ -26,10 +27,10 @@ public:
     CC_SYNTHESIZE(std::string, name, Name);
     CC_SYNTHESIZE(cocos2d::ui::LoadingBar*, health, health);
     CC_SYNTHESIZE(bool, isLeft, IsLeft);
-    CC_SYNTHESIZE(cocos2d::Sprite*, physicsSprite, physicsSprite);
     CC_SYNTHESIZE(bool, isDie, IsDie);
     CC_SYNTHESIZE(bool, isHealthChanged, IsHealthChanged);
     
+    void processCommand(command_t);
     void squat();
     void squat_down();
     void squat_hit();
@@ -71,9 +72,10 @@ public:
     bool isStand();
     bool isSquat();
     bool isActionStoppable();
-    bool canMove(cocos2d::Vec2);
     bool isHit();
     
+    bool isNextAction();
+    bool checkBoundary(cocos2d::Vec2);
    
     
 };

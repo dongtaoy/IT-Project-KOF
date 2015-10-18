@@ -8,8 +8,6 @@
 
 #include "MainMenuScene.h"
 
-USING_NS_CC;
-using namespace ui;
 
 Scene* MainMenuScene::createScene()
 {
@@ -37,9 +35,6 @@ bool MainMenuScene::init()
     }
     
     
-//    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    
     auto node = CSLoader::createNode("MainMenu.csb");
     ui::Button* buttonMultiplayer =  static_cast<ui::Button*>(node->getChildByName("buttonMultiplayer"));
     buttonMultiplayer->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToChooseRoomScene, this));
@@ -53,12 +48,21 @@ bool MainMenuScene::init()
     ui::Button* buttonLeaderboard =  static_cast<ui::Button*>(node->getChildByName("buttonLeaderboard"));
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
-    Multiplayer::initialize(GameHelper::randomString(5));
+    PhotonMultiplayer::initialize(GameHelper::randomString(5).c_str());
+    PhotonMultiplayer::getInstance()->setListener(this);
+    this->scheduleUpdate();
     
     this->addChild(node);
 
     return true;
 }
+
+
+void MainMenuScene::update(float dt)
+{
+    PhotonMultiplayer::getInstance()->service();
+}
+
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
@@ -69,33 +73,27 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-void MainMenuScene::GoToChooseRoomScene(Ref* pSender, Widget::TouchEventType type)
+void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if(type == Widget::TouchEventType::ENDED){
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
         
-        GKHWrapperCpp gkh;
-        if(gkh.isLocalPlayerAuthenticated()){
-            gkh.getLocalPlayerFriends();
-            // Initialize Multiplayer
-            if(Multiplayer::getInstance()->isConnected()){
-                auto scene = ChooseRoomScene::createScene();
-                Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
-            }else{
-                LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-                Multiplayer::getInstance()->connect(this);
-                LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "connecting to Server...", 30.0f);
-            }
-        }else{
-            MessageBox("Player is not signed in", "Game Center Unavailable");
+        if (!PhotonMultiplayer::getInstance()->isConnected())
+        {
+            PhotonMultiplayer::getInstance()->connect();
+            LoadingLayer::SetTextAndLoadingBar(this, false, "Connecting....", 50.0f);
+        }
+        else
+        {
+            auto scene = ChooseRoomScene::createScene();
+            Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
         }
     }
 }
 
 
-void MainMenuScene::GoToHelpScene(Ref* pSender, Widget::TouchEventType type)
+void MainMenuScene::GoToHelpScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     auto scene = HelpScene::createScene();
-    
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
@@ -103,32 +101,17 @@ void MainMenuScene::GoToHelpScene(Ref* pSender, Widget::TouchEventType type)
 void MainMenuScene::GoToSettingScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = SettingScene::createScene();
-    
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
 void MainMenuScene::GotoLeaderBoardScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
-    GKHWrapperCpp gkh;
-    gkh.showLeaderBoard();
-
+    SonarCocosHelper::GameCenter::showLeaderboard();
 }
 
 void MainMenuScene::onConnectDone()
 {
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Joining lobby...", 33.3f);
-    Multiplayer::joinLobby(this);
-}
-
-void MainMenuScene::onJoinLobbyDone()
-{
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Subscribing lobby...", 66.7f);
-    Multiplayer::subscribeLobby(this);
-}
-
-void MainMenuScene::onSubscribeLobbyDone()
-{
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done", 100.0f);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
 }

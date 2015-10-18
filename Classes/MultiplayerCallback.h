@@ -13,39 +13,28 @@ class MultiplayerCallback
 {
 public:
     
-#pragma mark Lobby Request Listeners
+    
+    
+#pragma mark room
+    virtual void onCreateRoomDone(){ CCLOG("create room done..."); };
+    virtual void onJoinRoomDone(){ CCLOG("join room done..."); };
+    virtual void onJoinRoomFailed(){ CCLOG("join room failed..."); }
+    virtual void onLeaveRoomDone(){ CCLOG("leave room done..."); };
+    
+    virtual void joinRoomEventAction() { CCLOG("on user joined "); };
+    virtual void leaveRoomEventAction() { CCLOG("on user leaved "); };
+    
+#pragma mark connecttion
+    virtual void onConnectDone(){ CCLOG("connection done"); };
+    
+#pragma mark lobby
+    virtual void onRoomListUpdate() { CCLOG("onRoomListUpdate"); };
     virtual void onJoinLobbyDone(){ CCLOG("join lobby done...");};
     virtual void onLeaveLobbyDone(){ CCLOG("leave lobby done...");};
     
-    
-    virtual void onSubscribeLobbyDone(){ CCLOG("subscribe loby done"); };
-    virtual void onUnsubscribeLobbyDone() { CCLOG("unsubsribe lobby done"); };
-    
-    
-#pragma mark Room Request Listeners
-
-    virtual void onJoinRoomDone(){ CCLOG("join room done..."); };
-    virtual void onSubscribeRoomDone(){ CCLOG("Subscribe room done..."); };
-    
-    
-    virtual void onUnsubscribeRoomDone(){ CCLOG("unsubsribe room done..."); };
-    virtual void onLeaveRoomDone(){ CCLOG("leave room done..."); };
-    
-    virtual void onGetLiveRoomInfoDone(std::string roomId,
-                                       std::string owner,
-                                       int maxUsers,
-                                       std::string name,
-                                       std::string customData,
-                                       std::vector<std::string> users,
-                                       std::map<std::string, std::string> properties){ CCLOG("get live room info done..."); };
-    
-#pragma mark Zone Request Listener
-    virtual void onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name){ CCLOG("create room done..."); };
-    
-    virtual void onConnectDone(){ CCLOG("connection done"); };
-    
-    virtual void onRoomCreated(std::string roomID, std::string bestOf, std::string background){ CCLOG("room created"); };
-    virtual void onRoomDestroyed(std::string roomID) { CCLOG("room destroyed"); };
+#pragma mark event
+    virtual void customEventAction(command_t) { CCLOG("customEventAction"); };
+    virtual void onPlayerPropertiesChange() { CCLOG("onPlayerPropertiesChange"); };
 };
 
 #endif /* MultiplayerCallback_h */

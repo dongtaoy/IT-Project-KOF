@@ -13,7 +13,6 @@
 #include "CocosGUI.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
-#include "Multiplayer.h"
 #include <random>
 #include <ctime> 
 #include "SimpleAudioEngine.h"

@@ -39,14 +39,14 @@ void SneakyJoystickSkinnedBase::updatePositions(float delta)
 		thumbSprite->setPosition(joystick->getStickPosition());
 }
 
-void SneakyJoystickSkinnedBase::setContentSize(Size s)
+void SneakyJoystickSkinnedBase::setContentSize(cocos2d::Size s)
 {
-	CCLayer::setContentSize(s);
+	cocos2d::CCLayer::setContentSize(s);
 	backgroundSprite->setContentSize(s);
 	//joystick.joystickRadius = s.width/2;
 }
 
-void SneakyJoystickSkinnedBase::setBackgroundSprite(Sprite *aSprite)
+void SneakyJoystickSkinnedBase::setBackgroundSprite(cocos2d::Sprite *aSprite)
 {
 	if(backgroundSprite){
 		if(backgroundSprite->getParent())
@@ -61,7 +61,7 @@ void SneakyJoystickSkinnedBase::setBackgroundSprite(Sprite *aSprite)
 	}
 }
 
-void SneakyJoystickSkinnedBase::setThumbSprite(Sprite *aSprite)
+void SneakyJoystickSkinnedBase::setThumbSprite(cocos2d::Sprite *aSprite)
 {
 	if(thumbSprite){
 		if(thumbSprite->getParent())

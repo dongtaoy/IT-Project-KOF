@@ -2,14 +2,13 @@
 #define __SNEAKY_BUTTON_SKINNED_H__
 
 #include "SneakyButton.h"
-USING_NS_CC;
 
 class SneakyButtonSkinnedBase : public Layer
 {
-	CC_SYNTHESIZE_READONLY(Sprite *, defaultSprite, DefaultSprite);
-	CC_SYNTHESIZE_READONLY(Sprite *, activatedSprite, ActivatedSprite);
-	CC_SYNTHESIZE_READONLY(Sprite *, disabledSprite, DisabledSprite);
-	CC_SYNTHESIZE_READONLY(Sprite *, pressSprite, PressSprite);
+	CC_SYNTHESIZE_READONLY(cocos2d::Sprite *, defaultSprite, DefaultSprite);
+	CC_SYNTHESIZE_READONLY(cocos2d::Sprite *, activatedSprite, ActivatedSprite);
+	CC_SYNTHESIZE_READONLY(cocos2d::Sprite *, disabledSprite, DisabledSprite);
+	CC_SYNTHESIZE_READONLY(cocos2d::Sprite *, pressSprite, PressSprite);
 	CC_SYNTHESIZE_READONLY(SneakyButton *, button, Button); //Not sure about this
 
 	//Public methods
@@ -17,11 +16,11 @@ class SneakyButtonSkinnedBase : public Layer
 	virtual ~SneakyButtonSkinnedBase();
 	bool init();
 	void watchSelf(float delta);
-	void setContentSize(Size s);
-	void setDefaultSprite(Sprite *aSprite);
-	void setActivatedSprite(Sprite *aSprite);
-	void setDisabledSprite(Sprite *aSprite);
-	void setPressSprite(Sprite *aSprite);
+	void setContentSize(cocos2d::Size s);
+	void setDefaultSprite(cocos2d::Sprite *aSprite);
+	void setActivatedSprite(cocos2d::Sprite *aSprite);
+	void setDisabledSprite(cocos2d::Sprite *aSprite);
+	void setPressSprite(cocos2d::Sprite *aSprite);
 	void setButton(SneakyButton *aButton);
 };
 

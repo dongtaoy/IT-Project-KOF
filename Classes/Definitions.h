@@ -9,61 +9,58 @@
 #ifndef KOF_Definitions_h
 #define KOF_Definitions_h
 
-#define APPWARP_APP_KEY                 "10672fd365d93fc814eb81b83f281d13d867485180e0e68cc255ac3e5e4b0162"
-#define APPWARP_SECRET_KEY              "1a05138df28bca585f7405481055f9e51b9f65d8d92469b4377812455cdb92a8"
-#define GAME_NAME                       "KOFUnimelb"
-
 // GOBAL
 #define BORDER_SELECTED                 "selected"
 #define BORDER_UNSELECTED               "unselected"
 #define BACK_BUTTON                     "buttonBack"
 #define CREATE_BUTTON                   "buttonCreate"
 #define SEARCH_BUTTON                   "buttonSearch"
+#define QUICK_JOIN_BUTTON               "buttonQuickJoin"
 
-#define CHARACTER_ICON_BIG_PATH         "characters/%s/icon_big.png"
+#define CHARACTER_ICON_BIG_PATH         "characters/{0}/icon_big.png"
 
 #define BACKGROUND_PLIST                "backgrounds/backgrounds.plist"
-#define BACKGROUND_ICON_PATH            "backgrounds/%s/icon.png"
+#define BACKGROUND_ICON_PATH            "backgrounds/{0}/icon.png"
 
-#define CHARACTER_SPRITE_PATH           "characters/%s/sprite.plist"
-#define CHARACTER_ANIMATION_PATH        "characters/%s/animation.plist"
+#define CHARACTER_SPRITE_PATH           "characters/{0}/sprite.plist"
+#define CHARACTER_ANIMATION_PATH        "characters/{0}/animation.plist"
 
-#define BACKGROUND_SPRITE_PATH          "backgrounds/%s/sprite.plist"
-#define BACKGROUND_ANIMATION_PATH       "backgrounds/%s/animation.plist"
+#define BACKGROUND_SPRITE_PATH          "backgrounds/{0}/sprite.plist"
+#define BACKGROUND_ANIMATION_PATH       "backgrounds/{0}/animation.plist"
 
 #define COUNTDOWN_SPRITE_PATH           "countdown/sprite.plist"
 #define COUNTDOWN_ANIMATION_PATH        "countdown/animation.plist"
 
-#define CHARACTER_SPRITE_PATH           "characters/%s/sprite.plist"
-#define CHARACTER_ANIMATION_PATH        "characters/%s/animation.plist"
+#define CHARACTER_SPRITE_PATH           "characters/{0}/sprite.plist"
+#define CHARACTER_ANIMATION_PATH        "characters/{0}/animation.plist"
 
-#define CHARACTER_SQUAT                 "%s/squat"
-#define CHARACTER_SQUAT_DOWN            "%s/squat_down"
-#define CHARACTER_SQUAT_HIT             "%s/squat_hit"
-#define CHARACTER_SQUAT_KICK1           "%s/squat_kick1"
-#define CHARACTER_SQUAT_KICK2           "%s/squat_kick2"
-#define CHARACTER_SQUAT_MOVEBACK        "%s/squat_moveback"
-#define CHARACTER_SQUAT_MOVEFORWARD     "%s/squat_moveforward"
-#define CHARACTER_SQUAT_PUNCH1          "%s/squat_punch1"
-#define CHARACTER_SQUAT_PUNCH2          "%s/squat_punch2"
-#define CHARACTER_SQUAT_UP              "%s/squat_up"
+#define CHARACTER_SQUAT                 "{0}/squat"
+#define CHARACTER_SQUAT_DOWN            "{0}/squat_down"
+#define CHARACTER_SQUAT_HIT             "{0}/squat_hit"
+#define CHARACTER_SQUAT_KICK1           "{0}/squat_kick1"
+#define CHARACTER_SQUAT_KICK2           "{0}/squat_kick2"
+#define CHARACTER_SQUAT_MOVEBACK        "{0}/squat_moveback"
+#define CHARACTER_SQUAT_MOVEFORWARD     "{0}/squat_moveforward"
+#define CHARACTER_SQUAT_PUNCH1          "{0}/squat_punch1"
+#define CHARACTER_SQUAT_PUNCH2          "{0}/squat_punch2"
+#define CHARACTER_SQUAT_UP              "{0}/squat_up"
 
-#define CHARACTER_INITIAL_FRAME         "characters/%s/stand/00.png"
+#define CHARACTER_INITIAL_FRAME         "characters/{0}/stand/00.png"
 
-#define CHARACTER_STAND                 "%s/stand"
-#define CHARACTER_STAND_HIT             "%s/stand_hit"
-#define CHARACTER_STAND_JUMP            "%s/stand_jump"
-#define CHARACTER_STAND_KICK1           "%s/stand_kick1"
-#define CHARACTER_STAND_KICK2           "%s/stand_kick2"
-#define CHARACTER_STAND_MOVEBACK        "%s/stand_moveback"
-#define CHARACTER_STAND_MOVEFORWARD     "%s/stand_moveforward"
-#define CHARACTER_STAND_PUNCH1          "%s/stand_punch1"
-#define CHARACTER_STAND_PUNCH2          "%s/stand_punch2"
+#define CHARACTER_STAND                 "{0}/stand"
+#define CHARACTER_STAND_HIT             "{0}/stand_hit"
+#define CHARACTER_STAND_JUMP            "{0}/stand_jump"
+#define CHARACTER_STAND_KICK1           "{0}/stand_kick1"
+#define CHARACTER_STAND_KICK2           "{0}/stand_kick2"
+#define CHARACTER_STAND_MOVEBACK        "{0}/stand_moveback"
+#define CHARACTER_STAND_MOVEFORWARD     "{0}/stand_moveforward"
+#define CHARACTER_STAND_PUNCH1          "{0}/stand_punch1"
+#define CHARACTER_STAND_PUNCH2          "{0}/stand_punch2"
 
 
-#define CHARACTER_START                 "%s/start"
-#define CHARACTER_WIN                   "%s/win"
-#define CHARACTER_DIE                   "%s/die"
+#define CHARACTER_START                 "{0}/start"
+#define CHARACTER_WIN                   "{0}/win"
+#define CHARACTER_DIE                   "{0}/die"
 
 
 #define NUM_BACKGROUNDS 4
@@ -121,19 +118,19 @@
 #define GAME_PLAY_SCENE_BUTTON_A_NORMAL "Resources/a.png"
 #define GAME_PLAY_SCENE_BUTTON_A_PRESSED "Resources/a_c.png"
 #define GAME_PLAY_SCENE_BUTTON_A_X      0.7f
-#define GAME_PLAY_SCENE_BUTTON_A_Y      0.3f
+#define GAME_PLAY_SCENE_BUTTON_A_Y      0.35f
 #define GAME_PLAY_SCENE_BUTTON_B_NORMAL "Resources/b.png"
 #define GAME_PLAY_SCENE_BUTTON_B_PRESSED "Resources/b_c.png"
 #define GAME_PLAY_SCENE_BUTTON_B_X      0.85f
-#define GAME_PLAY_SCENE_BUTTON_B_Y      0.3f
+#define GAME_PLAY_SCENE_BUTTON_B_Y      0.35f
 #define GAME_PLAY_SCENE_BUTTON_C_NORMAL "Resources/c.png"
 #define GAME_PLAY_SCENE_BUTTON_C_PRESSED "Resources/c_c.png"
 #define GAME_PLAY_SCENE_BUTTON_C_X      0.75f
-#define GAME_PLAY_SCENE_BUTTON_C_Y      0.1f
+#define GAME_PLAY_SCENE_BUTTON_C_Y      0.15f
 #define GAME_PLAY_SCENE_BUTTON_D_NORMAL "Resources/d.png"
 #define GAME_PLAY_SCENE_BUTTON_D_PRESSED "Resources/d_d.png"
 #define GAME_PLAY_SCENE_BUTTON_D_X      0.9f
-#define GAME_PLAY_SCENE_BUTTON_D_Y      0.1f
+#define GAME_PLAY_SCENE_BUTTON_D_Y      0.15f
 
 
 
@@ -161,6 +158,8 @@
 
 #define MP_GAME_PLAY_SCNE                   2
 
+#define MP_GAME_PLAY_SCENE_CONFIRM          3
+
 //#define OP_GPS_BUTTON_A                     1
 //#define OP_GPS_BUTTON_B                     2
 //#define OP_GPS_BUTTON_C                     3
@@ -174,12 +173,16 @@
 
 #define OP_GPS_ACTION_1_STAND                      100
 #define OP_GPS_ACTION_1_STAND_MOVEFORWARD          101
+#define ANIMATION_ACTION_1_STAND_MOVEFORWARD       10001
 #define OP_GPS_ACTION_1_STAND_MOVEBACK             102
+#define ANIMATION_ACTION_1_STAND_MOVEBACK          10002
 
 #define OP_GPS_ACTION_1_SQUAT                      150
 #define OP_GPS_ACTION_1_SQUAT_DOWN                 151
 #define OP_GPS_ACTION_1_SQUAT_MOVEBACK             152
+#define ANIMATION_ACTION_1_SQUAT_MOVEBACK          15002
 #define OP_GPS_ACTION_1_SQUAT_MOVEFORWARD          153
+#define ANIMATION_ACTION_1_SQUAT_MOVEFORWARD       15003
 
 #define OP_GPS_ACTION_2_STAND_JUMP                 200
 #define OP_GPS_ACTION_2_STAND_PUNCH1               202
@@ -195,16 +198,16 @@
 #define OP_GPS_ACTION_2_SQUAT_HIT                  254
 
 #define OP_GPS_ACTION_3_WIN                        300
-#define OP_GPS_ACTION_3_HEALTHCHANGED              301
+#define OP_GPS_ACTION_3_DIE              301
 
-
+#define OP_GPS_NO_ACTION                         9999
 
 #define ACTION_MOVE_SPEED                   200
 #define ACTION_1_MOVE_DURATION              .7f
 
 
 #define ACTION_UNSTOPPABLE                  1000
-//#define ACTION_STOPPABLE                    1001
+#define ACTION_STOPPABLE                    1001
 // Camera
 #define CAMERA_MOVE_THRESHOLD               150
 #define CAMERA_FIGHTER_OFFSET               10
@@ -215,7 +218,7 @@
 //Physics
 
 #define GRAVITY_X                           0.0f
-#define GRAVITY_Y                           -200.0f
+#define GRAVITY_Y                           0.0f
 
 #define PUNCH1_DAMAGE                       3
 #define PUNCH2_DAMAGE                       4
@@ -236,10 +239,14 @@
 //#define Kick1_damage                        3
 //#define Kick2_damage                        4
 
+#define GAME_FRAME_LENGTH                    30
+#define GAME_FRAME_PER_LOCKSTEP              2
+
+
 
 struct command_t
 {
-    std::string sender;
+    int sender;
     int scene;
     int operation;
     std::string properties;

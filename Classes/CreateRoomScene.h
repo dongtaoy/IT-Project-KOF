@@ -9,14 +9,19 @@
 #ifndef __KOF__CreateRoomScene__
 #define __KOF__CreateRoomScene__
 
+#include "PhotonMultiplayer.hpp"
+
 #include <stdio.h>
-#include "ChooseRoomScene.h"
-#include "Definitions.h"
 #include "cocos2d.h"
+#include "cocostudio/CocoStudio.h"
 #include "CocosGUI.h"
-#include "cocostudio/CCObjectExtensionData.h"
-#include "Multiplayer.h"
+
+#include "Definitions.h"
+#include "LoadingLayer.h"
 #include "MultiplayerCallback.h"
+#include "ChooseRoomScene.h"
+#include "ChooseCharacterScene.h"
+
 
 class CreateRoomScene : public cocos2d::Layer, public MultiplayerCallback
 {
@@ -31,7 +36,9 @@ public:
     CREATE_FUNC(CreateRoomScene);
 private:
     Ref* backgroundSelected;
-    Ref* bestOfSelected;
+    
+    void update(float);
+    
     void CheckboxSelectedChanged(Ref*, cocos2d::ui::CheckBox::EventType);
     void GotoChooseRoomScene(Ref*, ui::Widget::TouchEventType);
     void RemoveSelectedBorder(Ref*);
@@ -39,14 +46,8 @@ private:
     void CreateRoom(Ref*, ui::Widget::TouchEventType);
     void BackgroundSelectedChanged(Ref*, ui::Widget::TouchEventType);
     
-#pragma mark Zone Request Listener
-    void onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name);
-#pragma mark Room Request Listener
-    void onJoinRoomDone();
-    void onSubscribeRoomDone();
     
-    void onJoinLobbyDone();
-    void onSubscribeLobbyDone();
+    void onCreateRoomDone();
 };
 
 #endif /* defined(__KOF__CreateRoomScene__) */

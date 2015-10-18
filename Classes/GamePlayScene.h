@@ -9,23 +9,27 @@
 #ifndef __KOF__GamePlayScene__
 #define __KOF__GamePlayScene__
 
+#include "PhotonMultiplayer.hpp"
+
 #include <stdio.h>
-#include <math.h>
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+#include "CocosGUI.h"
+
 
 #include "Definitions.h"
-#include "Multiplayer.h"
-#include "MainMenuScene.h"
 #include "LoadingLayer.h"
+#include "MultiplayerCallback.h"
+#include "Fighter.h"
+#include "Camera2d.h"
+
+#include "ChooseRoomScene.h"
+
 #include "SneakyJoystick.h"
 #include "SneakyJoystickSkinnedBase.h"
 #include "SneakyButton.h"
 #include "SneakyButtonSkinnedBase.h"
-#include "Fighter.h"
-#include "Camera2d.h"
-#include "MultiplayerCallback.h"
-#include "GKHWrapperCpp.h"
+
 
 class GamePlayScene : public cocos2d::Layer, public MultiplayerCallback
 {
@@ -55,6 +59,14 @@ public:
     CC_SYNTHESIZE(int, prevOperation, PrevOperation);
     CC_SYNTHESIZE(cocos2d::PhysicsWorld*, world, World);
     
+    
+    unsigned long lockstepId;
+    int gameFrame;
+    command_t prevCommand;
+    std::deque<command_t> currentCommands;
+    std::deque<command_t> nextCommands;
+    std::deque<command_t> nextnextCommands;
+    
 private:
     Camera2d* camera;
     bool isCountDownStart;
@@ -73,31 +85,23 @@ private:
     
     void createBackgroundAnimation();
     
+    
     void startCountDown();
-    
     void countDownTask(float);
-    
     void endCountDown();
     
     
     void update(float);
+    void gameFrameTurn();
     void processCommand(command_t);
+    bool lockStepTurn();
+    command_t processInput();
     
     
-    void onUnsubscribeRoomDone();
     void onLeaveRoomDone();
+    void leaveRoomEventAction();
+    void customEventAction(command_t);
     
-//    cocos2d::PhysicsWorld *sceneWorld;
-//    
-//    void SetPhysicsWorld( cocos2d::PhysicsWorld *world ) { sceneWorld = world; };
-    
-    bool onContactBegin( cocos2d::PhysicsContact &contact);
-    void addEdgeBoxForCharacter(Node* sprite, float x, float y, int bitmask);
-    void updatePlayerHp();
-    void characterTooClose(float characterDistance, float closeDistance);
-    
-    void GoToMainMenuScene( float dt );
-    bool opponentDie();
     
 };
 

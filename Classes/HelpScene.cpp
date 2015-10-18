@@ -8,8 +8,6 @@
 
 #include "HelpScene.h"
 
-USING_NS_CC;
-
 Scene* HelpScene::createScene()
 {
     // 'scene' is an autorelease object
@@ -35,12 +33,12 @@ bool HelpScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getWinSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    cocos2d::Size visibleSize = Director::getInstance()->getWinSize();
+    cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
 
     auto node = CSLoader::createNode("Help.csb");
-    ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    cocos2d::ui::Button* buttonBack =  static_cast<cocos2d::ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(HelpScene::GotoMainMenuScene, this));
     this->addChild(node);
     
@@ -50,7 +48,6 @@ bool HelpScene::init()
 void HelpScene::GotoMainMenuScene(cocos2d::Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
-    
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }

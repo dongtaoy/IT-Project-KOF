@@ -3,11 +3,11 @@
 
 #include "cocos2d.h"
 #include "SneakyJoystick.h"
-USING_NS_CC;
-class SneakyJoystickSkinnedBase : public Layer
+
+class SneakyJoystickSkinnedBase : public cocos2d::Layer
 {
-	CC_SYNTHESIZE_READONLY(Sprite *, backgroundSprite, BackgroundSprite);
-	CC_SYNTHESIZE_READONLY(Sprite *, thumbSprite, ThumbSprite);
+	CC_SYNTHESIZE_READONLY(cocos2d::Sprite *, backgroundSprite, BackgroundSprite);
+	CC_SYNTHESIZE_READONLY(cocos2d::Sprite *, thumbSprite, ThumbSprite);
 	CC_SYNTHESIZE_READONLY(SneakyJoystick *, joystick, Joystick);	
 
 	//Public methods
@@ -15,9 +15,9 @@ class SneakyJoystickSkinnedBase : public Layer
 	virtual ~SneakyJoystickSkinnedBase();
 	bool init();
 	void updatePositions(float delta);
-	void setContentSize(Size s);
-	void setBackgroundSprite(Sprite *aSprite);
-	void setThumbSprite(Sprite *aSprite);
+	void setContentSize(cocos2d::Size s);
+	void setBackgroundSprite(cocos2d::Sprite *aSprite);
+	void setThumbSprite(cocos2d::Sprite *aSprite);
 	void setJoystick(SneakyJoystick *aJoystick);
 };
 #endif

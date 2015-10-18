@@ -7,18 +7,18 @@
 //
 
 #include "CreateRoomScene.h"
-using namespace ui;
-USING_NS_CC;
 
 Scene* CreateRoomScene::createScene()
 {
-    Multiplayer::getInstance()->resetAllListener();
+//    Multiplayer::getInstance()->resetAllListener();
     
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
     auto layer = CreateRoomScene::create();
+    
+    
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -37,15 +37,14 @@ bool CreateRoomScene::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getWinSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
     
     
     auto node = CSLoader::createNode(CREATE_ROOM_SCENE_FILE);
-    Button* buttonBack =  static_cast<Button*>(node->getChildByName(BACK_BUTTON));
+    cocos2d::ui::Button* buttonBack =  static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
     assert(buttonBack);
     
-    Button* buttonCreate = static_cast<Button*>(node->getChildByName(CREATE_BUTTON));
+    cocos2d::ui::Button* buttonCreate = static_cast<cocos2d::ui::Button*>(node->getChildByName(CREATE_BUTTON));
     assert(buttonCreate);
     
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::CreateRoom, this));
@@ -54,41 +53,24 @@ bool CreateRoomScene::init()
 
     for(int i = 1 ; i <= NUM_BACKGROUNDS ; i ++)
     {
-        Widget* image = static_cast<Widget*>(node->getChildByName(CREATE_ROOM_SCENE_BACKGROUND_PREFIX+std::to_string(i)));
+        cocos2d::ui::Widget* image = static_cast<cocos2d::ui::Widget*>(node->getChildByName(CREATE_ROOM_SCENE_BACKGROUND_PREFIX+std::to_string(i)));
         image->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::BackgroundSelectedChanged, this));
     }
     
-    for(int i = 1 ; i <= NUM_BESTOF ; i ++)
-    {
-        CheckBox* checkbox = static_cast<CheckBox*>(node->getChildByName(CREATE_ROOM_SCENE_CHECKBOX_PREFIX+std::to_string(i)));
-        
-        checkbox->addEventListener(CC_CALLBACK_2(CreateRoomScene::CheckboxSelectedChanged, this));
-    }
     
     this->addChild(node);
     
+    PhotonMultiplayer::getInstance()->setListener(this);
+    this->scheduleUpdate();
     return true;
 }
 
-void CreateRoomScene::CheckboxSelectedChanged(Ref* pSender, CheckBox::EventType type)
-{
-    if(type == CheckBox::EventType::SELECTED){
-        
-        if(bestOfSelected != NULL){
-            static_cast<CheckBox*>(bestOfSelected)->setSelected(false);
-        }
-        bestOfSelected = pSender;
-        
-    }
-    else{
-        bestOfSelected = NULL;
-    }
-}
 
-void CreateRoomScene::BackgroundSelectedChanged(Ref* pSender, Widget::TouchEventType type)
+
+void CreateRoomScene::BackgroundSelectedChanged(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     
-    if(type == Widget::TouchEventType::ENDED)
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         if(backgroundSelected != NULL)
         {
@@ -113,77 +95,51 @@ void CreateRoomScene::RemoveSelectedBorder(Ref* pSender)
 }
 
 
-void CreateRoomScene::GotoChooseRoomScene(Ref*, Widget::TouchEventType type)
+void CreateRoomScene::GotoChooseRoomScene(Ref*, cocos2d::ui::Widget::TouchEventType type)
 {
-    if (type == Widget::TouchEventType::ENDED)
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining lobby... ", 33.0f);
-        Multiplayer::joinLobby(this);
+        auto scene = ChooseRoomScene::createScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
-
-void CreateRoomScene::onJoinLobbyDone()
-{
-    MultiplayerCallback::onJoinLobbyDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing lobby... ", 66.0f);
-    Multiplayer::subscribeLobby(this);
-}
-
-void CreateRoomScene::onSubscribeLobbyDone()
-{
-    MultiplayerCallback::onSubscribeLobbyDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE... ", 100.0f);
-    auto scene = ChooseRoomScene::createScene();
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-}
-
 
 
 void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
 {
     
-    if(type == Widget::TouchEventType::ENDED){
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
         
-        if(backgroundSelected != NULL && bestOfSelected != NULL)
+        if(backgroundSelected != NULL )
         {
             std::string background = static_cast<Node*>(backgroundSelected)->getName();
-            std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
             
-            std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background},{ROOM_PROPERTY_BESTOF, bestof}};
+            std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background}};
             
-            LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-            LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room... ", 30.0f);
-            Multiplayer::createRoom(this, properties);
+            auto isVisible = !this->getChildByName(CREATE_ROOM_SCENE)->getChildByName<cocos2d::ui::CheckBox*>("privateCheckBox")->isSelected();
+            
+            PhotonMultiplayer::getInstance()->opCreateRoom(properties, isVisible);
+            LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room...", 50.0f);
+            
         }
         
     }
 }
 
-void CreateRoomScene::onCreateRoomDone(std::string roomId, std::string owner, int maxUsers, std::string name)
+void CreateRoomScene::onCreateRoomDone()
 {
-    MultiplayerCallback::onCreateRoomDone(roomId, owner, maxUsers, name);
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 60.0f);
-    std::string background = static_cast<Node*>(backgroundSelected)->getName();
-    std::string bestof = static_cast<Node*>(bestOfSelected)->getChildByName<Text*>(CREATE_ROOM_SCENE_BESTOF_LABEL)->getString();
-    Multiplayer::getInstance()->setRoomID(roomId);
-    Multiplayer::getInstance()->setBackground(background);
-    Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
-}
-
-void CreateRoomScene::onJoinRoomDone(){
-    MultiplayerCallback::onJoinRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 90.0f);
+    MultiplayerCallback::onCreateRoomDone();
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done...", 100.0f);
+    auto scene = ChooseCharacterScene::createScene();
+    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }
 
-void CreateRoomScene::onSubscribeRoomDone(){
-    MultiplayerCallback::onSubscribeRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
-    auto scene = ChooseCharacterScene::createScene();
-    Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+
+void CreateRoomScene::update(float dt)
+{
+    PhotonMultiplayer::getInstance()->service();
 }
-
-
 
 
 

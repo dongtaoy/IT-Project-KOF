@@ -2,18 +2,17 @@
 #define __SNEAKY_JOYSTICK_H__
 
 #include "cocos2d.h"
-USING_NS_CC;
 
-class SneakyJoystick : public Node
+class SneakyJoystick : public cocos2d::Node
 {
 protected:
 	float joystickRadiusSq;
 	float thumbRadiusSq;
 	float deadRadiusSq;
 
-	CC_SYNTHESIZE_READONLY(Point, stickPosition, StickPosition);
+	CC_SYNTHESIZE_READONLY(cocos2d::Point, stickPosition, StickPosition);
 	CC_SYNTHESIZE_READONLY(float, degrees, Degrees);
-	CC_SYNTHESIZE_READONLY(Point, velocity, Velocity);
+	CC_SYNTHESIZE_READONLY(cocos2d::Point, velocity, Velocity);
 	CC_SYNTHESIZE(bool, autoCenter, AutoCenter);
 	CC_SYNTHESIZE_READONLY(bool, isDPad, IsDPad);
 	CC_SYNTHESIZE(bool, hasDeadzone, HasDeadzone);
@@ -25,17 +24,17 @@ protected:
 
 	virtual ~SneakyJoystick();
 
-	bool initWithRect(Rect rect);
+	bool initWithRect(cocos2d::Rect rect);
 	void setIsDPad(bool b);
 	void setJoystickRadius(float r);
 	void setThumbRadius(float r);
 	void setDeadRadius(float r);
-	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
-    virtual void onTouchMoved(Touch *touch, Event *unused_event);
-    virtual void onTouchEnded(Touch *touch, Event *unused_event);
-    virtual void onTouchCancelled(Touch *touch, Event *unused_event);
+	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+    virtual void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+    virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+    virtual void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused_event);
 private:
-	void updateVelocity(Point point);
+	void updateVelocity(cocos2d::Point point);
 	void setTouchRadius();
 
 };

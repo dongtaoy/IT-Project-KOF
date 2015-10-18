@@ -9,17 +9,21 @@
 #ifndef __KOF__MainMenuScene__
 #define __KOF__MainMenuScene__
 
+
+#include "PhotonMultiplayer.hpp"
+
+
 #include "cocos2d.h"
 
+#include "SonarFrameworks.h"
+
 #include "definitions.h"
-#include "Multiplayer.h"
-#include "ChooseRoomScene.h"
 #include "HelpScene.h"
 #include "SettingScene.h"
 #include "LoadingLayer.h"
-#include "GKHWrapperCpp.h"
 #include "GameHelper.h"
 #include "MultiplayerCallback.h"
+#include "ChooseRoomScene.h"
 
 
 class MainMenuScene : public cocos2d::Layer, public MultiplayerCallback
@@ -33,6 +37,8 @@ public:
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+    
+    void update(float);
     
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenuScene);
@@ -50,8 +56,6 @@ private:
     //TODO: comments
     void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
-    void onJoinLobbyDone();
-    void onSubscribeLobbyDone();
     
     // ConnectionRequestListener
     void onConnectDone();

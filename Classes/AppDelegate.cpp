@@ -1,9 +1,6 @@
 #include "AppDelegate.h"
 #include "SplashScene.h"
-#include "GamePlayScene.h"
-#include "GKHWrapperCpp.h"
-#include "GameCenterDelegate.h"
-USING_NS_CC;
+#include "SonarFrameworks.h"
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1334, 750);
 
@@ -50,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
-    Size frameSize = glview->getFrameSize();
+    cocos2d::Size frameSize = glview->getFrameSize();
     
     register_all_packages();
     
@@ -60,14 +57,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     searchPaths.insert(searchPaths.begin(), "res");
     fileUtils->setSearchPaths(searchPaths);
     
+    SonarCocosHelper::IOS::Setup();
     
-    GameCenterDelegate::initialize();
-    GameCenterDelegate* gcd = GameCenterDelegate::getInstance();
-    GKHWrapperCpp gkh;
-    
-    gkh.setDelegate(gcd);
-    gkh.authenticateLocalPlayer();
-    
+    SonarCocosHelper::GameCenter::signIn();
     
     // create a scene. it's an autorelease object
     auto scene = SplashScene::createScene();
@@ -89,8 +81,7 @@ void AppDelegate::applicationDidEnterBackground() {
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
-    GKHWrapperCpp gkh;
-    gkh.authenticateLocalPlayer();
+    SonarCocosHelper::GameCenter::signIn();
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

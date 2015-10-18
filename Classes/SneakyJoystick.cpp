@@ -9,11 +9,11 @@ SneakyJoystick::~SneakyJoystick()
 {
 }
 
-bool SneakyJoystick::initWithRect(Rect rect)
+bool SneakyJoystick::initWithRect(cocos2d::Rect rect)
 {
 	bool pRet = false;
     
-    auto listener = EventListenerTouchOneByOne::create();
+    auto listener = cocos2d::EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = CC_CALLBACK_2(SneakyJoystick::onTouchBegan, this);
     listener->onTouchMoved = CC_CALLBACK_2(SneakyJoystick::onTouchMoved, this);
@@ -22,9 +22,9 @@ bool SneakyJoystick::initWithRect(Rect rect)
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
 	//if(CCSprite::init()){
-		stickPosition = Point::ZERO;
+		stickPosition = cocos2d::Point::ZERO;
 		degrees = 0.0f;
-		velocity = Point::ZERO;
+		velocity = cocos2d::Point::ZERO;
 		autoCenter = true;
 		isDPad = false;
 		hasDeadzone = false;
@@ -45,7 +45,7 @@ float round(float r) {
     return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
 }
 
-void SneakyJoystick::updateVelocity(Point point)
+void SneakyJoystick::updateVelocity(cocos2d::Point point)
 {
 	// Calculate distance and angle from the center.
 	float dx = point.x;
@@ -53,7 +53,7 @@ void SneakyJoystick::updateVelocity(Point point)
 	float dSq = dx * dx + dy * dy;
 	
 	if(dSq <= deadRadiusSq){
-		velocity = Point::ZERO;
+		velocity = cocos2d::Point::ZERO;
 		degrees = 0.0f;
 		stickPosition = point;
 		return;
@@ -80,11 +80,11 @@ void SneakyJoystick::updateVelocity(Point point)
 		dy = sinAngle * joystickRadius;
 	}
 	
-	velocity = Point(dx/joystickRadius, dy/joystickRadius);
+	velocity = cocos2d::Point(dx/joystickRadius, dy/joystickRadius);
 	degrees = angle * SJ_RAD2DEG;
 	
 	// Update the thumb's position
-	stickPosition = Point(dx, dy);
+	stickPosition = cocos2d::Point(dx, dy);
 }
 
 void SneakyJoystick::setIsDPad(bool b)
@@ -114,9 +114,9 @@ void SneakyJoystick::setDeadRadius(float r)
 	deadRadiusSq = r*r;
 }
 
-bool SneakyJoystick::onTouchBegan(Touch *touch, Event *unused_event)
+bool SneakyJoystick::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	auto location = Director::getInstance()->convertToGL(touch->getLocationInView());
+	auto location = cocos2d::Director::getInstance()->convertToGL(touch->getLocationInView());
 	//if([background containsPoint:[background convertToNodeSpace:location]]){
 	location = this->convertToNodeSpace(location);
 	//Do a fast rect check before doing a circle hit check:
@@ -132,24 +132,24 @@ bool SneakyJoystick::onTouchBegan(Touch *touch, Event *unused_event)
 	return false;
 }
 
-void SneakyJoystick::onTouchMoved(Touch *touch, Event *unused_event)
+void SneakyJoystick::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	auto location = Director::getInstance()->convertToGL(touch->getLocationInView());
+	auto location = cocos2d::Director::getInstance()->convertToGL(touch->getLocationInView());
 	location = this->convertToNodeSpace(location);
 	this->updateVelocity(location);
 }
 
-void SneakyJoystick::onTouchEnded(Touch *touch, Event *unused_event)
+void SneakyJoystick::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	Point location = Point::ZERO;
+	cocos2d::Point location = cocos2d::Point::ZERO;
 	if(!autoCenter){
-		auto location = Director::getInstance()->convertToGL(touch->getLocationInView());
+		auto location = cocos2d::Director::getInstance()->convertToGL(touch->getLocationInView());
 		location = this->convertToNodeSpace(location);
 	}
 	this->updateVelocity(location);
 }
 
-void SneakyJoystick::onTouchCancelled(Touch *touch, Event *unused_event)
+void SneakyJoystick::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
 	this->onTouchEnded(touch, unused_event);
 }

@@ -40,6 +40,21 @@ std::string GameHelper::randomString( size_t length )
     return str;
 }
 
+std::string GameHelper::randomIntString( size_t length )
+{
+    srand((unsigned)time(0));
+    auto randchar = []() -> char
+    {
+        const char charset[] =
+        "0123456789";
+        const size_t max_index = (sizeof(charset) - 1);
+        return charset[ rand() % max_index ];
+    };
+    std::string str(length,0);
+    std::generate_n( str.begin(), length, randchar );
+    return str;
+}
+
 double GameHelper::vectorToDegree(cocos2d::Point point)
 {
     auto angle = std::atan(point.y/point.x);

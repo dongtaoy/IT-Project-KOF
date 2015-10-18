@@ -8,18 +8,17 @@
 
 #include "ChooseRoomScene.h"
 
-USING_NS_CC;
-using namespace ui;
-
 Scene* ChooseRoomScene::createScene()
 {
-    Multiplayer::getInstance()->resetAllListener();
+//    Multiplayer::getInstance()->resetAllListener();
     
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
     auto layer = ChooseRoomScene::create();
+    
+    layer->onRoomListUpdate();
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -38,47 +37,55 @@ bool ChooseRoomScene::init()
         return false;
     }
     
-    Multiplayer::getInstance()->setCallback(this);
     
-    Size visibleSize = Director::getInstance()->getWinSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    cocos2d::Size visibleSize = Director::getInstance()->getWinSize();
+    cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode(CHOOSE_ROOM_SCENE_FILE);
-    
+    node->setName(CHOOSE_ROOM_SCENE);
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BACKGROUND_PLIST);
     
     // back button
-    ui::Button* buttonBack = static_cast<ui::Button*>(node->getChildByName(BACK_BUTTON));
+    cocos2d::ui::Button* buttonBack = static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
     
     // create room button
-    ui::Button* buttonCreate = static_cast<ui::Button*>(node->getChildByName(CREATE_BUTTON));
+    cocos2d::ui::Button* buttonCreate = static_cast<cocos2d::ui::Button*>(node->getChildByName(CREATE_BUTTON));
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
     
     // search button
-    ui::Button* buttonSearch = static_cast<ui::Button*>(node->getChildByName(SEARCH_BUTTON));
+    cocos2d::ui::Button* buttonSearch = static_cast<cocos2d::ui::Button*>(node->getChildByName(SEARCH_BUTTON));
     buttonSearch->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::SearchRoom, this));
     
+    // quick join
+    cocos2d::ui::Button* buttonQuickJoin = static_cast<cocos2d::ui::Button*>(node->getChildByName(QUICK_JOIN_BUTTON));
+    buttonQuickJoin->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::buttonQuickJoinClicked, this));
     
-    ui::ListView* listRoom = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
-    Vector<Widget *> items = listRoom->getItems();
-    assert(items.front());
-    static_cast<ImageView*>(items.front())->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
+    cocos2d::ui::ListView* listRoom = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+    cocos2d::Vector<cocos2d::ui::Widget*> items = listRoom->getItems();
+    static_cast<cocos2d::ui::ImageView*>(items.front())->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
     listRoom->setItemModel(items.front());
     listRoom->removeItem(0);
-
     
-    Multiplayer::getInstance()->fetchRooms(this);
     
     
     this->addChild(node);
     
+    PhotonMultiplayer::getInstance()->setListener(this);
+    this->scheduleUpdate();
+    
     return true;
 }
 
-void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, Widget::TouchEventType type)
+void ChooseRoomScene::update(float dt)
 {
-    if (type == Widget::TouchEventType::ENDED)
+    PhotonMultiplayer::getInstance()->service();
+}
+
+void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto scene = MainMenuScene::createScene();
     
@@ -87,129 +94,98 @@ void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, Widget::TouchEventType typ
 }
 
 
-void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, Widget::TouchEventType type)
+void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if (type == Widget::TouchEventType::ENDED)
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing lobby...", 10.0f);
-        Multiplayer::unsubsribeLobby(this);
-    }
-}
-
-
-void ChooseRoomScene::onUnsubscribeLobbyDone() {
-    Multiplayer::leaveLobby(this);
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving lobby...", 20.0f);
-};
-
-void ChooseRoomScene::onLeaveLobbyDone(){
-    if (!Multiplayer::getInstance()->getRoomID().compare("")) {
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
         auto scene = CreateRoomScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-        return;
-    }
-    Multiplayer::joinRoom(this);
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 50.0f);
-}
-
-void ChooseRoomScene::OnSelectedItem(Ref* pSender, Widget::TouchEventType type){
-    if (type == Widget::TouchEventType::ENDED){
-        std::string roomID = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
-        
-        std::string bestof = static_cast<ImageView*>(pSender)->getChildByName<Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF)->getString();
-        
-        std::string background = *(std::string*)((static_cast<ImageView*>(pSender)->getChildByName<ImageView*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND)->getUserData()));
-        
-        Multiplayer::getInstance()->setBestof(std::atoi(bestof.c_str()));
-        Multiplayer::getInstance()->setBackground(background);
-        Multiplayer::getInstance()->setRoomID(roomID);
-        Multiplayer::unsubsribeLobby(this);
-        CCLOG("###########%s", this->getName().c_str());
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing lobby...", 10.0f);
-
     }
 }
 
 
-void ChooseRoomScene::onJoinRoomDone(){
+
+void ChooseRoomScene::OnSelectedItem(Ref* pSender, cocos2d::ui::Widget::TouchEventType type){
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED){
+        std::string roomID = static_cast<cocos2d::ui::ImageView*>(pSender)->getChildByName<cocos2d::ui::Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
+        PhotonMultiplayer::getInstance()->opJoinRoom(roomID);
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 50.0f);
+    }
+}
+
+
+void ChooseRoomScene::buttonQuickJoinClicked(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
+        PhotonMultiplayer::getInstance()->opJoinRandomRoom();
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "finding room...", 50.0f);
+    }
+}
+
+
+void ChooseRoomScene::onJoinRoomDone()
+{
     MultiplayerCallback::onJoinRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing room...", 60.0f);
-}
-
-void ChooseRoomScene::onSubscribeRoomDone(){
-    MultiplayerCallback::onSubscribeRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE", 100.0f);
     auto scene = ChooseCharacterScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
+void ChooseRoomScene::onJoinRoomFailed()
+{
+    MultiplayerCallback::onJoinRoomFailed();
+    MessageBox("Unable to find a room", "");
+    LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
+}
 
 // RoomRequestListner
-void ChooseRoomScene::onGetLiveRoomInfoDone(std::string roomId,
-                                            std::string owner,
+
+void ChooseRoomScene::onRoomListUpdate()
+{
+    auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+    cocos2d::ui::ListView* list = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+    list->removeAllItems();
+    std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>> roomList = PhotonMultiplayer::getInstance()->getRoomList();
+    for (int i = 0; i < roomList.size(); i++)
+    {
+        if (std::get<1>(roomList.at(i)) != 0 && std::get<1>(roomList.at(i)) != 2)
+            createRoomListEntry(std::get<0>(roomList.at(i)), std::get<1>(roomList.at(i)), std::get<2>(roomList.at(i)), std::get<3>(roomList.at(i)));
+    }
+}
+
+void ChooseRoomScene::createRoomListEntry(std::string roomId,
+                                            int nonUsers,
                                             int maxUsers,
-                                            std::string name,
-                                            std::string customData,
-                                            std::vector<std::string> users,
                                             std::map<std::string, std::string> properties)
 {
     
     auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
-    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+    assert(node);
+    cocos2d::ui::ListView* list = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     list->pushBackDefaultItem();
     auto item = list->getItems().back();
     // add room id
     static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->setString(roomId);
-    // BEST OF
-    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BESTOF))->setString(properties.find(ROOM_PROPERTY_BESTOF)->second);
     // status
-    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(users.size()) + "/" + std::to_string(maxUsers));
+    static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_STATUS))->setString(std::to_string(nonUsers) + "/" + std::to_string(maxUsers));
     // image
-    std::string filename = (boost::format(BACKGROUND_ICON_PATH) % properties.find(ROOM_PROPERTY_BACKGROUND)->second).str();
+    std::string filename = fmt::format(BACKGROUND_ICON_PATH, properties.find(ROOM_PROPERTY_BACKGROUND)->second);
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->loadTexture(filename, ui::Widget::TextureResType::PLIST);
-    
     std::string* background = new std::string(properties.find(ROOM_PROPERTY_BACKGROUND)->second);
-    
     static_cast<ui::ImageView*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_BACKGROUND))->setUserData(background);
     
 }
 
-void ChooseRoomScene::SearchRoom(Ref* pSender, Widget::TouchEventType type)
+void ChooseRoomScene::SearchRoom(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if (type == Widget::TouchEventType::ENDED){
+    if (type == cocos2d::ui::Widget::TouchEventType::ENDED){
         auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
         auto sprite = static_cast<ui::ImageView*>(node->getChildByName(CHOOSE_ROOM_SCENE_SPRITE_SEARCH));
 	    auto textSearch = static_cast<ui::TextField*>(sprite->getChildByName(CHOOSE_ROOM_SCENE_TEXT_SEARCH));
-	    
-	    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
-	    for (int i =0 ; i < list->getItems().size(); i++ ){
-	        auto item = list->getItem(i);
-	        std::string id = static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->getString();
-	        if(!(id.compare(textSearch->getString()))){
-	            OnSelectedItem(item, Widget::TouchEventType::ENDED);
-	            return;
-	        }
-	    }
-	    MessageBox("", "Room ID does not exist!");
-	    
-	    CCLOG("%s",textSearch->getString().c_str());
+        PhotonMultiplayer::getInstance()->opJoinRoom(textSearch->getString());
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "finding room...", 50.0f);
     }
 }
-
-void ChooseRoomScene::onRoomDestroyed(std::string roomID){
-    auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
-    ui::ListView* list = static_cast<ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
-    for (int i =0 ; i < list->getItems().size(); i++ ){
-        auto item = list->getItem(i);
-        std::string id = static_cast<ui::Text*>(item->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID))->getString();
-        if(!(id.compare(roomID))){
-            list->removeItem(i);
-            return;
-        }
-    }
-}
-
 
 
 

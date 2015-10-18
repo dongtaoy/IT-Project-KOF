@@ -9,18 +9,19 @@
 #ifndef __KOF__ChooseRoomScene__
 #define __KOF__ChooseRoomScene__
 
+//#include <boost/format.hpp>
+#include "MainMenuScene.h"
+#include "format.h"
+
 #include <stdio.h>
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "CocosGUI.h"
 
 #include "Definitions.h"
-#include "MainMenuScene.h"
 #include "CreateRoomScene.h"
 #include "ChooseCharacterScene.h"
-#include "Multiplayer.h"
-
-#include "appwarp.h"
+#include "MultiplayerCallback.h"
 
 
 class ChooseRoomScene : public Layer, public MultiplayerCallback
@@ -42,33 +43,27 @@ private:
     
     bool isFirstTimeLaunch;
     
-    void GotoMainMenuScene(Ref*, ui::Widget::TouchEventType);
+    void GotoMainMenuScene(Ref*, cocos2d::ui::Widget::TouchEventType);
     
-    void GotoCreateRoomScene(Ref*, ui::Widget::TouchEventType);
+    void GotoCreateRoomScene(Ref*, cocos2d::ui::Widget::TouchEventType);
     
-    void OnSelectedItem(Ref* pSender, ui::Widget::TouchEventType);
+    void OnSelectedItem(Ref* pSender, cocos2d::ui::Widget::TouchEventType);
     
+    void buttonQuickJoinClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType);
     
-    void onUnsubscribeLobbyDone();
-    void onLeaveLobbyDone();
-//    
     // RoomRequestListner
-    void onGetLiveRoomInfoDone(std::string roomId,
-                               std::string owner,
-                               int maxUsers,
-                               std::string name,
-                               std::string customData,
-                               std::vector<std::string> users,
-                               std::map<std::string, std::string> properties);
+    void onRoomListUpdate();
+    void createRoomListEntry(std::string roomId,
+                             int nonUsers,
+                             int maxUsers,
+                             std::map<std::string, std::string> properties);
     
     void onJoinRoomDone();
-    void onSubscribeRoomDone();
-    void onRoomDestroyed(std::string);
-    
+    void onJoinRoomFailed();
     // Search Roomt
-    void SearchRoom(Ref*, ui::Widget::TouchEventType);
+    void SearchRoom(Ref*, cocos2d::ui::Widget::TouchEventType);
     
-    
+    void update(float);
 
 };
 

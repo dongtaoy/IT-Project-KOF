@@ -9,17 +9,21 @@
 #ifndef __KOF__ChooseCharacterScene__
 #define __KOF__ChooseCharacterScene__
 
+
+
+#include "PhotonMultiplayer.hpp"
+
 #include <stdio.h>
 #include "cocos2d.h"
-#include "Definitions.h"
-#include "ChooseRoomScene.h"
 #include "cocostudio/CocoStudio.h"
-#include "GameHelper.h"
+#include "CocosGUI.h"
+
+#include "format.h"
+
+#include "Definitions.h"
+#include "LoadingLayer.h"
+#include "ChooseRoomScene.h"
 #include "GamePlayScene.h"
-#include "Multiplayer.h"
-#include "MultiplayerCallback.h"
-#include <boost/format.hpp>
-#include <boost/lockfree/queue.hpp>
 
 
 class ChooseCharacterScene : public cocos2d::Layer, public MultiplayerCallback
@@ -62,7 +66,7 @@ private:
     void RemoveSelectedBorder(std::string);
     void ShowSelectedCharacter(std::string, bool);
     
-#pragma mark listeners
+#pragma mark buttons
     void ButtonReadyClicked(Ref*, ui::Widget::TouchEventType);
     void ButtonGoClicked(Ref*, ui::Widget::TouchEventType);
     void CharacterClicked(Ref*, ui::Widget::TouchEventType);
@@ -71,13 +75,15 @@ private:
 #pragma mark loop
     void StartGame();
     void update(float);
-    void processCommand(command_t);
     
 #pragma mark listeners
     void onLeaveRoomDone();
-    void onUnsubscribeRoomDone();
-    void onJoinLobbyDone();
-    void onSubscribeLobbyDone();
+    
+    void joinRoomEventAction();
+    void leaveRoomEventAction();
+    void customEventAction(command_t);
+    
+    void onPlayerPropertiesChange();
 };
 
 #endif /* defined(__KOF__ChooseCharacterScene__) */

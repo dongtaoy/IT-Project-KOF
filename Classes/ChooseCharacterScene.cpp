@@ -8,9 +8,6 @@
 
 #include "ChooseCharacterScene.h"
 
-USING_NS_CC;
-using namespace ui;
-
 #pragma mark init
 Scene* ChooseCharacterScene::createScene()
 {
@@ -44,27 +41,29 @@ bool ChooseCharacterScene::init()
     this->opponentReady = false;
     
     
-    Size visibleSize = Director::getInstance()->getWinSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    cocos2d::Size visibleSize = Director::getInstance()->getWinSize();
+    cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode(CHOOSE_CHARACTER_SCENE_FILE);
     node->setName(CHOOSE_CHARACTER_SCENE);
     
-    Button* buttonBack = static_cast<Button*>(node->getChildByName(BACK_BUTTON));
+    cocos2d::ui::Button* buttonBack = static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
     
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonBackClicked, this));
     
-    node->getChildByName<Text*>(CHOOSE_CHARACTER_SCENE_ROOMID)->setString(Multiplayer::getInstance()->getRoomID());
+    node->getChildByName<cocos2d::ui::Text*>(CHOOSE_CHARACTER_SCENE_ROOMID)->setString(PhotonMultiplayer::getInstance()->getRoomID());
     
     for(int i = 1 ; i <= 6 ; i ++)
     {
-        ImageView* image = static_cast<ImageView*>(node->getChildByName(CHOOSE_CHARACTER_SCENE_CHARACTER_PREFIX+std::to_string(i)));
+        cocos2d::ui::ImageView* image = static_cast<cocos2d::ui::ImageView*>(node->getChildByName(CHOOSE_CHARACTER_SCENE_CHARACTER_PREFIX+std::to_string(i)));
         image->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::CharacterClicked, this));
     }
     
-    node->getChildByName<Button*>(CHOOSE_CHARACTER_SCENE_READY_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonReadyClicked, this));
-    node->getChildByName<Button*>(CHOOSE_CHARACTER_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonGoClicked, this));
+    node->getChildByName<cocos2d::ui::Button*>(CHOOSE_CHARACTER_SCENE_READY_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonReadyClicked, this));
+    node->getChildByName<cocos2d::ui::Button*>(CHOOSE_CHARACTER_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonGoClicked, this));
     this->addChild(node);
+    
+    PhotonMultiplayer::getInstance()->setListener(this);
     this->scheduleUpdate();
     return true;
 }
@@ -134,35 +133,40 @@ void ChooseCharacterScene::setOpponentReady(bool value)
 
 
 #pragma mark buttons / events
-void ChooseCharacterScene::CharacterClicked(Ref* pSender, Widget::TouchEventType type)
+void ChooseCharacterScene::CharacterClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if(type == Widget::TouchEventType::ENDED){
-        Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, static_cast<Node*>(pSender)->getName());
-        Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY);
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
+        
+        setPlayerSelected(static_cast<Node*>(pSender)->getName());
+        PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, static_cast<Node*>(pSender)->getName());
     }
 }
 
-void ChooseCharacterScene::ButtonBackClicked(Ref* pSender, Widget::TouchEventType type)
+void ChooseCharacterScene::ButtonBackClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if(type == Widget::TouchEventType::ENDED){
-        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 20.0f);
-        Multiplayer::getInstance()->unsubsribeRoom(this);
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
+//                PhotonMultiplayer::getInstance()->sendEvent(1, 1, "", true);
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 50.0f);
+        PhotonMultiplayer::getInstance()->opLeaveRoom();
     }
 }
 
-void ChooseCharacterScene::ButtonGoClicked(Ref* pSender, Widget::TouchEventType type)
+void ChooseCharacterScene::ButtonGoClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if(type == Widget::TouchEventType::ENDED)
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY, playerSelected);
+        setPlayerReady(false);
+        PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_NOTREADY, playerSelected);
     }
 }
 
-void ChooseCharacterScene::ButtonReadyClicked(Ref* pSender, Widget::TouchEventType type)
+void ChooseCharacterScene::ButtonReadyClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-    if(type == Widget::TouchEventType::ENDED)
-        Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_READY, playerSelected);
+    if(type == cocos2d::ui::Widget::TouchEventType::ENDED)
+    {
+        setPlayerReady(true);
+        PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_READY, playerSelected);
+    }
     
 }
 
@@ -172,9 +176,9 @@ void ChooseCharacterScene::CheckBothReady()
 {
     if(opponentReady && playerReady)
     {
-        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Loading...", 15.0f);
-        Multiplayer::sendChat(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME);
+        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "waiting for player...", 20.0f);
+        PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME, "", true);
+//        StartGame();
     }
 }
 
@@ -182,7 +186,7 @@ void ChooseCharacterScene::CheckBothReady()
 void ChooseCharacterScene::SetGoButtonVisible(bool visible, bool left)
 {
     std::string name = left ? CHOOSE_CHARACTER_SCENE_GO_L : CHOOSE_CHARACTER_SCENE_GO_R;
-    auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<Button*>(name);
+    auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<cocos2d::ui::Button*>(name);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
     
@@ -191,7 +195,7 @@ void ChooseCharacterScene::SetGoButtonVisible(bool visible, bool left)
 void ChooseCharacterScene::SetReadyButtonVisible(bool visible, bool left)
 {
     std::string name = left ? CHOOSE_CHARACTER_SCENE_READY_L : CHOOSE_CHARACTER_SCENE_READY_R;
-    auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<Button*>(name);
+    auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<cocos2d::ui::Button*>(name);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
 }
@@ -211,11 +215,11 @@ void ChooseCharacterScene::ResetGoReadyButton()
 void ChooseCharacterScene::ShowSelectedCharacter(std::string name, bool left)
 {
     std::string place = left ? CHOOSE_CHARACTER_SCENE_PLAYER_ICON_HOLDER : CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER;
-    ImageView* image = static_cast<ImageView*>(this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(place));
+    cocos2d::ui::ImageView* image = static_cast<cocos2d::ui::ImageView*>(this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(place));
     assert(image);
     image->setVisible(true);
-    std::string filename = (boost::format(CHARACTER_ICON_BIG_PATH) % name).str();
-    image->loadTexture(filename, Widget::TextureResType::PLIST);
+    std::string filename = fmt::format(CHARACTER_ICON_BIG_PATH, name);
+    image->loadTexture(filename, cocos2d::ui::Widget::TextureResType::PLIST);
 }
 
 
@@ -236,157 +240,93 @@ void ChooseCharacterScene::RemoveSelectedBorder(std::string name)
 
 
 #pragma mark callbacks
-void ChooseCharacterScene::onUnsubscribeRoomDone()
-{
-    MultiplayerCallback::onUnsubscribeRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 40.0f);
-}
-
 
 void ChooseCharacterScene::onLeaveRoomDone()
 {
     MultiplayerCallback::onLeaveRoomDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "join lobby...", 60.0f);
-    Multiplayer::joinLobby(this);
-    
-}
-
-
-void ChooseCharacterScene::onJoinLobbyDone()
-{
-    MultiplayerCallback::onJoinLobbyDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "subscribing lobby...", 80.0f);
-    Multiplayer::subscribeLobby(this);
-}
-
-
-void ChooseCharacterScene::onSubscribeLobbyDone()
-{
-    MultiplayerCallback::onSubscribeLobbyDone();
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
+    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 
+void ChooseCharacterScene::joinRoomEventAction()
+{
+    MultiplayerCallback::joinRoomEventAction();
+    PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, playerSelected);
+    ResetGoReadyButton();
+    this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);
+}
+
+void ChooseCharacterScene::leaveRoomEventAction()
+{
+    MultiplayerCallback::leaveRoomEventAction();
+    ResetGoReadyButton();
+    this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(true);
+    this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
+}
+
+void ChooseCharacterScene::onPlayerPropertiesChange()
+{
+    MultiplayerCallback::onPlayerPropertiesChange();
+//    StartGame();
+}
+
+
+void ChooseCharacterScene::customEventAction(command_t event)
+{
+    MultiplayerCallback::customEventAction(event);
+    switch (event.operation) {
+        case OP_CCS_CHARACTER_CHANGED:
+                setOpponentSelected(event.properties);
+            break;
+        case OP_CCS_READY:
+            setOpponentSelected(event.properties);
+            setOpponentReady(true);
+            break;
+    
+        case OP_CCS_NOTREADY:
+                setOpponentSelected(event.properties);
+                setOpponentReady(false);
+            break;
+    
+        case OP_CCS_START_GAME:
+            if (!isGameStart)
+                StartGame();
+            
+            break;
+                
+        default:
+            break;
+    }
+}
 
 #pragma mark loop
 void ChooseCharacterScene::update(float dt)
 {
+    PhotonMultiplayer::getInstance()->service();
     
-    if (!Multiplayer::getInstance()->isCommandsEmpty())
-    {
-        processCommand(Multiplayer::getInstance()->popCommands());
-    }
-    
-}
-
-void ChooseCharacterScene::processCommand(command_t command)
-{
-    if (!Multiplayer::isCommandValid(MP_CHOOSE_CHARACTER_SCENE, command))
-        return;
-        
-    if(command.sender.compare(Multiplayer::getInstance()->getUsername()))
-    {
-        this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);
-        Multiplayer::getInstance()->setOpponentUsername(command.sender);
-    }
-    
-    switch (command.operation) {
-        case OP_CCS_CHARACTER_CHANGED:
-            if (!command.sender.compare(Multiplayer::getInstance()->getUsername()))
-                setPlayerSelected(command.properties);
-            else
-                setOpponentSelected(command.properties);
-            break;
-            
-        case OP_CCS_READY:
-            if (!command.sender.compare(Multiplayer::getInstance()->getUsername()))
-            {
-                setPlayerSelected(command.properties);
-                setPlayerReady(true);
-            }
-            else
-            {
-                setOpponentSelected(command.properties);
-                setOpponentReady(true);
-            }
-            break;
-            
-        case OP_CCS_NOTREADY:
-            if (!command.sender.compare(Multiplayer::getInstance()->getUsername()))
-            {
-                setPlayerSelected(command.properties);
-                setPlayerReady(false);
-            }
-            else
-            {
-                setPlayerSelected(command.properties);
-                setOpponentReady(false);
-            }
-            break;
-        
-        case OP_GB_USER_JOINED:
-            if (command.sender.compare(Multiplayer::getInstance()->getUsername()))
-            {
-                ResetGoReadyButton();
-                this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);
-                Multiplayer::getInstance()->setOpponentUsername(command.sender);
-            }
-            
-            break;
-            
-        case OP_GB_USER_LEFT:
-            if (command.sender.compare(Multiplayer::getInstance()->getUsername()))
-            {
-                Multiplayer::getInstance()->setOpponentUsername("");
-                ResetGoReadyButton();
-                this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(true);
-                this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER)->setVisible(false);
-            }
-            break;
-        
-        case OP_CCS_START_GAME:
-            if (!isGameStart) {
-                StartGame();
-            }
-            break;
-            
-        default:
-            break;
-    }
 }
 
 
 #pragma mark start game
 void ChooseCharacterScene::StartGame()
 {
+    if (isGameStart)
+        return;
+    
     isGameStart = true;
-    LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
     
+    PhotonMultiplayer::getInstance()->setRoomIsOpen(false);
+    PhotonMultiplayer::getInstance()->setPlayerCharactor(playerSelected);
+    PhotonMultiplayer::getInstance()->setOpponentCharactor(opponentSelected);
     
-    Multiplayer::getInstance()->setUserCharacter(playerSelected);
-    Multiplayer::getInstance()->setOpponentCharacter(opponentSelected);
-    
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "suiting up characters...", 35.0f);
-    
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % playerSelected ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % playerSelected).str());
-    
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(CHARACTER_SPRITE_PATH) % opponentSelected ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(CHARACTER_ANIMATION_PATH) % opponentSelected).str());
-    
-    
-    // TODO: CHANGE IT AFTER FINISH ANIMATIONS
-    LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "loading bacground...", 70.0f);
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile((boost::format(BACKGROUND_SPRITE_PATH) % Multiplayer::getInstance()->getBackground() ).str());
-    AnimationCache::getInstance()->addAnimationsWithFile((boost::format(BACKGROUND_ANIMATION_PATH) % Multiplayer::getInstance()->getBackground() ).str());
     
     
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
     auto scene = GamePlayScene::createScene();
     Director::getInstance()->replaceScene(scene);
-
+    
 }
 
 
@@ -436,10 +376,3 @@ void ChooseCharacterScene::StartGame()
 //    }
 //}
 //
-
-
-
-
-
-
-
