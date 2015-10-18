@@ -72,10 +72,10 @@ public:
     bool isStand();
     bool isSquat();
     bool isActionStoppable();
-    bool canMove(cocos2d::Vec2);
     bool isHit();
     
     bool isNextAction();
+    bool checkBoundary(cocos2d::Vec2);
    
     
 };

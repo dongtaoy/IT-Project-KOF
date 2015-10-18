@@ -9,10 +9,6 @@
 #ifndef KOF_Definitions_h
 #define KOF_Definitions_h
 
-#define APPWARP_APP_KEY                 "10672fd365d93fc814eb81b83f281d13d867485180e0e68cc255ac3e5e4b0162"
-#define APPWARP_SECRET_KEY              "1a05138df28bca585f7405481055f9e51b9f65d8d92469b4377812455cdb92a8"
-#define GAME_NAME                       "KOFUnimelb"
-
 // GOBAL
 #define BORDER_SELECTED                 "selected"
 #define BORDER_UNSELECTED               "unselected"
@@ -122,19 +118,19 @@
 #define GAME_PLAY_SCENE_BUTTON_A_NORMAL "Resources/a.png"
 #define GAME_PLAY_SCENE_BUTTON_A_PRESSED "Resources/a_c.png"
 #define GAME_PLAY_SCENE_BUTTON_A_X      0.7f
-#define GAME_PLAY_SCENE_BUTTON_A_Y      0.3f
+#define GAME_PLAY_SCENE_BUTTON_A_Y      0.35f
 #define GAME_PLAY_SCENE_BUTTON_B_NORMAL "Resources/b.png"
 #define GAME_PLAY_SCENE_BUTTON_B_PRESSED "Resources/b_c.png"
 #define GAME_PLAY_SCENE_BUTTON_B_X      0.85f
-#define GAME_PLAY_SCENE_BUTTON_B_Y      0.3f
+#define GAME_PLAY_SCENE_BUTTON_B_Y      0.35f
 #define GAME_PLAY_SCENE_BUTTON_C_NORMAL "Resources/c.png"
 #define GAME_PLAY_SCENE_BUTTON_C_PRESSED "Resources/c_c.png"
 #define GAME_PLAY_SCENE_BUTTON_C_X      0.75f
-#define GAME_PLAY_SCENE_BUTTON_C_Y      0.1f
+#define GAME_PLAY_SCENE_BUTTON_C_Y      0.15f
 #define GAME_PLAY_SCENE_BUTTON_D_NORMAL "Resources/d.png"
 #define GAME_PLAY_SCENE_BUTTON_D_PRESSED "Resources/d_d.png"
 #define GAME_PLAY_SCENE_BUTTON_D_X      0.9f
-#define GAME_PLAY_SCENE_BUTTON_D_Y      0.1f
+#define GAME_PLAY_SCENE_BUTTON_D_Y      0.15f
 
 
 

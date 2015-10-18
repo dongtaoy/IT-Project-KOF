@@ -22,32 +22,7 @@ Fighter::Fighter(cocos2d::Sprite* sprite, cocos2d::ui::LoadingBar* health , std:
 
 void Fighter::update(float)
 {
-    auto visibleSize = cocos2d::Director::getInstance()->getWinSize();
-    auto playerBox = this->getBoundingBox();
-    auto opponentBox = opponent->getBoundingBox();
-    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
     
-    // background size
-    if (this->getPosition().x - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
-    {
-        this->setPosition(cocos2d::Vec2((playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET , this->getPosition().y));
-    }
-    if (this->getPosition().x + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
-    {
-        this->setPosition(cocos2d::Vec2(backgroundbox.width - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET, this->getPosition().y));
-    }
-    
-    
-    // screen size
-    if (this->getScreenPosition().x - SCREEN_FIGHTER_OFFSET < 0)
-    {
-        this->setPosition(cocos2d::Vec2(this->sprite->getParent()->convertToNodeSpace(cocos2d::Vec2(SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
-    }
-    
-    if (this->getScreenPosition().x + SCREEN_FIGHTER_OFFSET > visibleSize.width)
-    {
-        this->setPosition(cocos2d::Vec2(this->sprite->getParent()->convertToNodeSpace(cocos2d::Vec2(visibleSize.width - SCREEN_FIGHTER_OFFSET, 0)).x,getPosition().y));
-    }
 }
 
 
@@ -199,9 +174,12 @@ void Fighter::stand_moveback()
         animateForever->setTag(ANIMATION_ACTION_1_STAND_MOVEBACK);
         this->sprite->runAction(animateForever);
     }
-    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(-30, 0));
-    moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
-    this->sprite->runAction(moveBy);
+    if (checkBoundary(cocos2d::Vec2(-30, 0)))
+    {
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(-30, 0));
+        moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
+        this->sprite->runAction(moveBy);
+    }
 }
 
 
@@ -216,9 +194,12 @@ void Fighter::stand_moveforward()
         animateForever->setTag(ANIMATION_ACTION_1_STAND_MOVEFORWARD);
         this->sprite->runAction(animateForever);
     }
-    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(30, 0));
-    moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
-    this->sprite->runAction(moveBy);
+    if (checkBoundary(cocos2d::Vec2(30, 0)))
+    {
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(30, 0));
+        moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
+        this->sprite->runAction(moveBy);
+    }
 }
 
 
@@ -307,9 +288,12 @@ void Fighter::squat_moveback()
         animateForever->setTag(ANIMATION_ACTION_1_SQUAT_MOVEBACK);
         this->sprite->runAction(animateForever);
     }
-    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH) / 1000, cocos2d::Vec2(-35, 0));
-    moveBy->setTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK);
-    this->sprite->runAction(moveBy);
+    if (checkBoundary(cocos2d::Vec2(-35, 0)))
+    {
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH) / 1000, cocos2d::Vec2(-35, 0));
+        moveBy->setTag(OP_GPS_ACTION_1_SQUAT_MOVEBACK);
+        this->sprite->runAction(moveBy);
+    }
 }
 
 void Fighter::squat_moveforward()
@@ -326,10 +310,13 @@ void Fighter::squat_moveforward()
         animateForever->setTag(ANIMATION_ACTION_1_SQUAT_MOVEFORWARD);
         this->sprite->runAction(animateForever);
     }
-    auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH) / 1000, cocos2d::Vec2(+35, 0));
-    moveBy->setTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
-    this->sprite->runAction(moveBy);
-    
+    if (checkBoundary(cocos2d::Vec2(+35, 0)))
+    {
+        auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH) / 1000, cocos2d::Vec2(+35, 0));
+        moveBy->setTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD);
+        this->sprite->runAction(moveBy);
+    }
+
 //    if(!(this->sprite->getActionByTag(OP_GPS_ACTION_1_SQUAT_MOVEFORWARD)) && isActionStoppable())
 //    {
 //        this->physicsSprite->stopAllActions();
@@ -648,6 +635,29 @@ void Fighter::setHealthPercentage(float p)
 float Fighter::getHealthPercentage()
 {
     return this->gethealth()->getPercent();
+}
+
+bool Fighter::checkBoundary(cocos2d::Vec2 d)
+{
+    auto ox = opponent->getPosition().x;
+    auto px = getPosition().x + d.x;
+    auto backgroundbox = this->getSprite()->getParent()->getContentSize();
+    auto playerBox = this->getBoundingBox();
+    auto opponentBox = opponent->getBoundingBox();
+    
+    if (px + (playerBox.size.width / 2) + CAMERA_FIGHTER_OFFSET > backgroundbox.width)
+        return false;
+    
+    if (px - (playerBox.size.width / 2) - CAMERA_FIGHTER_OFFSET < 0)
+        return false;
+    
+    CCLOG("%f %f %f", px, px, std::abs(ox - px));
+    if (std::abs(ox - px) > 650)
+        return false;
+    
+    if (std::abs(ox - px) < (playerBox.size.width / 2) + (opponentBox.size.width / 2) - SCREEN_FIGHTER_OFFSET)
+        return false;
+    return true;
 }
 
 

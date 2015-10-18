@@ -431,14 +431,18 @@ void GamePlayScene::createJoystick()
     int joystickOffsetX = 160;
     int joystickOffsetY = 140;
     
-    cocos2d::Rect joystickBaseDimensions = cocos2d::Rect(0, 0, 30.0f, 30.0f);
+    cocos2d::Rect joystickBaseDimensions = cocos2d::Rect(0, 0, 100.0f, 100.0f);
     cocos2d::Point joystickBasePosition  = cocos2d::Point(origin.x + (joystickBaseDimensions.size.width / 2) + joystickOffsetX, origin.y + (joystickBaseDimensions.size.height / 2) + joystickOffsetY);
     
     SneakyJoystickSkinnedBase* joystckbase = SneakyJoystickSkinnedBase::create();
     joystick = new SneakyJoystick();
     joystick->initWithRect(joystickBaseDimensions);
-    joystckbase->setBackgroundSprite(Sprite::create(GAME_PLAY_SCENE_JOYSTICK_BASE));
-    joystckbase->setThumbSprite(Sprite::create(GAME_PLAY_SCENE_JOYSTICK));
+    auto joystckBackground = Sprite::create(GAME_PLAY_SCENE_JOYSTICK_BASE);
+    joystckBackground->setScale(1.2);
+    joystckbase->setBackgroundSprite(joystckBackground);
+    auto joystckbaseThumb = Sprite::create(GAME_PLAY_SCENE_JOYSTICK);
+    joystckbaseThumb->setScale(1.2);
+    joystckbase->setThumbSprite(joystckbaseThumb);
     joystckbase->setJoystick(joystick);
     joystckbase->setPosition(joystickBasePosition);
     this->addChild(joystckbase);
@@ -448,19 +452,24 @@ void GamePlayScene::createJoystick()
 SneakyButton* GamePlayScene::createButtons(std::string normal, std::string pressed, Vec2 pos)
 {
     cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getWinSize();
-    // button A
     auto buttonBase = SneakyButtonSkinnedBase::create();
     auto button = new SneakyButton();
     
-    auto buttonRect = cocos2d::Rect(0, 0, 30.f, 30.f);
+    auto buttonRect = cocos2d::Rect(0, 0, 100.f, 100.f);
     auto buttonPos = cocos2d::Point(visibleSize.width * pos.x, visibleSize.height * pos.y);
     
     button->initWithRect(buttonRect);
     button->setIsHoldable(true);
     buttonBase->setPosition(buttonPos);
-    buttonBase->setDefaultSprite(Sprite::create(normal));
-    buttonBase->setActivatedSprite(Sprite::create(normal));
-    buttonBase->setPressSprite(Sprite::create(pressed));
+    auto normalSprite = Sprite::create(normal);
+    normalSprite->setScale(1.2);
+    buttonBase->setDefaultSprite(normalSprite);
+    auto activatedSprite = Sprite::create(normal);
+    activatedSprite->setScale(1.2);
+    buttonBase->setActivatedSprite(activatedSprite);
+    auto pressedSprite = Sprite::create(pressed);
+    pressedSprite->setScale(1.2);
+    buttonBase->setPressSprite(pressedSprite);
     buttonBase->setButton(button);
     this->addChild(buttonBase);
     return button;
