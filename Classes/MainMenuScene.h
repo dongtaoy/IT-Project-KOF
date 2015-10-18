@@ -56,6 +56,10 @@ private:
     //TODO: comments
     void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
+    void facebookClicked(cocos2d::Ref*, ui::Widget::TouchEventType type);
+    
+    void twitterClicked(cocos2d::Ref*, ui::Widget::TouchEventType type);
+    
     
     // ConnectionRequestListener
     void onConnectDone();

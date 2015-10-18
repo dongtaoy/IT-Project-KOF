@@ -58,7 +58,7 @@ public:
     CC_SYNTHESIZE(int, accumilatedTime, AccumilatedTime);
     CC_SYNTHESIZE(int, prevOperation, PrevOperation);
     CC_SYNTHESIZE(cocos2d::PhysicsWorld*, world, World);
-    
+    CC_SYNTHESIZE(bool, isGameOver, isGameOver);
     
     unsigned long lockstepId;
     int gameFrame;
@@ -102,6 +102,7 @@ private:
     void leaveRoomEventAction();
     void customEventAction(command_t);
     
+    void gameOver(float);
     
 };
 
