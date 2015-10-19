@@ -15,6 +15,7 @@
 #include "CocosGUI.h"
 #include "format.h"
 #include "GameHelper.h"
+#include "SimpleAudioEngine.h"
 
 class Fighter
 {
@@ -76,7 +77,7 @@ public:
     
     bool isNextAction();
     bool checkBoundary(cocos2d::Vec2);
-   
+    
     
 };
 

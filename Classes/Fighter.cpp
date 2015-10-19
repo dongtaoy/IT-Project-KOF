@@ -159,6 +159,7 @@ void Fighter::stand_hit()
     auto sequence = cocos2d::Sequence::create(spawn, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
     this->sprite->runAction(sequence);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
 
 }
 
@@ -297,6 +298,7 @@ void Fighter::squat_hit()
     auto sequence = cocos2d::Sequence::create(spawn, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
     this->sprite->runAction(sequence);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
 }
 
 
@@ -373,6 +375,8 @@ void Fighter::start()
     auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
     this->sprite->runAction(sequence);
     
+    //start sound effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_START_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::win()
@@ -383,6 +387,9 @@ void Fighter::win()
     auto animateForever = cocos2d::RepeatForever::create(animate);
     animateForever->setTag(OP_GPS_ACTION_3_WIN);
     this->sprite->runAction(animateForever);
+    
+    //win sound effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_WIN_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::die()
@@ -397,6 +404,9 @@ void Fighter::die()
     auto sequence = cocos2d::Sequence::create(cocos2d::CallFunc::create(func), animate, NULL);
     sequence->setTag(OP_GPS_ACTION_3_DIE);
     this->sprite->runAction(sequence);
+    
+    //die sound effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_DIE_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::kick1()
@@ -417,9 +427,11 @@ void Fighter::kick1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -442,13 +454,13 @@ void Fighter::kick1()
             sequence->setTag(OP_GPS_ACTION_2_SQUAT_KICK1);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
-    
+    //play kick effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_KICK_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::kick2()
 {
-    
-        cocos2d::Animation* animation = NULL;
+            cocos2d::Animation* animation = NULL;
         if (!isSquat())
             animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_KICK2, name));
         else
@@ -463,9 +475,11 @@ void Fighter::kick2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -489,6 +503,10 @@ void Fighter::kick2()
             sequence->setTag(OP_GPS_ACTION_2_SQUAT_KICK2);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
+    //play kick effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_KICK_SOUNDEFFECT, name).c_str(),false);
+
+    
     
 }
 
@@ -510,9 +528,11 @@ void Fighter::punch1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -536,6 +556,9 @@ void Fighter::punch1()
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
     
+    //punch sound effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_PUNCH_SOUNDEFFECT, name).c_str(),false);
+    
 }
 
 void Fighter::punch2()
@@ -556,9 +579,11 @@ void Fighter::punch2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
+                    playHitSoundEffect();
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
+                    playHitSoundEffect();
                 }
             }
         };
@@ -581,6 +606,10 @@ void Fighter::punch2()
             sequence->setTag(OP_GPS_ACTION_2_SQUAT_PUNCH2);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
+    
+    
+    //punch sound effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_PUNCH_SOUNDEFFECT, name).c_str(),false);
     
 }
 
@@ -686,5 +715,4 @@ bool Fighter::checkBoundary(cocos2d::Vec2 d)
         return false;
     return true;
 }
-
 

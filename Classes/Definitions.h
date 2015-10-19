@@ -59,6 +59,13 @@
 #define CHARACTER_STAND_PUNCH1          "{0}/stand_punch1"
 #define CHARACTER_STAND_PUNCH2          "{0}/stand_punch2"
 
+#define CHARACTER_KICK_SOUNDEFFECT      "music/soundEffect/{0}/kick.wav"
+#define CHARACTER_PUNCH_SOUNDEFFECT     "music/soundEffect/{0}/punch.wav"
+#define CHARACTER_DIE_SOUNDEFFECT       "music/soundEffect/{0}/die.wav"
+#define CHARACTER_HIT_SOUNDEFFECT       "music/soundEffect/{0}/hit.wav"
+#define CHARACTER_START_SOUNDEFFECT     "music/soundEffect/{0}/start.wav"
+#define CHARACTER_WIN_SOUNDEFFECT       "music/soundEffect/{0}/win.wav"
+
 
 #define CHARACTER_START                 "{0}/start"
 #define CHARACTER_WIN                   "{0}/win"
@@ -133,6 +140,7 @@
 #define GAME_PLAY_SCENE_BUTTON_D_PRESSED "Resources/d_d.png"
 #define GAME_PLAY_SCENE_BUTTON_D_X      0.9f
 #define GAME_PLAY_SCENE_BUTTON_D_Y      0.15f
+#define GMAE_PLAY_SCENE_COMPARE_SUCCESS         0
 
 
 
@@ -169,6 +177,12 @@
 //#define OP_GPS_STAND_MOVEFORWARD            5
 //#define OP_GPS_STAND_MOVEBACK               6
 //#define OP_GPS_STAND                        7
+
+//Setting
+#define SETTING_SCENE_PERCENTAGE            0.01
+
+
+
 
 
 // Fighter
