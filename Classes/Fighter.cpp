@@ -145,6 +145,7 @@ void Fighter::stand_hit()
     auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
     this->sprite->runAction(sequence);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
 
 }
 
@@ -269,6 +270,7 @@ void Fighter::squat_hit()
     auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
     this->sprite->runAction(sequence);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
 }
 
 
@@ -345,34 +347,8 @@ void Fighter::start()
     auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
     this->sprite->runAction(sequence);
     
-    //win sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/win.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/win.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/win.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/win.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/win.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/win.wav",false);
-    }
+    //start sound effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_START_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::win()
@@ -385,33 +361,7 @@ void Fighter::win()
     this->sprite->runAction(animateForever);
     
     //win sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/win.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/win.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/win.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/win.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/win.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/win.wav",false);
-    }
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_WIN_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::die()
@@ -428,33 +378,7 @@ void Fighter::die()
     this->sprite->runAction(sequence);
     
     //die sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/die.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/die.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/die.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/die.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/die.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/die.wav",false);
-    }
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_DIE_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::kick1()
@@ -502,43 +426,13 @@ void Fighter::kick1()
             sequence->setTag(OP_GPS_ACTION_2_SQUAT_KICK1);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
-    
-    
-    //kick sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/kick.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/kick.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/kick.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/kick.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/kick.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/kick.wav",false);
-    }
-    
+    //play kick effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_KICK_SOUNDEFFECT, name).c_str(),false);
 }
 
 void Fighter::kick2()
 {
-    
-        cocos2d::Animation* animation = NULL;
+            cocos2d::Animation* animation = NULL;
         if (!isSquat())
             animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_KICK2, name));
         else
@@ -581,35 +475,10 @@ void Fighter::kick2()
             sequence->setTag(OP_GPS_ACTION_2_SQUAT_KICK2);
         this->sprite->stopAllActions();
         this->sprite->runAction(sequence);
+    //play kick effect
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_KICK_SOUNDEFFECT, name).c_str(),false);
+
     
-    //kick sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/kick.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/kick.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/kick.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/kick.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/kick.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/kick.wav",false);
-    }
     
 }
 
@@ -660,33 +529,7 @@ void Fighter::punch1()
         this->sprite->runAction(sequence);
     
     //punch sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/punch.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/punch.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/punch.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/punch.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/punch.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/punch.wav",false);
-    }
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_PUNCH_SOUNDEFFECT, name).c_str(),false);
     
 }
 
@@ -738,33 +581,7 @@ void Fighter::punch2()
     
     
     //punch sound effect
-    auto name =  this->getName();
-    if (name.compare("character1")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character1/punch.wav",false);
-    }
-    if (name.compare("character2")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character2/punch.wav",false);
-    }
-    
-    if (name.compare("character3")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character3/punch.wav",false);
-    }
-    
-    if (name.compare("character4")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character4/punch.wav",false);
-    }
-    if (name.compare("character5")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character5/punch.wav",false);
-    }
-    if (name.compare("character6")== GMAE_PLAY_SCENE_COMPARE_SUCCESS)
-    {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/character6/punch.wav",false);
-    }
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_PUNCH_SOUNDEFFECT, name).c_str(),false);
     
 }
 
@@ -872,8 +689,3 @@ bool Fighter::checkBoundary(cocos2d::Vec2 d)
     return true;
 }
 
-void Fighter::playHitSoundEffect()
-{
-    //character get hit
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("music/soundEffect/get_hit.wav",false);
-}

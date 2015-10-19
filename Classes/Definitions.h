@@ -57,6 +57,13 @@
 #define CHARACTER_STAND_PUNCH1          "{0}/stand_punch1"
 #define CHARACTER_STAND_PUNCH2          "{0}/stand_punch2"
 
+#define CHARACTER_KICK_SOUNDEFFECT      "music/soundEffect/{0}/kick.wav"
+#define CHARACTER_PUNCH_SOUNDEFFECT     "music/soundEffect/{0}/punch.wav"
+#define CHARACTER_DIE_SOUNDEFFECT       "music/soundEffect/{0}/die.wav"
+#define CHARACTER_HIT_SOUNDEFFECT       "music/soundEffect/{0}/hit.wav"
+#define CHARACTER_START_SOUNDEFFECT     "music/soundEffect/{0}/start.wav"
+#define CHARACTER_WIN_SOUNDEFFECT       "music/soundEffect/{0}/win.wav"
+
 
 #define CHARACTER_START                 "{0}/start"
 #define CHARACTER_WIN                   "{0}/win"
