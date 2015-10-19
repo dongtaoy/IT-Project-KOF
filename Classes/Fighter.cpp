@@ -137,26 +137,12 @@ void Fighter::stand_hit()
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_HIT, name));
     auto animate = cocos2d::Animate::create(animation);
-    cocos2d::MoveBy* moveBy = NULL;
-    if (isLeft) {
-        if (checkBoundary(cocos2d::Vec2(-50, 0)))
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(-50,0));
-        else
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(0,0));
-    }
-    else{
-        if (checkBoundary(cocos2d::Vec2(50, 0)))
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50,0));
-        else
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(0,0));
-    }
-    auto spawn = cocos2d::Spawn::create(animate, moveBy, NULL);
     animate->setDuration(0.5f);
     auto func = [&]{
         this->sprite->stopAllActions();
         this->stand();
     };
-    auto sequence = cocos2d::Sequence::create(spawn, cocos2d::CallFunc::create(func), NULL);
+    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
     this->sprite->runAction(sequence);
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
@@ -166,20 +152,32 @@ void Fighter::stand_hit()
 
 void Fighter::stand_jump(int distance)
 {
-    
-    if (checkBoundary(cocos2d::Vec2(distance, 0))) {
+    if (checkBoundary(cocos2d::Vec2(distance, 0)))
+    {
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_JUMP, name));
         auto animate = cocos2d::Animate::create(animation);
-        auto callFunc = cocos2d::CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
-        auto sequence = cocos2d::Sequence::create(animate, callFunc, NULL);
-        sequence->setTag(OP_GPS_ACTION_2_STAND_JUMP);
-        this->sprite->runAction(sequence);
-        auto jumpBy = cocos2d::JumpBy::create(animate->getDuration(), cocos2d::Vec2(distance, 0), 300.0f, 1);
-        this->sprite->runAction(jumpBy);
-//        this->sprite-
-    }
+        animate->setTag(ANIMATION_ACTION_1_STAND_JUMP);
+        this->sprite->runAction(animate);
+
     
+        auto jumpBy = cocos2d::JumpBy::create(0.7f, cocos2d::Vec2(distance, 0), 300, 1);
+        jumpBy->setTag(OP_GPS_ACTION_2_STAND_JUMP);
+        this->sprite->runAction(jumpBy);
+    }
+    else
+    {
+        this->sprite->stopAllActions();
+        auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_JUMP, name));
+        auto animate = cocos2d::Animate::create(animation);
+        animate->setTag(ANIMATION_ACTION_1_STAND_JUMP);
+        this->sprite->runAction(animate);
+        
+        
+        auto jumpBy = cocos2d::JumpBy::create(0.7f, cocos2d::Vec2(0, 0), 300, 1);
+        jumpBy->setTag(OP_GPS_ACTION_2_STAND_JUMP);
+        this->sprite->runAction(jumpBy);
+    }
 }
 
 
@@ -242,6 +240,9 @@ bool Fighter::isNextAction()
         || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_KICK2)
         || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_PUNCH1)
         || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_PUNCH2)
+        
+        || this->sprite->getActionByTag(OP_GPS_ACTION_2_STAND_HIT)
+        || this->sprite->getActionByTag(OP_GPS_ACTION_2_SQUAT_HIT)
         ) {
         return false;
     }
@@ -282,25 +283,11 @@ void Fighter::squat_hit()
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_HIT, name));
     auto animate = cocos2d::Animate::create(animation);
     animate->setDuration(0.5f);
-    cocos2d::MoveBy* moveBy = NULL;
-    if (isLeft) {
-        if (checkBoundary(cocos2d::Vec2(-50, 0)))
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(-50,0));
-        else
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(0,0));
-    }
-    else{
-        if (checkBoundary(cocos2d::Vec2(50, 0)))
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(50,0));
-        else
-            moveBy = cocos2d::MoveBy::create(0.2f, cocos2d::Vec2(0,0));
-    }
-    auto spawn = cocos2d::Spawn::create(animate, moveBy, NULL);
     auto func = [&]{
         this->sprite->stopAllActions();
         this->squat();
     };
-    auto sequence = cocos2d::Sequence::create(spawn, cocos2d::CallFunc::create(func), NULL);
+    auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create(func), NULL);
     sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
     this->sprite->runAction(sequence);
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
@@ -717,7 +704,7 @@ bool Fighter::checkBoundary(cocos2d::Vec2 d)
     if (std::abs(ox - px) > 650)
         return false;
     
-    if (std::abs(ox - px) < (playerBox.size.width / 2) + (opponentBox.size.width / 2) - SCREEN_FIGHTER_OFFSET)
+    if (std::abs(ox - px) < (playerBox.size.width / 2) + (opponentBox.size.width / 2) - 50)
         return false;
     return true;
 }
