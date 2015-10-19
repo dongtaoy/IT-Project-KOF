@@ -168,7 +168,15 @@ void Fighter::stand_jump(int distance)
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_JUMP, name));
     auto animate = cocos2d::Animate::create(animation);
-    auto jumpBy = cocos2d::JumpBy::create(animate->getDuration(), cocos2d::Vec2(distance, 0), 300.0f, 1);
+    cocos2d::JumpBy* jumpBy = NULL;
+    if (checkBoundary(cocos2d::Vec2(distance, 0))) {
+        jumpBy = cocos2d::JumpBy::create(animate->getDuration(), cocos2d::Vec2(distance, 0), 300.0f, 1);
+    }
+    else
+    {
+        jumpBy = cocos2d::JumpBy::create(animate->getDuration(), cocos2d::Vec2(0, 0), 300.0f, 1);
+    }
+    
     auto callFunc = cocos2d::CallFunc::create([&]{this->sprite->stopAllActions();this->stand();});
     auto spawn = cocos2d::Spawn::create(animate, jumpBy, NULL);
     auto sequence = cocos2d::Sequence::create(spawn, callFunc, NULL);
