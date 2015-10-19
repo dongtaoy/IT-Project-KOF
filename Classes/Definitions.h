@@ -65,7 +65,7 @@
 #define CHARACTER_HIT_SOUNDEFFECT       "music/soundEffect/{0}/hit.wav"
 #define CHARACTER_START_SOUNDEFFECT     "music/soundEffect/{0}/start.wav"
 #define CHARACTER_WIN_SOUNDEFFECT       "music/soundEffect/{0}/win.wav"
-#define CHARACTER_GETHIT_SOUNDEFFECT    "music/soundEffect/{0}/get_hit.wav"
+#define CHARACTER_GETHIT_SOUNDEFFECT    "music/soundEffect/get_hit.wav"
 
 
 #define CHARACTER_START                 "{0}/start"
