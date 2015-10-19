@@ -160,6 +160,7 @@ void Fighter::stand_hit()
     sequence->setTag(OP_GPS_ACTION_2_STAND_HIT);
     this->sprite->runAction(sequence);
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_GETHIT_SOUNDEFFECT, name).c_str(),false);
 
 }
 
@@ -307,6 +308,7 @@ void Fighter::squat_hit()
     sequence->setTag(OP_GPS_ACTION_2_SQUAT_HIT);
     this->sprite->runAction(sequence);
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_HIT_SOUNDEFFECT, name).c_str(),false);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(fmt::format(CHARACTER_GETHIT_SOUNDEFFECT, name).c_str(),false);
 }
 
 
