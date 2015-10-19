@@ -400,6 +400,7 @@ void GamePlayScene::update(float dt)
             this->scheduleOnce(schedule_selector(GamePlayScene::gameOver), 3.0f);
         }
         
+        
     }
     
     
@@ -413,6 +414,7 @@ void GamePlayScene::update(float dt)
 
 void GamePlayScene::gameOver(float dt)
 {
+    SonarCocosHelper::GameCenter::submitScore(player->getHealthPercentage(), "654321");
     MenuClicked(NULL, ui::Widget::TouchEventType::ENDED);
 }
 
@@ -548,11 +550,14 @@ void GamePlayScene::onLeaveRoomDone()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3");
 }
 
 void GamePlayScene::leaveRoomEventAction()
 {
+    if (isGameOver)
+        return;
+    
     MultiplayerCallback::leaveRoomEventAction();
     opponent->die();
     player->win();
