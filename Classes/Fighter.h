@@ -78,8 +78,6 @@ public:
     bool isNextAction();
     bool checkBoundary(cocos2d::Vec2);
     
-    void playHitSoundEffect();
-   
     
 };
 
