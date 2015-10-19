@@ -394,11 +394,26 @@ void GamePlayScene::update(float dt)
     }
     
     
+    if (player->getIsDie() || opponent->getIsDie()) {
+        if (!isGameOver) {
+            isGameOver = true;
+            this->scheduleOnce(schedule_selector(GamePlayScene::gameOver), 3.0f);
+        }
+        
+    }
+    
+    
+    
     PhotonMultiplayer::getInstance()->service();
     player->update(dt);
     opponent->update(dt);
     camera->update(dt);
     
+}
+
+void GamePlayScene::gameOver(float dt)
+{
+    MenuClicked(NULL, ui::Widget::TouchEventType::ENDED);
 }
 
 

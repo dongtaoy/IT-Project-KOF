@@ -58,7 +58,7 @@ public:
     CC_SYNTHESIZE(int, accumilatedTime, AccumilatedTime);
     CC_SYNTHESIZE(int, prevOperation, PrevOperation);
     CC_SYNTHESIZE(cocos2d::PhysicsWorld*, world, World);
-    
+    CC_SYNTHESIZE(bool, isGameOver, isGameOver);
     
     unsigned long lockstepId;
     int gameFrame;
@@ -106,6 +106,7 @@ private:
     void updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type);
     void updateCheckBox(Ref *pSender,cocos2d::ui::CheckBox::EventType type);
     
+    void gameOver(float);
     
 };
 
