@@ -427,11 +427,11 @@ void Fighter::kick1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
-                    playHitSoundEffect();
+          
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
-                    playHitSoundEffect();
+                 
                 }
             }
         };
@@ -475,11 +475,11 @@ void Fighter::kick2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
-                    playHitSoundEffect();
+     
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
-                    playHitSoundEffect();
+                 
                 }
             }
         };
@@ -528,11 +528,11 @@ void Fighter::punch1()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
-                    playHitSoundEffect();
+                   
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
-                    playHitSoundEffect();
+                
                 }
             }
         };
@@ -579,11 +579,11 @@ void Fighter::punch2()
                 opponent->setHealthPercentage(h->getPercent() - KICK1_DAMAGE);
                 if (opponent->isStand()) {
                     opponent->stand_hit();
-                    playHitSoundEffect();
+            
                 }
                 if (opponent->isSquat()) {
                     opponent->squat_hit();
-                    playHitSoundEffect();
+                
                 }
             }
         };
