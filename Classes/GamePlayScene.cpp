@@ -47,16 +47,16 @@ bool GamePlayScene::init()
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
     
-    cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+//    cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     //stop backgorund music
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     
     //    preload the fight background music
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("music/Fightmusic.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/Fightmusic.mp3");
     //    play the fight background music
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/Fightmusic.mp3",true);
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music/Fightmusic.mp3",true);
     
     auto node = CSLoader::createNode("GamePlay.csb");
     
@@ -430,36 +430,32 @@ void GamePlayScene::PauseClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
         
         //get the node of music slide bar
         ui::Slider* musicSlideBar = static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
-        //save the status of current music bar
-        musicSlideBar->setPercent(CocosDenshion::SimpleAudioEngine::sharedEngine()->getBackgroundMusicVolume()/SETTING_SCENE_PERCENTAGE);
+     
         
         //add event listener to call back the function
         musicSlideBar->addEventListener(CC_CALLBACK_2(GamePlayScene::updateMusicSlideBar, this));
+           //save the status of current music bar
+        musicSlideBar->setPercent(CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()/SETTING_SCENE_PERCENTAGE);
         
         //get the node of effect slide bar
         ui::Slider* effectSlidebar = static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
-        //save the status of current sound effect bar
-        effectSlidebar->setPercent(CocosDenshion::SimpleAudioEngine::sharedEngine()->getEffectsVolume()/SETTING_SCENE_PERCENTAGE);
+       
         //add event listener to call back the function
         effectSlidebar->addEventListener(CC_CALLBACK_2(GamePlayScene::updateEffectSlideBar, this));
         
-        
-        
+        //save the status of current sound effect bar
+        effectSlidebar->setPercent(CocosDenshion::SimpleAudioEngine::getInstance()->getEffectsVolume()/SETTING_SCENE_PERCENTAGE);
         
         //get the node of checkbox
         cocos2d::ui::CheckBox* musicCheckBox = static_cast<cocos2d::ui::CheckBox*>(this->getChildByName("PauseLayer")->getChildByName("chekboxMute"));
         
         
-        if ( CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying() == false)
+        if ( CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()==0)
         {
             musicCheckBox->setSelected(true);
-            CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(0.0f);
-        }
-        if ( CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying() == true)
-        {
-            musicCheckBox->setSelected(false);
         }
         musicCheckBox->addEventListener(CC_CALLBACK_2(GamePlayScene::updateCheckBox, this));
+
 
     }
 }
@@ -550,7 +546,7 @@ void GamePlayScene::onLeaveRoomDone()
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("music/backgroundmusic.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music/backgroundmusic.mp3");
 }
 
 void GamePlayScene::leaveRoomEventAction()
@@ -573,7 +569,7 @@ void GamePlayScene::updateMusicSlideBar(Ref* pSender, ui::Slider::EventType type
 {
     ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
     float percent = musicSlideBar->getPercent();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(percent*SETTING_SCENE_PERCENTAGE);
+    CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(percent*SETTING_SCENE_PERCENTAGE);
 }
 
 
@@ -581,17 +577,30 @@ void GamePlayScene::updateEffectSlideBar(Ref* pSender, ui::Slider::EventType typ
 {
     ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
     float percent = effectSlidebar->getPercent();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(percent*SETTING_SCENE_PERCENTAGE);
+    CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(percent*SETTING_SCENE_PERCENTAGE);
+    if (percent == 0) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+    }
 }
 
 void GamePlayScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
 {
     if (type ==CheckBox::EventType::SELECTED)
     {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+        ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+        effectSlidebar->setPercent(0);
+        ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+        musicSlideBar->setPercent(0);
     }
     if (type ==CheckBox::EventType::UNSELECTED)
     {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(1.0);
+        ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+        effectSlidebar->setPercent(100);
+        ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+        musicSlideBar->setPercent(100);
     }
 }

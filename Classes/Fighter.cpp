@@ -705,7 +705,12 @@ bool Fighter::checkBoundary(cocos2d::Vec2 d)
         return false;
     
     if (std::abs(ox - px) < (playerBox.size.width / 2) + (opponentBox.size.width / 2) - 50)
+    {
+        if ((playerBox.size.width / 2) + (opponentBox.size.width / 2) - 50 <= 0) {
+            return false;
+        }
         return false;
+    }
     return true;
 }
 

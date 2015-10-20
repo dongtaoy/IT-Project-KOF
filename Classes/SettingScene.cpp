@@ -45,18 +45,20 @@ bool SettingScene::init()
     
     //get the node of music slide bar
     ui::Slider* musicSlideBar = static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
-    //save the status of current music bar
-    musicSlideBar->setPercent(CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()/SETTING_SCENE_PERCENTAGE);
+    
     
     //add event listener to call back the function
     musicSlideBar->addEventListener(CC_CALLBACK_2(SettingScene::updateMusicSlideBar, this));
+    //save the status of current music bar
+    musicSlideBar->setPercent(CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()/SETTING_SCENE_PERCENTAGE);
     
     //get the node of effect slide bar
     ui::Slider* effectSlidebar = static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
-    //save the status of current sound effect bar
-    effectSlidebar->setPercent(CocosDenshion::SimpleAudioEngine::getInstance()->getEffectsVolume()/SETTING_SCENE_PERCENTAGE);
+    
     //add event listener to call back the function
     effectSlidebar->addEventListener(CC_CALLBACK_2(SettingScene::updateEffectSlideBar, this));
+    //save the status of current sound effect bar
+    effectSlidebar->setPercent(CocosDenshion::SimpleAudioEngine::getInstance()->getEffectsVolume()/SETTING_SCENE_PERCENTAGE);
     
     
     
@@ -65,7 +67,7 @@ bool SettingScene::init()
     cocos2d::ui::CheckBox* musicCheckBox = static_cast<cocos2d::ui::CheckBox*>(this->getChildByName("SettingScene")->getChildByName("check_box"));
     
     
-    if ( CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying() == false)
+    if ( CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()==0)
     {
         musicCheckBox->setSelected(true);
     }
@@ -104,11 +106,22 @@ void SettingScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
 {
     if (type ==CheckBox::EventType::SELECTED)
     {
-        CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+        ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
+        effectSlidebar->setPercent(0);
+        ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+        musicSlideBar->setPercent(0);
+        
     }
     if (type ==CheckBox::EventType::UNSELECTED)
     {
-        CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(1.0);
+        ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
+        effectSlidebar->setPercent(100);
+        ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+        musicSlideBar->setPercent(100);
     }
 }
 
