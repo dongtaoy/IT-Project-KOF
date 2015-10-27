@@ -44,20 +44,22 @@ public:
     CREATE_FUNC(MainMenuScene);
     
 private:
-    //TODO: comments
+    //og to choose room scene
     void GoToChooseRoomScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
-    //TODO: comments
+    //go to help scene
     void GoToHelpScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
-    //TODO: comments
+    //go to setting scene
     void GoToSettingScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
-    //TODO: comments
+    //go to leader board scene
     void GotoLeaderBoardScene(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
+    //make a facebook post
     void facebookClicked(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
+    //make a twitter post
     void twitterClicked(cocos2d::Ref*, ui::Widget::TouchEventType type);
     
     

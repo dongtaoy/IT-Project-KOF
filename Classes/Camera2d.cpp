@@ -26,21 +26,14 @@ void Camera2d::update(float dt)
 
     Size visibleSize = Director::getInstance()->getWinSize();
     
-//    if (playerScreenPos.x < CAMERA_MOVE_THRESHOLD)
-//    {
-//        moveBackground(CAMERA_MOVE_THRESHOLD - playerScreenPos.x);
-//    }
-//    
-//    if (playerScreenPos.x > (visibleSize.width - CAMERA_MOVE_THRESHOLD))
-//    {
-//        moveBackground(-CAMERA_MOVE_THRESHOLD + (visibleSize.width - playerScreenPos.x));
-//    }
-
+    //get mid poisiton
     auto mid = background->convertToNodeSpace(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     
     auto toPlayer = mid.x - player->getPosition().x;
     auto toOpponent = mid.x - opponent->getPosition().x;
     
+    //move background image when the position between two characters is smaller than screen width
+    //not move background when the position between two characters is same as the screen width
     if(std::signbit(toPlayer) != std::signbit(toOpponent))
     {
         auto displacement = (toPlayer + toOpponent) / 2;
@@ -70,38 +63,6 @@ void Camera2d::update(float dt)
             moveBackground(+displacement*this->background->getScaleX());
         }
     }
-    
-    
-//    auto startpos = opponentScreenPos.x > playerScreenPos.x ? playerScreenPos.x : opponentScreenPos.x;
-//    auto mid = startpos + std::abs(playerScreenPos.x - opponentScreenPos.x) / 2;
-//    auto displacement = background->getPosition().x - mid;
-//    moveBackground(displacement);
-    
-//    auto backgroundScreenPos = background->getParent()->convertToWorldSpace(background->getPosition());
-//    
-//    CCLOG("%f %f", background->getParent()->convertToWorldSpace(background->getPosition()).x, mid);
-//    
-//    auto newPos = background->getParent()->convertToNodeSpace(Vec2(mid, backgroundScreenPos.y));
-//    
-//    CCLOG("%f %f", newPos.x, newPos.y);
-//    
-//    background->setPosition(newPos);
-//    
-//    if (background->getParent()->convertToWorldSpace(background->getPosition()).x != mid)
-//    {
-//        
-//    }
-    
-//    if (opponentScreenPos.x < CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET)
-//    {
-//        moveBackground(CAMERA_MOVE_THRESHOLD + CAMERA_FIGHTER_OFFSET - playerScreenPos.x);
-//    }
-//    
-//    if (opponentScreenPos.x > (visibleSize.width - CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET))
-//    {
-//        moveBackground(-CAMERA_MOVE_THRESHOLD - CAMERA_FIGHTER_OFFSET + (visibleSize.width - playerScreenPos.x));
-//    }
-    
 }
 
 void Camera2d::moveBackground(float displacement)

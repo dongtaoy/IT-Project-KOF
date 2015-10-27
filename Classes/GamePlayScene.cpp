@@ -10,17 +10,8 @@
 
 Scene* GamePlayScene::createScene()
 {
-//    Multiplayer::getInstance()->resetAllListener();
-    
     auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setDebugDrawMask( PhysicsWorld::DEBUGDRAW_ALL );
-    
-    //set the gravity (0.0f, -98.0f) is the default value. change to -200 for y axis is perfect value
-//    scene->getPhysicsWorld()->setGravity( Vec2(GRAVITY_X, GRAVITY_Y));
-    //    scene->getPhysicsWorld()->setAutoStep(true);
 
-    
-    
     
     // 'layer' is an autorelease object
     auto layer = GamePlayScene::create();
@@ -47,7 +38,7 @@ bool GamePlayScene::init()
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
     
-//    cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+    //    cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     //stop backgorund music
@@ -60,45 +51,37 @@ bool GamePlayScene::init()
     
     auto node = CSLoader::createNode("GamePlay.csb");
     
+    //add touch event listener when pause button is pressed
     node->getChildByName<cocos2d::ui::Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
     this->background = node->getChildByName<Sprite*>("background");
     this->addChild(node);
     
-    
+    //get the health bar of both character
     auto leftHp = this->getChildByName("GamePlayScene")->getChildByName<cocos2d::ui::LoadingBar*>("playerLeftHP");
     auto rightHp = this->getChildByName("GamePlayScene")->getChildByName<cocos2d::ui::LoadingBar*>("playerRightHP");
     
     
     
-    /////////////////////////////////////////////////////////////////
-    
-    
-//    auto size = node->getBoundingBox().size;
-//    auto edgeNode = Node::create();
-//    auto physicsBody = PhysicsBody::createEdgeBox(size, PHYSICSBODY_MATERIAL_DEFAULT, 3);
-//    edgeNode->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + visibleSize.height * 0.03));
-//    edgeNode->setPhysicsBody(physicsBody);
-//    this->addChild(edgeNode);
-    
-    
-    /////////////////////////////////////////////////////////////////
 
-//     TODO: WITH MULTIPLAYER
+    //set player who create room on left. player who join the room on left
     if(PhotonMultiplayer::getInstance()->getPlayerNumber() > PhotonMultiplayer::getInstance()->getOpponentNumber())
     {
-        
+        //create the selected player
         this->player = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, PhotonMultiplayer::getInstance()->getPlayerCharactor(), false);
         node->getChildByName<cocos2d::ui::ImageView*>("playerRight")->loadTexture(fmt::format("characters/{0}/icon_game_right.png", PhotonMultiplayer::getInstance()->getPlayerCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
         
+        //create the selected opponent player
         this->opponent = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, PhotonMultiplayer::getInstance()->getOpponentCharactor(), true);
         node->getChildByName<cocos2d::ui::ImageView*>("playerLeft")->loadTexture(fmt::format("characters/{0}/icon_game_left.png", PhotonMultiplayer::getInstance()->getOpponentCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
     
     }
     else
     {
+        //create the selected player
         this->player = new Fighter(background->getChildByName<Sprite*>("left"), leftHp, PhotonMultiplayer::getInstance()->getPlayerCharactor(), true);
         node->getChildByName<cocos2d::ui::ImageView*>("playerLeft")->loadTexture(fmt::format("characters/{0}/icon_game_left.png", PhotonMultiplayer::getInstance()->getPlayerCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
         
+        //create the selected opponent player
         this->opponent = new Fighter(background->getChildByName<Sprite*>("right"), rightHp, PhotonMultiplayer::getInstance()->getOpponentCharactor(), false);
         node->getChildByName<cocos2d::ui::ImageView*>("playerRight")->loadTexture(fmt::format("characters/{0}/icon_game_right.png", PhotonMultiplayer::getInstance()->getOpponentCharactor()), cocos2d::ui::Widget::TextureResType::PLIST);
     }
@@ -107,7 +90,7 @@ bool GamePlayScene::init()
     player->setOpponent(opponent);
     opponent->setOpponent(player);
 
-    
+  
     this->camera = new Camera2d(player, opponent, background);
     this->createBackgroundAnimation();
     this->createJoystick();
@@ -128,7 +111,6 @@ void GamePlayScene::startGame()
 {
     LoadingLayer::RemoveLoadingLayer(static_cast<Node*>(this));
     CCLOG("GAME STARTED");
-//    this->startCountDown();
 }
 
 void GamePlayScene::startCountDown()
@@ -267,7 +249,6 @@ void GamePlayScene::gameFrameTurn()
             gameFrame = 0;
         }
     }
-//    CCLOG("\t\t\t\t\tlockstep id: %lu, gameframe: %d", lockstepId, gameFrame);
 }
 
 
@@ -579,7 +560,7 @@ void GamePlayScene::updateEffectSlideBar(Ref* pSender, ui::Slider::EventType typ
     float percent = effectSlidebar->getPercent();
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(percent*SETTING_SCENE_PERCENTAGE);
     if (percent == 0) {
-        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
     }
 }
 
@@ -587,20 +568,20 @@ void GamePlayScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
 {
     if (type ==CheckBox::EventType::SELECTED)
     {
-        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
-        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
-        effectSlidebar->setPercent(0);
+        effectSlidebar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
-        musicSlideBar->setPercent(0);
+        musicSlideBar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
     }
     if (type ==CheckBox::EventType::UNSELECTED)
     {
-        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0);
-        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(1.0);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GAME_PLAY_SCENE_SOUND_VOLUME_ONE);
+        CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_ONE);
         ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
-        effectSlidebar->setPercent(100);
+        effectSlidebar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_FULL);
         ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
-        musicSlideBar->setPercent(100);
+        musicSlideBar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_FULL);
     }
 }

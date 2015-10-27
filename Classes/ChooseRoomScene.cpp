@@ -88,7 +88,6 @@ void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, cocos2d::ui::Widget::Touch
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto scene = MainMenuScene::createScene();
-    
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
@@ -107,6 +106,7 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, cocos2d::ui::Widget::Tou
 
 void ChooseRoomScene::OnSelectedItem(Ref* pSender, cocos2d::ui::Widget::TouchEventType type){
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED){
+        //get the room ID for later use
         std::string roomID = static_cast<cocos2d::ui::ImageView*>(pSender)->getChildByName<cocos2d::ui::Text*>(CHOOSE_ROOM_SCENE_ROOM_LIST_ITEM_ID)->getString();
         PhotonMultiplayer::getInstance()->opJoinRoom(roomID);
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "joining room...", 50.0f);
@@ -139,13 +139,15 @@ void ChooseRoomScene::onJoinRoomFailed()
 }
 
 // RoomRequestListner
-
 void ChooseRoomScene::onRoomListUpdate()
 {
     auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+    //get the room list in choose room scene
     cocos2d::ui::ListView* list = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+    //update room list
     list->removeAllItems();
     std::vector<std::tuple<std::string, int, int, std::map<std::string, std::string>>> roomList = PhotonMultiplayer::getInstance()->getRoomList();
+    //replace with new room list
     for (int i = 0; i < roomList.size(); i++)
     {
         if (std::get<1>(roomList.at(i)) != 0 && std::get<1>(roomList.at(i)) != 2)

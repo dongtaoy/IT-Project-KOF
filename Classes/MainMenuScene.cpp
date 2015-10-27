@@ -34,27 +34,34 @@ bool MainMenuScene::init()
         return false;
     }
     
-    
+    //create node of main menu scene
     auto node = CSLoader::createNode("MainMenu.csb");
+    
+    //get button for multiplayer
     ui::Button* buttonMultiplayer =  static_cast<ui::Button*>(node->getChildByName("buttonMultiplayer"));
     buttonMultiplayer->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToChooseRoomScene, this));
     
+    //get button for help
     ui::Button* buttonHelp =  static_cast<ui::Button*>(node->getChildByName("buttonHelp"));
     buttonHelp->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToHelpScene, this));
 
+    //get button for setting
     ui::Button* buttonSetting =  static_cast<ui::Button*>(node->getChildByName("buttonSetting"));
     buttonSetting->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToSettingScene, this));
     
+    //get button for leaderboard
     ui::Button* buttonLeaderboard =  static_cast<ui::Button*>(node->getChildByName("buttonLeaderboard"));
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
+    //get button for sending Facebook post
     ui::Button* buttonFacebook = node->getChildByName<ui::Button*>(FB_BUTTON);
     buttonFacebook->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::facebookClicked, this));
     
+    //get button for sending Twitter post
     ui::Button* buttonTwitter = node->getChildByName<ui::Button*>(TW_BUTTON);
     buttonTwitter->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::twitterClicked, this));
     
-    
+    //initialize photon for multiplayer
     PhotonMultiplayer::initialize(GameHelper::randomString(5).c_str());
     PhotonMultiplayer::getInstance()->setListener(this);
     this->scheduleUpdate();
@@ -82,7 +89,9 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 
 void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
+    //check if multiplayer button is pressed
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
+        
         
         if (!PhotonMultiplayer::getInstance()->isConnected())
         {
@@ -99,6 +108,7 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::Touch
 
 void MainMenuScene::facebookClicked(cocos2d::Ref *, ui::Widget::TouchEventType type)
 {
+    //check if facebook button is pressed
     if (type == ui::Widget::TouchEventType::ENDED) {
         SonarCocosHelper::Facebook::Share("", "", "This is a really fun game", "", "");
     }
@@ -106,6 +116,7 @@ void MainMenuScene::facebookClicked(cocos2d::Ref *, ui::Widget::TouchEventType t
 
 void MainMenuScene::twitterClicked(cocos2d::Ref *, ui::Widget::TouchEventType type)
 {
+    //check if twitter button is pressed
     if (type == ui::Widget::TouchEventType::ENDED) {
         SonarCocosHelper::Twitter::Tweet("This is a really fun game", "", "");
     }

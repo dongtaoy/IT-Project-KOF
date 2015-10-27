@@ -47,19 +47,28 @@ bool ChooseCharacterScene::init()
     auto node = CSLoader::createNode(CHOOSE_CHARACTER_SCENE_FILE);
     node->setName(CHOOSE_CHARACTER_SCENE);
     
+    //get the button for back
     cocos2d::ui::Button* buttonBack = static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
     
+    //add listener to listen if the button is pressed
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonBackClicked, this));
     
+    //set the room ID of current room
     node->getChildByName<cocos2d::ui::Text*>(CHOOSE_CHARACTER_SCENE_ROOMID)->setString(PhotonMultiplayer::getInstance()->getRoomID());
     
+    
+    //display iamges of 6 characters
     for(int i = 1 ; i <= 6 ; i ++)
     {
+        //get image of each character
         cocos2d::ui::ImageView* image = static_cast<cocos2d::ui::ImageView*>(node->getChildByName(CHOOSE_CHARACTER_SCENE_CHARACTER_PREFIX+std::to_string(i)));
+        //add touch event listener to listen which character is choosen
         image->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::CharacterClicked, this));
     }
     
+    //add event listener to listen if the ready button is pressed
     node->getChildByName<cocos2d::ui::Button*>(CHOOSE_CHARACTER_SCENE_READY_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonReadyClicked, this));
+    //add event listener to listen if the go button is pressed
     node->getChildByName<cocos2d::ui::Button*>(CHOOSE_CHARACTER_SCENE_GO_L)->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonGoClicked, this));
     this->addChild(node);
     
@@ -73,8 +82,11 @@ bool ChooseCharacterScene::init()
 void ChooseCharacterScene::setOpponentSelected(std::string name)
 {
     if(!name.compare(""))
+    {
         return;
+    }
     this->opponentSelected = name;
+    //show opponent character image if it is selected
     ShowSelectedCharacter(opponentSelected, false);
 }
 
@@ -89,7 +101,9 @@ void ChooseCharacterScene::setPlayerSelected(std::string name)
         RemoveSelectedBorder(playerSelected);
     }
     playerSelected = name;
+    //show the selected border
     ShowSelectedBorder(playerSelected);
+    //show player character image if it is selected
     ShowSelectedCharacter(playerSelected, true);
     
 }
@@ -97,16 +111,23 @@ void ChooseCharacterScene::setPlayerSelected(std::string name)
 
 void ChooseCharacterScene::setPlayerReady(bool value)
 {
-    if (value) {
+    if (value)
+    {
         if(playerSelected.compare(""))
         {
+            //player is ready
             SetReadyButtonVisible(false, true);
             SetGoButtonVisible(true, true);
             playerReady = true;
-        }else{
+        }
+        else
+        {
             MessageBox("", "Please Select a Character First");
         }
-    }else{
+    }
+    else
+    {
+        //player is not ready
         SetGoButtonVisible(false, true);
         SetReadyButtonVisible(true, true);
         playerReady = false;
@@ -116,13 +137,16 @@ void ChooseCharacterScene::setPlayerReady(bool value)
 
 void ChooseCharacterScene::setOpponentReady(bool value)
 {
-    if (value) {
+    if (value)
+    {
         if (!opponentSelected.compare(""))
             return;
+        //opponent player is ready
         SetReadyButtonVisible(false, false);
         SetGoButtonVisible(true, false);
         opponentReady = true;
     } else {
+        //opponent player is not ready
         SetGoButtonVisible(false, false);
         SetReadyButtonVisible(true, false);
         opponentReady = false;
@@ -145,7 +169,6 @@ void ChooseCharacterScene::CharacterClicked(Ref* pSender, cocos2d::ui::Widget::T
 void ChooseCharacterScene::ButtonBackClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
-//                PhotonMultiplayer::getInstance()->sendEvent(1, 1, "", true);
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "leaving room...", 50.0f);
         PhotonMultiplayer::getInstance()->opLeaveRoom();
     }
@@ -178,13 +201,13 @@ void ChooseCharacterScene::CheckBothReady()
     {
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "waiting for player...", 20.0f);
         PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_START_GAME, "", true);
-//        StartGame();
     }
 }
 
 
 void ChooseCharacterScene::SetGoButtonVisible(bool visible, bool left)
 {
+    //judge it is left or right button
     std::string name = left ? CHOOSE_CHARACTER_SCENE_GO_L : CHOOSE_CHARACTER_SCENE_GO_R;
     auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<cocos2d::ui::Button*>(name);
     node->setTouchEnabled(visible);
@@ -194,6 +217,7 @@ void ChooseCharacterScene::SetGoButtonVisible(bool visible, bool left)
 
 void ChooseCharacterScene::SetReadyButtonVisible(bool visible, bool left)
 {
+    //judge it is left or right button
     std::string name = left ? CHOOSE_CHARACTER_SCENE_READY_L : CHOOSE_CHARACTER_SCENE_READY_R;
     auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<cocos2d::ui::Button*>(name);
     node->setTouchEnabled(visible);
@@ -214,9 +238,11 @@ void ChooseCharacterScene::ResetGoReadyButton()
 #pragma mark select character
 void ChooseCharacterScene::ShowSelectedCharacter(std::string name, bool left)
 {
+    //judge it is left or right place to put the character image
     std::string place = left ? CHOOSE_CHARACTER_SCENE_PLAYER_ICON_HOLDER : CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER;
+    //get the image of the character
     cocos2d::ui::ImageView* image = static_cast<cocos2d::ui::ImageView*>(this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(place));
-    assert(image);
+    //show the image
     image->setVisible(true);
     std::string filename = fmt::format(CHARACTER_ICON_BIG_PATH, name);
     image->loadTexture(filename, cocos2d::ui::Widget::TextureResType::PLIST);
@@ -268,8 +294,8 @@ void ChooseCharacterScene::leaveRoomEventAction()
 
 void ChooseCharacterScene::onPlayerPropertiesChange()
 {
+    //change selected player
     MultiplayerCallback::onPlayerPropertiesChange();
-//    StartGame();
 }
 
 
@@ -329,50 +355,3 @@ void ChooseCharacterScene::StartGame()
     
 }
 
-
-//#pragma mark coutdown
-//void ChooseCharacterScene::CountDownTask(float dt)
-//{
-//    auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE);
-//    Text* labelCountDown = static_cast<Text*>(node->getChildByName(CHOOSE_CHARACTER_SCENE_COUNT_DOWN_LABEL));
-//    int value = std::atoi(labelCountDown->getString().c_str()) - 1;
-//    if(value > 0)
-//    {
-//        labelCountDown->setString(std::to_string(value));
-//    }
-//    else
-//    {
-//        EndCountDown();
-//        this->unschedule(schedule_selector(ChooseCharacterScene::sendStatusMessage));
-//        LoadingLayer::AddLoadingLayer(static_cast<Node*>(this));
-//        LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "unsubsribing room...", 30.0f);
-//        Multiplayer::getInstance()->unsubsribeRoom(this);
-//    }
-//}
-//
-//
-//void ChooseCharacterScene::ResetCountDown()
-//{
-//    EndCountDown();
-//    Text* labelCountDown = static_cast<Text*>(this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(CHOOSE_CHARACTER_SCENE_COUNT_DOWN_LABEL));
-//    labelCountDown->setString("20");
-//}
-//
-//void ChooseCharacterScene::StartCountDown()
-//{
-//    if (!isCountdownStart){
-//        auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE);
-//        node->getChildByName(CHOOSE_CHARACTER_SCENE_WAITING)->setVisible(false);
-//        isCountdownStart = true;
-//        this->schedule(schedule_selector(ChooseCharacterScene::CountDownTask), 1.0);
-//    }
-//}
-//
-//void ChooseCharacterScene::EndCountDown()
-//{
-//    if(isCountdownStart){
-//        isCountdownStart = false;
-//        this->unschedule(schedule_selector(ChooseCharacterScene::CountDownTask));
-//    }
-//}
-//

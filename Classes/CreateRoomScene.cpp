@@ -47,10 +47,11 @@ bool CreateRoomScene::init()
     cocos2d::ui::Button* buttonCreate = static_cast<cocos2d::ui::Button*>(node->getChildByName(CREATE_BUTTON));
     assert(buttonCreate);
     
+    //add touch event listener to listen pressed button
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::CreateRoom, this));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::GotoChooseRoomScene, this));
     
-
+    //display the background image for choose
     for(int i = 1 ; i <= NUM_BACKGROUNDS ; i ++)
     {
         cocos2d::ui::Widget* image = static_cast<cocos2d::ui::Widget*>(node->getChildByName(CREATE_ROOM_SCENE_BACKGROUND_PREFIX+std::to_string(i)));
@@ -72,11 +73,13 @@ void CreateRoomScene::BackgroundSelectedChanged(Ref* pSender, cocos2d::ui::Widge
     
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
+        //remove the selected border when it is not selected
         if(backgroundSelected != NULL)
         {
             RemoveSelectedBorder(backgroundSelected);
         }
         backgroundSelected = pSender;
+        //add selected border when it is selected
         ShowSelectedBorder(backgroundSelected);
     }
 }
@@ -112,12 +115,14 @@ void CreateRoomScene::CreateRoom(Ref* node, ui::Widget::TouchEventType type)
         
         if(backgroundSelected != NULL )
         {
+            //get the name of selected backgorund image for later use
             std::string background = static_cast<Node*>(backgroundSelected)->getName();
-            
             std::map<std::string, std::string> properties ={{ROOM_PROPERTY_BACKGROUND, background}};
             
+            //judge if the room is private or not
             auto isVisible = !this->getChildByName(CREATE_ROOM_SCENE)->getChildByName<cocos2d::ui::CheckBox*>("privateCheckBox")->isSelected();
             
+            //create private or not private room with using background image
             PhotonMultiplayer::getInstance()->opCreateRoom(properties, isVisible);
             LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "creating room...", 50.0f);
             

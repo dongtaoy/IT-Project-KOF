@@ -39,7 +39,6 @@ public:
     CREATE_FUNC(ChooseRoomScene);
     
 private:
-//    void test(MainMenuScene*);
     
     bool isFirstTimeLaunch;
     
