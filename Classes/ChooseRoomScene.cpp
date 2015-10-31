@@ -20,7 +20,7 @@ Scene* ChooseRoomScene::createScene()
     
     layer->onRoomListUpdate();
     
-    // add layer as a child to scene
+    // add layer as a child to scened
     scene->addChild(layer);
     
     // return the scene
@@ -34,6 +34,8 @@ bool ChooseRoomScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -43,26 +45,41 @@ bool ChooseRoomScene::init()
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode(CHOOSE_ROOM_SCENE_FILE);
+    //unit test
+    assert(node);
+    
     node->setName(CHOOSE_ROOM_SCENE);
+    //unit test
+    assert(node->getName() == CHOOSE_ROOM_SCENE);
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BACKGROUND_PLIST);
     
     // back button
     cocos2d::ui::Button* buttonBack = static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
+    //unit test
+    assert(buttonBack);
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoMainMenuScene, this));
     
     // create room button
     cocos2d::ui::Button* buttonCreate = static_cast<cocos2d::ui::Button*>(node->getChildByName(CREATE_BUTTON));
+    //unit test
+    assert(buttonCreate);
     buttonCreate->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::GotoCreateRoomScene, this));
     
     // search button
     cocos2d::ui::Button* buttonSearch = static_cast<cocos2d::ui::Button*>(node->getChildByName(SEARCH_BUTTON));
+    //unit test
+    assert(buttonSearch);
     buttonSearch->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::SearchRoom, this));
     
     // quick join
     cocos2d::ui::Button* buttonQuickJoin = static_cast<cocos2d::ui::Button*>(node->getChildByName(QUICK_JOIN_BUTTON));
+    //unit test
+    assert(buttonQuickJoin);
     buttonQuickJoin->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::buttonQuickJoinClicked, this));
     
     cocos2d::ui::ListView* listRoom = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
+    //unit test
+    assert(listRoom);
     cocos2d::Vector<cocos2d::ui::Widget*> items = listRoom->getItems();
     static_cast<cocos2d::ui::ImageView*>(items.front())->addTouchEventListener(CC_CALLBACK_2(ChooseRoomScene::OnSelectedItem, this));
     listRoom->setItemModel(items.front());
@@ -88,6 +105,8 @@ void ChooseRoomScene::GotoMainMenuScene(Ref* pSender, cocos2d::ui::Widget::Touch
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto scene = MainMenuScene::createScene();
+        //unit test
+        assert(scene);
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
@@ -98,6 +117,8 @@ void ChooseRoomScene::GotoCreateRoomScene(Ref* pSender, cocos2d::ui::Widget::Tou
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto scene = CreateRoomScene::createScene();
+        //unit test
+        assert(scene);
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
@@ -128,6 +149,8 @@ void ChooseRoomScene::onJoinRoomDone()
     MultiplayerCallback::onJoinRoomDone();
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE", 100.0f);
     auto scene = ChooseCharacterScene::createScene();
+    //unit test
+    assert(scene);
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
@@ -142,6 +165,8 @@ void ChooseRoomScene::onJoinRoomFailed()
 void ChooseRoomScene::onRoomListUpdate()
 {
     auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+    //unit test
+    assert(node);
     //get the room list in choose room scene
     cocos2d::ui::ListView* list = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     //update room list
@@ -162,6 +187,7 @@ void ChooseRoomScene::createRoomListEntry(std::string roomId,
 {
     
     auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+    //unit test
     assert(node);
     cocos2d::ui::ListView* list = static_cast<cocos2d::ui::ListView*>(node->getChildByName(CHOOSE_ROOM_SCENE_ROOM_LIST));
     list->pushBackDefaultItem();
@@ -182,6 +208,8 @@ void ChooseRoomScene::SearchRoom(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED){
         auto node = this->getChildByName(CHOOSE_ROOM_SCENE);
+        //unit test
+        assert(node);
         auto sprite = static_cast<ui::ImageView*>(node->getChildByName(CHOOSE_ROOM_SCENE_SPRITE_SEARCH));
 	    auto textSearch = static_cast<ui::TextField*>(sprite->getChildByName(CHOOSE_ROOM_SCENE_TEXT_SEARCH));
         PhotonMultiplayer::getInstance()->opJoinRoom(textSearch->getString());

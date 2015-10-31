@@ -34,6 +34,8 @@ bool CreateRoomScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -41,10 +43,14 @@ bool CreateRoomScene::init()
     
     
     auto node = CSLoader::createNode(CREATE_ROOM_SCENE_FILE);
+    //unit test
+    assert(node);
     cocos2d::ui::Button* buttonBack =  static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
+    //unit test
     assert(buttonBack);
     
     cocos2d::ui::Button* buttonCreate = static_cast<cocos2d::ui::Button*>(node->getChildByName(CREATE_BUTTON));
+    //unit test
     assert(buttonCreate);
     
     //add touch event listener to listen pressed button
@@ -55,6 +61,8 @@ bool CreateRoomScene::init()
     for(int i = 1 ; i <= NUM_BACKGROUNDS ; i ++)
     {
         cocos2d::ui::Widget* image = static_cast<cocos2d::ui::Widget*>(node->getChildByName(CREATE_ROOM_SCENE_BACKGROUND_PREFIX+std::to_string(i)));
+        //unit test
+        assert(image);
         image->addTouchEventListener(CC_CALLBACK_2(CreateRoomScene::BackgroundSelectedChanged, this));
     }
     
@@ -103,6 +111,8 @@ void CreateRoomScene::GotoChooseRoomScene(Ref*, cocos2d::ui::Widget::TouchEventT
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto scene = ChooseRoomScene::createScene();
+        //unit test
+        assert(scene);
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
 }
@@ -136,6 +146,8 @@ void CreateRoomScene::onCreateRoomDone()
     MultiplayerCallback::onCreateRoomDone();
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done...", 100.0f);
     auto scene = ChooseCharacterScene::createScene();
+    //unit test
+    assert(scene);
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }

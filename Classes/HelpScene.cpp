@@ -30,6 +30,8 @@ bool HelpScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -38,6 +40,9 @@ bool HelpScene::init()
     
 
     auto node = CSLoader::createNode("Help.csb");
+    //unit test
+    assert(node);
+    
     cocos2d::ui::Button* buttonBack =  static_cast<cocos2d::ui::Button*>(node->getChildByName("buttonBack"));
     buttonBack->addTouchEventListener(CC_CALLBACK_2(HelpScene::GotoMainMenuScene, this));
     this->addChild(node);
@@ -48,6 +53,9 @@ bool HelpScene::init()
 void HelpScene::GotoMainMenuScene(cocos2d::Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
+    //unit test
+    assert(scene);
+    
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }

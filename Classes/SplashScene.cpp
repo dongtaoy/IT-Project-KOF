@@ -33,6 +33,8 @@ bool SplashScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -40,7 +42,6 @@ bool SplashScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     //preload the background music
-    
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/backgroundmusic.mp3");
     //play the background music
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music/backgroundmusic.mp3",true);
@@ -48,8 +49,14 @@ bool SplashScene::init()
     
     //get SplashScreen node
     auto node = CSLoader::createNode("SplashScreen.csb");
+    //unit test
+    assert(node);
+    
     //set later use name
     node->setName("SplashScreen");
+    //unit test
+    assert(node->getName() == "SplashScreen");
+    
     this->addChild(node);
     this->schedule(schedule_selector(SplashScene::updateLoadingBar), 0.015f);
     
@@ -65,6 +72,7 @@ bool SplashScene::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(fmt::format(BACKGROUND_SPRITE_PATH, "background" + std::to_string(i) ));
         AnimationCache::getInstance()->addAnimationsWithFile(fmt::format(BACKGROUND_ANIMATION_PATH, "background" + std::to_string(i) ));
+        
     }
     return true;
 }
@@ -74,6 +82,9 @@ void SplashScene::updateLoadingBar( float dt )
 {
     //get loading bar node
     ui::LoadingBar* loadingBar = static_cast<ui::LoadingBar*>(this->getChildByName("SplashScreen")->getChildByName("loadingBar"));
+    //unit test
+    assert(loadingBar);
+    
     float percent = loadingBar->getPercent() + 1;
     loadingBar->setPercent(percent);
     

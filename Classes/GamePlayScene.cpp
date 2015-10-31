@@ -34,6 +34,8 @@ bool GamePlayScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     LoadingLayer::StartCountDown(static_cast<Node*>(this), cocos2d::CallFunc::create(std::bind(&GamePlayScene::startGame, this)));
@@ -43,13 +45,14 @@ bool GamePlayScene::init()
     
     //stop backgorund music
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-    
     //    preload the fight background music
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/Fightmusic.mp3");
     //    play the fight background music
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music/Fightmusic.mp3",true);
     
     auto node = CSLoader::createNode("GamePlay.csb");
+    //unit test
+    assert(node);
     
     //add touch event listener when pause button is pressed
     node->getChildByName<cocos2d::ui::Button*>("pause")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::PauseClicked, this));
@@ -123,7 +126,11 @@ void GamePlayScene::startCountDown()
 
 void GamePlayScene::countDownTask(float dt){
     auto node = this->getChildByName(GAME_PLAY_SCENE);
+    //unit test
+    assert(node);
     auto countDown = node->getChildByName<cocos2d::ui::Text*>("countDown");
+    //unit test
+    assert(countDown);
     int value = std::atoi(countDown->getString().c_str()) - 1;
     
     if (value > 0){
@@ -370,7 +377,7 @@ void GamePlayScene::update(float dt)
     
     
     while(accumilatedTime > GAME_FRAME_LENGTH) {
-        gameFrameTurn ();
+        gameFrameTurn();
         accumilatedTime = accumilatedTime - GAME_FRAME_LENGTH;
     }
     
@@ -405,12 +412,16 @@ void GamePlayScene::PauseClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto node = CSLoader::createNode("PauseLayer.csb");
+        //unit test
+        assert(node);
         this->addChild(node);
         node->getChildByName<cocos2d::ui::Button*>("buttonResume")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::ResumeClicked, this));
         node->getChildByName<cocos2d::ui::Button*>("buttonMenu")->addTouchEventListener(CC_CALLBACK_2(GamePlayScene::MenuClicked, this));
         
         //get the node of music slide bar
         ui::Slider* musicSlideBar = static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+        //unit test
+        assert(musicSlideBar);
      
         
         //add event listener to call back the function
@@ -420,6 +431,8 @@ void GamePlayScene::PauseClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
         
         //get the node of effect slide bar
         ui::Slider* effectSlidebar = static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+        //unit test
+        assert(effectSlidebar);
        
         //add event listener to call back the function
         effectSlidebar->addEventListener(CC_CALLBACK_2(GamePlayScene::updateEffectSlideBar, this));
@@ -429,6 +442,8 @@ void GamePlayScene::PauseClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
         
         //get the node of checkbox
         cocos2d::ui::CheckBox* musicCheckBox = static_cast<cocos2d::ui::CheckBox*>(this->getChildByName("PauseLayer")->getChildByName("chekboxMute"));
+        //unit test
+        assert(musicCheckBox);
         
         
         if ( CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()==0)
@@ -471,10 +486,18 @@ void GamePlayScene::createJoystick()
     SneakyJoystickSkinnedBase* joystckbase = SneakyJoystickSkinnedBase::create();
     joystick = new SneakyJoystick();
     joystick->initWithRect(joystickBaseDimensions);
+    
     auto joystckBackground = Sprite::create(GAME_PLAY_SCENE_JOYSTICK_BASE);
+    //unit test
+    assert(joystckBackground);
+    
     joystckBackground->setScale(1.2);
     joystckbase->setBackgroundSprite(joystckBackground);
+    
     auto joystckbaseThumb = Sprite::create(GAME_PLAY_SCENE_JOYSTICK);
+    //unit test
+    assert(joystckbaseThumb);
+    
     joystckbaseThumb->setScale(1.2);
     joystckbase->setThumbSprite(joystckbaseThumb);
     joystckbase->setJoystick(joystick);
@@ -487,7 +510,11 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
 {
     cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getWinSize();
     auto buttonBase = SneakyButtonSkinnedBase::create();
+    //unit test
+    assert(buttonBase);
     auto button = new SneakyButton();
+    //unit test
+    assert(button);
     
     auto buttonRect = cocos2d::Rect(0, 0, 100.f, 100.f);
     auto buttonPos = cocos2d::Point(visibleSize.width * pos.x, visibleSize.height * pos.y);
@@ -495,13 +522,23 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
     button->initWithRect(buttonRect);
     button->setIsHoldable(true);
     buttonBase->setPosition(buttonPos);
+    
     auto normalSprite = Sprite::create(normal);
+    //unit test
+    assert(normalSprite);
+    
     normalSprite->setScale(1.2);
     buttonBase->setDefaultSprite(normalSprite);
     auto activatedSprite = Sprite::create(normal);
+    //unit test
+    assert(activatedSprite);
+    
     activatedSprite->setScale(1.2);
     buttonBase->setActivatedSprite(activatedSprite);
     auto pressedSprite = Sprite::create(pressed);
+    //unit test
+    assert(pressedSprite);
+    
     pressedSprite->setScale(1.2);
     buttonBase->setPressSprite(pressedSprite);
     buttonBase->setButton(button);
@@ -512,7 +549,13 @@ SneakyButton* GamePlayScene::createButtons(std::string normal, std::string press
 void GamePlayScene::createBackgroundAnimation()
 {
     auto background = this->getChildByName("GamePlayScene")->getChildByName("background");
+    //unit test
+    assert(background);
+    
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(PhotonMultiplayer::getInstance()->getBackground());
+    //unit test
+    assert(animation);
+    
     cocos2d::Size targetSize = cocos2d::Size( 2305.0f, 750.0f );
     cocos2d::Size backgroundSize = background->getContentSize();
     background->setScale( ( targetSize.width / backgroundSize.width ), ( targetSize.height / backgroundSize.height ) );
@@ -526,6 +569,9 @@ void GamePlayScene::onLeaveRoomDone()
     MultiplayerCallback::onLeaveRoomDone();
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
+    //unit test
+    assert(scene);
+    
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("music/backgroundmusic.mp3");
 }
@@ -549,6 +595,9 @@ void GamePlayScene::customEventAction(command_t cmd)
 void GamePlayScene::updateMusicSlideBar(Ref* pSender, ui::Slider::EventType type)
 {
     ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+    //unit test
+    assert(musicSlideBar);
+    
     float percent = musicSlideBar->getPercent();
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(percent*SETTING_SCENE_PERCENTAGE);
 }
@@ -557,6 +606,9 @@ void GamePlayScene::updateMusicSlideBar(Ref* pSender, ui::Slider::EventType type
 void GamePlayScene::updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type)
 {
     ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+    //unit test
+    assert(effectSlidebar);
+    
     float percent = effectSlidebar->getPercent();
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(percent*SETTING_SCENE_PERCENTAGE);
     if (percent == 0) {
@@ -571,8 +623,14 @@ void GamePlayScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+        //unit test
+        assert(effectSlidebar);
+        
         effectSlidebar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+        //unit test
+        assert(musicSlideBar);
+        
         musicSlideBar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
     }
     if (type ==CheckBox::EventType::UNSELECTED)
@@ -580,8 +638,15 @@ void GamePlayScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GAME_PLAY_SCENE_SOUND_VOLUME_ONE);
         CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_ONE);
         ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("effectSlidebar"));
+        //unit test
+        assert(effectSlidebar);
+        
         effectSlidebar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_FULL);
         ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("PauseLayer")->getChildByName("soundSlidebar"));
+        
+        //unit test
+        assert(musicSlideBar);
+        
         musicSlideBar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_FULL);
     }
 }

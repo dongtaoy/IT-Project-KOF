@@ -30,6 +30,8 @@ bool SettingScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -39,12 +41,19 @@ bool SettingScene::init()
     
     //TODO: help text
     auto node = CSLoader::createNode("Setting.csb");
+    //unit test
+    assert(node);
     ui::Button* buttonBack =  static_cast<ui::Button*>(node->getChildByName("buttonBack"));
+    //unit test
+    assert(buttonBack);
+    
     buttonBack->addTouchEventListener(CC_CALLBACK_2(SettingScene::GotoMainMenuScene, this));
     this->addChild(node);
     
     //get the node of music slide bar
     ui::Slider* musicSlideBar = static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+    //unit test
+    assert(musicSlideBar);
     
     
     //add event listener to call back the function
@@ -54,6 +63,8 @@ bool SettingScene::init()
     
     //get the node of effect slide bar
     ui::Slider* effectSlidebar = static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
+    //unit test
+    assert(effectSlidebar);
     
     //add event listener to call back the function
     effectSlidebar->addEventListener(CC_CALLBACK_2(SettingScene::updateEffectSlideBar, this));
@@ -65,6 +76,8 @@ bool SettingScene::init()
     
     //get the node of checkbox
     cocos2d::ui::CheckBox* musicCheckBox = static_cast<cocos2d::ui::CheckBox*>(this->getChildByName("SettingScene")->getChildByName("check_box"));
+    //unit test
+    assert(musicCheckBox);
     
     
     if ( CocosDenshion::SimpleAudioEngine::getInstance()->getBackgroundMusicVolume()==GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY)
@@ -83,6 +96,8 @@ bool SettingScene::init()
 void SettingScene::GotoMainMenuScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = MainMenuScene::createScene();
+    //unit test
+    assert(scene);
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     
 }
@@ -91,6 +106,9 @@ void SettingScene::updateMusicSlideBar(Ref* pSender, ui::Slider::EventType type)
 {
     //get music slide bar
     ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+    //unit test
+    assert(musicSlideBar);
+    
     float percent = musicSlideBar->getPercent();
     //set music volume
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(percent*SETTING_SCENE_PERCENTAGE);
@@ -101,6 +119,9 @@ void SettingScene::updateEffectSlideBar(Ref* pSender, ui::Slider::EventType type
 {
     //get effect slide bar
     ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
+    //unit test
+    assert(effectSlidebar);
+    
     float percent = effectSlidebar->getPercent();
     //set effect volume
     CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(percent*SETTING_SCENE_PERCENTAGE);
@@ -114,8 +135,14 @@ void SettingScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
+        //unit test
+        assert(effectSlidebar);
+        
         effectSlidebar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+        //unit test
+        assert(musicSlideBar);
+        
         musicSlideBar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_EMPTY);
         
     }
@@ -125,8 +152,14 @@ void SettingScene::updateCheckBox(Ref *pSender,ui::CheckBox::EventType type)
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GAME_PLAY_SCENE_SOUND_VOLUME_ONE);
         CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(GAME_PLAY_SCENE_SOUND_VOLUME_ONE);
         ui::Slider* effectSlidebar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("Effect_slidebar"));
+        //unit test
+        assert(effectSlidebar);
+        
         effectSlidebar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_FULL);
         ui::Slider* musicSlideBar =  static_cast<ui::Slider*>(this->getChildByName("SettingScene")->getChildByName("sound_slidebar"));
+        //unit test
+        assert(musicSlideBar);
+        
         musicSlideBar->setPercent(GAME_PLAY_SCENE_SOUND_VOLUME_FULL);
     }
 }

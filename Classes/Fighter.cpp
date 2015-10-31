@@ -125,6 +125,9 @@ void Fighter::stand()
         //play stand animation
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND, name));
+        //unit test
+        assert(animation);
+        
         auto animate = cocos2d::Animate::create(animation);
         auto repeat = cocos2d::RepeatForever::create(animate);
         repeat->setTag(OP_GPS_ACTION_1_STAND);
@@ -137,6 +140,9 @@ void Fighter::stand_hit()
     //play stand get hit animation
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_HIT, name));
+    //unit test
+    assert(animation);
+    
     auto animate = cocos2d::Animate::create(animation);
     animate->setDuration(0.5f);
     
@@ -161,12 +167,18 @@ void Fighter::stand_jump(int distance)
     {
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_JUMP, name));
+        //unit test
+        assert(animation);
+        
         auto animate = cocos2d::Animate::create(animation);
         animate->setTag(ANIMATION_ACTION_1_STAND_JUMP);
         this->sprite->runAction(animate);
         
         //jump off the ground
         auto jumpBy = cocos2d::JumpBy::create(0.7f, cocos2d::Vec2(distance, 0), 300, 1);
+        //unit test
+        assert(jumpBy);
+        
         jumpBy->setTag(OP_GPS_ACTION_2_STAND_JUMP);
         this->sprite->runAction(jumpBy);
     }
@@ -174,12 +186,18 @@ void Fighter::stand_jump(int distance)
     {
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_JUMP, name));
+        //unit test
+        assert(animation);
+        
         auto animate = cocos2d::Animate::create(animation);
         animate->setTag(ANIMATION_ACTION_1_STAND_JUMP);
         this->sprite->runAction(animate);
         
         
         auto jumpBy = cocos2d::JumpBy::create(0.7f, cocos2d::Vec2(0, 0), 300, 1);
+        //unit test
+        assert(jumpBy);
+        
         jumpBy->setTag(OP_GPS_ACTION_2_STAND_JUMP);
         this->sprite->runAction(jumpBy);
     }
@@ -194,6 +212,9 @@ void Fighter::stand_moveback()
     if (!this->sprite->getActionByTag(ANIMATION_ACTION_1_STAND_MOVEBACK)) {
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEBACK, name));
+        //unit test
+        assert(animation);
+        
         auto animate = cocos2d::Animate::create(animation);
         auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(ANIMATION_ACTION_1_STAND_MOVEBACK);
@@ -202,6 +223,9 @@ void Fighter::stand_moveback()
     if (checkBoundary(cocos2d::Vec2(-30, 0)))
     {
         auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(-30, 0));
+        //unit test
+        assert(moveBy);
+        
         moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEBACK);
         this->sprite->runAction(moveBy);
     }
@@ -216,6 +240,9 @@ void Fighter::stand_moveforward()
     if (!this->sprite->getActionByTag(ANIMATION_ACTION_1_STAND_MOVEFORWARD)) {
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_STAND_MOVEFORWARD, name));
+        //unit test
+        assert(animation);
+        
         auto animate = cocos2d::Animate::create(animation);
         auto animateForever = cocos2d::RepeatForever::create(animate);
         animateForever->setTag(ANIMATION_ACTION_1_STAND_MOVEFORWARD);
@@ -224,6 +251,9 @@ void Fighter::stand_moveforward()
     if (checkBoundary(cocos2d::Vec2(30, 0)))
     {
         auto moveBy = cocos2d::MoveBy::create(GAME_FRAME_PER_LOCKSTEP * (GAME_FRAME_LENGTH * 2) / 1000, cocos2d::Vec2(30, 0));
+        //unit test
+        assert(moveBy);
+        
         moveBy->setTag(OP_GPS_ACTION_1_STAND_MOVEFORWARD);
         this->sprite->runAction(moveBy);
     }
@@ -264,6 +294,9 @@ void Fighter::squat()
 {
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT, name));
+    //unit test
+    assert(animation);
+           
     auto animate = cocos2d::Animate::create(animation);
     auto repeat = cocos2d::RepeatForever::create(animate);
     repeat->setTag(OP_GPS_ACTION_1_SQUAT);
@@ -277,6 +310,9 @@ void Fighter::squat_down()
         
         this->sprite->stopAllActions();
         auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_DOWN, name));
+        //unit test
+        assert(animation);
+        
         auto animate = cocos2d::Animate::create(animation);
         auto func = cocos2d::CallFunc::create([&]{this->sprite->stopAllActions();this->squat();});
         auto sequence = cocos2d::Sequence::create(animate, func, NULL);
@@ -290,6 +326,9 @@ void Fighter::squat_hit()
 {
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_SQUAT_HIT, name));
+    //unit test
+    assert(animation);
+    
     auto animate = cocos2d::Animate::create(animation);
     //create an sequence
     animate->setDuration(0.5f);
@@ -364,6 +403,9 @@ void Fighter::start()
 {
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_START, name));
+    //unit test
+    assert(animation);
+    
     auto animate = cocos2d::Animate::create(animation);
     auto sequence = cocos2d::Sequence::create(animate, cocos2d::CallFunc::create([&]{ this->sprite->stopAllActions(); this->stand();}), NULL);
     this->sprite->runAction(sequence);
@@ -376,6 +418,9 @@ void Fighter::win()
 {
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_WIN, name));
+    //unit test
+    assert(animation);
+    
     auto animate = cocos2d::Animate::create(animation);
     auto animateForever = cocos2d::RepeatForever::create(animate);
     animateForever->setTag(OP_GPS_ACTION_3_WIN);
@@ -389,6 +434,9 @@ void Fighter::die()
 {
     this->sprite->stopAllActions();
     auto animation = cocos2d::AnimationCache::getInstance()->getAnimation(fmt::format(CHARACTER_DIE, name));
+    //unit test
+    assert(animation);
+    
     auto func = [&]
     {
         isDie = true;

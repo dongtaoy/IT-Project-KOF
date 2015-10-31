@@ -17,6 +17,8 @@ bool LoadingLayer::init()
     // 1. super init first
     if ( !LayerColor::initWithColor(cocos2d::Color4B(0 , 0, 0, 0)))
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -37,6 +39,8 @@ bool LoadingLayer::init()
 void LoadingLayer::AddLoadingLayer(Node* scene)
 {
     auto node = LoadingLayer::create();
+    //unit test
+    assert(node);
     scene->addChild(node, 999);
 }
 
@@ -51,6 +55,8 @@ void LoadingLayer::AppendText(Node* scene, std::string value)
     if(!isLoadingLayer(scene))
         AddLoadingLayer(scene);
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer")->getChildByName<ui::Text*>("text");
+    //unit test
+    assert(node);
     node->setString(node->getString() + value);
 }
 
@@ -59,6 +65,8 @@ void LoadingLayer::SetText(Node* scene, std::string value)
     if(!isLoadingLayer(scene))
         AddLoadingLayer(scene);
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer")->getChildByName<ui::Text*>("text");
+    //unit test
+    assert(node);
     node->setString(value);
 }
 
@@ -67,6 +75,8 @@ void LoadingLayer::SetLoadingBarPercentage(Node* scene, float value)
     if(!isLoadingLayer(scene))
         AddLoadingLayer(scene);
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer")->getChildByName<ui::LoadingBar*>("loadingBar");
+    //unit test
+    assert(node);
     node->setPercent(value);
 }
 
@@ -90,6 +100,9 @@ void LoadingLayer::StartCountDown(Node* scene, cocos2d::CallFunc* callback)
         AddLoadingLayer(scene);
     
     auto node = scene->getChildByName("LoadingLayer")->getChildByName("LoadingLayer");
+    //unit test
+    assert(node);
+    
     node->getChildByName("loadingBar")->setVisible(false);
     node->getChildByName("loadingBarBorder")->setVisible(false);
     node->getChildByName("background")->setOpacity(0);

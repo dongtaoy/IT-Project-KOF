@@ -31,34 +31,50 @@ bool MainMenuScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
     //create node of main menu scene
     auto node = CSLoader::createNode("MainMenu.csb");
+    //unit test
+    assert(node);
     
     //get button for multiplayer
     ui::Button* buttonMultiplayer =  static_cast<ui::Button*>(node->getChildByName("buttonMultiplayer"));
+    //unit test
+    assert(buttonMultiplayer);
     buttonMultiplayer->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToChooseRoomScene, this));
     
     //get button for help
     ui::Button* buttonHelp =  static_cast<ui::Button*>(node->getChildByName("buttonHelp"));
+    //unit test
+    assert(buttonHelp);
     buttonHelp->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToHelpScene, this));
 
     //get button for setting
     ui::Button* buttonSetting =  static_cast<ui::Button*>(node->getChildByName("buttonSetting"));
+    //unit test
+    assert(buttonSetting);
     buttonSetting->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GoToSettingScene, this));
     
     //get button for leaderboard
     ui::Button* buttonLeaderboard =  static_cast<ui::Button*>(node->getChildByName("buttonLeaderboard"));
+    //unit test
+    assert(buttonLeaderboard);
     buttonLeaderboard->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::GotoLeaderBoardScene, this));
     
     //get button for sending Facebook post
     ui::Button* buttonFacebook = node->getChildByName<ui::Button*>(FB_BUTTON);
+    //unit test
+    assert(buttonFacebook);
     buttonFacebook->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::facebookClicked, this));
     
     //get button for sending Twitter post
     ui::Button* buttonTwitter = node->getChildByName<ui::Button*>(TW_BUTTON);
+    //unit test
+    assert(buttonTwitter);
     buttonTwitter->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::twitterClicked, this));
     
     //initialize photon for multiplayer
@@ -91,7 +107,6 @@ void MainMenuScene::GoToChooseRoomScene(Ref* pSender, cocos2d::ui::Widget::Touch
 {
     //check if multiplayer button is pressed
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
-        
         
         if (!PhotonMultiplayer::getInstance()->isConnected())
         {
@@ -126,6 +141,8 @@ void MainMenuScene::twitterClicked(cocos2d::Ref *, ui::Widget::TouchEventType ty
 void MainMenuScene::GoToHelpScene(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     auto scene = HelpScene::createScene();
+    //uni test
+    assert(scene);
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
@@ -133,6 +150,8 @@ void MainMenuScene::GoToHelpScene(Ref* pSender, cocos2d::ui::Widget::TouchEventT
 void MainMenuScene::GoToSettingScene(Ref* pSender, ui::Widget::TouchEventType type)
 {
     auto scene = SettingScene::createScene();
+    //uni test
+    assert(scene);
     Director::getInstance( )->replaceScene( TransitionFade::create( TRANSITION_TIME, scene ) );
 }
 
@@ -145,6 +164,8 @@ void MainMenuScene::onConnectDone()
 {
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "DONE...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
+    //uni test
+    assert(scene);
     Director::getInstance()->replaceScene( TransitionFade::create(TRANSITION_TIME, scene));
 }
 

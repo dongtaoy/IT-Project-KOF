@@ -32,6 +32,8 @@ bool ChooseCharacterScene::init()
     // 1. super init first
     if ( !Layer::init() )
     {
+        //unit test
+        assert(Layer::init() == false);
         return false;
     }
     
@@ -45,10 +47,16 @@ bool ChooseCharacterScene::init()
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     auto node = CSLoader::createNode(CHOOSE_CHARACTER_SCENE_FILE);
+    //unit test
+    assert(node);
     node->setName(CHOOSE_CHARACTER_SCENE);
+    //unit test
+    assert(node->getName() == CHOOSE_CHARACTER_SCENE);
     
     //get the button for back
     cocos2d::ui::Button* buttonBack = static_cast<cocos2d::ui::Button*>(node->getChildByName(BACK_BUTTON));
+    //unit test
+    assert(buttonBack);
     
     //add listener to listen if the button is pressed
     buttonBack->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::ButtonBackClicked, this));
@@ -56,12 +64,13 @@ bool ChooseCharacterScene::init()
     //set the room ID of current room
     node->getChildByName<cocos2d::ui::Text*>(CHOOSE_CHARACTER_SCENE_ROOMID)->setString(PhotonMultiplayer::getInstance()->getRoomID());
     
-    
     //display iamges of 6 characters
     for(int i = 1 ; i <= 6 ; i ++)
     {
         //get image of each character
         cocos2d::ui::ImageView* image = static_cast<cocos2d::ui::ImageView*>(node->getChildByName(CHOOSE_CHARACTER_SCENE_CHARACTER_PREFIX+std::to_string(i)));
+        //unit test
+        assert(image);
         //add touch event listener to listen which character is choosen
         image->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::CharacterClicked, this));
     }
@@ -160,7 +169,6 @@ void ChooseCharacterScene::setOpponentReady(bool value)
 void ChooseCharacterScene::CharacterClicked(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
     if(type == cocos2d::ui::Widget::TouchEventType::ENDED){
-        
         setPlayerSelected(static_cast<Node*>(pSender)->getName());
         PhotonMultiplayer::getInstance()->sendEvent(MP_CHOOSE_CHARACTER_SCENE, OP_CCS_CHARACTER_CHANGED, static_cast<Node*>(pSender)->getName());
     }
@@ -210,6 +218,8 @@ void ChooseCharacterScene::SetGoButtonVisible(bool visible, bool left)
     //judge it is left or right button
     std::string name = left ? CHOOSE_CHARACTER_SCENE_GO_L : CHOOSE_CHARACTER_SCENE_GO_R;
     auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<cocos2d::ui::Button*>(name);
+    //unit test
+    assert(node);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
     
@@ -220,6 +230,8 @@ void ChooseCharacterScene::SetReadyButtonVisible(bool visible, bool left)
     //judge it is left or right button
     std::string name = left ? CHOOSE_CHARACTER_SCENE_READY_L : CHOOSE_CHARACTER_SCENE_READY_R;
     auto node = this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName<cocos2d::ui::Button*>(name);
+    //unit test
+    assert(node);
     node->setTouchEnabled(visible);
     node->setVisible(visible);
 }
@@ -242,6 +254,8 @@ void ChooseCharacterScene::ShowSelectedCharacter(std::string name, bool left)
     std::string place = left ? CHOOSE_CHARACTER_SCENE_PLAYER_ICON_HOLDER : CHOOSE_CHARACTER_SCENE_OPPONENT_ICON_HOLDER;
     //get the image of the character
     cocos2d::ui::ImageView* image = static_cast<cocos2d::ui::ImageView*>(this->getChildByName(CHOOSE_CHARACTER_SCENE)->getChildByName(place));
+    //unit test
+    assert(image);
     //show the image
     image->setVisible(true);
     std::string filename = fmt::format(CHARACTER_ICON_BIG_PATH, name);
@@ -272,6 +286,8 @@ void ChooseCharacterScene::onLeaveRoomDone()
     MultiplayerCallback::onLeaveRoomDone();
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), true, "Done...", 100.0f);
     auto scene = ChooseRoomScene::createScene();
+    //unit test
+    assert(scene);
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
@@ -351,6 +367,8 @@ void ChooseCharacterScene::StartGame()
     
     LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "Done...", 100.0f);
     auto scene = GamePlayScene::createScene();
+    //unit test
+    assert(scene);
     Director::getInstance()->replaceScene(scene);
     
 }

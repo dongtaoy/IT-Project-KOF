@@ -198,7 +198,8 @@ int PhotonMultiplayer::getOpponentNumber()
     ExitGames::Common::JVector<ExitGames::LoadBalancing::Player*> players = c.getCurrentlyJoinedRoom().getPlayers();
     for (int i = 0 ; i < players.getSize() ; i++)
     {
-        if (players[i]->getNumber() != getPlayerNumber() ) {
+        if (players[i]->getNumber() != getPlayerNumber() )
+        {
             return players[i]->getNumber();
         }
     }
