@@ -20,6 +20,8 @@ git clone https://bitbucket.org/KOFUnimelb/kof
 Change running schema to KoF-mobile -- iPhone 6
 
 ### Configuration ###
+*IOS version: IOS7, IOS8 and IOS9 can all run normally
+*Xcode version: 
 ###Dependencies ###
 ### Database configuration ###
 ### How to run tests ###
