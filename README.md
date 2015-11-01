@@ -43,7 +43,9 @@ We will try to do more unit test later.
 * Writing tests: 
 Trello board have all latest test documentation including usability test and interview, analyze report
 * Code review: 
-Click into Pull requests and check merged pull request
+Click into Pull requests and check merged pull request.
+* Code commitment: 
+Check Commits record
 
 ### Who do I talk to? ###
 Send email to 
