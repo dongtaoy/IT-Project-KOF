@@ -17,6 +17,7 @@ git clone https://bitbucket.org/KOFUnimelb/kof
 
 2.Open kof/proj.ios_mac/KOF.xcodeproj in Your Xcode.
 Change running schema to KoF-mobile -- iPhone 6
+
 3.Run it
 
 ### Configuration ###
