@@ -29,13 +29,16 @@ The detail explanation is inside iOS/UnitTest/main.cpp.
 We will try to do more unit test later.
 We put assert() into key component for this stage.
 
-###  Deployment instructions ###
-
+###  Frameworks and tools ###
+* Cocos2d-x: http://www.cocos2d-x.org
+* Photon: https://doc.photonengine.com/en/onpremise/current/sdks-and-api/sdk-ios
+* Xcode: https://developer.apple.com/xcode/
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* Writing tests: 
+Trello board have all latest documentation
+* Code review: 
+Click into Pull requests and check merged pull request
 
 ### Who do I talk to? ###
 Send email to 
