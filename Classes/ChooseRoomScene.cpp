@@ -212,6 +212,12 @@ void ChooseRoomScene::SearchRoom(Ref* pSender, cocos2d::ui::Widget::TouchEventTy
         assert(node);
         auto sprite = static_cast<ui::ImageView*>(node->getChildByName(CHOOSE_ROOM_SCENE_SPRITE_SEARCH));
 	    auto textSearch = static_cast<ui::TextField*>(sprite->getChildByName(CHOOSE_ROOM_SCENE_TEXT_SEARCH));
+        
+        if (!textSearch->getString().compare(""))
+        {
+            MessageBox("Please input searching Room ID", "");
+            return;
+        }
         PhotonMultiplayer::getInstance()->opJoinRoom(textSearch->getString());
         LoadingLayer::SetTextAndLoadingBar(static_cast<Node*>(this), false, "finding room...", 50.0f);
     }
